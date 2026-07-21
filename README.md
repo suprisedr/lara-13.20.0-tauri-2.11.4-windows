@@ -1,58 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# lara-13.20.0-tauri-2.11.4
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel 13 application packaged as a native desktop app with [Tauri](https://tauri.app) 2, using [FrankenPHP](https://frankenphp.dev) as the embedded PHP runtime via the [`mucan54/tauri-php`](https://github.com/mucan54/tauri-php) package.
 
-## About Laravel
+> **Note:** This repo ships a locally patched copy of `mucan54/tauri-php` at [`packages/mucan54/tauri-php`](packages/mucan54/tauri-php). The published package (v1.2.0) only supports Laravel up to `^12.0` and has a bug that doubles the icon path when resolving `tauri.conf.json`. The local copy widens the `illuminate/support`/`illuminate/console` constraints to `^13.0` and fixes the icon paths. `composer.json` points at it via a `path` repository, so `composer install` will pick it up automatically.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Prerequisites
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Install these before setting up the project:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Tool | Version | Check |
+|---|---|---|
+| PHP | ^8.2 | `php -v` |
+| Composer | 2.x | `composer -V` |
+| Node.js | 18+ | `node -v` |
+| npm | 9+ | `npm -v` |
+| Rust & Cargo | stable | `cargo -V` |
 
-## Learning Laravel
+- **PHP/Composer**: install via [Homebrew](https://brew.sh) (`brew install php composer`) or your OS package manager.
+- **Node/npm**: install via [nvm](https://github.com/nvm-sh/nvm) or from [nodejs.org](https://nodejs.org).
+- **Rust/Cargo**: Tauri compiles a native Rust binary, so Rust is required even for a PHP-only project. Install via [rustup](https://rustup.rs):
+  ```bash
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  source "$HOME/.cargo/env"
+  ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+On macOS you'll also need the Xcode Command Line Tools (`xcode-select --install`) for the Rust/native build step.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/suprisedr/lara-13.20.0-tauri-2.11.4.git
+   cd lara-13.20.0-tauri-2.11.4
+   ```
 
-## Agentic Development
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+3. **Install JS dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Set up your environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Set up the database** (SQLite by default)
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   ```
+
+6. **Build the FrankenPHP sidecar binary**
+
+   The FrankenPHP binary (`src-tauri/binaries/frankenphp-*`) is not committed to this repo — it's a ~180MB compiled artifact that exceeds GitHub's file size limit. Build it locally:
+   ```bash
+   php artisan tauri:build
+   ```
+   This compiles a static FrankenPHP binary for your platform and places it in `src-tauri/binaries/`. It only needs to be run once (or whenever you want to update the PHP runtime).
+
+## Running in development
+
+Start the desktop app in dev mode (spins up the Laravel dev server and opens a Tauri window against it):
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan tauri:dev
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Building for production
 
-## Contributing
+```bash
+php artisan tauri:build
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Packaged installers/binaries are produced under `src-tauri/target/release/bundle/`.
 
-## Code of Conduct
+## Useful commands
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Command | Description |
+|---|---|
+| `php artisan tauri:dev` | Run the app in development mode |
+| `php artisan tauri:build` | Build FrankenPHP binaries and produce a release build |
+| `php artisan tauri:package` | Create distribution packages |
+| `php artisan tauri:clean` | Clean build artifacts and temporary files |
+| `php artisan tauri:mobile-init` | Initialize Android/iOS targets |
+| `php artisan tauri:mobile-dev` | Run on a mobile device/emulator |
 
-## Security Vulnerabilities
+## Project versions
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Laravel `13.20.0`
+- Tauri CLI `2.11.4`
+- PHP `^8.2`
