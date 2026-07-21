@@ -1,0 +1,49 @@
+{
+    "productName": "Laravel",
+    "version": "0.1.0",
+    "identifier": "com.example.laravel",
+    "build": {
+        "beforeDevCommand": "",
+        "beforeBuildCommand": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
+        "devUrl": "http://127.0.0.1:8080",
+        "frontendDist": "../desktop-frontend"
+    },
+    "bundle": {
+        "active": true,
+        "targets": "all",
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ],
+        "resources": [],
+        "externalBin": [
+            "binaries/frankenphp"
+        ],
+        "copyright": "",
+        "category": "DeveloperTool",
+        "shortDescription": "",
+        "longDescription": ""
+    },
+    "app": {
+        "windows": [
+            {
+                "title": "Laravel",
+                "width": 1200,
+                "height": 800,
+                "resizable": true,
+                "fullscreen": false
+            }
+        ],
+        "security": {
+            "csp": null
+        }
+    },
+    "plugins": {
+        "shell": {
+            "open": true
+        }
+    }
+}
