@@ -1,0 +1,780 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2024-01-15`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"The type of a journal line entry."
+enum JournalLineType {
+    DEBIT @enum(value: "debit")
+    CREDIT @enum(value: "credit")
+}
+
+"The status of a transaction."
+enum TransactionStatus {
+    DRAFT @enum(value: "draft")
+    POSTED @enum(value: "posted")
+}
+
+"The status of an invoice."
+enum InvoiceStatus {
+    DRAFT          @enum(value: "draft")
+    PENDING        @enum(value: "pending")
+    PARTIALLY_PAID @enum(value: "partially_paid")
+    PAID           @enum(value: "paid")
+    OVERDUE        @enum(value: "overdue")
+    VOIDED         @enum(value: "voided")
+    WRITE_OFF      @enum(value: "write_off")
+}
+
+"The status of a quotation."
+enum QuotationStatus {
+    DRAFT    @enum(value: "draft")
+    SENT     @enum(value: "sent")
+    ACCEPTED @enum(value: "accepted")
+    DECLINED @enum(value: "declined")
+    EXPIRED  @enum(value: "expired")
+}
+
+"IAS 2.6 inventory classification."
+enum InventoryType {
+    RAW_MATERIAL   @enum(value: "raw_material")
+    WIP            @enum(value: "wip")
+    FINISHED_GOODS @enum(value: "finished_goods")
+    MERCHANDISE    @enum(value: "merchandise")
+    CONSUMABLE     @enum(value: "consumable")
+}
+
+"The type of stock movement action recorded against an inventory item."
+enum StockMovementAction {
+    RECEIVE  @enum(value: "receive")
+    ISSUE    @enum(value: "issue")
+    ADJUST   @enum(value: "adjust")
+    TRANSFER @enum(value: "transfer")
+}
+
+"Indicates what fields are available at the top level of a query operation."
+type Query {
+    "List chart of accounts for a company. Requires authentication."
+    chartOfAccounts(
+        company_id: ID!
+        "When true, return only top-level (parent) accounts with their children nested. Defaults to false (all accounts)."
+        only_parents: Boolean
+    ): [ChartOfAccount!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\ChartOfAccounts")
+
+    "List transactions for a company. Requires authentication."
+    transactions(company_id: ID! @eq): [Transaction!]!
+        @all
+        @guard
+        @can(ability: "view", model: "App\\Models\\Transaction")
+
+    "Fetch a single transaction by ID. Requires authentication."
+    transaction(id: ID! @eq): Transaction
+        @find
+        @guard
+
+    "Fetch a single transaction by reference within a company. Returns the first match if multiple exist. Requires authentication."
+    transactionByReference(
+        company_id: ID! @eq
+        reference: String! @eq
+    ): Transaction
+        @first
+        @guard
+
+    "Search invoices for a company by any combination of number, customer, date, status, or total. All filters are optional — at least one must be supplied. Requires authentication."
+    searchInvoices(
+        company_id: ID!
+        "Exact invoice number e.g. INV-260403001, or a partial prefix e.g. INV-2604 to match all invoices from April 2026."
+        invoice_number: String
+        "Partial customer name match (case-insensitive)."
+        customer_name: String
+        "Exact invoice date (YYYY-MM-DD)."
+        date: Date
+        "Invoice status filter."
+        status: InvoiceStatus
+        "Minimum invoice total (inclusive)."
+        total_min: Float
+        "Maximum invoice total (inclusive)."
+        total_max: Float
+    ): [Invoice!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\SearchInvoices")
+
+    "List inventory items for a company. Requires authentication."
+    inventoryItems(company_id: ID!, only_active: Boolean): [InventoryItem!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\InventoryItems")
+
+    "Fetch a company by ID that belongs to the authenticated user."
+    company(id: ID!): Company
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\GetCompany")
+
+    "Check the VAT registration status for a company. Requires authentication."
+    vatRegistrationStatus(company_id: ID!): VatRegistration
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\VatRegistrationStatus")
+
+    "Semantic search over embedded transactions. Returns matches ranked by cosine similarity."
+    semanticSearchTransactions(
+        prompt: String!
+        limit: Int = 10
+        min_similarity: Float = 0.0
+        company_id: ID
+    ): [TransactionMatch!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\SemanticSearchTransactions")
+
+    "List assets for a company. Filterable by status (active|disposed|all). Requires authentication."
+    assets(
+        company_id: ID!
+        status: AssetStatus
+        ppe_class_id: ID
+        search: String
+    ): [Asset!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\Assets")
+
+    "Fetch a single asset by ID. Requires authentication."
+    asset(id: ID! @eq): Asset
+        @find
+        @guard
+
+    "Month-by-month straight-line depreciation schedule for one asset."
+    assetDepreciationSchedule(asset_id: ID!): [DepreciationRow!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\AssetDepreciationSchedule")
+
+    "Semantic search across embedded transactions AND invoices. Returns mixed matches ranked by cosine similarity."
+    semanticSearchDocuments(
+        prompt: String!
+        limit: Int = 10
+        min_similarity: Float = 0.0
+        kinds: [DocumentKind!]
+    ): [DocumentMatch!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\SemanticSearchDocuments")
+
+    "Search quotations for a company by any combination of number, customer, date, status, or total. All filters are optional — at least one must be supplied. Requires authentication."
+    searchQuotations(
+        company_id: ID!
+        "Exact quotation number e.g. QOU-260403001, or a partial prefix e.g. QOU-2604 to match all quotations from April 2026."
+        quotation_number: String
+        "Partial customer name match (case-insensitive)."
+        customer_name: String
+        "Exact quotation date (YYYY-MM-DD)."
+        date: Date
+        "Quotation status filter."
+        status: QuotationStatus
+        "Minimum quotation total (inclusive)."
+        total_min: Float
+        "Maximum quotation total (inclusive)."
+        total_max: Float
+    ): [Quotation!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\SearchQuotations")
+
+    "List PPE classes (asset categories) for a company. Use this to look up the correct ppe_class_id before creating an asset. Requires authentication."
+    ppeClasses(company_id: ID!): [PpeClass!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\PpeClasses")
+
+    "Trial balance for a company within a date range. Requires authentication."
+    trialBalance(company_id: ID!, start_date: Date!, end_date: Date!): [TrialBalanceRow!]!
+        @guard
+        @field(resolver: "App\\GraphQL\\Queries\\TrialBalance")
+}
+
+"Which document type a semantic-search hit refers to."
+enum DocumentKind {
+    TRANSACTION @enum(value: "transaction")
+    INVOICE     @enum(value: "invoice")
+    ASSET       @enum(value: "asset")
+}
+
+"A single cross-type semantic-search hit. One of `transaction`, `invoice`, or `asset` will be populated based on `kind`."
+type DocumentMatch {
+    kind: DocumentKind!
+    source_id: ID!
+    similarity: Float!
+    amount: Float!
+    currency: String!
+    counterparty: String
+    reference: String
+    doc_date: Date!
+    transaction: Transaction
+    invoice: Invoice
+    asset: Asset
+}
+
+"A single semantic-search hit — a transaction plus its cosine similarity to the prompt."
+type TransactionMatch {
+    transaction: Transaction
+    transaction_id: ID!
+    similarity: Float!
+    amount: Float!
+    currency: String!
+    counterparty: String
+    reference: String
+    tx_date: Date!
+}
+
+"Mutations available on this API."
+type Mutation {
+    "Log in and receive a bearer token."
+    login(input: LoginInput! @spread): AuthPayload!
+        @field(resolver: "App\\GraphQL\\Mutations\\Login")
+
+    "Log out the authenticated user and revoke the current token."
+    logout: LogoutPayload!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\Logout")
+
+    "Record a new balanced double-entry transaction."
+    createTransaction(input: CreateTransactionInput! @spread): Transaction!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateTransaction")
+
+    "Create a new invoice for a company."
+    createInvoice(input: CreateInvoiceInput! @spread): Invoice!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateInvoice")
+
+    "Create a new customer for a company."
+    createCustomer(input: CreateCustomerInput! @spread): Customer!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateCustomer")
+
+    "Update the status of an existing invoice."
+    updateInvoiceStatus(id: ID!, status: InvoiceStatus!): Invoice!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\UpdateInvoiceStatus")
+
+    "Add a new item to a company's inventory."
+    createInventoryItem(input: CreateInventoryItemInput! @spread): InventoryItem!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateInventoryItem")
+
+    "Update an existing inventory item."
+    updateInventoryItem(id: ID!, input: UpdateInventoryItemInput! @spread): InventoryItem!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\UpdateInventoryItem")
+
+    "Delete an inventory item."
+    deleteInventoryItem(id: ID!): DeleteInventoryItemPayload!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\DeleteInventoryItem")
+
+    "Record a stock movement against an inventory item (receive, issue, adjust, transfer)."
+    stockMovement(input: StockMovementInput! @spread): InventoryMovement!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\StockMovement")
+
+    "Create a new account in the chart of accounts for a company."
+    createChartOfAccount(input: CreateChartOfAccountInput! @spread): ChartOfAccount!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateChartOfAccount")
+
+    "Create a new asset. Acquisition is queued for AI posting (CB-guarded)."
+    createAsset(input: CreateAssetInput! @spread): Asset!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\CreateAsset")
+
+    "Update descriptive fields on an existing asset."
+    updateAsset(id: ID!, input: UpdateAssetInput! @spread): Asset!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\UpdateAsset")
+
+    "Dispose of an asset. Flips status to DISPOSED and queues the disposal posting."
+    disposeAsset(id: ID!, disposal_date: Date!, disposal_proceeds: Float): Asset!
+        @guard
+        @field(resolver: "App\\GraphQL\\Mutations\\DisposeAsset")
+}
+
+"Status of a PPE asset in the register."
+enum AssetStatus {
+    ACTIVE   @enum(value: "active")
+    DISPOSED @enum(value: "disposed")
+    ALL      @enum(value: "all")
+}
+
+"A property, plant & equipment asset."
+type Asset {
+    id: ID!
+    company: Company! @belongsTo
+    ppe_class: PpeClass @belongsTo(relation: "ppeClass")
+    name: String!
+    asset_tag: String
+    location: String
+    acquisition_date: Date
+    cost: Float!
+    residual_value: Float!
+    useful_life_years: Float
+    sars_wear_tear_years: Float
+    depreciation_method: String
+    accumulated_impairment: Float
+    revaluation_surplus: Float
+    status: AssetStatus!
+    disposal_date: Date
+    disposal_proceeds: Float
+    posted_at: DateTime
+    last_depreciation_posted_on: Date
+    posting_transaction: Transaction @belongsTo(relation: "postingTransaction")
+    disposal_transaction: Transaction @belongsTo(relation: "disposalTransaction")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A PPE asset class (groups assets by category and accounting roles)."
+type PpeClass {
+    id: ID!
+    name: String!
+    useful_life_years: Float
+    depreciation_method: String
+    accounting_policy: String
+}
+
+"A single row of an asset's straight-line depreciation schedule."
+type DepreciationRow {
+    period: String!
+    depreciation: Float!
+    accumulated: Float!
+    carrying_value: Float!
+    posted: Boolean!
+}
+
+input CreateAssetInput {
+    company_id: ID!
+    ppe_class_id: ID!
+    name: String!
+    asset_tag: String
+    location: String
+    acquisition_date: Date!
+    cost: Float!
+    residual_value: Float
+    useful_life_years: Float
+    sars_wear_tear_years: Float
+    depreciation_method: String
+    notes: String
+}
+
+input UpdateAssetInput {
+    name: String
+    asset_tag: String
+    location: String
+    residual_value: Float
+    useful_life_years: Float
+    sars_wear_tear_years: Float
+    depreciation_method: String
+    notes: String
+}
+
+"Credentials for logging in."
+input LoginInput {
+    email: String!
+    password: String!
+    device_name: String
+}
+
+"Successful login response."
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+"Logout response."
+type LogoutPayload {
+    message: String!
+}
+
+"An authenticated user."
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A company in the system."
+type Company {
+    id: ID!
+    registered_name: String!
+    slug: String!
+    company_type: String
+    registration_number: String
+    financial_year_end_month: Int
+    address_line_1: String
+    address_line_2: String
+    city: String
+    province: String
+    postal_code: String
+    income_tax_number: String
+    vat_number: String
+    paye_number: String
+    uif_number: String
+    sdl_number: String
+    chart_of_accounts_type: String
+    industry: String
+    bank_name: String
+    bank_account_number: String
+    bank_account_type: String
+    bank_branch_code: String
+    customers: [Customer!]! @hasMany(relation: "customers")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A chart of accounts entry."
+type ChartOfAccount {
+    id: ID!
+    account_code: String!
+    account_name: String!
+    account_type: String!
+    category: String
+    description: String
+    parent_id: ID
+    parent_code: String
+    opening_balance: Float!
+    cash_flow_category: String
+    is_contra: Boolean!
+    is_oci: Boolean!
+    is_active: Boolean!
+    "Child accounts that belong to this parent account."
+    items: [ChartOfAccount!]! @hasMany(relation: "items")
+    "The parent account, if this is a child account."
+    parent: ChartOfAccount @belongsTo(relation: "parent")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A double-entry accounting transaction (journal entry)."
+type Transaction {
+    id: ID!
+    company: Company! @belongsTo
+    transaction_date: Date!
+    description: String!
+    reference: String
+    status: TransactionStatus!
+    notes: String
+    source_document: String
+    journal_lines: [JournalLine!]! @hasMany(relation: "journalLines")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A single debit or credit line within a transaction."
+type JournalLine {
+    id: ID!
+    transaction: Transaction! @belongsTo
+    account: ChartOfAccount! @belongsTo(relation: "account")
+    customer: Customer @belongsTo
+    type: JournalLineType!
+    amount: Float!
+    description: String
+    "Whether this line represents a VAT amount (output or input VAT)."
+    is_vat_line: Boolean!
+    "The VAT rate percentage applied to this line (e.g. 15.00 for 15%)."
+    vat_rate: Float
+}
+
+"Input for creating a new transaction."
+input CreateTransactionInput {
+    company_id: ID!
+    transaction_date: Date!
+    description: String!
+    reference: String
+    notes: String
+    source_document: String
+    lines: [JournalLineInput!]!
+}
+
+"Input for a single journal line."
+input JournalLineInput {
+    chart_of_account_id: ID!
+    customer_id: ID
+    type: JournalLineType!
+    amount: Float!
+    description: String
+    "Mark this line as a VAT entry (output or input VAT)."
+    is_vat_line: Boolean
+    "The VAT rate percentage applied (e.g. 15.00 for 15%). Only relevant when is_vat_line is true."
+    vat_rate: Float
+}
+
+"An invoice issued to a customer."
+type Customer {
+    id: ID!
+    company: Company! @belongsTo
+    name: String!
+    email: String
+    address: String
+    is_active: Boolean!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Invoice {
+    id: ID!
+    company: Company! @belongsTo
+    customer: Customer @belongsTo
+    invoice_number: String!
+    customer_name: String!
+    customer_email: String
+    customer_address: String
+    invoice_date: Date!
+    due_date: Date
+    status: InvoiceStatus!
+    notes: String
+    items: [InvoiceItem!]! @hasMany
+    subtotal: Float! @method
+    tax_total: Float! @method(name: "taxTotal")
+    total: Float! @method
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A single line item on an invoice."
+type InvoiceItem {
+    id: ID!
+    invoice: Invoice! @belongsTo
+    inventory_item: InventoryItem @belongsTo(relation: "inventoryItem")
+    description: String!
+    quantity: Float!
+    unit_price: Float!
+    tax_rate: Float
+    line_total: Float! @method(name: "lineTotal")
+}
+
+"A quotation sent to a customer."
+type Quotation {
+    id: ID!
+    company: Company! @belongsTo
+    customer: Customer @belongsTo
+    quotation_number: String!
+    customer_name: String!
+    customer_email: String
+    customer_address: String
+    quotation_date: Date!
+    expiry_date: Date
+    status: QuotationStatus!
+    notes: String
+    converted_invoice_id: ID
+    items: [QuotationItem!]! @hasMany
+    subtotal: Float! @method
+    tax_total: Float! @method(name: "taxTotal")
+    total: Float! @method
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A single line item on a quotation."
+type QuotationItem {
+    id: ID!
+    quotation: Quotation! @belongsTo
+    inventory_item: InventoryItem @belongsTo(relation: "inventoryItem")
+    description: String!
+    quantity: Float!
+    unit_price: Float!
+    tax_rate: Float
+    line_total: Float! @method(name: "lineTotal")
+}
+
+"A single row in the trial balance report."
+type TrialBalanceRow {
+    id: ID!
+    account_code: String!
+    account_name: String!
+    account_type: String!
+    opening_balance: Float!
+    posted_debits: Float!
+    posted_credits: Float!
+}
+
+"A product or service in the company's inventory catalogue."
+type InventoryItem {
+    id: ID!
+    company: Company! @belongsTo
+    name: String!
+    description: String
+    sku: String
+    unit_price: Float!
+    "Base invoice price from supplier before adjustments (IAS 2 cost of purchase)."
+    purchase_cost: Float!
+    "Inbound freight and transportation costs."
+    freight_in: Float!
+    "Import duties and irrecoverable taxes."
+    import_duties: Float!
+    "Direct handling costs incurred in acquisition."
+    handling_costs: Float!
+    "Trade discounts deducted from the purchase cost."
+    trade_discount: Float!
+    "Computed IAS 2 landed cost: purchase_cost + freight_in + import_duties + handling_costs − trade_discount."
+    landed_cost: Float! @method(name: "landedCost")
+    tax_rate: Float
+    is_active: Boolean!
+    "IAS 2.6 inventory classification."
+    inventory_type: InventoryType!
+    quantity_on_hand: Float!
+    quantity_reserved: Float!
+    "Available to sell: quantity_on_hand − quantity_reserved."
+    quantity_available: Float! @method(name: "quantityAvailable")
+    "Balance-sheet asset GL account (IAS 2 disclosure)."
+    inventory_account: ChartOfAccount @belongsTo(relation: "inventoryAccount")
+    "P&L cost-of-goods-sold GL account."
+    cogs_account: ChartOfAccount @belongsTo(relation: "cogsAccount")
+    "P&L write-down / write-off expense GL account."
+    write_down_account: ChartOfAccount @belongsTo(relation: "writeDownAccount")
+    movements: [InventoryMovement!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"Response payload after deleting an inventory item."
+type DeleteInventoryItemPayload {
+    success: Boolean!
+    message: String!
+}
+
+"A stock movement recorded against an inventory item."
+type InventoryMovement {
+    id: ID!
+    inventoryItem: InventoryItem! @belongsTo
+    action: StockMovementAction!
+    "Signed quantity delta. Positive = increase, negative = decrease."
+    quantity: Float!
+    "Unit cost at the time of movement, used for FIFO lot costing."
+    unit_cost: Float
+    "Source document reference, e.g. PO or invoice number."
+    reference: String
+    notes: String
+    moved_at: DateTime!
+    created_by: User @belongsTo(relation: "createdBy")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"Input for creating a new invoice."
+input CreateInvoiceInput {
+    company_id: ID!
+    "Leave blank to auto-generate the next invoice number."
+    invoice_number: String
+    customer_id: ID
+    customer_name: String!
+    customer_email: String
+    customer_address: String
+    invoice_date: Date!
+    due_date: Date
+    status: InvoiceStatus
+    notes: String
+    items: [CreateInvoiceItemInput!]!
+}
+
+"A line item when creating an invoice. Description, price, and tax are pulled from the inventory item."
+input CreateInvoiceItemInput {
+    inventory_item_id: ID!
+    quantity: Float!
+}
+
+"Input for creating a new customer."
+input CreateCustomerInput {
+    company_id: ID!
+    name: String!
+    email: String
+    address: String
+    is_active: Boolean
+}
+
+"Input for adding a new inventory item."
+input CreateInventoryItemInput {
+    company_id: ID!
+    name: String!
+    description: String
+    sku: String
+    unit_price: Float!
+    purchase_cost: Float
+    freight_in: Float
+    import_duties: Float
+    handling_costs: Float
+    trade_discount: Float
+    tax_rate: Float
+    inventory_type: InventoryType
+    quantity_on_hand: Float
+    quantity_reserved: Float
+    inventory_account_id: ID
+    cogs_account_id: ID
+    write_down_account_id: ID
+}
+
+"Input for updating an existing inventory item."
+input UpdateInventoryItemInput {
+    name: String!
+    description: String
+    sku: String
+    unit_price: Float!
+    purchase_cost: Float
+    freight_in: Float
+    import_duties: Float
+    handling_costs: Float
+    trade_discount: Float
+    tax_rate: Float
+    is_active: Boolean
+    inventory_type: InventoryType
+    inventory_account_id: ID
+    cogs_account_id: ID
+    write_down_account_id: ID
+}
+
+"Input for recording a stock movement."
+input StockMovementInput {
+    inventory_item_id: ID!
+    action: StockMovementAction!
+    "Signed quantity delta for ADJUST; positive quantity for RECEIVE / ISSUE / TRANSFER."
+    quantity: Float!
+    unit_cost: Float
+    reference: String
+    notes: String
+    moved_at: DateTime
+}
+
+"IFRS expense classification band. Determines which account-code range (5xxx–8xxx) a new expense parent account is placed in."
+enum ExpenseClass {
+    COST_OF_SALES @enum(value: "cost_of_sales")
+    OPERATING     @enum(value: "operating")
+    FINANCE       @enum(value: "finance")
+    TAX           @enum(value: "tax")
+}
+
+"Input for creating a new chart of account entry. The account_code is auto-assigned by the system."
+input CreateChartOfAccountInput {
+    company_id: ID!
+    account_name: String!
+    "One of: assets, liabilities, equity, income, expenses. Ignored when parent_id is supplied (inherited from parent)."
+    account_type: String!
+    "Required when account_type is 'expenses' and no parent_id is given. Defaults to OPERATING."
+    expense_class: ExpenseClass
+    category: String
+    "One of: operating, investing, financing. Used for cash-flow statement classification."
+    cash_flow_category: String
+    "Set to true for contra accounts (e.g. accumulated depreciation)."
+    is_contra: Boolean
+    description: String
+    "Supply to create a child (detail) account under an existing parent group. The code and account_type are inherited from the parent."
+    parent_id: ID
+    is_active: Boolean
+    opening_balance: Float
+}
+
+"A company's VAT registration record."
+type VatRegistration {
+    id: ID!
+    company: Company! @belongsTo
+    vat_number: String!
+    registered_at: Date!
+    deregistered_at: Date
+    is_active: Boolean!
+    created_at: DateTime!
+    updated_at: DateTime!
+}

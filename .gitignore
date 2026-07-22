@@ -28,3 +28,8 @@ Thumbs.db
 /src-tauri/target
 /tauri-temp
 /src-tauri/binaries
+/data
+/rr
+/database/database.sqlite
+.phpunit.result.cache
+.rr.yaml.lock

@@ -2,30 +2,57 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Chainbook - Desktop Accounting Application",
+    "keywords": ["laravel", "framework", "tauri", "accounting"],
     "license": "MIT",
     "repositories": [
         {
             "type": "path",
             "url": "packages/mucan54/tauri-php",
             "options": { "symlink": false }
+        },
+        {
+            "type": "path",
+            "url": "packages/laravel-circuit-breaker"
         }
     ],
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^13.0",
+        "php": "^8.3",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "gabrielanhaia/laravel-circuit-breaker": "2.0.1",
+        "google/protobuf": "^4.33",
+        "http-interop/http-factory-guzzle": "^1.2",
+        "laravel/ai": "^0.6.7",
+        "laravel/framework": "^13.7",
+        "laravel/reverb": "^1.10",
+        "laravel/sanctum": "^4.3",
+        "laravel/scout": "^11.3",
         "laravel/tinker": "^3.0",
-        "mucan54/tauri-php": "^1.2"
+        "league/oauth2-google": "^5.0",
+        "maatwebsite/excel": "^3.1",
+        "meilisearch/meilisearch-php": "^1.16",
+        "mll-lab/laravel-graphiql": "^4.1",
+        "mucan54/tauri-php": "^1.2",
+        "nuwave/lighthouse": "^6.66",
+        "spatie/fork": "^1.2",
+        "spiral/roadrunner-grpc": "^3.6",
+        "spiral/roadrunner-jobs": "^4.7",
+        "spiral/roadrunner-laravel": "^6.0",
+        "temporal/sdk": "^2.17",
+        "thenetworg/oauth2-azure": "^2.2",
+        "webklex/php-imap": "^6.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "^2.4",
+        "laravel/breeze": "^2.4",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^12.5.12"
+        "phpunit/phpunit": "^12.5.12",
+        "spiral/roadrunner-cli": "^2.7"
     },
     "autoload": {
         "psr-4": {
@@ -50,7 +77,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74,#34d399,#a78bfa,#fcd34d,#f472b6\" \"php artisan serve\" \"php artisan queue:listen --queue=asset-postings,intangible-postings,inventory-postings,lease-postings,embeddings,default --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" \"$HOME/.temporalio/bin/temporal server start-dev --port 7233 --ui-port 8233\" \"sleep 3 && ./rr serve -c .rr.yaml\" \"php artisan reverb:start\" \"./bin/meilisearch-start.sh\" --names=server,queue,logs,vite,temporal,grpc,reverb,search --kill-others"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",

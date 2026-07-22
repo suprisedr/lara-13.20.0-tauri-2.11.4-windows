@@ -1,7 +1,7 @@
 {
-    "productName": "Laravel",
+    "productName": "Chainbook",
     "version": "0.1.0",
-    "identifier": "com.example.laravel",
+    "identifier": "com.chainbook.desktop",
     "build": {
         "beforeDevCommand": "",
         "beforeBuildCommand": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
@@ -30,7 +30,7 @@
     "app": {
         "windows": [
             {
-                "title": "Laravel",
+                "title": "Chainbook",
                 "width": 1200,
                 "height": 800,
                 "resizable": true,

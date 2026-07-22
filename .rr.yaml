@@ -1,0 +1,107 @@
+version: '3'
+
+rpc:
+    listen: 'tcp://127.0.0.1:6001'
+
+server:
+    command: 'php grpc_worker.php'
+    relay: pipes
+
+grpc:
+    listen: 'tcp://0.0.0.0:9001'
+    proto:
+        - 'proto/auth.proto'
+        - 'proto/company.proto'
+        - 'proto/transactions.proto'
+        - 'proto/assets.proto'
+        - 'proto/leases.proto'
+        - 'proto/inventory.proto'
+        - 'proto/intangibles.proto'
+        - 'proto/invoices.proto'
+    pool:
+        num_workers: 4
+        max_jobs: 64
+        supervisor:
+            max_worker_memory: 128
+
+jobs:
+    pool:
+        command: 'php jobs_worker.php'
+        num_workers: 4
+        max_worker_memory: 256
+    pipelines:
+        embeddings:
+            driver: memory
+            config:
+                priority: 10
+                prefetch: 10
+        asset_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        intangible_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        inventory_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        lease_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        ecl_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        credit_note_postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        chart_of_accounts:
+            driver: memory
+            config:
+                priority: 3
+                prefetch: 2
+    consume:
+        - embeddings
+        - asset_postings
+        - intangible_postings
+        - inventory_postings
+        - lease_postings
+        - ecl_postings
+        - credit_note_postings
+        - chart_of_accounts
+
+temporal:
+    address: '127.0.0.1:7233'
+    activities:
+        command: 'php temporal_worker.php'
+        num_workers: 1
+        max_jobs: 64
+        supervisor:
+            max_worker_memory: 256
+
+service:
+    email_listener:
+        command: 'php artisan emails:listen'
+        process_num: 1
+        remain_after_exit: true
+        restart_sec: 10
+
+kv:
+    local:
+        driver: memory
+        config:
+            interval: 60
+
+logs:
+    mode: development
+    level: info

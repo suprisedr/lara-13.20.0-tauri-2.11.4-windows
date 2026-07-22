@@ -1,6 +1,6 @@
 {
   "identifier": "default",
-  "description": "Default permissions for Tauri-PHP application",
+  "description": "Default permissions for Chainbook desktop application",
   "platforms": ["linux", "macOS", "windows"],
   "permissions": [
     "core:default",

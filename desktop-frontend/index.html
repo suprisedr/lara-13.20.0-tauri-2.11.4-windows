@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel</title>
+    <title>Chainbook</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2439 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -35,7 +35,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
+            border-top-color: #4fd1c5;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -48,12 +48,21 @@
             margin-top: 20px;
             font-size: 24px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         #loading p {
             margin-top: 10px;
             font-size: 14px;
             opacity: 0.8;
+        }
+
+        #loading .status {
+            margin-top: 24px;
+            font-size: 12px;
+            opacity: 0.6;
+            max-width: 300px;
+            text-align: center;
         }
 
         #app-frame {
@@ -92,7 +101,7 @@
 
         #error button {
             padding: 10px 20px;
-            background: #667eea;
+            background: #1e3a5f;
             color: white;
             border: none;
             border-radius: 5px;
@@ -101,15 +110,16 @@
         }
 
         #error button:hover {
-            background: #5568d3;
+            background: #2a4a6f;
         }
     </style>
 </head>
 <body>
     <div id="loading">
         <div class="spinner"></div>
-        <h2>Laravel</h2>
+        <h2>Chainbook</h2>
         <p>Starting application...</p>
+        <div class="status" id="status-text">Initializing services...</div>
     </div>
 
     <div id="error">
@@ -122,8 +132,26 @@
 
     <script>
         const SERVER_URL = 'http://127.0.0.1:8080';
-        const MAX_RETRIES = 30;
+        const MAX_RETRIES = 60;
         let retryCount = 0;
+
+        const statusMessages = [
+            'Initializing services...',
+            'Starting database...',
+            'Starting search engine...',
+            'Starting web server...',
+            'Loading application...',
+            'Almost ready...',
+        ];
+
+        function updateStatus() {
+            const statusEl = document.getElementById('status-text');
+            const index = Math.min(
+                Math.floor(retryCount / 10),
+                statusMessages.length - 1
+            );
+            statusEl.textContent = statusMessages[index];
+        }
 
         async function checkServer() {
             try {
@@ -132,10 +160,10 @@
                     mode: 'no-cors'
                 });
 
-                // If we get here, server is likely running
                 loadApp();
             } catch (error) {
                 retryCount++;
+                updateStatus();
 
                 if (retryCount >= MAX_RETRIES) {
                     showError();
@@ -155,7 +183,6 @@
                 loading.style.display = 'none';
             };
 
-            // Fallback: hide loading screen after 2 seconds even if onload doesn't fire
             setTimeout(() => {
                 loading.style.display = 'none';
             }, 2000);
@@ -166,7 +193,6 @@
             document.getElementById('error').style.display = 'flex';
         }
 
-        // Start checking server
         setTimeout(checkServer, 1000);
     </script>
 </body>
