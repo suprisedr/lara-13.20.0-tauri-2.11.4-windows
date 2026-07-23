@@ -1,5 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::fs;
 use std::net::TcpStream;
 use std::path::PathBuf;
 use std::sync::Mutex;
@@ -54,6 +55,57 @@ fn resolve_project_root() -> PathBuf {
     }
 }
 
+fn pid_file_path() -> PathBuf {
+    resolve_project_root().join("data").join(".chainbook_pids")
+}
+
+fn kill_stale_pids() {
+    let path = pid_file_path();
+    if let Ok(contents) = fs::read_to_string(&path) {
+        for line in contents.lines() {
+            if let Ok(pid) = line.trim().parse::<i32>() {
+                if pid > 0 {
+                    unsafe {
+                        // Kill the process group (negative pid) to catch sub-processes
+                        libc::kill(-pid, libc::SIGTERM);
+                        libc::kill(pid, libc::SIGTERM);
+                    }
+                }
+            }
+        }
+        println!("[cleanup] Cleaned up stale processes from previous run");
+    }
+    let _ = fs::remove_file(&path);
+}
+
+fn save_pid(pid: u32) {
+    let path = pid_file_path();
+    if let Some(parent) = path.parent() {
+        let _ = fs::create_dir_all(parent);
+    }
+    let existing = fs::read_to_string(&path).unwrap_or_default();
+    let _ = fs::write(&path, format!("{}{}\n", existing, pid));
+}
+
+fn clear_pid_file() {
+    let _ = fs::remove_file(pid_file_path());
+}
+
+#[cfg(unix)]
+fn kill_process_tree(child: &mut std::process::Child) {
+    let pid = child.id() as i32;
+    unsafe {
+        libc::kill(-pid, libc::SIGTERM);
+    }
+    std::thread::sleep(std::time::Duration::from_millis(200));
+    let _ = child.kill();
+}
+
+#[cfg(not(unix))]
+fn kill_process_tree(child: &mut std::process::Child) {
+    let _ = child.kill();
+}
+
 fn find_optional_binary(name: &str) -> Option<PathBuf> {
     let project_root = resolve_project_root();
     let binaries_dir = project_root.join("src-tauri").join("binaries");
@@ -75,6 +127,23 @@ fn find_optional_binary(name: &str) -> Option<PathBuf> {
     }
 }
 
+#[cfg(unix)]
+fn spawn_in_process_group(cmd: &mut std::process::Command) -> std::io::Result<std::process::Child> {
+    use std::os::unix::process::CommandExt;
+    unsafe {
+        cmd.pre_exec(|| {
+            libc::setpgid(0, 0);
+            Ok(())
+        });
+    }
+    cmd.spawn()
+}
+
+#[cfg(not(unix))]
+fn spawn_in_process_group(cmd: &mut std::process::Command) -> std::io::Result<std::process::Child> {
+    cmd.spawn()
+}
+
 fn start_optional_service(
     name: &str,
     binary_name: &str,
@@ -84,15 +153,16 @@ fn start_optional_service(
     let project_root = resolve_project_root();
 
     println!("[startup] Starting {}...", name);
-    match std::process::Command::new(&binary_path)
-        .args(args)
+    let mut cmd = std::process::Command::new(&binary_path);
+    cmd.args(args)
         .current_dir(&project_root)
         .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped())
-        .spawn()
-    {
+        .stderr(std::process::Stdio::piped());
+
+    match spawn_in_process_group(&mut cmd) {
         Ok(child) => {
             println!("[startup] {} started (pid {})", name, child.id());
+            save_pid(child.id());
             Some(child)
         }
         Err(e) => {
@@ -124,15 +194,16 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
             .unwrap_or_else(|| PathBuf::from("postgres"));
 
         println!("[startup] Starting PostgreSQL...");
-        match std::process::Command::new(&pg_binary)
-            .args(&["-D", &pg_data_str, "-k", "/tmp", "-p", "5432"])
+        let mut cmd = std::process::Command::new(&pg_binary);
+        cmd.args(&["-D", &pg_data_str, "-k", "/tmp", "-p", "5432"])
             .current_dir(&project_root)
             .stdout(std::process::Stdio::piped())
-            .stderr(std::process::Stdio::piped())
-            .spawn()
-        {
+            .stderr(std::process::Stdio::piped());
+
+        match spawn_in_process_group(&mut cmd) {
             Ok(child) => {
                 println!("[startup] PostgreSQL started (pid {})", child.id());
+                save_pid(child.id());
                 state.process_services.lock().unwrap().push(ProcessChild {
                     name: "PostgreSQL".to_string(),
                     child,
@@ -214,16 +285,16 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
 
         for (name, args) in &php_services {
             println!("[startup] Starting {}...", name);
-            let _php_binary = project_root.join("artisan");
-            match std::process::Command::new("php")
-                .args(args)
+            let mut cmd = std::process::Command::new("php");
+            cmd.args(args)
                 .current_dir(&project_root)
                 .stdout(std::process::Stdio::piped())
-                .stderr(std::process::Stdio::piped())
-                .spawn()
-            {
+                .stderr(std::process::Stdio::piped());
+
+            match spawn_in_process_group(&mut cmd) {
                 Ok(child) => {
                     println!("[startup] {} started (pid {})", name, child.id());
+                    save_pid(child.id());
                     state.process_services.lock().unwrap().push(ProcessChild {
                         name: name.to_string(),
                         child,
@@ -253,6 +324,36 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
         }
     }
 
+    // 5. Start the desktop MCP server
+    {
+        let mcp_dir = project_root.join("desktop-mcp");
+        let mcp_entry = mcp_dir.join("dist").join("index.js");
+        if mcp_entry.exists() {
+            println!("[startup] Starting Desktop MCP server...");
+            let mut cmd = std::process::Command::new("node");
+            cmd.arg(&mcp_entry)
+                .current_dir(&mcp_dir)
+                .stdout(std::process::Stdio::piped())
+                .stderr(std::process::Stdio::piped());
+
+            match spawn_in_process_group(&mut cmd) {
+                Ok(child) => {
+                    println!("[startup] Desktop MCP started (pid {})", child.id());
+                    save_pid(child.id());
+                    state.process_services.lock().unwrap().push(ProcessChild {
+                        name: "Desktop MCP".to_string(),
+                        child,
+                    });
+                }
+                Err(e) => {
+                    eprintln!("[startup] Desktop MCP failed (non-critical): {}", e);
+                }
+            }
+        } else {
+            println!("[startup] Desktop MCP not found at {:?}, skipping", mcp_entry);
+        }
+    }
+
     println!("[startup] All services initialized");
     Ok(())
 }
@@ -279,12 +380,92 @@ fn get_service_status(state: tauri::State<'_, AppState>) -> Vec<String> {
     names
 }
 
+fn shutdown_all_services(state: &AppState) {
+    let mut sidecars = state.sidecar_services.lock().unwrap();
+    while let Some(service) = sidecars.pop() {
+        println!("[shutdown] Stopping {} (sidecar)...", service.name);
+        let _ = service.child.kill();
+    }
+
+    let mut processes = state.process_services.lock().unwrap();
+    while let Some(mut service) = processes.pop() {
+        println!("[shutdown] Stopping {} (process, pid {})...", service.name, service.child.id());
+        kill_process_tree(&mut service.child);
+    }
+
+    clear_pid_file();
+    println!("[shutdown] All services stopped");
+}
+
 fn main() {
+    kill_stale_pids();
+
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_opener::init())
         .manage(AppState::new())
         .invoke_handler(tauri::generate_handler![get_service_status])
         .setup(|app| {
+            let _window = tauri::WebviewWindowBuilder::new(
+                app,
+                "main",
+                tauri::WebviewUrl::default(),
+            )
+            .title("Chainbook")
+            .inner_size(1200.0, 800.0)
+            .resizable(true)
+            .on_download(|_webview, event| {
+                match event {
+                    tauri::webview::DownloadEvent::Requested {
+                        url,
+                        destination,
+                    } => {
+                        let filename = destination
+                            .file_name()
+                            .map(|f| f.to_os_string())
+                            .filter(|f| !f.is_empty())
+                            .unwrap_or_else(|| {
+                                let path = url.path();
+                                let name = path.rsplit('/').next().unwrap_or("download.pdf");
+                                if name.is_empty() || !name.contains('.') {
+                                    "download.pdf".into()
+                                } else {
+                                    name.into()
+                                }
+                            });
+
+                        let downloads = std::env::var("HOME")
+                            .map(|h| PathBuf::from(h).join("Downloads"))
+                            .unwrap_or_else(|_| PathBuf::from("."));
+                        let _ = fs::create_dir_all(&downloads);
+
+                        *destination = downloads.join(&filename);
+                        println!("[download] {} -> {:?}", url.as_str(), destination);
+                        true
+                    }
+                    tauri::webview::DownloadEvent::Finished {
+                        url: _,
+                        path,
+                        success,
+                    } => {
+                        if success {
+                            if let Some(p) = path {
+                                println!("[download] Complete: {:?}", p);
+                                let _ = std::process::Command::new("open")
+                                    .arg(&p)
+                                    .spawn();
+                            }
+                        } else {
+                            eprintln!("[download] Download failed");
+                        }
+                        true
+                    }
+                    _ => true,
+                }
+            })
+            .build()?;
+
             let app_handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {
                 tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
@@ -297,20 +478,7 @@ fn main() {
         .on_window_event(|window, event| {
             if let tauri::WindowEvent::Destroyed = event {
                 let state = window.state::<AppState>();
-
-                let mut sidecars = state.sidecar_services.lock().unwrap();
-                while let Some(service) = sidecars.pop() {
-                    println!("[shutdown] Stopping {} (sidecar)...", service.name);
-                    let _ = service.child.kill();
-                }
-
-                let mut processes = state.process_services.lock().unwrap();
-                while let Some(mut service) = processes.pop() {
-                    println!("[shutdown] Stopping {} (process)...", service.name);
-                    let _ = service.child.kill();
-                }
-
-                println!("[shutdown] All services stopped");
+                shutdown_all_services(state.inner());
             }
         })
         .run(tauri::generate_context!())

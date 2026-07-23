@@ -20,9 +20,9 @@
             font-weight: 700;
             letter-spacing: normal;
             text-transform: none;
-            color: #16355c;
-            border-bottom: 1.5pt solid #16355c;
-            background: #eef6fc;
+            color: #4c1d95;
+            border-bottom: 1.5pt solid #4c1d95;
+            background: #f5f3ff;
             vertical-align: bottom;
         }
 
@@ -35,7 +35,7 @@
         }
 
         .tx-table tbody tr.tx-row {
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         .tx-table tbody tr:last-child {
@@ -43,13 +43,13 @@
         }
 
         .tx-table tbody tr.tx-row:hover {
-            background: #f5faff;
+            background: #faf5ff;
         }
 
         .tx-table td {
             padding: 0.45rem 0.875rem;
             vertical-align: top;
-            color: #16355c;
+            color: #4c1d95;
             font-size: 7pt;
         }
 
@@ -62,13 +62,13 @@
         }
 
         .tx-table td.muted {
-            color: #7a90a5;
+            color: #8b7aad;
             font-size: 6.5pt;
         }
 
         .tx-lines-row td {
             padding: 0 0.85rem 0.7rem;
-            background: #eef6fc;
+            background: #f5f3ff;
         }
 
         .tx-lines-table {
@@ -200,14 +200,14 @@
 
         .tx-trail {
             font-size: 5.5pt;
-            color: #7a90a5;
+            color: #8b7aad;
             margin-top: 0.2rem;
         }
         .tx-trail a {
-            color: #16355c;
+            color: #4c1d95;
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 0.5pt solid #16355c;
+            border-bottom: 0.5pt solid #4c1d95;
         }
         .tx-trail a:hover { border-bottom-color: transparent; }
 
@@ -215,10 +215,10 @@
             cursor: pointer;
             font-size: 5.5pt;
             font-weight: 700;
-            color: #16355c;
+            color: #4c1d95;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border-bottom: 0.5pt solid #16355c;
+            border-bottom: 0.5pt solid #4c1d95;
             white-space: nowrap;
         }
         .toggle-lines:hover { border-bottom-color: transparent; }
@@ -226,18 +226,18 @@
         /* Source document inline preview row (collapsed view) */
         .tx-source-row td {
             padding: 0 0.85rem 0.5rem;
-            background: #eef6fc;
-            border-bottom: 1px solid #ddebf5;
+            background: #f5f3ff;
+            border-bottom: 1px solid #ddd6fe;
         }
 
         .tx-source-text {
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 6.5pt;
-            color: #16355c;
+            color: #4c1d95;
             white-space: pre-wrap;
             word-break: break-word;
             background: #fff;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             border-radius: 0;
             padding: 0.5rem 0.7rem;
             max-height: 120px;
@@ -250,7 +250,7 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #4a5f78;
+            color: #6b5b8a;
             margin-bottom: 0.25rem;
         }
 
@@ -260,19 +260,19 @@
             min-width: 120px;
         }
         .line-note-cell:hover {
-            background: #f5faff;
+            background: #faf5ff;
             border-radius: 0;
         }
 
         .line-note-input {
             width: 100%;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
             font-size: 6.5pt;
             font-family: inherit;
             outline: none;
-            color: #16355c;
+            color: #4c1d95;
             background: #fff;
         }
 
@@ -280,13 +280,13 @@
         .line-account-wrap { position: relative; }
         .line-account-search {
             width: 100%;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
             font-size: 6.5pt;
             font-family: inherit;
             outline: none;
-            color: #16355c;
+            color: #4c1d95;
             background: #fff;
         }
         .line-account-dropdown {
@@ -295,7 +295,7 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             border-top: none;
             border-radius: 0;
             max-height: 160px;
@@ -312,7 +312,7 @@
             text-overflow: ellipsis;
         }
         .line-account-option:hover,
-        .line-account-option.focused { background: #eef6fc; }
+        .line-account-option.focused { background: #f5f3ff; }
 
         /* Generic account search field (new transaction lines, add-line form) */
         .acct-search {
@@ -321,20 +321,20 @@
 
         .acct-search-input {
             width: 100%;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             border-radius: 0;
             padding: 0.4rem 0.6rem;
             font-size: 7pt;
             font-family: inherit;
             outline: none;
-            color: #16355c;
+            color: #4c1d95;
             background: #fff;
             box-sizing: border-box;
             transition: border-color 0.15s;
         }
 
         .acct-search-input:focus {
-            border-color: #16355c;
+            border-color: #4c1d95;
         }
 
         .acct-search-dropdown {
@@ -343,7 +343,7 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             border-top: none;
             border-radius:0;
             max-height: 180px;
@@ -362,7 +362,7 @@
         }
 
         .acct-search-option:hover {
-            background: #eef6fc;
+            background: #f5f3ff;
         }
 
         .acct-search-option.acct-search-empty {
@@ -378,9 +378,9 @@
         /* ── Filter card (corporate navy look) ── */
         .tx-filter-form {
             background:#fff;
-            border:1px solid #c9dff0;
+            border:1px solid #c4b5fd;
             font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
-            color:#16355c;
+            color:#4c1d95;
             font-size:7pt;
             line-height:1.45;
             margin-bottom:1rem;
@@ -395,14 +395,14 @@
             cursor:pointer; user-select:none; padding:0.75rem 1.35rem;
         }
         .tx-filter-title {
-            font-weight:700; font-size:7pt; text-transform:uppercase; letter-spacing:0.07em; color:#16355c;
+            font-weight:700; font-size:7pt; text-transform:uppercase; letter-spacing:0.07em; color:#4c1d95;
             display:flex; align-items:center; gap:0.5rem;
         }
-        .tx-filter-chevron { font-size:5.5pt; color:#7a90a5; transition:transform 0.15s; display:inline-block; }
+        .tx-filter-chevron { font-size:5.5pt; color:#8b7aad; transition:transform 0.15s; display:inline-block; }
         .tx-filter-form.open .tx-filter-chevron { transform:rotate(180deg); }
         .tx-filter-collapsible { display:none; padding:0 1.35rem 1.1rem; }
         .tx-filter-form.open .tx-filter-collapsible { display:block; }
-        .tx-filter-divider { border:none; border-top:1.5pt solid #16355c; margin:0 0 0.85rem; }
+        .tx-filter-divider { border:none; border-top:1.5pt solid #4c1d95; margin:0 0 0.85rem; }
 
         .tx-filter-form .af-row {
             display:grid; grid-template-columns:repeat(4,1fr); gap:0.55rem 0.85rem;
@@ -412,38 +412,38 @@
         .tx-filter-form .af-field.full { grid-column:span 4; }
         .tx-filter-form .af-field label {
             display:block; font-size:5.5pt; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#4a5f78; margin-bottom:0.2rem;
+            text-transform:uppercase; color:#6b5b8a; margin-bottom:0.2rem;
         }
         .tx-filter-form .af-field input,
         .tx-filter-form .af-field select {
-            width:100%; border:1px solid #c9dff0; padding:0.35rem 0.5rem;
-            font-size:7pt; font-family:inherit; color:#16355c;
+            width:100%; border:1px solid #c4b5fd; padding:0.35rem 0.5rem;
+            font-size:7pt; font-family:inherit; color:#4c1d95;
             box-sizing:border-box; background:#fff; height:2rem;
         }
         .tx-filter-form .af-field input:focus,
-        .tx-filter-form .af-field select:focus { outline:none; border-color:#16355c; }
+        .tx-filter-form .af-field select:focus { outline:none; border-color:#4c1d95; }
         .tx-filter-form .acct-search .acct-search-input {
-            border:1px solid #c9dff0; padding:0.35rem 0.5rem; font-size:7pt; height:2rem; border-radius:0;
+            border:1px solid #c4b5fd; padding:0.35rem 0.5rem; font-size:7pt; height:2rem; border-radius:0;
         }
-        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#16355c; }
-        .tx-filter-form .acct-search-dropdown { border-color:#16355c; }
+        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#4c1d95; }
+        .tx-filter-form .acct-search-dropdown { border-color:#4c1d95; }
 
         .tx-filter-actions {
             display:flex; align-items:center; justify-content:space-between; gap:0.75rem;
-            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:1px solid #c9dff0;
+            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:1px solid #c4b5fd;
         }
         .tx-filter-actions-left { display:flex; align-items:center; gap:0.85rem; }
 
         .mgmt-btn {
             display:inline-flex; align-items:center; gap:0.4rem;
-            background:#fff; border:1px solid #16355c; color:#16355c;
+            background:#fff; border:1px solid #4c1d95; color:#4c1d95;
             font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
             padding:0.4rem 0.95rem; text-decoration:none; cursor:pointer;
             font-family:inherit; transition:background 0.15s, color 0.15s;
             height:2rem; box-sizing:border-box;
         }
-        .mgmt-btn:hover { background:#16355c; color:#fff; }
-        .mgmt-btn.primary { background:#16355c; color:#fff; }
+        .mgmt-btn:hover { background:#4c1d95; color:#fff; }
+        .mgmt-btn.primary { background:#4c1d95; color:#fff; }
         .mgmt-btn.primary:hover { background:#0d2847; }
         .mgmt-btn.success { border-color:#15803d; color:#15803d; }
         .mgmt-btn.success:hover { background:#15803d; color:#fff; }
@@ -455,38 +455,38 @@
             font-size:5.5pt; padding:0.28rem 0.65rem; height:1.7rem; gap:0.3rem;
         }
         .mgmt-btn.ghost {
-            border-style:dashed; color:#4a5f78; border-color:#c9dff0;
+            border-style:dashed; color:#6b5b8a; border-color:#c4b5fd;
         }
-        .mgmt-btn.ghost:hover { background:#f5faff; color:#16355c; border-color:#16355c; }
+        .mgmt-btn.ghost:hover { background:#faf5ff; color:#4c1d95; border-color:#4c1d95; }
 
         /* Shared form field used inside expanded rows and the new-transaction modal */
         .tx-af-label {
             display:block; font-size:5.5pt; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#4a5f78; margin-bottom:0.2rem;
+            text-transform:uppercase; color:#6b5b8a; margin-bottom:0.2rem;
         }
         .tx-af-input {
-            width:100%; border:1px solid #c9dff0; padding:0.35rem 0.55rem;
-            font-size:7pt; font-family:inherit; color:#16355c;
+            width:100%; border:1px solid #c4b5fd; padding:0.35rem 0.55rem;
+            font-size:7pt; font-family:inherit; color:#4c1d95;
             box-sizing:border-box; background:#fff; height:2rem; border-radius:0;
         }
-        .tx-af-input:focus { outline:none; border-color:#16355c; }
+        .tx-af-input:focus { outline:none; border-color:#4c1d95; }
         textarea.tx-af-input { height:auto; padding:0.4rem 0.55rem; line-height:1.45; }
 
         /* Bulk action bar (corporate navy) */
         .tx-bulk-bar {
             display:none; padding:0.85rem 1.1rem;
-            background:#eef6fc; border-top:1px solid #c9dff0; border-bottom:1px solid #c9dff0;
+            background:#f5f3ff; border-top:1px solid #c4b5fd; border-bottom:1px solid #c4b5fd;
             align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
             font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
         }
         .tx-bulk-count {
             font-size:6.5pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#16355c;
+            text-transform:uppercase; color:#4c1d95;
         }
         .tx-bulk-actions { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
 
         /* Expanded-row mini panel (notes, source document) */
-        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #c9dff0; }
+        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #c4b5fd; }
         .tx-mini-col { display:flex; flex-direction:column; gap:0.3rem; }
         .tx-mini-head { display:flex; align-items:center; gap:0.5rem; }
         .tx-saved-flag { display:none; font-size:5.5pt; color:#15803d; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; }

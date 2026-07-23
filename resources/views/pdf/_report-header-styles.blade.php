@@ -3,7 +3,7 @@
 <style>
     .rpt-letterhead {
         width: 100%;
-        border-bottom: 2px solid #16355c;
+        border-bottom: 2px solid #4c1d95;
         padding-bottom: 8px;
         margin-bottom: 8px;
     }
@@ -17,20 +17,20 @@
         font-size: 12pt;
         font-weight: bold;
         letter-spacing: 0.01em;
-        color: #16355c;
+        color: #4c1d95;
         line-height: 1.2;
     }
     .rpt-company-sub {
         font-size: 7pt;
         font-weight: bold;
-        color: #0079c8;
+        color: #7c3aed;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         margin-top: 2px;
     }
     .rpt-company-meta {
         font-size: 6.5pt;
-        color: #4a5f78;
+        color: #6b5b8a;
         line-height: 1.45;
         margin-top: 2px;
     }
@@ -38,7 +38,7 @@
     .rpt-doc-header {
         text-align: left;
         margin: 12px 0 8px;
-        border-bottom: 1px solid #b8d6ec;
+        border-bottom: 1px solid #c4b5fd;
         padding-bottom: 8px;
     }
     .rpt-doc-title {
@@ -46,17 +46,17 @@
         font-weight: bold;
         letter-spacing: -0.01em;
         text-transform: none;
-        color: #16355c;
+        color: #4c1d95;
     }
     .rpt-doc-subtitle {
         font-size: 7.5pt;
-        color: #0079c8;
+        color: #7c3aed;
         margin-top: 3px;
         font-style: normal;
     }
     .rpt-doc-currency {
         font-size: 6.5pt;
-        color: #7a90a5;
+        color: #8b7aad;
         margin-top: 4px;
         letter-spacing: 0.02em;
     }

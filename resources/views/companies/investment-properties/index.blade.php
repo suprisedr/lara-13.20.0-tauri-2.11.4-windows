@@ -38,7 +38,7 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Investment Property Classes</div>
-                        <p style="font-size:7pt;color:#4a5f78;margin:0.2rem 0 0.75rem;">Group properties by measurement model. Cost model properties are depreciated; fair value model properties are remeasured to fair value each period.</p>
+                        <p style="font-size:7pt;color:#6b5b8a;margin:0.2rem 0 0.75rem;">Group properties by measurement model. Cost model properties are depreciated; fair value model properties are remeasured to fair value each period.</p>
 
                         <hr class="reg-divider">
 
@@ -64,13 +64,13 @@
                                                 @if ($class->measurement_model === 'fair_value')
                                                     <span style="font-size:6pt;font-weight:700;color:#7c3aed;background:#f5f3ff;padding:0.1rem 0.4rem;border:1px solid #ddd6fe;">Fair Value</span>
                                                 @else
-                                                    <span style="font-size:6pt;color:#4a5f78;">Cost</span>
+                                                    <span style="font-size:6pt;color:#6b5b8a;">Cost</span>
                                                 @endif
                                             </td>
                                             <td style="text-align:right;font-family:monospace;">
                                                 {{ $class->useful_life_years !== null ? rtrim(rtrim(number_format((float)$class->useful_life_years, 2), '0'), '.') : "\u{2014}" }}
                                             </td>
-                                            <td style="text-align:right;color:#4a5f78;">{{ $propCount }}</td>
+                                            <td style="text-align:right;color:#6b5b8a;">{{ $propCount }}</td>
                                             <td style="text-align:right;">
                                                 <div class="reg-row-actions">
                                                     <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
@@ -90,7 +90,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <p style="color:#7a90a5;font-size:7pt;font-style:italic;margin-bottom:1rem;">No property classes yet.</p>
+                            <p style="color:#8b7aad;font-size:7pt;font-style:italic;margin-bottom:1rem;">No property classes yet.</p>
                         @endif
 
                         <div class="add-panel" id="panel-add-class">
@@ -140,14 +140,14 @@
 
                 {{-- ── Property Register ───────────────────────────────── --}}
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:7pt;color:#4a5f78;">
+                    <span style="font-size:7pt;color:#6b5b8a;">
                         {{ $properties->count() }} propert{{ $properties->count() !== 1 ? 'ies' : 'y' }}
                     </span>
                     <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
                         <form method="GET" action="{{ route('companies.investment-properties.index', $company) }}" style="display:flex;align-items:center;gap:0.5rem;">
-                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#4a5f78;">As at</label>
+                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b5b8a;">As at</label>
                             <input type="date" name="as_of" value="{{ $asOf }}" onchange="this.form.submit()"
-                                style="border:1px solid #c9dff0;padding:0.32rem 0.5rem;font-size:7pt;font-family:inherit;">
+                                style="border:1px solid #c4b5fd;padding:0.32rem 0.5rem;font-size:7pt;font-family:inherit;">
                         </form>
                         <button type="button" class="reg-btn primary" onclick="document.getElementById('panel-add-property').classList.toggle('open');document.getElementById('panel-add-property').scrollIntoView({behavior:'smooth',block:'nearest'})">
                             + Add Property
@@ -162,7 +162,7 @@
                         <hr class="reg-divider">
 
                         @if ($properties->isEmpty())
-                            <p style="color:#7a90a5;font-style:italic;font-size:7pt;">No investment properties yet. Add your first property below.</p>
+                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No investment properties yet. Add your first property below.</p>
                         @else
                             @php
                                 $totalCost = 0.0; $totalDep = 0.0; $totalImp = 0.0; $totalCarrying = 0.0;
@@ -210,16 +210,16 @@
                                                         {{ $prop->name }}
                                                     </a>
                                                 </td>
-                                                <td style="color:#4a5f78;font-size:6.5pt;">{{ $prop->property_reference ?? "\u{2014}" }}</td>
-                                                <td style="color:#4a5f78;font-size:6.5pt;">{{ $prop->investmentPropertyClass?->name ?? "\u{2014}" }}</td>
+                                                <td style="color:#6b5b8a;font-size:6.5pt;">{{ $prop->property_reference ?? "\u{2014}" }}</td>
+                                                <td style="color:#6b5b8a;font-size:6.5pt;">{{ $prop->investmentPropertyClass?->name ?? "\u{2014}" }}</td>
                                                 <td>
                                                     @if ($prop->isFairValueModel())
                                                         <span style="font-size:5.5pt;font-weight:700;color:#7c3aed;background:#f5f3ff;padding:0.08rem 0.35rem;border:1px solid #ddd6fe;">FV</span>
                                                     @else
-                                                        <span style="font-size:5.5pt;color:#4a5f78;">Cost</span>
+                                                        <span style="font-size:5.5pt;color:#6b5b8a;">Cost</span>
                                                     @endif
                                                 </td>
-                                                <td style="color:#4a5f78;font-size:6.5pt;white-space:nowrap;">{{ $prop->acquisition_date->format('d M Y') }}</td>
+                                                <td style="color:#6b5b8a;font-size:6.5pt;white-space:nowrap;">{{ $prop->acquisition_date->format('d M Y') }}</td>
                                                 <td class="amt">{{ number_format((float)$prop->cost, 2) }}</td>
                                                 <td class="amt" style="color:#92400e;">{{ $prop->isFairValueModel() ? "\u{2014}" : number_format($accDep, 2) }}</td>
                                                 @if ($anyImp)

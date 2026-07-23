@@ -7,58 +7,58 @@
     @include('companies._styles')
     <style>
         .inv-mgmt-bar { display:flex;align-items:center;justify-content:space-between;gap:8pt;flex-wrap:wrap;margin-bottom:12pt; }
-        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:7pt;color:#7a90a5;text-decoration:none;display:inline-flex;align-items:center;gap:3pt;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
-        .inv-mgmt-bar a:hover,.inv-mgmt-bar .mgmt-back:hover { color:#16355c; }
-        .mgmt-btn { display:inline-flex;align-items:center;gap:3pt;background:#fff;border:1px solid #c9dff0;color:#16355c;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 7pt;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
-        .mgmt-btn:hover { background:#eef6fc;color:#16355c; }
-        .mgmt-btn.primary { background:#0079c8;color:#fff; }
+        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:7pt;color:#8b7aad;text-decoration:none;display:inline-flex;align-items:center;gap:3pt;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
+        .inv-mgmt-bar a:hover,.inv-mgmt-bar .mgmt-back:hover { color:#4c1d95; }
+        .mgmt-btn { display:inline-flex;align-items:center;gap:3pt;background:#fff;border:1px solid #c4b5fd;color:#4c1d95;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 7pt;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
+        .mgmt-btn:hover { background:#f5f3ff;color:#4c1d95; }
+        .mgmt-btn.primary { background:#7c3aed;color:#fff; }
         .mgmt-btn.primary:hover { background:#005f9e; }
         .mgmt-btn.danger { border-color:#dc2626;color:#dc2626; }
         .mgmt-btn.danger:hover { background:#dc2626;color:#fff; }
-        .cust-doc { background:#fff;border:1px solid #c9dff0;font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;color:#16355c;font-size:7pt;line-height:1.45; }
+        .cust-doc { background:#fff;border:1px solid #c4b5fd;font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;color:#4c1d95;font-size:7pt;line-height:1.45; }
         .cust-doc-body { padding:16pt 18pt; }
         .cust-header-table { width:100%;border-collapse:collapse;margin-bottom:6pt; }
         .doc-title { font-size:11pt;font-weight:800;text-align:right;margin-bottom:2pt;letter-spacing:0.04em; }
         .doc-meta-line { text-align:right;font-size:7pt; }
-        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #16355c;padding:0.08rem 4pt;font-size:5pt;letter-spacing:0.08em;margin-top:3pt; }
+        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #4c1d95;padding:0.08rem 4pt;font-size:5pt;letter-spacing:0.08em;margin-top:3pt; }
         .status-box.disposed { color:#dc2626;border-color:#dc2626; }
-        .divider { border:none;border-top:1.5pt solid #16355c;margin:8pt 0 10pt; }
-        .divider.light { border-top:1px solid #c9dff0;margin:10pt 0; }
+        .divider { border:none;border-top:1.5pt solid #4c1d95;margin:8pt 0 10pt; }
+        .divider.light { border-top:1px solid #c4b5fd;margin:10pt 0; }
         .summary-table { width:100%;border-collapse:collapse;margin-bottom:2pt; }
         .summary-table td { padding:0 10pt 0 0;font-size:7pt;vertical-align:top; }
         .summary-table .lbl { display:block;font-weight:700;font-size:5pt;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.5pt; }
         .summary-table .amt { font-size:8pt;font-weight:800; }
-        .section-header { font-weight:700;font-size:7.5pt;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #16355c;padding-bottom:2pt;margin-bottom:4pt; }
+        .section-header { font-weight:700;font-size:7.5pt;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #4c1d95;padding-bottom:2pt;margin-bottom:4pt; }
         .info-section { margin-top:12pt; }
         table.cust-items-table { width:100%;border-collapse:collapse; }
-        table.cust-items-table thead td { font-weight:700;font-size:6.5pt;text-transform:uppercase;letter-spacing:0.04em;border-bottom:1.5px solid #16355c;padding-bottom:4pt; }
+        table.cust-items-table thead td { font-weight:700;font-size:6.5pt;text-transform:uppercase;letter-spacing:0.04em;border-bottom:1.5px solid #4c1d95;padding-bottom:4pt; }
         table.cust-items-table thead td.amt { text-align:right; }
-        table.cust-items-table tbody td { padding:4pt 0;font-size:7pt;border-bottom:1px solid #ddebf5;vertical-align:middle; }
+        table.cust-items-table tbody td { padding:4pt 0;font-size:7pt;border-bottom:1px solid #ddd6fe;vertical-align:middle; }
         table.cust-items-table tbody td.amt { text-align:right;font-family:"DejaVu Sans Mono",monospace;white-space:nowrap; }
         table.cust-items-table tbody tr:last-child td { border-bottom:none; }
-        table.cust-items-table tbody tr:hover td { background:#eef6fc; }
+        table.cust-items-table tbody tr:hover td { background:#f5f3ff; }
         .ev-chip { display:inline-block;font-size:5pt;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;padding:0.1rem 4pt;border-radius:0;white-space:nowrap; }
-        .empty-row { padding:8pt 0;text-align:center;color:#7a90a5;font-size:7pt; }
+        .empty-row { padding:8pt 0;text-align:center;color:#8b7aad;font-size:7pt; }
         .action-section { margin-top:12pt; }
-        .action-panel { border-bottom:1px solid #ddebf5; }
+        .action-panel { border-bottom:1px solid #ddd6fe; }
         .action-panel-head { display:flex;align-items:center;justify-content:space-between;padding:5pt 0;cursor:pointer;user-select:none; }
         .action-panel-title { font-size:7pt;font-weight:700;display:flex;align-items:center;gap:4pt; }
         .action-panel-body { display:none;padding-bottom:8pt; }
         .action-panel.open .action-panel-body { display:block; }
-        .action-panel-chevron { font-size:6pt;color:#7a90a5;transition:transform 0.15s; }
+        .action-panel-chevron { font-size:6pt;color:#8b7aad;transition:transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform:rotate(180deg); }
         .af-row { display:flex;flex-wrap:wrap;gap:4pt 6pt;align-items:flex-end;margin-bottom:5pt; }
         .af-field { flex:1;min-width:100pt; }
         .af-field.wide { flex:2;min-width:150pt; }
-        .af-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#7a90a5;margin-bottom:0.2rem; }
-        .af-field input,.af-field select { width:100%;border:1px solid #c9dff0;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#16355c;box-sizing:border-box;background:#fff; }
-        .af-field input:disabled { background:#eef6fc;color:#7a90a5; }
-        .af-field input:focus,.af-field select:focus { outline:none;border-color:#0079c8; }
-        .af-hint { font-size:6pt;color:#7a90a5;margin-bottom:4pt;line-height:1.4; }
-        .as-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#7a90a5;margin-bottom:0.2rem; }
-        .as-field input,.as-field select { width:100%;border:1px solid #c9dff0;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#16355c;background:#fff;outline:none;box-sizing:border-box;height:16pt;border-radius:0; }
-        .as-field input:focus,.as-field select:focus { border-color:#0079c8; }
-        .as-field input:disabled { background:#eef6fc;color:#7a90a5; }
+        .af-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin-bottom:0.2rem; }
+        .af-field input,.af-field select { width:100%;border:1px solid #c4b5fd;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#4c1d95;box-sizing:border-box;background:#fff; }
+        .af-field input:disabled { background:#f5f3ff;color:#8b7aad; }
+        .af-field input:focus,.af-field select:focus { outline:none;border-color:#7c3aed; }
+        .af-hint { font-size:6pt;color:#8b7aad;margin-bottom:4pt;line-height:1.4; }
+        .as-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin-bottom:0.2rem; }
+        .as-field input,.as-field select { width:100%;border:1px solid #c4b5fd;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#4c1d95;background:#fff;outline:none;box-sizing:border-box;height:16pt;border-radius:0; }
+        .as-field input:focus,.as-field select:focus { border-color:#7c3aed; }
+        .as-field input:disabled { background:#f5f3ff;color:#8b7aad; }
         @media (max-width:640px) {
             .cust-doc-body { padding:10pt 8pt; }
             .cust-header-table,.cust-header-table tr,.cust-header-table td { display:block;width:100%!important;text-align:left!important; }
@@ -128,7 +128,7 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:11pt;font-weight:800;letter-spacing:-0.01em;">{{ $investmentProperty->name }}</div>
                                     @if ($investmentProperty->property_reference)
-                                        <div style="font-size:7pt;color:#7a90a5;margin-top:0.2rem;">{{ $investmentProperty->property_reference }}</div>
+                                        <div style="font-size:7pt;color:#8b7aad;margin-top:0.2rem;">{{ $investmentProperty->property_reference }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -157,7 +157,7 @@
                                         <div><span style="font-weight:700;display:inline-block;width:130px;">Method</span>{{ \App\Models\InvestmentProperty::METHODS[$investmentProperty->depreciation_method ?? $investmentProperty->investmentPropertyClass?->depreciation_method] ?? 'Straight-line' }}</div>
                                     @endif
                                     @if ($investmentProperty->notes)
-                                        <div style="margin-top:3pt;color:#7a90a5;font-style:italic;">{{ $investmentProperty->notes }}</div>
+                                        <div style="margin-top:3pt;color:#8b7aad;font-style:italic;">{{ $investmentProperty->notes }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:50%;text-align:right;">
@@ -200,7 +200,7 @@
                                 @if ($isFV)
                                 <td>
                                     <span class="lbl">Fair Value</span>
-                                    <span class="amt" style="color:#0079c8;">R {{ number_format((float)($investmentProperty->fair_value ?? $investmentProperty->cost), 2) }}</span>
+                                    <span class="amt" style="color:#7c3aed;">R {{ number_format((float)($investmentProperty->fair_value ?? $investmentProperty->cost), 2) }}</span>
                                 </td>
                                 <td>
                                     <span class="lbl">Cumulative FV Gain/Loss</span>
@@ -217,8 +217,8 @@
                         {{-- IAS 40 Movement History --}}
                         <div class="info-section">
                             <div class="section-header">IAS 40 Movement History</div>
-                            <div id="history-loading" style="color:#7a90a5;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history&hellip;</div>
-                            <div id="history-empty" style="display:none;color:#7a90a5;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded yet for this property.</div>
+                            <div id="history-loading" style="color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history&hellip;</div>
+                            <div id="history-empty" style="display:none;color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded yet for this property.</div>
                             <table class="cust-items-table" id="history-table" style="display:none;">
                                 <thead>
                                     <tr>
@@ -237,12 +237,12 @@
                         @unless ($investmentProperty->isDisposed())
                         <div class="action-section">
                             <div class="section-header">Record a Movement</div>
-                            <p style="font-size:6.5pt;color:#7a90a5;margin:3pt 0 6pt;">Select an action above or click a heading below.</p>
+                            <p style="font-size:6.5pt;color:#8b7aad;margin:3pt 0 6pt;">Select an action above or click a heading below.</p>
 
                             {{-- Capitalise --}}
                             <div class="action-panel" id="panel-capitalise">
                                 <div class="action-panel-head" onclick="togglePanel('capitalise')">
-                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#7a90a5;">(IAS 40.17)</small></span>
+                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#8b7aad;">(IAS 40.17)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -274,7 +274,7 @@
                             {{-- Fair Value Adjustment --}}
                             <div class="action-panel" id="panel-fair-value">
                                 <div class="action-panel-head" onclick="togglePanel('fair-value')">
-                                    <span class="action-panel-title">Fair value adjustment <small style="font-weight:400;color:#7a90a5;">(IAS 40.35)</small></span>
+                                    <span class="action-panel-title">Fair value adjustment <small style="font-weight:400;color:#8b7aad;">(IAS 40.35)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -306,7 +306,7 @@
                             {{-- Impair --}}
                             <div class="action-panel" id="panel-impair">
                                 <div class="action-panel-head" onclick="togglePanel('impair')">
-                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#7a90a5;">(IAS 36)</small></span>
+                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -342,7 +342,7 @@
                             {{-- Reverse impairment --}}
                             <div class="action-panel" id="panel-reverse">
                                 <div class="action-panel-head" onclick="togglePanel('reverse')">
-                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#7a90a5;">(IAS 36.114)</small></span>
+                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36.114)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -374,7 +374,7 @@
                             {{-- Dispose --}}
                             <div class="action-panel" id="panel-dispose">
                                 <div class="action-panel-head" onclick="togglePanel('dispose')">
-                                    <span class="action-panel-title">Dispose property <small style="font-weight:400;color:#7a90a5;">(IAS 40.66)</small></span>
+                                    <span class="action-panel-title">Dispose property <small style="font-weight:400;color:#8b7aad;">(IAS 40.66)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -593,11 +593,11 @@
     {{-- Edit property modal --}}
     <div id="edit-modal"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:16pt 8pt;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #16355c;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10pt 12pt;border-bottom:1.5px solid #16355c;">
-                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#16355c;">Edit Property</h3>
+        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #4c1d95;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10pt 12pt;border-bottom:1.5px solid #4c1d95;">
+                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#4c1d95;">Edit Property</h3>
                 <button onclick="closeEditModal()"
-                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#16355c;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#4c1d95;cursor:pointer;">&times;</button>
             </div>
 
             <form method="POST" action="{{ route('companies.investment-properties.update', [$company, $investmentProperty]) }}">
@@ -673,11 +673,11 @@
                         <input type="text" name="notes" value="{{ old('notes', $investmentProperty->notes) }}" placeholder="Any additional detail">
                     </div>
                 </div>
-                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #ddebf5;">
+                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #ddd6fe;">
                     <button type="button" onclick="closeEditModal()"
-                        style="padding:4pt 10pt;border:1px solid #c9dff0;font-size:6pt;color:#16355c;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                        style="padding:4pt 10pt;border:1px solid #c4b5fd;font-size:6pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                     <button type="submit"
-                        style="padding:4pt 10pt;background:#0079c8;color:#fff;border:1px solid #0079c8;font-size:6pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
+                        style="padding:4pt 10pt;background:#7c3aed;color:#fff;border:1px solid #7c3aed;font-size:6pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
                 </div>
                 </div>
             </form>

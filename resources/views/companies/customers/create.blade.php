@@ -22,7 +22,7 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #7a90a5;
+            color: #8b7aad;
             margin-bottom: 1.5pt;
         }
 
@@ -30,11 +30,11 @@
         .inv-field select,
         .inv-field textarea {
             width: 100%;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             border-radius: 0;
             padding: 3pt 4pt;
             font-size: 7pt;
-            color: #16355c;
+            color: #4c1d95;
             background: #fff;
             outline: none;
             transition: border-color 0.15s;
@@ -48,17 +48,17 @@
         }
 
         .inv-field input::placeholder,
-        .inv-field textarea::placeholder { color: #a9bccd; font-size: 6.5pt; }
+        .inv-field textarea::placeholder { color: #c4b5fd; font-size: 6.5pt; }
 
         .inv-field input:focus,
         .inv-field select:focus,
         .inv-field textarea:focus {
-            border-color: #0079c8;
+            border-color: #7c3aed;
         }
 
         .inv-field .field-hint {
             font-size: 5.5pt;
-            color: #7a90a5;
+            color: #8b7aad;
             margin-top: 1pt;
         }
 
@@ -67,22 +67,22 @@
             align-items: center;
             gap: 5pt;
             padding: 3pt 5pt;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             border-radius: 0;
-            background: #eef6fc;
+            background: #f5f3ff;
         }
 
         .inv-status-field span {
             font-size: 7pt;
             font-weight: 600;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .inv-field span.optional {
             font-weight: 400;
             text-transform: none;
             letter-spacing: 0;
-            color: #7a90a5;
+            color: #8b7aad;
             font-size: 4.5pt;
         }
 
@@ -92,15 +92,15 @@
             justify-content: flex-end;
             margin-top: 7pt;
             padding-top: 6pt;
-            border-top: 0.4pt solid #ddebf5;
+            border-top: 0.4pt solid #ddd6fe;
         }
 
         .btn-cancel {
             padding: 2.5pt 6pt;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             border-radius: 0;
             font-size: 6pt;
-            color: #4a5f78;
+            color: #6b5b8a;
             text-decoration: none;
             font-weight: 600;
             font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
@@ -109,11 +109,11 @@
             transition: background 0.15s;
         }
 
-        .btn-cancel:hover { background: #eef6fc; }
+        .btn-cancel:hover { background: #f5f3ff; }
 
         .btn-primary {
             padding: 2.5pt 7pt;
-            background: #0079c8;
+            background: #7c3aed;
             color: #fff;
             border: none;
             border-radius: 0;

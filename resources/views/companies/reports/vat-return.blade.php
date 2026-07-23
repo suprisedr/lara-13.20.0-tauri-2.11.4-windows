@@ -16,12 +16,12 @@
             background: #fff;
             font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* Header band */
         .vat-doc-header {
-            background: #16355c;
+            background: #4c1d95;
             color: #fff;
             padding: 6pt 10pt;
             display: flex;
@@ -77,7 +77,7 @@
         .vat-vendor-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            border-bottom: 1.5pt solid #16355c;
+            border-bottom: 1.5pt solid #4c1d95;
         }
         .vat-vendor-cell {
             padding: 4pt 6pt;
@@ -89,13 +89,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #4a5f78;
+            color: #6b5b8a;
             margin: 0 0 1.5pt;
         }
         .vat-vendor-cell .vc-value {
             font-size: 7.5pt;
             font-weight: 700;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* Section heading rows */
@@ -103,7 +103,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #16355c;
+            background: #4c1d95;
             color: #fff;
             padding: 3pt 6pt;
         }
@@ -137,23 +137,23 @@
             justify-content: center;
             font-size: 6pt;
             font-weight: 800;
-            color: #4a5f78;
+            color: #6b5b8a;
             padding: 4pt 2pt;
         }
         .vat-field-desc {
             padding: 4pt 6pt;
             font-size: 7pt;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
         .vat-field-desc strong {
             display: block;
             font-weight: 700;
-            color: #16355c;
+            color: #4c1d95;
             font-size: 7pt;
         }
         .vat-field-desc span {
             font-size: 5.5pt;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
         .vat-field-amount {
             min-width: 80pt;
@@ -162,7 +162,7 @@
             font-family: "DejaVu Sans Mono", monospace;
             font-weight: 700;
             font-size: 8pt;
-            color: #16355c;
+            color: #4c1d95;
             border-left: 0.5pt solid #d5e6f2;
             display: flex;
             align-items: center;
@@ -175,12 +175,12 @@
             display: grid;
             grid-template-columns: 18pt 1fr auto;
             align-items: stretch;
-            background: #e7f3fb;
-            border-top: 1.5pt solid #16355c;
+            background: #ede9fe;
+            border-top: 1.5pt solid #4c1d95;
         }
         .vat-net-row .vat-field-no {
             background: #d8ecf9;
-            border-right: 0.5pt solid #b8d6ec;
+            border-right: 0.5pt solid #c4b5fd;
             font-size: 7pt;
             font-weight: 900;
         }
@@ -189,14 +189,14 @@
         }
         .vat-net-row .vat-field-amount {
             font-size: 10pt;
-            border-left: 0.5pt solid #b8d6ec;
+            border-left: 0.5pt solid #c4b5fd;
             min-width: 90pt;
         }
 
         /* Detail transaction table */
         .vat-detail-head {
             background: #f2f8fd;
-            border-top: 1.5pt solid #16355c;
+            border-top: 1.5pt solid #4c1d95;
             border-bottom: 0.5pt solid #d5e6f2;
             padding: 3pt 6pt;
             display: flex;
@@ -208,7 +208,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         .vat-tx-table {
@@ -217,7 +217,7 @@
             font-size: 7pt;
         }
         .vat-tx-table thead th {
-            background: #16355c;
+            background: #4c1d95;
             color: rgba(255,255,255,0.85);
             font-size: 5.5pt;
             font-weight: 700;
@@ -230,10 +230,10 @@
         }
         .vat-tx-table thead th.r { text-align: right; }
         .vat-tx-table tbody tr { border-bottom: 0.5pt solid #e4f0f9; }
-        .vat-tx-table tbody tr:hover { background: #f5faff; }
+        .vat-tx-table tbody tr:hover { background: #faf5ff; }
         .vat-tx-table td {
             padding: 2pt 4pt;
-            color: #16355c;
+            color: #4c1d95;
             font-size: 7pt;
         }
         .vat-tx-table td.r {
@@ -242,14 +242,14 @@
             font-size: 7pt;
             white-space: nowrap;
         }
-        .vat-tx-table td.dim { color: #4a5f78; font-size: 6.5pt; }
+        .vat-tx-table td.dim { color: #6b5b8a; font-size: 6.5pt; }
         .vat-tx-table tfoot td {
             padding: 3pt 4pt;
             font-weight: 800;
-            background: #e7f3fb;
-            border-top: 1.5pt solid #16355c;
+            background: #ede9fe;
+            border-top: 1.5pt solid #4c1d95;
             font-size: 7pt;
-            color: #16355c;
+            color: #4c1d95;
         }
         .vat-tx-table tfoot td.r {
             text-align: right;
@@ -260,7 +260,7 @@
         .vat-empty {
             text-align: center;
             padding: 8pt 6pt;
-            color: #7a90a5;
+            color: #8b7aad;
             font-size: 6.5pt;
             background: #f8fbfe;
         }
@@ -270,7 +270,7 @@
             background: #f2f8fd;
             border-top: 0.5pt solid #d5e6f2;
             font-size: 5pt;
-            color: #4a5f78;
+            color: #6b5b8a;
             line-height: 1.5;
         }
 
@@ -309,8 +309,8 @@
                         </div>
                         <div style="display:flex;align-items:center;gap:0.6rem;">
                             <a href="{{ route('companies.reports.vat-return.pdf', [$company, 'start_date' => $startDate, 'end_date' => $endDate]) }}"
-                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#16355c;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                onmouseover="this.style.background='#0f2640'" onmouseout="this.style.background='#16355c'">
+                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#4c1d95;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                onmouseover="this.style.background='#3b0764'" onmouseout="this.style.background='#4c1d95'">
                                 <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -520,7 +520,7 @@
                                                     <td class="r hide-mobile dim">
                                                         {{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0) . '%' : '—' }}
                                                     </td>
-                                                    <td class="r" style="font-weight:700;color:#0079c8;">
+                                                    <td class="r" style="font-weight:700;color:#7c3aed;">
                                                         R {{ number_format($line['amount'], 2) }}
                                                     </td>
                                                 </tr>

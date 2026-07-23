@@ -9,18 +9,18 @@
         /* ── Channel header ── */
         .af-header {
             display:flex; align-items:center; justify-content:space-between;
-            padding:8pt 10pt; border-bottom:1pt solid #c9dff0;
+            padding:8pt 10pt; border-bottom:1pt solid #c4b5fd;
             gap:6pt; flex-wrap:wrap;
         }
         .af-header-left { display:flex; align-items:center; gap:5pt; }
-        .af-header-icon { font-size:9pt; color:#16355c; line-height:1; }
+        .af-header-icon { font-size:9pt; color:#4c1d95; line-height:1; }
         .af-header-title {
             font-weight:700; font-size:7.5pt; text-transform:uppercase;
-            letter-spacing:0.07em; color:#16355c;
+            letter-spacing:0.07em; color:#4c1d95;
         }
         .af-header-count {
             display:inline-flex; align-items:center; justify-content:center;
-            background:#16355c; color:#fff;
+            background:#4c1d95; color:#fff;
             font-size:5.5pt; font-weight:700; letter-spacing:0.05em;
             min-width:10pt; height:10pt; padding:0 3pt; border-radius:0;
         }
@@ -28,26 +28,26 @@
 
         .af-filter {
             font-size:6pt; padding:0 5pt;
-            border:1px solid #c9dff0; border-radius:0;
-            background:#fff; color:#16355c; font-family:inherit; cursor:pointer;
+            border:1px solid #c4b5fd; border-radius:0;
+            background:#fff; color:#4c1d95; font-family:inherit; cursor:pointer;
             height:16pt; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
         }
-        .af-filter:focus { outline:none; border-color:#16355c; }
+        .af-filter:focus { outline:none; border-color:#4c1d95; }
         .af-search-wrap { position:relative; display:flex; align-items:center; }
         .af-search-input {
-            height:16pt; border:1px solid #c9dff0; border-radius:0;
+            height:16pt; border:1px solid #c4b5fd; border-radius:0;
             padding:0 12pt 0 5pt; font-size:6.5pt; font-family:inherit;
-            color:#16355c; background:#fff; width:140pt; box-sizing:border-box;
+            color:#4c1d95; background:#fff; width:140pt; box-sizing:border-box;
         }
-        .af-search-input:focus { outline:none; border-color:#16355c; }
+        .af-search-input:focus { outline:none; border-color:#4c1d95; }
         .af-search-clear {
             position:absolute; right:3pt; background:none; border:none;
-            cursor:pointer; font-size:8pt; color:#7a90a5; line-height:1; padding:0;
+            cursor:pointer; font-size:8pt; color:#8b7aad; line-height:1; padding:0;
             display:none;
         }
-        .af-search-clear:hover { color:#16355c; }
+        .af-search-clear:hover { color:#4c1d95; }
         .af-search-count {
-            font-size:5.5pt; color:#4a5f78; white-space:nowrap;
+            font-size:5.5pt; color:#6b5b8a; white-space:nowrap;
         }
         .af-row mark.af-hl { background:#fef08a; border-radius:2px; padding:0 1px; font-weight:inherit; }
 
@@ -55,28 +55,28 @@
         .af-tab {
             padding:0 7pt; font-size:5.5pt; font-weight:700;
             letter-spacing:0.08em; text-transform:uppercase;
-            color:#16355c; background:#fff; border:1px solid #16355c;
+            color:#4c1d95; background:#fff; border:1px solid #4c1d95;
             cursor:pointer; transition:background 0.15s, color 0.15s;
             height:16pt; font-family:inherit;
         }
         .af-tab + .af-tab { border-left:none; }
-        .af-tab.active { background:#16355c; color:#fff; }
-        .af-tab:hover:not(.active) { background:#eef6fc; }
+        .af-tab.active { background:#4c1d95; color:#fff; }
+        .af-tab:hover:not(.active) { background:#f5f3ff; }
 
         /* ── Feed area ── */
         .af-feed { max-height:60vh; overflow-y:auto; }
         .af-feed::-webkit-scrollbar { width:4px; }
         .af-feed::-webkit-scrollbar-track { background:transparent; }
-        .af-feed::-webkit-scrollbar-thumb { background:#c9dff0; }
+        .af-feed::-webkit-scrollbar-thumb { background:#c4b5fd; }
 
         .af-divider {
             display:flex; align-items:center; gap:6pt;
             padding:5pt 10pt 2pt;
-            color:#4a5f78; font-size:5.5pt; font-weight:700;
+            color:#6b5b8a; font-size:5.5pt; font-weight:700;
             letter-spacing:0.09em; text-transform:uppercase;
         }
         .af-divider::before, .af-divider::after {
-            content:''; flex:1; height:1px; background:#c9dff0;
+            content:''; flex:1; height:1px; background:#c4b5fd;
         }
 
         /* ── Compact row ── */
@@ -86,31 +86,31 @@
             cursor:pointer; position:relative;
             transition:background 0.1s;
             border-left:3px solid transparent;
-            border-bottom:0.4pt solid #ddebf5;
+            border-bottom:0.4pt solid #ddd6fe;
         }
         .af-row:last-child { border-bottom:none; }
-        .af-row:hover { background:#f5faff; }
+        .af-row:hover { background:#faf5ff; }
         .af-row.prio-high   { border-left-color:#b91c1c; }
         .af-row.prio-medium { border-left-color:#b45309; }
-        .af-row.prio-low    { border-left-color:#7a90a5; }
+        .af-row.prio-low    { border-left-color:#8b7aad; }
         .af-row.is-resolved { opacity:0.5; border-left-color:#15803d; }
         .af-row.is-resolved .af-row-title {
-            text-decoration:line-through; color:#7a90a5;
+            text-decoration:line-through; color:#8b7aad;
         }
 
         .af-src {
             flex-shrink:0; width:12pt; height:12pt;
             display:flex; align-items:center; justify-content:center;
             font-size:5pt; font-weight:700; letter-spacing:0.05em;
-            background:#fff; border:1px solid #16355c;
+            background:#fff; border:1px solid #4c1d95;
         }
-        .af-src.src-manual { color:#16355c; border-color:#16355c; }
+        .af-src.src-manual { color:#4c1d95; border-color:#4c1d95; }
         .af-src.src-ai     { color:#92400e; border-color:#92400e; }
         .af-src.src-system { color:#1d4ed8; border-color:#1d4ed8; }
 
         .af-row-title {
             flex:1; min-width:0;
-            font-size:7pt; font-weight:600; color:#16355c;
+            font-size:7pt; font-weight:600; color:#4c1d95;
             white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3;
         }
 
@@ -119,17 +119,17 @@
         .af-badge {
             font-size:5pt; font-weight:700;
             padding:1pt 4pt; border-radius:0;
-            border:1px solid #16355c; background:#fff;
+            border:1px solid #4c1d95; background:#fff;
             text-transform:uppercase; letter-spacing:0.08em;
         }
         .badge-high   { color:#b91c1c; border-color:#b91c1c; }
         .badge-medium { color:#b45309; border-color:#b45309; }
-        .badge-low    { color:#4a5f78; border-color:#7a90a5; }
+        .badge-low    { color:#6b5b8a; border-color:#8b7aad; }
         .badge-ai     { color:#92400e; border-color:#92400e; }
         .badge-system { color:#1d4ed8; border-color:#1d4ed8; }
 
         .af-row-time {
-            flex-shrink:0; font-size:6pt; color:#7a90a5;
+            flex-shrink:0; font-size:6pt; color:#8b7aad;
             min-width:28pt; text-align:right;
             font-family:'Courier New',monospace;
         }
@@ -137,7 +137,7 @@
         .af-row-actions {
             position:absolute; right:8pt; display:none;
             align-items:center; gap:2pt;
-            background:#fff; border:1px solid #16355c;
+            background:#fff; border:1px solid #4c1d95;
             box-shadow:0 2px 6px rgba(22,53,92,0.12);
             padding:2pt 3pt; border-radius:0;
         }
@@ -147,11 +147,11 @@
             background:none; border:none; cursor:pointer;
             padding:2pt 4pt; font-family:inherit;
             font-size:5.5pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#4a5f78;
+            text-transform:uppercase; color:#6b5b8a;
             transition:background 0.1s, color 0.1s;
             white-space:nowrap;
         }
-        .af-row-btn:hover { background:#eef6fc; color:#16355c; }
+        .af-row-btn:hover { background:#f5f3ff; color:#4c1d95; }
         .af-row-btn.btn-resolve { color:#15803d; }
         .af-row-btn.btn-resolve:hover { background:#15803d; color:#fff; }
         .af-row-btn.btn-reopen { color:#1d4ed8; }
@@ -163,10 +163,10 @@
         .af-detail {
             display:none;
             margin:0 10pt 0 30pt;
-            border-left:2px solid #16355c;
+            border-left:2px solid #4c1d95;
             padding:5pt 0 6pt 8pt;
-            border-bottom:0.4pt solid #ddebf5;
-            background:#f5faff;
+            border-bottom:0.4pt solid #ddd6fe;
+            background:#faf5ff;
         }
         .af-detail.open { display:block; }
 
@@ -178,49 +178,49 @@
         }
         .af-detail-ref {
             display:inline-flex; align-items:center; gap:3pt;
-            font-size:5.5pt; font-weight:700; color:#16355c;
-            background:#fff; border:1px solid #16355c;
+            font-size:5.5pt; font-weight:700; color:#4c1d95;
+            background:#fff; border:1px solid #4c1d95;
             padding:1pt 4pt;
             text-transform:uppercase; letter-spacing:0.07em;
         }
-        .af-detail-meta { font-size:6pt; color:#7a90a5; }
+        .af-detail-meta { font-size:6pt; color:#8b7aad; }
         .af-detail-sep {
             width:3px; height:3px; border-radius:50%;
-            background:#c9dff0; flex-shrink:0;
+            background:#c4b5fd; flex-shrink:0;
         }
 
         /* ── Pagination ── */
         .af-pagination {
             display:flex; align-items:center; justify-content:center;
-            gap:3pt; padding:7pt 10pt; border-top:1pt solid #c9dff0;
+            gap:3pt; padding:7pt 10pt; border-top:1pt solid #c4b5fd;
         }
         .af-pagination a, .af-pagination span {
             display:inline-flex; align-items:center; justify-content:center;
             min-width:15pt; height:15pt;
             font-size:6.5pt; font-weight:700;
-            text-decoration:none; color:#4a5f78;
-            border:1px solid #c9dff0; background:#fff;
+            text-decoration:none; color:#6b5b8a;
+            border:1px solid #c4b5fd; background:#fff;
             padding:0 4pt; border-radius:0; font-family:inherit;
         }
-        .af-pagination a:hover { border-color:#16355c; color:#16355c; }
-        .af-pagination span.current { background:#16355c; color:#fff; border-color:#16355c; }
+        .af-pagination a:hover { border-color:#4c1d95; color:#4c1d95; }
+        .af-pagination span.current { background:#4c1d95; color:#fff; border-color:#4c1d95; }
 
         /* ── Compose bar ── */
-        .af-compose { padding:7pt 10pt; border-top:1pt solid #c9dff0; }
+        .af-compose { padding:7pt 10pt; border-top:1pt solid #c4b5fd; }
 
         .af-compose-trigger {
             display:flex; align-items:center; gap:4pt;
-            border:1px dashed #7a90a5; padding:4pt 7pt;
-            cursor:text; color:#4a5f78; font-size:6.5pt;
-            background:#f5faff; user-select:none; font-weight:700;
+            border:1px dashed #8b7aad; padding:4pt 7pt;
+            cursor:text; color:#6b5b8a; font-size:6.5pt;
+            background:#faf5ff; user-select:none; font-weight:700;
             text-transform:uppercase; letter-spacing:0.06em;
             transition:border-color 0.15s, background 0.15s, color 0.15s;
         }
-        .af-compose-trigger:hover { border-color:#16355c; color:#16355c; background:#fff; }
+        .af-compose-trigger:hover { border-color:#4c1d95; color:#4c1d95; background:#fff; }
 
         .af-compose-form {
             display:none; flex-direction:column; gap:4pt;
-            border:1px solid #16355c; padding:7pt; background:#f5faff;
+            border:1px solid #4c1d95; padding:7pt; background:#faf5ff;
         }
         .af-compose-form.open { display:flex; }
 
@@ -230,12 +230,12 @@
 
         .af-compose-input, .af-compose-select, .af-compose-textarea {
             font-size:7pt; padding:3pt 5pt;
-            border:1px solid #c9dff0; border-radius:0;
-            color:#16355c; font-family:inherit; background:#fff; box-sizing:border-box;
+            border:1px solid #c4b5fd; border-radius:0;
+            color:#4c1d95; font-family:inherit; background:#fff; box-sizing:border-box;
         }
         .af-compose-input:focus,
         .af-compose-select:focus,
-        .af-compose-textarea:focus { outline:none; border-color:#16355c; }
+        .af-compose-textarea:focus { outline:none; border-color:#4c1d95; }
 
         .af-compose-input  { height:16pt; }
         .af-compose-select { height:16pt; cursor:pointer; text-transform:uppercase; font-weight:700; letter-spacing:0.05em; font-size:6pt; }
@@ -245,31 +245,31 @@
             display:flex; align-items:center; justify-content:space-between;
             gap:6pt; flex-wrap:wrap;
         }
-        .af-compose-hint { font-size:5.5pt; color:#7a90a5; letter-spacing:0.04em; }
+        .af-compose-hint { font-size:5.5pt; color:#8b7aad; letter-spacing:0.04em; }
         .af-compose-btns { display:flex; gap:4pt; }
 
         .af-btn-cancel {
             background:none; border:none; padding:0; cursor:pointer;
             font-family:inherit; font-size:6pt; font-weight:700;
-            color:#4a5f78; text-decoration:underline;
+            color:#6b5b8a; text-decoration:underline;
             text-transform:uppercase; letter-spacing:0.06em;
         }
-        .af-btn-cancel:hover { color:#16355c; }
+        .af-btn-cancel:hover { color:#4c1d95; }
 
         .af-kbd {
-            background:#fff; border:1px solid #c9dff0; border-radius:0;
+            background:#fff; border:1px solid #c4b5fd; border-radius:0;
             padding:0 2pt; font-size:5.5pt; font-family:'Courier New',monospace;
-            color:#4a5f78;
+            color:#6b5b8a;
         }
 
         /* ── Empty state ── */
         .af-empty {
             display:flex; flex-direction:column; align-items:center; justify-content:center;
-            color:#7a90a5; gap:4pt; padding:24pt 8pt;
+            color:#8b7aad; gap:4pt; padding:24pt 8pt;
         }
-        .af-empty-icon { font-size:16pt; color:#c9dff0; line-height:1; }
+        .af-empty-icon { font-size:16pt; color:#c4b5fd; line-height:1; }
         .af-empty-title {
-            font-size:7.5pt; font-weight:700; color:#16355c;
+            font-size:7.5pt; font-weight:700; color:#4c1d95;
             text-transform:uppercase; letter-spacing:0.07em;
         }
         .af-empty-sub { font-size:6.5pt; }
@@ -277,16 +277,16 @@
         /* ── Export dropdown ── */
         .af-export-menu {
             display:none; position:absolute; right:0; top:100%; margin-top:2px;
-            background:#fff; border:1px solid #c9dff0; z-index:20; min-width:90pt;
+            background:#fff; border:1px solid #c4b5fd; z-index:20; min-width:90pt;
             box-shadow:0 4px 16px rgba(22,53,92,0.12);
         }
         .af-export-menu a {
             display:block; padding:3pt 6pt;
             font-size:6pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#16355c; text-decoration:none;
+            text-transform:uppercase; color:#4c1d95; text-decoration:none;
         }
-        .af-export-menu a:hover { background:#eef6fc; }
-        .af-export-menu a + a { border-top:0.4pt solid #ddebf5; }
+        .af-export-menu a:hover { background:#f5f3ff; }
+        .af-export-menu a + a { border-top:0.4pt solid #ddd6fe; }
     </style>
 @endpush
 
@@ -457,7 +457,7 @@
                     {{-- Compose --}}
                     <div class="af-compose">
                         <div class="af-compose-trigger" id="compose-trigger" onclick="openCompose()">
-                            <span style="font-size:8pt;color:#7a90a5;font-weight:400;line-height:1;">＋</span>
+                            <span style="font-size:8pt;color:#8b7aad;font-weight:400;line-height:1;">＋</span>
                             Add an action…
                         </div>
                         <form class="af-compose-form" id="compose-form" onsubmit="return submitAction(event)">

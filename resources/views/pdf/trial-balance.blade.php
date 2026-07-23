@@ -41,11 +41,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: 3pt 4pt;
-            color: #16355c;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 1.5px solid #16355c;
+            color: #4c1d95;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 1.5px solid #4c1d95;
             text-align: left;
-            background: #e7f3fb;
+            background: #ede9fe;
         }
 
         thead th.right {
@@ -53,7 +53,7 @@
         }
 
         tbody tr {
-            border-bottom: 0.4px solid #ddebf5;
+            border-bottom: 0.4px solid #ddd6fe;
         }
 
         tbody td {
@@ -73,63 +73,63 @@
             font-family: DejaVu Sans Mono, monospace;
             font-size: 7pt;
             white-space: nowrap;
-            color: #6a86a0;
+            color: #8b7aad;
         }
 
         td.dim {
-            color: #a9bccd;
+            color: #c4b5fd;
         }
 
         tr.group-header td {
             font-size: 7pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            color: #0079c8;
-            border-top: 0.5px solid #ddebf5;
-            background: #eef6fc;
+            color: #7c3aed;
+            border-top: 0.5px solid #ddd6fe;
+            background: #f5f3ff;
         }
 
         tr.subtotal td {
             padding: 3pt 4pt;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
-            background: #e7f3fb;
-            border-top: 1px solid #9cc3e0;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 1px solid #a78bfa;
         }
 
         tr.section-total td {
             padding: 4pt 4pt;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
             background: #d8ecf9;
-            border-top: 1.5px solid #16355c;
+            border-top: 1.5px solid #4c1d95;
         }
 
         tfoot tr.grand-total td {
             padding: 4pt 4pt;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
-            background: #e7f3fb;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 2px solid #16355c;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 2px solid #4c1d95;
         }
 
         .status-line {
             font-size: 7pt;
             text-align: right;
             margin-bottom: 10px;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .footer {
             margin-top: 18px;
             padding-top: 6px;
-            border-top: 1px solid #c9dff0;
+            border-top: 1px solid #c4b5fd;
             font-size: 6pt;
-            color: #7a90a5;
+            color: #8b7aad;
             text-align: center;
         }
     </style>

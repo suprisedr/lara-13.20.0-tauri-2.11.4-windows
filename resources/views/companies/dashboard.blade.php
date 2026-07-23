@@ -21,11 +21,11 @@
         /* ── Cards (shared) ────────────────── */
         .kpi-card, .chart-panel {
             background:#fff;
-            border:1px solid #c9dff0;
+            border:1px solid #c4b5fd;
             transition:border-color 0.2s;
         }
         .kpi-card:hover, .chart-panel:hover {
-            border-color:#0079c8;
+            border-color:#7c3aed;
         }
 
         /* ── KPI stat cards ────────────────── */
@@ -35,14 +35,14 @@
             overflow:hidden; position:relative;
         }
         .kpi-head { display:flex; align-items:center; justify-content:space-between; gap:4pt; }
-        .kpi-label { font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#7a90a5; margin:0; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
+        .kpi-label { font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8b7aad; margin:0; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
         .kpi-icon {
             width:22pt; height:22pt; flex-shrink:0;
             display:inline-flex; align-items:center; justify-content:center;
         }
         .kpi-icon svg { width:12pt; height:12pt; }
         .kpi-value {
-            font-size:14pt; font-weight:800; color:#16355c; margin:0;
+            font-size:14pt; font-weight:800; color:#4c1d95; margin:0;
             line-height:1.1; letter-spacing:-0.02em; font-variant-numeric:tabular-nums;
             font-family:"DejaVu Sans Mono",monospace;
         }
@@ -54,7 +54,7 @@
         }
         .kpi-delta.up { color:#027a48; background:#ecfdf3; }
         .kpi-delta.down { color:#b42318; background:#fef3f2; }
-        .kpi-delta.neutral { color:#7a90a5; background:#eef6fc; }
+        .kpi-delta.neutral { color:#8b7aad; background:#f5f3ff; }
         .kpi-spark { margin:3pt -11pt -7pt; height:32pt; }
         .kpi-spark svg { display:block; width:100%; height:32pt; }
 
@@ -62,10 +62,10 @@
         .chart-panel { padding:11pt 12pt; display:flex; flex-direction:column; }
         .chart-panel-title {
             font-size:7pt; font-weight:700; letter-spacing:-0.01em;
-            color:#16355c; margin:0 0 1pt;
+            color:#4c1d95; margin:0 0 1pt;
             font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
         }
-        .chart-panel-sub { font-size:5.5pt; color:#7a90a5; margin:0 0 7pt; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
+        .chart-panel-sub { font-size:5.5pt; color:#8b7aad; margin:0 0 7pt; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
         .chart-panel svg { width:100%; height:auto; display:block; }
 
         /* ── D3 tooltip ────────────────────── */
@@ -77,7 +77,7 @@
             white-space:nowrap; opacity:0; transition:opacity 0.15s;
             font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
         }
-        .d3-tooltip .tt-label { color:#9cc3e0; font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:1.5pt; }
+        .d3-tooltip .tt-label { color:#a78bfa; font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:1.5pt; }
         .d3-tooltip .tt-row { display:flex; align-items:center; gap:4pt; }
         .d3-tooltip .tt-swatch { width:6pt; height:6pt; flex-shrink:0; }
         .d3-tooltip .tt-val { font-weight:700; font-variant-numeric:tabular-nums; margin-left:auto; padding-left:6pt; font-family:"DejaVu Sans Mono",monospace; }
@@ -86,8 +86,8 @@
         .chart-legend { display:flex; flex-wrap:wrap; gap:3pt; margin-bottom:8pt; }
         .chart-legend-item {
             display:inline-flex; align-items:center; gap:3pt;
-            font-size:5pt; color:#4a5f78; font-weight:600;
-            background:#eef6fc; border:1px solid #c9dff0;
+            font-size:5pt; color:#6b5b8a; font-weight:600;
+            background:#f5f3ff; border:1px solid #c4b5fd;
             padding:1.5pt 5pt;
             font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
         }
@@ -95,21 +95,21 @@
 
         /* ── Recent transactions table ─────── */
         .dash-table { width:100%; border-collapse:collapse; font-size:6.5pt; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
-        .dash-table th { font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#7a90a5; text-align:left; padding:5pt 5pt; border-bottom:1.5pt solid #16355c; }
-        .dash-table td { padding:5pt 5pt; border-bottom:0.4pt solid #ddebf5; color:#16355c; }
+        .dash-table th { font-size:5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#8b7aad; text-align:left; padding:5pt 5pt; border-bottom:1.5pt solid #4c1d95; }
+        .dash-table td { padding:5pt 5pt; border-bottom:0.4pt solid #ddd6fe; color:#4c1d95; }
         .dash-table tbody tr { transition:background 0.12s; }
-        .dash-table tbody tr:hover { background:#eef6fc; }
+        .dash-table tbody tr:hover { background:#f5f3ff; }
         .dash-table tr:last-child td { border-bottom:none; }
         .dash-table .mono { font-variant-numeric:tabular-nums; font-family:"DejaVu Sans Mono",monospace; }
         .dash-table a {
-            color:#0079c8; text-decoration:none; font-weight:600; font-size:5.5pt;
-            background:#e7f3fb; padding:1pt 4pt;
+            color:#7c3aed; text-decoration:none; font-weight:600; font-size:5.5pt;
+            background:#ede9fe; padding:1pt 4pt;
             display:inline-block; transition:background 0.12s;
         }
-        .dash-table a:hover { background:#c9dff0; }
+        .dash-table a:hover { background:#c4b5fd; }
 
         /* ── Empty state ───────────────────── */
-        .dash-empty { text-align:center; padding:20pt 8pt; color:#7a90a5; font-size:7pt; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
+        .dash-empty { text-align:center; padding:20pt 8pt; color:#8b7aad; font-size:7pt; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; }
     </style>
 @endpush
 
@@ -150,9 +150,9 @@
                     return number_format($v, 0);
                 };
                 $cards = [
-                    ['key' => 'revenue',  'label' => 'Revenue',       'value' => $revenue,      'prior' => $priorRevenue,   'upGood' => true,  'color' => '#0079c8', 'tint' => '#e7f3fb'],
+                    ['key' => 'revenue',  'label' => 'Revenue',       'value' => $revenue,      'prior' => $priorRevenue,   'upGood' => true,  'color' => '#7c3aed', 'tint' => '#ede9fe'],
                     ['key' => 'expenses', 'label' => 'Expenses',      'value' => $expenses,     'prior' => $priorExpenses,  'upGood' => false, 'color' => '#e34948', 'tint' => '#fef3f2'],
-                    ['key' => 'profit',   'label' => 'Net Profit',    'value' => $netProfit,    'prior' => $priorNetProfit, 'upGood' => true,  'color' => '#16355c', 'tint' => '#eef6fc'],
+                    ['key' => 'profit',   'label' => 'Net Profit',    'value' => $netProfit,    'prior' => $priorNetProfit, 'upGood' => true,  'color' => '#4c1d95', 'tint' => '#f5f3ff'],
                     ['key' => 'cash',     'label' => 'Cash Position', 'value' => $cashPosition, 'prior' => null,            'upGood' => true,  'color' => '#1baf7a', 'tint' => '#ecfdf3'],
                 ];
                 $icons = [
@@ -198,7 +198,7 @@
             <p class="chart-panel-title">Revenue vs Expenses</p>
             <p class="chart-panel-sub">Monthly totals for the selected period</p>
             <div class="chart-legend">
-                <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#0079c8;"></span> Revenue</span>
+                <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#7c3aed;"></span> Revenue</span>
                 <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#e34948;"></span> Expenses</span>
             </div>
             <div id="chart-rev-exp" style="width:100%;"></div>
@@ -209,7 +209,7 @@
             <p class="chart-panel-title">Cash Flow Trend</p>
             <p class="chart-panel-sub">Operating, investing &amp; financing activity per month</p>
             <div class="chart-legend">
-                <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#0079c8;"></span> Operating</span>
+                <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#7c3aed;"></span> Operating</span>
                 <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#1baf7a;"></span> Investing</span>
                 <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#eda100;"></span> Financing</span>
             </div>
@@ -222,11 +222,11 @@
                 <p class="chart-panel-title">Balance Sheet Composition</p>
                 <p class="chart-panel-sub">Financial position as at {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }}</p>
                 <div class="chart-legend">
-                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#0079c8;"></span> Current Assets</span>
+                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#7c3aed;"></span> Current Assets</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#1baf7a;"></span> Non-Current Assets</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#eda100;"></span> Current Liabilities</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#e34948;"></span> Non-Current Liabilities</span>
-                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#16355c;"></span> Equity</span>
+                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#4c1d95;"></span> Equity</span>
                 </div>
                 <div id="chart-bs" style="width:100%;"></div>
             </div>
@@ -234,7 +234,7 @@
                 <p class="chart-panel-title">Accounts Receivable Aging</p>
                 <p class="chart-panel-sub">Outstanding debtors by age bucket</p>
                 <div class="chart-legend">
-                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#0079c8;"></span> Current</span>
+                    <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#7c3aed;"></span> Current</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#1baf7a;"></span> 31-60 days</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#eda100;"></span> 61-90 days</span>
                     <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#e34948;"></span> 91+ days</span>
@@ -264,7 +264,7 @@
                                 @foreach ($recentTransactions as $t)
                                     @php
                                         $flow = $t['cash_flow'] ?? 'none';
-                                        $flowColor = $flow === 'inflow' ? '#027a48' : ($flow === 'outflow' ? '#b42318' : '#4a5f78');
+                                        $flowColor = $flow === 'inflow' ? '#027a48' : ($flow === 'outflow' ? '#b42318' : '#6b5b8a');
                                     @endphp
                                     <tr>
                                         <td class="mono" style="white-space:nowrap;">{{ $t['date'] }}</td>
@@ -408,18 +408,18 @@ function verticalGradient(svg, color, topOpacity, bottomOpacity) {
     g.append('g').selectAll('line').data(y.ticks(5)).join('line')
         .attr('x1', 0).attr('x2', innerW)
         .attr('y1', d => y(d)).attr('y2', d => y(d))
-        .attr('stroke', '#ddebf5').attr('stroke-width', 1).attr('stroke-dasharray', '3,3');
+        .attr('stroke', '#ddd6fe').attr('stroke-width', 1).attr('stroke-dasharray', '3,3');
 
     g.append('g').attr('transform', `translate(0,${innerH})`)
         .call(D3.axisBottom(x0).tickValues(thinTicks(x0.domain(), innerW)).tickSize(0).tickPadding(10))
         .call(g => g.select('.domain').remove())
-        .selectAll('text').style('font-size', '5pt').style('fill', '#7a90a5').style('font-weight', '500');
+        .selectAll('text').style('font-size', '5pt').style('fill', '#8b7aad').style('font-weight', '500');
 
     g.append('g').call(D3.axisLeft(y).ticks(5).tickFormat(d => fmtCurrency(d)).tickSize(0).tickPadding(8))
         .call(g => g.select('.domain').remove())
-        .selectAll('text').style('font-size', '5pt').style('fill', '#7a90a5').style('font-weight', '500');
+        .selectAll('text').style('font-size', '5pt').style('fill', '#8b7aad').style('font-weight', '500');
 
-    const colors = { revenue: '#0079c8', expenses: '#e34948' };
+    const colors = { revenue: '#7c3aed', expenses: '#e34948' };
     const gradients = {
         revenue: verticalGradient(svg, colors.revenue, 1, 0.72),
         expenses: verticalGradient(svg, colors.expenses, 1, 0.72),
@@ -437,7 +437,7 @@ function verticalGradient(svg, color, topOpacity, bottomOpacity) {
                 D3.select(this).attr('opacity', 0.82);
                 showTooltip(evt, `
                     <div class="tt-label">${d.month}</div>
-                    <div class="tt-row"><span class="tt-swatch" style="background:#0079c8;"></span> Revenue <span class="tt-val">${fmtFull(d.revenue)}</span></div>
+                    <div class="tt-row"><span class="tt-swatch" style="background:#7c3aed;"></span> Revenue <span class="tt-val">${fmtFull(d.revenue)}</span></div>
                     <div class="tt-row"><span class="tt-swatch" style="background:#e34948;"></span> Expenses <span class="tt-val">${fmtFull(d.expenses)}</span></div>
                 `);
             })
@@ -475,22 +475,22 @@ function verticalGradient(svg, color, topOpacity, bottomOpacity) {
     g.append('g').selectAll('line').data(y.ticks(5)).join('line')
         .attr('x1', 0).attr('x2', innerW)
         .attr('y1', d => y(d)).attr('y2', d => y(d))
-        .attr('stroke', '#ddebf5').attr('stroke-width', 1).attr('stroke-dasharray', '3,3');
+        .attr('stroke', '#ddd6fe').attr('stroke-width', 1).attr('stroke-dasharray', '3,3');
 
     g.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y(0)).attr('y2', y(0))
-        .attr('stroke', '#c9dff0').attr('stroke-width', 1).attr('stroke-dasharray', '4,3');
+        .attr('stroke', '#c4b5fd').attr('stroke-width', 1).attr('stroke-dasharray', '4,3');
 
     g.append('g').attr('transform', `translate(0,${innerH})`)
         .call(D3.axisBottom(x).tickValues(thinTicks(x.domain(), innerW)).tickSize(0).tickPadding(10))
         .call(g => g.select('.domain').remove())
-        .selectAll('text').style('font-size', '5pt').style('fill', '#7a90a5').style('font-weight', '500');
+        .selectAll('text').style('font-size', '5pt').style('fill', '#8b7aad').style('font-weight', '500');
 
     g.append('g').call(D3.axisLeft(y).ticks(5).tickFormat(d => fmtCurrency(d)).tickSize(0).tickPadding(8))
         .call(g => g.select('.domain').remove())
-        .selectAll('text').style('font-size', '5pt').style('fill', '#7a90a5').style('font-weight', '500');
+        .selectAll('text').style('font-size', '5pt').style('fill', '#8b7aad').style('font-weight', '500');
 
     const series = [
-        { key: 'operating', color: '#0079c8', label: 'Operating' },
+        { key: 'operating', color: '#7c3aed', label: 'Operating' },
         { key: 'investing', color: '#1baf7a', label: 'Investing' },
         { key: 'financing', color: '#eda100', label: 'Financing' },
     ];
@@ -523,7 +523,7 @@ function verticalGradient(svg, color, topOpacity, bottomOpacity) {
             g.append('text')
                 .attr('x', x(last.month) + 8).attr('y', y(last.value) + 3.5)
                 .text(fmtCurrency(last.value))
-                .style('font-size', '5pt').style('fill', '#4a5f78').style('font-weight', '700')
+                .style('font-size', '5pt').style('fill', '#6b5b8a').style('font-weight', '700')
                 .style('font-variant-numeric', 'tabular-nums')
                 .style('opacity', 0)
                 .transition().delay(800).duration(300).style('opacity', 1);
@@ -531,7 +531,7 @@ function verticalGradient(svg, color, topOpacity, bottomOpacity) {
     });
 
     const crosshair = g.append('line').attr('y1', 0).attr('y2', innerH)
-        .attr('stroke', '#c9dff0').attr('stroke-width', 1).style('opacity', 0);
+        .attr('stroke', '#c4b5fd').attr('stroke-width', 1).style('opacity', 0);
 
     const hitArea = g.append('rect').attr('width', innerW).attr('height', innerH).attr('fill', 'none').attr('pointer-events', 'all');
     const months = cashFlowTrend.map(d => d.month);
@@ -575,7 +575,7 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
         g.append('path').attr('d', path).attr('fill', d.color)
             .style('cursor', 'pointer')
             .attr('opacity', 0)
-            .on('pointerenter', (evt) => showTooltip(evt, `<div class="tt-label">${d.label}</div><div class="tt-row"><span class="tt-swatch" style="background:${d.color};"></span> <span class="tt-val">${fmtFull(d.value)}</span></div><div style="color:#9cc3e0;font-size:5pt;">${(d.value / total * 100).toFixed(1)}%${opts.pctSuffix || ''}</div>`))
+            .on('pointerenter', (evt) => showTooltip(evt, `<div class="tt-label">${d.label}</div><div class="tt-row"><span class="tt-swatch" style="background:${d.color};"></span> <span class="tt-val">${fmtFull(d.value)}</span></div><div style="color:#a78bfa;font-size:5pt;">${(d.value / total * 100).toFixed(1)}%${opts.pctSuffix || ''}</div>`))
             .on('pointermove', (evt) => showTooltip(evt, tooltip.innerHTML))
             .on('pointerleave', hideTooltip)
             .transition().duration(500).delay(i * 90).attr('opacity', 1);
@@ -591,7 +591,7 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
         if (opts.labelsBelow && segW > 46) {
             g.append('text').attr('x', segX + segW / 2).attr('y', yTop + barH + 16)
                 .text(d.label)
-                .style('font-size', '4.5pt').style('fill', '#7a90a5').style('text-anchor', 'middle').style('font-weight', '600');
+                .style('font-size', '4.5pt').style('fill', '#8b7aad').style('text-anchor', 'middle').style('font-weight', '600');
         }
         offset += wFull;
     });
@@ -603,7 +603,7 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
     const totalAll = bsComposition.reduce((s, d) => s + d.value, 0);
     if (totalAll < 0.01) { container.innerHTML = '<div class="dash-empty">No balance sheet data.</div>'; return; }
 
-    const colors = ['#0079c8', '#1baf7a', '#eda100', '#e34948', '#16355c'];
+    const colors = ['#7c3aed', '#1baf7a', '#eda100', '#e34948', '#4c1d95'];
 
     const margin = { top: 6, right: 16, bottom: 8, left: 16 };
     const width = container.clientWidth || 400;
@@ -623,10 +623,10 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
     const assetsTotal = assets.reduce((s, d) => s + d.value, 0);
     g.append('text').attr('x', 0).attr('y', 13)
         .text('Assets')
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4a5f78');
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#6b5b8a');
     g.append('text').attr('x', innerW).attr('y', 13)
         .text(fmtCurrency(assetsTotal))
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#16355c')
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4c1d95')
         .style('text-anchor', 'end').style('font-variant-numeric', 'tabular-nums');
     segmentedBar(g, assets, innerW, 20, barH, { pctSuffix: ' of assets' });
 
@@ -635,10 +635,10 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
     const y2 = 94;
     g.append('text').attr('x', 0).attr('y', y2 - 7)
         .text('Liabilities + Equity')
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4a5f78');
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#6b5b8a');
     g.append('text').attr('x', innerW).attr('y', y2 - 7)
         .text(fmtCurrency(leTotal))
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#16355c')
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4c1d95')
         .style('text-anchor', 'end').style('font-variant-numeric', 'tabular-nums');
     segmentedBar(g, le, innerW, y2, barH, { pctSuffix: '' });
 })();
@@ -647,7 +647,7 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
 (function () {
     const container = document.getElementById('chart-ar');
     const buckets = [
-        { key: 'current', label: 'Current', color: '#0079c8' },
+        { key: 'current', label: 'Current', color: '#7c3aed' },
         { key: 'days_31_60', label: '31-60 days', color: '#1baf7a' },
         { key: 'days_61_90', label: '61-90 days', color: '#eda100' },
         { key: 'days_91_plus', label: '91+ days', color: '#e34948' },
@@ -669,10 +669,10 @@ function segmentedBar(g, segments, innerW, yTop, barH, opts) {
 
     g.append('text').attr('x', 0).attr('y', 13)
         .text('Total Outstanding')
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4a5f78');
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#6b5b8a');
     g.append('text').attr('x', innerW).attr('y', 13)
         .text(fmtCurrency(total))
-        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#16355c')
+        .style('font-size', '5.5pt').style('font-weight', '700').style('fill', '#4c1d95')
         .style('text-anchor', 'end').style('font-variant-numeric', 'tabular-nums');
 
     const segments = buckets.map(b => ({ label: b.label, value: arAging[b.key], color: b.color }));

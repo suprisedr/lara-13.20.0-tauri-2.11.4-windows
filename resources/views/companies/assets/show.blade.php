@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back {
             font-size: 7pt;
-            color: #7a90a5;
+            color: #8b7aad;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -30,15 +30,15 @@
             font-family: inherit;
         }
 
-        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color: #16355c; }
+        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color: #4c1d95; }
 
         .mgmt-btn {
             display: inline-flex;
             align-items: center;
             gap: 3pt;
             background: #fff;
-            border: 1px solid #c9dff0;
-            color: #16355c;
+            border: 1px solid #c4b5fd;
+            color: #4c1d95;
             font-size: 6.5pt;
             font-weight: 700;
             text-transform: uppercase;
@@ -50,9 +50,9 @@
             transition: background 0.15s, color 0.15s;
         }
 
-        .mgmt-btn:hover { background: #eef6fc; color: #16355c; }
+        .mgmt-btn:hover { background: #f5f3ff; color: #4c1d95; }
 
-        .mgmt-btn.primary { background: #0079c8; color: #fff; border-color: #0079c8; }
+        .mgmt-btn.primary { background: #7c3aed; color: #fff; border-color: #7c3aed; }
         .mgmt-btn.primary:hover { background: #005f9e; }
 
         .mgmt-btn.danger { border-color: #dc2626; color: #dc2626; }
@@ -61,9 +61,9 @@
         /* ── Asset document ─────────────────────────────────────── */
         .cust-doc {
             background: #fff;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #16355c;
+            color: #4c1d95;
             font-size: 7pt;
             line-height: 1.45;
         }
@@ -90,7 +90,7 @@
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             padding: 1pt 4pt;
             font-size: 5.5pt;
             letter-spacing: 0.08em;
@@ -101,12 +101,12 @@
 
         .divider {
             border: none;
-            border-top: 1.5pt solid #16355c;
+            border-top: 1.5pt solid #4c1d95;
             margin: 8pt 0 10pt;
         }
 
         .divider.light {
-            border-top: 1px solid #ddebf5;
+            border-top: 1px solid #ddd6fe;
             margin: 10pt 0;
         }
 
@@ -141,7 +141,7 @@
             font-size: 7.5pt;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border-bottom: 1.5px solid #16355c;
+            border-bottom: 1.5px solid #4c1d95;
             padding-bottom: 2pt;
             margin-bottom: 4pt;
         }
@@ -158,7 +158,7 @@
             font-size: 6.5pt;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            border-bottom: 1.5px solid #16355c;
+            border-bottom: 1.5px solid #4c1d95;
             padding-bottom: 4pt;
         }
 
@@ -167,7 +167,7 @@
         table.cust-items-table tbody td {
             padding: 4pt 0;
             font-size: 7pt;
-            border-bottom: 1px solid #ddebf5;
+            border-bottom: 1px solid #ddd6fe;
             vertical-align: middle;
         }
 
@@ -178,7 +178,7 @@
         }
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
-        table.cust-items-table tbody tr:hover td { background: #eef6fc; }
+        table.cust-items-table tbody tr:hover td { background: #f5f3ff; }
 
         .ev-chip {
             display: inline-block;
@@ -193,7 +193,7 @@
         .empty-row {
             padding: 8pt 0;
             text-align: center;
-            color: #7a90a5;
+            color: #8b7aad;
             font-size: 7pt;
         }
 
@@ -203,7 +203,7 @@
         }
 
         .action-panel {
-            border-bottom: 1px solid #ddebf5;
+            border-bottom: 1px solid #ddd6fe;
         }
 
         .action-panel-head {
@@ -229,25 +229,25 @@
         }
 
         .action-panel.open .action-panel-body { display: block; }
-        .action-panel-chevron { font-size: 6pt; color: #7a90a5; transition: transform 0.15s; }
+        .action-panel-chevron { font-size: 6pt; color: #8b7aad; transition: transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform: rotate(180deg); }
 
         /* form fields inside action panels */
         .af-row { display: flex; flex-wrap: wrap; gap: 4pt 6pt; align-items: flex-end; margin-bottom: 5pt; }
         .af-field { flex: 1; min-width: 100pt; }
         .af-field.wide { flex: 2; min-width: 150pt; }
-        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #7a90a5; margin-bottom: 2pt; }
-        .af-field input, .af-field select { width: 100%; border: 1px solid #c9dff0; padding: 3pt 4pt; font-size: 7pt; font-family: inherit; color: #16355c; box-sizing: border-box; background: #fff; }
-        .af-field input:disabled { background: #eef6fc; color: #7a90a5; }
-        .af-field input:focus, .af-field select:focus { outline: none; border-color: #0079c8; }
+        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #8b7aad; margin-bottom: 2pt; }
+        .af-field input, .af-field select { width: 100%; border: 1px solid #c4b5fd; padding: 3pt 4pt; font-size: 7pt; font-family: inherit; color: #4c1d95; box-sizing: border-box; background: #fff; }
+        .af-field input:disabled { background: #f5f3ff; color: #8b7aad; }
+        .af-field input:focus, .af-field select:focus { outline: none; border-color: #7c3aed; }
 
-        .af-hint { font-size: 6pt; color: #7a90a5; margin-bottom: 4pt; line-height: 1.4; }
+        .af-hint { font-size: 6pt; color: #8b7aad; margin-bottom: 4pt; line-height: 1.4; }
 
         /* Edit modal fields */
-        .as-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#7a90a5; margin-bottom:2pt; }
-        .as-field input, .as-field select { width:100%; border:1px solid #c9dff0; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#16355c; background:#fff; outline:none; box-sizing:border-box; height:16pt; border-radius:0; }
-        .as-field input:focus, .as-field select:focus { border-color:#0079c8; }
-        .as-field input:disabled { background:#eef6fc; color:#7a90a5; }
+        .as-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#8b7aad; margin-bottom:2pt; }
+        .as-field input, .as-field select { width:100%; border:1px solid #c4b5fd; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#4c1d95; background:#fff; outline:none; box-sizing:border-box; height:16pt; border-radius:0; }
+        .as-field input:focus, .as-field select:focus { border-color:#7c3aed; }
+        .as-field input:disabled { background:#f5f3ff; color:#8b7aad; }
 
         @media (max-width: 640px) {
             .cust-doc-body { padding: 10pt 8pt; }
@@ -320,7 +320,7 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:11pt;font-weight:800;letter-spacing:-0.01em;">{{ $asset->name }}</div>
                                     @if ($asset->asset_tag)
-                                        <div style="font-size:7pt;color:#7a90a5;margin-top:2pt;">{{ $asset->asset_tag }}</div>
+                                        <div style="font-size:7pt;color:#8b7aad;margin-top:2pt;">{{ $asset->asset_tag }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -355,7 +355,7 @@
                                         <div><span style="font-weight:700;display:inline-block;width:130px;">SARS wear &amp; tear</span>{{ $asset->sars_wear_tear_years }} years</div>
                                     @endif
                                     @if ($asset->notes)
-                                        <div style="margin-top:3pt;color:#7a90a5;font-style:italic;">{{ $asset->notes }}</div>
+                                        <div style="margin-top:3pt;color:#8b7aad;font-style:italic;">{{ $asset->notes }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:50%;text-align:right;">
@@ -404,8 +404,8 @@
                         {{-- IAS 16 Movement History --}}
                         <div class="info-section">
                             <div class="section-header">IAS 16 Movement History</div>
-                            <div id="history-loading" style="color:#7a90a5;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history…</div>
-                            <div id="history-empty"   style="display:none;color:#7a90a5;font-size:7pt;font-style:italic;padding:6pt 0;">No journal events recorded yet for this asset.</div>
+                            <div id="history-loading" style="color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history…</div>
+                            <div id="history-empty"   style="display:none;color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">No journal events recorded yet for this asset.</div>
                             <table class="cust-items-table" id="history-table" style="display:none;">
                                 <thead>
                                     <tr>
@@ -424,12 +424,12 @@
                         @if ($asset->status === \App\Models\Asset::STATUS_ACTIVE)
                         <div class="action-section">
                             <div class="section-header">Record a Movement</div>
-                            <p style="font-size:6.5pt;color:#7a90a5;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
+                            <p style="font-size:6.5pt;color:#8b7aad;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
 
                             {{-- Capitalise --}}
                             <div class="action-panel" id="panel-capitalise">
                                 <div class="action-panel-head" onclick="togglePanel('capitalise')">
-                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#7a90a5;">(IAS 16.7)</small></span>
+                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#8b7aad;">(IAS 16.7)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -461,7 +461,7 @@
                             {{-- Revalue --}}
                             <div class="action-panel" id="panel-revalue">
                                 <div class="action-panel-head" onclick="togglePanel('revalue')">
-                                    <span class="action-panel-title">Revalue asset <small style="font-weight:400;color:#7a90a5;">(IAS 16.31)</small></span>
+                                    <span class="action-panel-title">Revalue asset <small style="font-weight:400;color:#8b7aad;">(IAS 16.31)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -493,7 +493,7 @@
                             {{-- Impair --}}
                             <div class="action-panel" id="panel-impair">
                                 <div class="action-panel-head" onclick="togglePanel('impair')">
-                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#7a90a5;">(IAS 36)</small></span>
+                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -529,7 +529,7 @@
                             {{-- Reverse impairment --}}
                             <div class="action-panel" id="panel-reverse">
                                 <div class="action-panel-head" onclick="togglePanel('reverse')">
-                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#7a90a5;">(IAS 36.114)</small></span>
+                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36.114)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -561,7 +561,7 @@
                             {{-- Dispose --}}
                             <div class="action-panel" id="panel-dispose">
                                 <div class="action-panel-head" onclick="togglePanel('dispose')">
-                                    <span class="action-panel-title">Dispose asset <small style="font-weight:400;color:#7a90a5;">(IAS 16.67)</small></span>
+                                    <span class="action-panel-title">Dispose asset <small style="font-weight:400;color:#8b7aad;">(IAS 16.67)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -593,7 +593,7 @@
                             {{-- Held for Sale (IFRS 5) --}}
                             <div class="action-panel" id="panel-held-for-sale">
                                 <div class="action-panel-head" onclick="togglePanel('held-for-sale')">
-                                    <span class="action-panel-title">Reclassify as held for sale <small style="font-weight:400;color:#7a90a5;">(IFRS 5)</small></span>
+                                    <span class="action-panel-title">Reclassify as held for sale <small style="font-weight:400;color:#8b7aad;">(IFRS 5)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -836,11 +836,11 @@ const journalStatusStyle = {
     {{-- Edit asset modal --}}
     <div id="edit-modal"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:16pt 8pt;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #16355c;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5pt solid #16355c;">
+        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #4c1d95;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5pt solid #4c1d95;">
                 <h3 style="font-size:8pt;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;">Edit Asset</h3>
                 <button onclick="closeEditModal()"
-                    style="background:none;border:none;font-size:11pt;line-height:1;color:#16355c;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:11pt;line-height:1;color:#4c1d95;cursor:pointer;">&times;</button>
             </div>
 
             <form method="POST" action="{{ route('companies.assets.update', [$company, $asset]) }}">
@@ -886,7 +886,7 @@ const journalStatusStyle = {
                     <div class="as-field">
                         <label>Depreciation start date</label>
                         <input type="date" name="depreciation_start_date" value="{{ old('depreciation_start_date', $asset->depreciation_start_date?->format('Y-m-d')) }}" placeholder="Defaults to acquisition date">
-                        <span style="font-size:5.5pt;color:#7a90a5;">When the asset is ready for use. Leave blank to use acquisition date.</span>
+                        <span style="font-size:5.5pt;color:#8b7aad;">When the asset is ready for use. Leave blank to use acquisition date.</span>
                     </div>
                     <div class="as-field">
                         <label>Cost (R)</label>
@@ -917,11 +917,11 @@ const journalStatusStyle = {
                         <input type="text" name="notes" value="{{ old('notes', $asset->notes) }}" placeholder="Any additional detail">
                     </div>
                 </div>
-                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #c9dff0;">
+                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #c4b5fd;">
                     <button type="button" onclick="closeEditModal()"
-                        style="padding:4pt 9pt;border:1px solid #c9dff0;font-size:6.5pt;color:#16355c;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                        style="padding:4pt 9pt;border:1px solid #c4b5fd;font-size:6.5pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                     <button type="submit"
-                        style="padding:4pt 10pt;background:#0079c8;color:#fff;border:1px solid #0079c8;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
+                        style="padding:4pt 10pt;background:#7c3aed;color:#fff;border:1px solid #7c3aed;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
                 </div>
                 </div>
             </form>

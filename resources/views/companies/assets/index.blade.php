@@ -67,7 +67,7 @@
                                                 @if (($class->accounting_policy ?? 'cost') === 'revaluation')
                                                     <span class="reg-status revaluation">Revaluation</span>
                                                 @else
-                                                    <span style="color:#6a86a0;">Cost</span>
+                                                    <span style="color:#8b7aad;">Cost</span>
                                                 @endif
                                             </td>
                                             <td class="amt">
@@ -100,14 +100,14 @@
 
                 {{-- ── Asset Register ───────────────────────────────── --}}
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:6.5pt;color:#4a5f78;">
+                    <span style="font-size:6.5pt;color:#6b5b8a;">
                         {{ $assets->count() }} asset{{ $assets->count() !== 1 ? 's' : '' }}
                     </span>
                     <div style="display:flex;align-items:center;gap:6pt;flex-wrap:wrap;">
                         <form method="GET" action="{{ route('companies.assets.index', $company) }}" style="display:flex;align-items:center;gap:4pt;">
-                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#4a5f78;">Dep. as at</label>
+                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b5b8a;">Dep. as at</label>
                             <input type="date" name="as_of" value="{{ $asOf }}" onchange="this.form.submit()"
-                                style="border:1px solid #c9dff0;padding:2pt 4pt;font-size:7pt;font-family:Helvetica,Arial,sans-serif;color:#16355c;">
+                                style="border:1px solid #c4b5fd;padding:2pt 4pt;font-size:7pt;font-family:Helvetica,Arial,sans-serif;color:#4c1d95;">
                         </form>
                         <button type="button" class="reg-btn primary" onclick="openModal('asset-modal')">+ Add Asset</button>
                     </div>
@@ -224,11 +224,11 @@
     {{-- ── Add Class Modal ──────────────────────────────────────── --}}
     <div id="class-modal"
         style="display:none;position:fixed;inset:0;background:rgba(22,53,92,0.45);z-index:9999;align-items:center;justify-content:center;padding:2rem 1rem;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:520px;border-top:2pt solid #16355c;box-shadow:0 20px 60px rgba(22,53,92,0.25);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:8pt 12pt;border-bottom:1pt solid #c9dff0;">
-                <h3 style="font-size:9pt;font-weight:800;letter-spacing:0.02em;margin:0;color:#16355c;">Add PPE Class</h3>
+        <div style="background:#fff;width:100%;max-width:520px;border-top:2pt solid #4c1d95;box-shadow:0 20px 60px rgba(22,53,92,0.25);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8pt 12pt;border-bottom:1pt solid #c4b5fd;">
+                <h3 style="font-size:9pt;font-weight:800;letter-spacing:0.02em;margin:0;color:#4c1d95;">Add PPE Class</h3>
                 <button onclick="closeModal('class-modal')"
-                    style="background:none;border:none;font-size:12pt;line-height:1;color:#7a90a5;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:12pt;line-height:1;color:#8b7aad;cursor:pointer;">&times;</button>
             </div>
             <form method="POST" action="{{ route('companies.assets.classes.store', $company) }}">
                 @csrf
@@ -259,11 +259,11 @@
                             </select>
                         </div>
                     </div>
-                    <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:5pt;border-top:0.5pt solid #ddebf5;">
+                    <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:5pt;border-top:0.5pt solid #ddd6fe;">
                         <button type="button" onclick="closeModal('class-modal')"
-                            style="padding:3pt 8pt;border:1px solid #c9dff0;font-size:6.5pt;color:#16355c;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                            style="padding:3pt 8pt;border:1px solid #c4b5fd;font-size:6.5pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                         <button type="submit"
-                            style="padding:3pt 10pt;background:#16355c;color:#fff;border:1px solid #16355c;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Add Class</button>
+                            style="padding:3pt 10pt;background:#4c1d95;color:#fff;border:1px solid #4c1d95;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Add Class</button>
                     </div>
                 </div>
             </form>
@@ -273,11 +273,11 @@
     {{-- ── Add Asset Modal ──────────────────────────────────────── --}}
     <div id="asset-modal"
         style="display:none;position:fixed;inset:0;background:rgba(22,53,92,0.45);z-index:9999;align-items:center;justify-content:center;padding:2rem 1rem;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:680px;border-top:2pt solid #16355c;box-shadow:0 20px 60px rgba(22,53,92,0.25);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:8pt 12pt;border-bottom:1pt solid #c9dff0;">
-                <h3 style="font-size:9pt;font-weight:800;letter-spacing:0.02em;margin:0;color:#16355c;">Add Asset</h3>
+        <div style="background:#fff;width:100%;max-width:680px;border-top:2pt solid #4c1d95;box-shadow:0 20px 60px rgba(22,53,92,0.25);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8pt 12pt;border-bottom:1pt solid #c4b5fd;">
+                <h3 style="font-size:9pt;font-weight:800;letter-spacing:0.02em;margin:0;color:#4c1d95;">Add Asset</h3>
                 <button onclick="closeModal('asset-modal')"
-                    style="background:none;border:none;font-size:12pt;line-height:1;color:#7a90a5;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:12pt;line-height:1;color:#8b7aad;cursor:pointer;">&times;</button>
             </div>
             <form method="POST" action="{{ route('companies.assets.store', $company) }}">
                 @csrf
@@ -347,7 +347,7 @@
                         <div class="reg-modal-field">
                             <label>Depreciation start date</label>
                             <input type="date" name="depreciation_start_date" value="{{ old('depreciation_start_date') }}">
-                            <span style="font-size:5pt;color:#7a90a5;">Leave blank to use acquisition date.</span>
+                            <span style="font-size:5pt;color:#8b7aad;">Leave blank to use acquisition date.</span>
                         </div>
 
                         <div class="reg-modal-field" style="grid-column:1/-1;">
@@ -356,11 +356,11 @@
                         </div>
                     </div>
 
-                    <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:5pt;border-top:0.5pt solid #ddebf5;">
+                    <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:5pt;border-top:0.5pt solid #ddd6fe;">
                         <button type="button" onclick="closeModal('asset-modal')"
-                            style="padding:3pt 8pt;border:1px solid #c9dff0;font-size:6.5pt;color:#16355c;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                            style="padding:3pt 8pt;border:1px solid #c4b5fd;font-size:6.5pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                         <button type="submit"
-                            style="padding:3pt 10pt;background:#16355c;color:#fff;border:1px solid #16355c;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Add Asset</button>
+                            style="padding:3pt 10pt;background:#4c1d95;color:#fff;border:1px solid #4c1d95;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Add Asset</button>
                     </div>
                 </div>
             </form>

@@ -11,14 +11,14 @@
         body {
             font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7pt;
-            color: #16355c;
+            color: #4c1d95;
             background: #fff;
             line-height: 1.4;
         }
 
         /* ── Header ─────────────────────────────── */
         .doc-header {
-            background: #16355c;
+            background: #4c1d95;
             color: #fff;
             padding: 6mm 8mm;
             margin-bottom: 0;
@@ -57,7 +57,7 @@
         .period-label { font-size: 6pt; color: rgba(255,255,255,0.5); margin-top: 3pt; }
 
         /* ── Vendor bar ──────────────────────────── */
-        .vendor-bar { border-bottom: 1.5pt solid #16355c; }
+        .vendor-bar { border-bottom: 1.5pt solid #4c1d95; }
         .vendor-bar table { width: 100%; border-collapse: collapse; }
         .vendor-bar td {
             padding: 3mm 4mm;
@@ -70,15 +70,15 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #4a5f78;
+            color: #6b5b8a;
             margin-bottom: 1.5pt;
         }
-        .vc-value { font-size: 7.5pt; font-weight: bold; color: #16355c; }
+        .vc-value { font-size: 7.5pt; font-weight: bold; color: #4c1d95; }
         .vc-draft { color: #92400e; }
 
         /* ── Section heading ─────────────────────── */
         .section-head {
-            background: #16355c;
+            background: #4c1d95;
             color: #fff;
             padding: 2.5mm 4mm;
         }
@@ -110,11 +110,11 @@
             padding: 3mm 1mm;
             font-size: 6pt;
             font-weight: bold;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
         .field-desc { padding: 3mm 4mm; }
-        .field-desc strong { display: block; font-weight: bold; font-size: 7pt; color: #16355c; }
-        .field-desc span { font-size: 5.5pt; color: #4a5f78; }
+        .field-desc strong { display: block; font-weight: bold; font-size: 7pt; color: #4c1d95; }
+        .field-desc span { font-size: 5.5pt; color: #6b5b8a; }
         .field-amount {
             width: 80pt;
             padding: 3mm 4mm;
@@ -122,29 +122,29 @@
             border-left: 0.5pt solid #d5e6f2;
             font-weight: bold;
             font-size: 8pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* ── Net payable row ─────────────────────── */
-        .net-row { background: #e7f3fb; border-top: 1.5pt solid #16355c; }
-        .net-row .field-no { background: #d8ecf9; border-right: 0.5pt solid #b8d6ec; font-size: 7pt; }
+        .net-row { background: #ede9fe; border-top: 1.5pt solid #4c1d95; }
+        .net-row .field-no { background: #d8ecf9; border-right: 0.5pt solid #c4b5fd; font-size: 7pt; }
         .net-row .field-desc strong { font-size: 8pt; }
-        .net-row .field-amount { font-size: 10pt; border-left: 0.5pt solid #b8d6ec; }
+        .net-row .field-amount { font-size: 10pt; border-left: 0.5pt solid #c4b5fd; }
 
         /* ── Detail table ────────────────────────── */
         .detail-head {
             background: #f2f8fd;
-            border-top: 1.5pt solid #16355c;
+            border-top: 1.5pt solid #4c1d95;
             border-bottom: 0.5pt solid #d5e6f2;
             padding: 2mm 4mm;
         }
         .detail-head table { width: 100%; border-collapse: collapse; }
-        .dh-label { font-size: 5.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #4a5f78; }
-        .dh-count { font-size: 5.5pt; color: #4a5f78; text-align: right; }
+        .dh-label { font-size: 5.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #6b5b8a; }
+        .dh-count { font-size: 5.5pt; color: #6b5b8a; text-align: right; }
 
         table.tx-table { width: 100%; border-collapse: collapse; }
         table.tx-table thead th {
-            background: #16355c;
+            background: #4c1d95;
             color: rgba(255,255,255,0.85);
             font-size: 5.5pt;
             font-weight: bold;
@@ -156,14 +156,14 @@
         }
         table.tx-table thead th.r { text-align: right; }
         table.tx-table tbody tr { border-bottom: 0.5pt solid #e4f0f9; }
-        table.tx-table td { padding: 1.8mm 3mm; font-size: 6.5pt; color: #16355c; }
+        table.tx-table td { padding: 1.8mm 3mm; font-size: 6.5pt; color: #4c1d95; }
         table.tx-table td.r { text-align: right; font-weight: bold; }
-        table.tx-table td.dim { color: #4a5f78; }
+        table.tx-table td.dim { color: #6b5b8a; }
         table.tx-table tfoot td {
             padding: 2mm 3mm;
             font-weight: bold;
-            background: #e7f3fb;
-            border-top: 1pt solid #16355c;
+            background: #ede9fe;
+            border-top: 1pt solid #4c1d95;
             font-size: 7pt;
         }
         table.tx-table tfoot td.r { text-align: right; }
@@ -177,7 +177,7 @@
             background: #f2f8fd;
             border-top: 0.5pt solid #d5e6f2;
             font-size: 5pt;
-            color: #4a5f78;
+            color: #6b5b8a;
             line-height: 1.5;
         }
         .clearfix::after { content: ''; display: table; clear: both; }

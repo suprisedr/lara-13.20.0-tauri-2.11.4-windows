@@ -26,15 +26,15 @@
             border-radius: 0;
             border: 1px solid transparent;
             background: transparent;
-            color: #7a90a5;
+            color: #8b7aad;
             cursor: pointer;
             transition: background 0.15s, border-color 0.15s, color 0.15s;
         }
         .kebab-btn:hover,
         .kebab-btn.active {
-            background: #eef6fc;
+            background: #f5f3ff;
             border-color: rgba(22,53,92,0.18);
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* ── Page-specific: actions modal ─────────────────────── */
@@ -57,25 +57,25 @@
             max-width: 320px;
             box-shadow: 0 12px 32px rgba(22,53,92,0.18);
             overflow: hidden;
-            border-top: 2pt solid #16355c;
+            border-top: 2pt solid #4c1d95;
         }
 
         .actions-modal-head {
             padding: 1rem 1.25rem 0.85rem;
-            border-bottom: 1pt solid #c9dff0;
+            border-bottom: 1pt solid #c4b5fd;
         }
         .actions-modal-head p.label {
             font-size: 6pt;
             font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #16355c;
+            color: #4c1d95;
             margin: 0 0 0.25rem;
         }
         .actions-modal-head h3 {
             font-size: 9pt;
             font-weight: 800;
-            color: #16355c;
+            color: #4c1d95;
             margin: 0;
         }
 
@@ -94,7 +94,7 @@
             border-radius: 0;
             font-size: 7.5pt;
             font-weight: 700;
-            color: #16355c;
+            color: #4c1d95;
             text-decoration: none;
             border: none;
             background: none;
@@ -104,9 +104,9 @@
             font-family: inherit;
             transition: background 0.12s, color 0.12s;
         }
-        .actions-modal-item svg { flex-shrink: 0; color: #7a90a5; transition: color 0.12s; }
-        .actions-modal-item:hover { background: #eef6fc; color: #16355c; }
-        .actions-modal-item:hover svg { color: #16355c; }
+        .actions-modal-item svg { flex-shrink: 0; color: #8b7aad; transition: color 0.12s; }
+        .actions-modal-item:hover { background: #f5f3ff; color: #4c1d95; }
+        .actions-modal-item:hover svg { color: #4c1d95; }
 
         .actions-modal-foot { padding: 0.6rem 1.25rem 1rem; }
         .actions-modal-cancel {
@@ -115,31 +115,31 @@
             text-align: center;
             padding: 0.55rem;
             border-radius: 0;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             background: #fff;
-            color: #4a5f78;
+            color: #6b5b8a;
             font-size: 7pt;
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
             transition: background 0.12s;
         }
-        .actions-modal-cancel:hover { background: #f5faff; }
+        .actions-modal-cancel:hover { background: #faf5ff; }
 
         /* ── Page-specific: search ────────────────────────────── */
         .list-search-wrap { position:relative; display:flex; align-items:center; gap:0.4rem; }
         .list-search-input {
-            height:2rem; border:1px solid #c9dff0; border-radius:0;
+            height:2rem; border:1px solid #c4b5fd; border-radius:0;
             padding:0 1.6rem 0 0.6rem; font-size:6.5pt; font-family:inherit;
-            color:#16355c; background:#fff; width:200px; box-sizing:border-box;
+            color:#4c1d95; background:#fff; width:200px; box-sizing:border-box;
         }
-        .list-search-input:focus { outline:none; border-color:#16355c; }
+        .list-search-input:focus { outline:none; border-color:#4c1d95; }
         .list-search-clear {
             position:absolute; right:0.35rem; background:none; border:none;
-            cursor:pointer; font-size:0.9rem; color:#7a90a5; line-height:1; padding:0; display:none;
+            cursor:pointer; font-size:0.9rem; color:#8b7aad; line-height:1; padding:0; display:none;
         }
-        .list-search-clear:hover { color:#16355c; }
-        .list-search-count { font-size:6pt; color:#4a5f78; white-space:nowrap; }
+        .list-search-clear:hover { color:#4c1d95; }
+        .list-search-count { font-size:6pt; color:#6b5b8a; white-space:nowrap; }
         mark.ls-hl { background:#fef08a; border-radius:2px; padding:0 1px; font-weight:inherit; }
     </style>
 @endpush
@@ -186,16 +186,16 @@
 
                     @if ($customers->isEmpty())
                         <div class="reg-empty">
-                            <svg width="36" height="36" fill="none" stroke="#7a90a5" stroke-width="1.5"
+                            <svg width="36" height="36" fill="none" stroke="#8b7aad" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
                                 style="margin:0 auto 0.75rem;display:block;">
                                 <path d="M12 2a7 7 0 0 1 7 7v3a7 7 0 0 1-14 0V9a7 7 0 0 1 7-7z" />
                                 <path d="M5 22c0-3 2.5-5.5 7-5.5S19 19 19 22" />
                             </svg>
-                            <p style="font-weight:700;color:#4a5f78;margin:0 0 0.3rem;">No customers yet</p>
+                            <p style="font-weight:700;color:#6b5b8a;margin:0 0 0.3rem;">No customers yet</p>
                             <p style="font-size:7pt;margin:0 0 1rem;">Create customers and attach them to invoices.</p>
                             <a href="{{ route('companies.customers.create', $company) }}"
-                                style="display:inline-block;background:#16355c;color:#fff;border-radius:0;padding:0.5rem 1.25rem;font-size:7pt;font-weight:700;text-decoration:none;">
+                                style="display:inline-block;background:#4c1d95;color:#fff;border-radius:0;padding:0.5rem 1.25rem;font-size:7pt;font-weight:700;text-decoration:none;">
                                 Add Customer
                             </a>
                         </div>

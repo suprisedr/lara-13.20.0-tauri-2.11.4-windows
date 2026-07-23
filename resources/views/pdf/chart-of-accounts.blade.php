@@ -17,8 +17,8 @@
         table.coa thead th {
             padding: 4pt 5pt 5pt 5pt;
             font-weight: normal;
-            color: #4a5f78;
-            border-bottom: 0.75pt solid #16355c;
+            color: #6b5b8a;
+            border-bottom: 0.75pt solid #4c1d95;
             text-align: left;
             vertical-align: bottom;
         }
@@ -26,7 +26,7 @@
         table.coa thead th.num {
             text-align: right;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         table.coa tr { page-break-inside: avoid; }
@@ -35,19 +35,19 @@
             padding: 10pt 5pt 3pt 5pt;
             font-weight: bold;
             font-size: 10.5pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         table.coa tr.coa-group td {
             padding: 3.5pt 5pt;
             font-weight: bold;
-            color: #16355c;
-            border-bottom: 0.4pt solid #ddebf5;
+            color: #4c1d95;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         table.coa tr.coa-item td {
             padding: 3.5pt 5pt;
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
             color: #23282d;
         }
 
@@ -55,23 +55,23 @@
 
         table.coa td.num  { text-align: right; white-space: nowrap; }
         table.coa td.code { white-space: nowrap; }
-        table.coa td.dim  { color: #7a90a5; }
+        table.coa td.dim  { color: #8b7aad; }
 
         table.coa tr.coa-total td {
             padding: 4.5pt 5pt;
             font-weight: bold;
-            color: #16355c;
-            border-top: 0.75pt solid #16355c;
-            border-bottom: 0.75pt solid #16355c;
+            color: #4c1d95;
+            border-top: 0.75pt solid #4c1d95;
+            border-bottom: 0.75pt solid #4c1d95;
         }
 
         table.coa tr.coa-grand td {
             padding: 5pt;
             font-weight: bold;
-            color: #16355c;
-            background: #e7f3fb;
-            border-top: 0.75pt solid #16355c;
-            border-bottom: 1.5pt solid #16355c;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 0.75pt solid #4c1d95;
+            border-bottom: 1.5pt solid #4c1d95;
         }
 
         .coa-inactive { color: #b91c1c; }

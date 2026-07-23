@@ -78,7 +78,7 @@
         .stmt-page-header {
             font-size: 6pt;
             color: #555;
-            border-bottom: 0.75pt solid #c9dff0;
+            border-bottom: 0.75pt solid #c4b5fd;
             padding-bottom: 5pt;
             margin-bottom: 16pt;
             line-height: 1.5;
@@ -89,7 +89,7 @@
             font-size: 12pt;
             font-weight: bold;
             margin: 0 0 4pt 0;
-            color: #16355c;
+            color: #4c1d95;
             letter-spacing: 0;
             text-transform: none;
             border-bottom: none;
@@ -97,7 +97,7 @@
 
         hr.stmt-rule {
             border: none;
-            border-top: 0.75pt solid #b8d6ec;
+            border-top: 0.75pt solid #c4b5fd;
             margin: 0 0 10pt 0;
         }
 
@@ -105,7 +105,7 @@
             font-size: 10.5pt;
             font-weight: bold;
             margin: 8pt 0 3pt 0;
-            color: #16355c;
+            color: #4c1d95;
             text-transform: none;
         }
 
@@ -155,7 +155,7 @@
 
         table.index td {
             padding: 6pt 5pt;
-            border-bottom: 0.5pt dotted #c9dff0;
+            border-bottom: 0.5pt dotted #c4b5fd;
             vertical-align: middle;
         }
 
@@ -175,19 +175,19 @@
 
         table.fig th {
             font-weight: normal;
-            border-bottom: 0.75pt solid #16355c;
+            border-bottom: 0.75pt solid #4c1d95;
             padding: 4pt 4pt 5pt 0;
             text-align: left;
             vertical-align: bottom;
             background: #fff;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         table.fig th.amt {
             text-align: right;
             width: 18%;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
             padding-right: 3pt;
         }
 
@@ -223,29 +223,29 @@
 
         /* Regular data row */
         table.fig tr.line td {
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         /* Last line before a subtotal */
         table.fig tr.line-last td {
-            border-bottom: 0.6pt solid #9cc3e0;
+            border-bottom: 0.6pt solid #a78bfa;
         }
 
         /* Subtotal row */
         table.fig tr.subtot td {
             font-weight: bold;
-            color: #16355c;
-            border-bottom: 0.75pt solid #16355c;
+            color: #4c1d95;
+            border-bottom: 0.75pt solid #4c1d95;
             padding: 4pt 4pt;
         }
 
         /* Grand total */
         table.fig tr.grand td {
             font-weight: bold;
-            color: #16355c;
-            border-top: 0.75pt solid #16355c;
-            border-bottom: 1.5pt solid #16355c;
-            background: #e7f3fb;
+            color: #4c1d95;
+            border-top: 0.75pt solid #4c1d95;
+            border-bottom: 1.5pt solid #4c1d95;
+            background: #ede9fe;
             padding: 5pt 4pt;
             text-transform: none;
         }
@@ -256,14 +256,14 @@
             font-size: 10pt;
             padding: 8pt 0 3pt 0;
             background: #fff;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* Sub-group heading */
         table.fig tr.subhead td {
             font-weight: bold;
             padding: 4pt 0 3pt 8pt;
-            color: #0079c8;
+            color: #7c3aed;
             background: #fff;
         }
 
@@ -279,7 +279,7 @@
             font-weight: bold;
             text-transform: none;
             letter-spacing: 0.2pt;
-            color: #16355c;
+            color: #4c1d95;
             margin-bottom: 6pt;
         }
 
@@ -292,7 +292,7 @@
         .cover .c-title {
             font-size: 17pt;
             font-weight: bold;
-            color: #0079c8;
+            color: #7c3aed;
             margin-bottom: 10pt;
         }
 
@@ -304,7 +304,7 @@
         /* ── Signature space ── */
         .sign-space {
             height: 50pt;
-            border-bottom: 1pt solid #16355c;
+            border-bottom: 1pt solid #4c1d95;
             width: 200pt;
             margin: 20pt 0 4pt 0;
         }
@@ -347,7 +347,7 @@
         .policy-title {
             font-size: 11.5pt;
             font-weight: bold;
-            color: #0079c8;
+            color: #7c3aed;
             margin: 0 0 5pt 0;
             line-height: 1.3;
         }
@@ -355,7 +355,7 @@
         .policy-heading {
             font-size: 9.5pt;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
             margin: 8pt 0 3pt 0;
             line-height: 1.35;
         }
@@ -379,7 +379,7 @@
             font-weight: normal;
             font-style: italic;
             font-size: 8pt;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         /* ── Two-up spread: two logical pages per potrait sheet ── */
@@ -407,7 +407,7 @@
         .note-item {
             margin-bottom: 10pt;
             padding-bottom: 8pt;
-            border-bottom: 0.5pt solid #ddebf5;
+            border-bottom: 0.5pt solid #ddd6fe;
             page-break-inside: avoid;
         }
 
@@ -425,7 +425,7 @@
             font-weight: bold;
             font-size: 10.5pt;
             margin-bottom: 5pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .note-body {

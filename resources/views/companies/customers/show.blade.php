@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a {
             font-size: 7pt;
-            color: #7a90a5;
+            color: #8b7aad;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -26,15 +26,15 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:hover { color: #16355c; }
+        .inv-mgmt-bar a:hover { color: #4c1d95; }
 
         .mgmt-btn {
             display: inline-flex;
             align-items: center;
             gap: 3pt;
             background: #fff;
-            border: 1px solid #c9dff0;
-            color: #16355c;
+            border: 1px solid #c4b5fd;
+            color: #4c1d95;
             font-size: 6pt;
             font-weight: 700;
             text-transform: uppercase;
@@ -44,12 +44,12 @@
             transition: background 0.15s, color 0.15s;
         }
 
-        .mgmt-btn:hover { background: #eef6fc; }
+        .mgmt-btn:hover { background: #f5f3ff; }
 
         .mgmt-btn.primary {
-            background: #0079c8;
+            background: #7c3aed;
             color: #fff;
-            border-color: #0079c8;
+            border-color: #7c3aed;
         }
 
         .mgmt-btn.primary:hover { background: #005f9e; }
@@ -57,9 +57,9 @@
         /* ── Profile document (PDF-style) ───────────────────────── */
         .cust-doc {
             background: #fff;
-            border: 1px solid #c9dff0;
+            border: 1px solid #c4b5fd;
             font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #16355c;
+            color: #4c1d95;
             font-size: 7pt;
             line-height: 1.45;
         }
@@ -79,14 +79,14 @@
             font-size: 11pt;
             font-weight: 800;
             letter-spacing: -0.01em;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .cust-address-block {
             text-align: right;
             font-size: 7pt;
             line-height: 1.55;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         .cust-meta-table {
@@ -99,12 +99,12 @@
             font-size: 7pt;
             display: inline-block;
             width: 80pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .meta-value {
             font-size: 7pt;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         .doc-title {
@@ -113,37 +113,37 @@
             text-align: right;
             margin-bottom: 2pt;
             letter-spacing: 0.04em;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .doc-meta-line {
             text-align: right;
             font-size: 7pt;
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         .status-box {
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 1px solid #16355c;
+            border: 1px solid #4c1d95;
             padding: 1pt 4pt;
             font-size: 5pt;
             letter-spacing: 0.08em;
             margin-top: 3pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
-        .status-box.inactive { color: #7a90a5; border-color: #a9bccd; }
+        .status-box.inactive { color: #8b7aad; border-color: #c4b5fd; }
 
         .divider {
             border: none;
-            border-top: 1.5pt solid #16355c;
+            border-top: 1.5pt solid #4c1d95;
             margin: 8pt 0 10pt 0;
         }
 
         .divider.light {
-            border-top: 0.4pt solid #ddebf5;
+            border-top: 0.4pt solid #ddd6fe;
             margin: 10pt 0;
         }
 
@@ -167,14 +167,14 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 1.5pt;
-            color: #7a90a5;
+            color: #8b7aad;
         }
 
         .summary-table .amt {
             font-size: 8pt;
             font-weight: 800;
             font-family: "DejaVu Sans Mono", monospace;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         /* ── Section headers ─────────────────────────────────────── */
@@ -183,10 +183,10 @@
             font-size: 7pt;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border-bottom: 1.5pt solid #16355c;
+            border-bottom: 1.5pt solid #4c1d95;
             padding-bottom: 2pt;
             margin-bottom: 4pt;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .info-section {
@@ -205,9 +205,9 @@
             font-size: 5.5pt;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            border-bottom: 1.5pt solid #16355c;
+            border-bottom: 1.5pt solid #4c1d95;
             padding-bottom: 4pt;
-            color: #7a90a5;
+            color: #8b7aad;
         }
 
         table.cust-items-table thead td.amt { text-align: right; }
@@ -215,9 +215,9 @@
         table.cust-items-table tbody td {
             padding: 5pt 0;
             font-size: 7pt;
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
             vertical-align: top;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         table.cust-items-table tbody td.amt {
@@ -229,21 +229,21 @@
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
 
-        table.cust-items-table tbody tr:hover td { background: #eef6fc; }
+        table.cust-items-table tbody tr:hover td { background: #f5f3ff; }
 
         table.cust-items-table a.row-link {
-            color: #16355c;
+            color: #4c1d95;
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 0.4pt solid #c9dff0;
+            border-bottom: 0.4pt solid #c4b5fd;
         }
 
-        table.cust-items-table a.row-link:hover { border-bottom-color: #0079c8; color: #0079c8; }
+        table.cust-items-table a.row-link:hover { border-bottom-color: #7c3aed; color: #7c3aed; }
 
         .empty-row {
             padding: 8pt 0;
             text-align: center;
-            color: #7a90a5;
+            color: #8b7aad;
             font-size: 7pt;
         }
 

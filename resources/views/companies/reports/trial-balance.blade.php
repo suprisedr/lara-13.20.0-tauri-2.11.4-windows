@@ -24,11 +24,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: 3pt 4pt;
-            color: #16355c;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 1.5px solid #16355c;
+            color: #4c1d95;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 1.5px solid #4c1d95;
             text-align: left;
-            background: #e7f3fb;
+            background: #ede9fe;
         }
 
         .tb-table thead th.right {
@@ -36,11 +36,11 @@
         }
 
         .tb-table tbody tr {
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         .tb-table tbody tr:hover {
-            background: #f5faff;
+            background: #faf5ff;
         }
 
         .tb-table td {
@@ -58,7 +58,7 @@
         }
 
         .tb-table td.dim {
-            color: #a9bccd;
+            color: #c4b5fd;
         }
 
         .tb-table td.code {
@@ -66,33 +66,33 @@
             font-size: 7pt;
             font-weight: bold;
             white-space: nowrap;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .tb-table td.type-label {
             font-size: 6.5pt;
-            color: #6a86a0;
+            color: #8b7aad;
         }
 
         .tb-table tr.tb-section-row td {
             font-size: 7pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            color: #0079c8;
-            border-top: 0.5pt solid #ddebf5;
-            background: #eef6fc;
+            color: #7c3aed;
+            border-top: 0.5pt solid #ddd6fe;
+            background: #f5f3ff;
             cursor: pointer;
             user-select: none;
         }
 
         .tb-table tr.tb-section-row:hover td {
-            background: #e7f3fb;
+            background: #ede9fe;
         }
 
         .tb-table tr.tb-section-row td.right {
             font-family: "DejaVu Sans Mono", monospace;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .tb-section-label {
@@ -108,7 +108,7 @@
             width: 10px;
             height: 10px;
             transition: transform 0.18s ease;
-            color: #0079c8;
+            color: #7c3aed;
         }
 
         .tb-section-row.is-collapsed .tb-chevron {
@@ -123,10 +123,10 @@
             padding: 4pt 4pt;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
-            background: #e7f3fb;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 2px solid #16355c;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 2px solid #4c1d95;
         }
 
         .tb-table tfoot tr.tb-grand-total td.right {
@@ -233,8 +233,8 @@
                         <div style="display:flex;align-items:center;gap:0.6rem;">
                             @if ($accounts->isNotEmpty())
                                 <a href="{{ route('companies.reports.trial-balance.pdf', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
-                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#16355c;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                    onmouseover="this.style.background='#0f2640'" onmouseout="this.style.background='#16355c'">
+                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#4c1d95;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                    onmouseover="this.style.background='#3b0764'" onmouseout="this.style.background='#4c1d95'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -244,8 +244,8 @@
                                     PDF
                                 </a>
                                 <a href="{{ route('companies.reports.trial-balance.excel', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
-                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#0079c8;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                    onmouseover="this.style.background='#005f9e'" onmouseout="this.style.background='#0079c8'">
+                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#7c3aed;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                    onmouseover="this.style.background='#005f9e'" onmouseout="this.style.background='#7c3aed'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -255,8 +255,8 @@
                                     Excel
                                 </a>
 
-                                <label style="display:inline-flex;align-items:center;gap:0.35rem;background:#fff;border:1px solid #16355c;color:#16355c;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s,color 0.15s;white-space:nowrap;cursor:pointer;"
-                                    onmouseover="this.style.background='#16355c';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#16355c'"
+                                <label style="display:inline-flex;align-items:center;gap:0.35rem;background:#fff;border:1px solid #4c1d95;color:#4c1d95;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s,color 0.15s;white-space:nowrap;cursor:pointer;"
+                                    onmouseover="this.style.background='#4c1d95';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#4c1d95'"
                                     title="Import opening balances from an Excel file exported by this system or matching the same column format (Code, Account Name, Type, Debit, Credit).">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -331,7 +331,7 @@
                             </div>
                         @endif
                         @if ($rounding > 1)
-                            <p style="font-size:6.5pt;color:#7a90a5;margin:0 1.25rem 6pt;font-style:italic;">Amounts
+                            <p style="font-size:6.5pt;color:#8b7aad;margin:0 1.25rem 6pt;font-style:italic;">Amounts
                                 in {{ $roundingLabel }}</p>
                         @endif
                         @php
@@ -370,10 +370,10 @@
                                                         {{ $typeLabels[$type] ?? $type }}
                                                     </span>
                                                 </td>
-                                                <td class="right" style="color:{{ $sectDebit > 0 ? '#16355c' : '#a9bccd' }};">
+                                                <td class="right" style="color:{{ $sectDebit > 0 ? '#4c1d95' : '#c4b5fd' }};">
                                                     {{ $sectDebit > 0 ? number_format($sectDebit / $rounding, $roundingDecimals) : '—' }}
                                                 </td>
-                                                <td class="right" style="color:{{ $sectCredit > 0 ? '#16355c' : '#a9bccd' }};">
+                                                <td class="right" style="color:{{ $sectCredit > 0 ? '#4c1d95' : '#c4b5fd' }};">
                                                     {{ $sectCredit > 0 ? number_format($sectCredit / $rounding, $roundingDecimals) : '—' }}
                                                 </td>
                                             </tr>

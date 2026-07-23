@@ -7,17 +7,17 @@
     @include('companies._styles')
     <style>
         .cn-badge { display:inline-block; padding:1pt 4pt; font-size:6pt; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
-        .cn-badge-draft   { background:#f3f4f6; color:#4a5f78; }
+        .cn-badge-draft   { background:#f3f4f6; color:#6b5b8a; }
         .cn-badge-issued  { background:#fef3c7; color:#92400e; }
         .cn-badge-applied { background:#dcfce7; color:#15803d; }
         .cn-badge-voided  { background:#fee2e2; color:#b91c1c; }
 
         .list-search-wrap { position:relative; display:flex; align-items:center; gap:3pt; }
-        .list-search-input { height:16pt; border:1px solid #c9dff0; padding:0 10pt 0 5pt; font-size:6.5pt; font-family:inherit; color:#16355c; background:#fff; width:140pt; box-sizing:border-box; }
-        .list-search-input:focus { outline:none; border-color:#16355c; }
-        .list-search-clear { position:absolute; right:3pt; background:none; border:none; cursor:pointer; font-size:9pt; color:#7a90a5; line-height:1; padding:0; display:none; }
-        .list-search-clear:hover { color:#16355c; }
-        .list-search-count { font-size:5.5pt; color:#4a5f78; white-space:nowrap; }
+        .list-search-input { height:16pt; border:1px solid #c4b5fd; padding:0 10pt 0 5pt; font-size:6.5pt; font-family:inherit; color:#4c1d95; background:#fff; width:140pt; box-sizing:border-box; }
+        .list-search-input:focus { outline:none; border-color:#4c1d95; }
+        .list-search-clear { position:absolute; right:3pt; background:none; border:none; cursor:pointer; font-size:9pt; color:#8b7aad; line-height:1; padding:0; display:none; }
+        .list-search-clear:hover { color:#4c1d95; }
+        .list-search-count { font-size:5.5pt; color:#6b5b8a; white-space:nowrap; }
     </style>
 @endpush
 
@@ -59,13 +59,13 @@
                         <hr class="reg-divider">
 
                         @if ($creditNotes->isEmpty())
-                            <div style="padding:24pt 14pt;text-align:center;color:#7a90a5;font-size:7pt;">
-                                <svg width="28" height="28" fill="none" stroke="#9cc3e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin:0 auto 6pt;display:block;">
+                            <div style="padding:24pt 14pt;text-align:center;color:#8b7aad;font-size:7pt;">
+                                <svg width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin:0 auto 6pt;display:block;">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                                     <polyline points="14 2 14 8 20 8"/>
                                     <line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="11" y2="17"/>
                                 </svg>
-                                <p style="font-weight:700;color:#4a5f78;margin:0 0 2pt;">No credit notes yet</p>
+                                <p style="font-weight:700;color:#6b5b8a;margin:0 0 2pt;">No credit notes yet</p>
                                 <p style="font-size:6.5pt;margin:0 0 8pt;">Issue a credit note when goods are returned or a billing correction is needed.</p>
                                 <a href="{{ route('companies.credit-notes.create', $company) }}" class="reg-btn primary">
                                     Create Credit Note
@@ -105,7 +105,7 @@
                                                     @if ($cn->posting_transaction_id)
                                                         <span style="color:#16a34a;font-size:6pt;font-weight:700;">✓ Posted</span>
                                                     @else
-                                                        <span style="color:#7a90a5;font-size:6pt;">—</span>
+                                                        <span style="color:#8b7aad;font-size:6pt;">—</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">

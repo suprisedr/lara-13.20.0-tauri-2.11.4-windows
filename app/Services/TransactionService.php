@@ -126,7 +126,10 @@ class TransactionService
                 ], $lines)
             );
 
-            return $transaction->load('journalLines.account');
+            $transaction->load('journalLines.account');
+            $transaction->searchable();
+
+            return $transaction;
         });
     }
 
@@ -162,6 +165,10 @@ class TransactionService
             );
 
             $transaction->update(['status' => 'reversed']);
+
+            $reversal->load('journalLines.account');
+            $reversal->searchable();
+            $transaction->searchable();
 
             return $reversal;
         });

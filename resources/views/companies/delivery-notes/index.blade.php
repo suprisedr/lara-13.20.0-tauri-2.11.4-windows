@@ -14,23 +14,23 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
         }
-        .dn-badge-draft      { background:#f3f4f6; color:#4a5f78; }
+        .dn-badge-draft      { background:#f3f4f6; color:#6b5b8a; }
         .dn-badge-dispatched { background:#fef3c7; color:#92400e; }
         .dn-badge-delivered  { background:#dcfce7; color:#15803d; }
         .dn-badge-cancelled  { background:#fee2e2; color:#b91c1c; }
 
         .list-search-wrap { position:relative; display:flex; align-items:center; gap:3pt; }
         .list-search-input {
-            height:16pt; border:1px solid #c9dff0; padding:0 10pt 0 5pt;
-            font-size:6.5pt; font-family:Helvetica, Arial, "DejaVu Sans", sans-serif; color:#16355c; background:#fff; width:140pt; box-sizing:border-box;
+            height:16pt; border:1px solid #c4b5fd; padding:0 10pt 0 5pt;
+            font-size:6.5pt; font-family:Helvetica, Arial, "DejaVu Sans", sans-serif; color:#4c1d95; background:#fff; width:140pt; box-sizing:border-box;
         }
-        .list-search-input:focus { outline:none; border-color:#16355c; }
+        .list-search-input:focus { outline:none; border-color:#4c1d95; }
         .list-search-clear {
             position:absolute; right:3pt; background:none; border:none;
-            cursor:pointer; font-size:9pt; color:#7a90a5; line-height:1; padding:0; display:none;
+            cursor:pointer; font-size:9pt; color:#8b7aad; line-height:1; padding:0; display:none;
         }
-        .list-search-clear:hover { color:#16355c; }
-        .list-search-count { font-size:6pt; color:#4a5f78; white-space:nowrap; }
+        .list-search-clear:hover { color:#4c1d95; }
+        .list-search-count { font-size:6pt; color:#6b5b8a; white-space:nowrap; }
         mark.ls-hl { background:#fef08a; border-radius:2px; padding:0 1px; }
     </style>
 @endpush
@@ -74,11 +74,11 @@
 
                         @if ($notes->isEmpty())
                             <div style="padding:24pt 14pt;text-align:center;">
-                                <svg width="28" height="28" fill="none" stroke="#9cc3e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin:0 auto 6pt;display:block;">
+                                <svg width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="margin:0 auto 6pt;display:block;">
                                     <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
                                 </svg>
-                                <p style="font-weight:700;color:#4a5f78;margin:0 0 2pt;font-size:7pt;">No delivery notes yet</p>
-                                <p style="font-size:6.5pt;margin:0 0 8pt;color:#7a90a5;">Create your first delivery note to accompany shipments.</p>
+                                <p style="font-weight:700;color:#6b5b8a;margin:0 0 2pt;font-size:7pt;">No delivery notes yet</p>
+                                <p style="font-size:6.5pt;margin:0 0 8pt;color:#8b7aad;">Create your first delivery note to accompany shipments.</p>
                                 <a href="{{ route('companies.delivery-notes.create', $company) }}" class="reg-btn primary">
                                     Create Delivery Note
                                 </a>

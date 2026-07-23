@@ -18,6 +18,6 @@
         data-confirm-danger="1">
         @csrf
         @method('DELETE')
-        <button type="submit" class="coa-rename-btn" title="Delete account" style="color:#a9bccd;">&times;</button>
+        <button type="submit" class="coa-rename-btn" title="Delete account" style="color:#c4b5fd;">&times;</button>
     </form>
 @endif

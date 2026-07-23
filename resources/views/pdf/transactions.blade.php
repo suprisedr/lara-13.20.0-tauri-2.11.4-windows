@@ -41,11 +41,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: 3pt 4pt;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 1.5px solid #16355c;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 1.5px solid #4c1d95;
             text-align: left;
-            color: #16355c;
-            background: #e7f3fb;
+            color: #4c1d95;
+            background: #ede9fe;
         }
 
         thead th.right {
@@ -53,7 +53,7 @@
         }
 
         tbody tr {
-            border-bottom: 0.4px solid #ddebf5;
+            border-bottom: 0.4px solid #ddd6fe;
         }
 
         tbody td {
@@ -70,11 +70,11 @@
         }
 
         td.muted {
-            color: #4a5f78;
+            color: #6b5b8a;
         }
 
         tr.tx-header td {
-            background: #16355c;
+            background: #4c1d95;
             color: #fff;
             font-size: 7pt;
             font-weight: bold;
@@ -88,7 +88,7 @@
         tr.line-row td {
             padding: 1.5pt 4pt;
             font-size: 6.5pt;
-            background: #eef6fc;
+            background: #f5f3ff;
         }
 
         tr.line-row td:first-child {
@@ -102,12 +102,12 @@
         tr.tx-source td {
             padding: 2pt 4pt 3pt 12px;
             font-size: 6pt;
-            color: #4a5f78;
+            color: #6b5b8a;
             background: #f8fbfe;
             font-family: DejaVu Sans Mono, monospace;
             white-space: pre-wrap;
             word-break: break-word;
-            border-bottom: 0.5px solid #ddebf5;
+            border-bottom: 0.5px solid #ddd6fe;
         }
 
         tr.tx-source td span.src-label {
@@ -116,7 +116,7 @@
             font-size: 5pt;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #7a90a5;
+            color: #8b7aad;
             display: block;
             margin-bottom: 1px;
         }
@@ -125,10 +125,10 @@
             padding: 4pt 4pt;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
-            background: #e7f3fb;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 2px solid #16355c;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 2px solid #4c1d95;
         }
 
         .badge {
@@ -140,21 +140,21 @@
         }
 
         .badge-posted {
-            background: #e7f3fb;
-            color: #16355c;
+            background: #ede9fe;
+            color: #4c1d95;
         }
 
         .badge-draft {
-            background: #eef6fc;
-            color: #0079c8;
+            background: #f5f3ff;
+            color: #7c3aed;
         }
 
         .footer {
             margin-top: 14px;
             padding-top: 5px;
-            border-top: 1px solid #c9dff0;
+            border-top: 1px solid #c4b5fd;
             font-size: 6pt;
-            color: #7a90a5;
+            color: #8b7aad;
             text-align: center;
         }
     </style>
@@ -203,7 +203,7 @@
                         <td>{{ $tx->transaction_date->format('d M Y') }}</td>
                         <td class="muted">{{ $tx->reference ?? '—' }}</td>
                         <td colspan="2">{{ $tx->description }}</td>
-                        <td colspan="2" style="color:#c9dff0;font-size:6pt;">{{ $tx->notes ?? '' }}</td>
+                        <td colspan="2" style="color:#c4b5fd;font-size:6pt;">{{ $tx->notes ?? '' }}</td>
                         <td class="right">{{ number_format($txDebits, 2) }}</td>
                         <td class="right">{{ number_format($txCredits, 2) }}</td>
                     </tr>

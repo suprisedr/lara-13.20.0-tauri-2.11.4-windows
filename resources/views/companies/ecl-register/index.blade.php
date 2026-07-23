@@ -7,21 +7,21 @@
     @include('companies._styles')
     <style>
         .ecl-summary { display:grid;grid-template-columns:repeat(4,1fr);gap:8pt;margin-bottom:10pt; }
-        .ecl-metric { border-top:1.5pt solid #16355c;background:#fff;padding:6pt 8pt; }
-        .ecl-metric-label { font-size:5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#4a5f78;margin-bottom:2pt; }
-        .ecl-metric-value { font-size:10pt;font-weight:800;font-family:"DejaVu Sans Mono",monospace;color:#16355c; }
+        .ecl-metric { border-top:1.5pt solid #4c1d95;background:#fff;padding:6pt 8pt; }
+        .ecl-metric-label { font-size:5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#6b5b8a;margin-bottom:2pt; }
+        .ecl-metric-value { font-size:10pt;font-weight:800;font-family:"DejaVu Sans Mono",monospace;color:#4c1d95; }
         .ecl-metric-value.surplus { color:#16a34a; }
         .ecl-metric-value.deficit { color:#dc2626; }
         .ecl-rate-form { display:grid;grid-template-columns:repeat(5,1fr);gap:6pt;align-items:end;margin-bottom:8pt;padding:6pt 0; }
-        .ecl-rate-form .field label { display:block;font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#4a5f78;margin-bottom:2pt; }
+        .ecl-rate-form .field label { display:block;font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6b5b8a;margin-bottom:2pt; }
         .ecl-rate-form .input-pct { position:relative; }
-        .ecl-rate-form input[type='number'] { width:100%;border:1px solid #c9dff0;padding:3pt 12pt 3pt 4pt;font-size:7pt;font-family:"DejaVu Sans Mono",monospace;box-sizing:border-box;color:#16355c; }
-        .ecl-rate-form input[type='number']:focus { outline:none;border-color:#16355c; }
-        .ecl-rate-form .input-pct::after { content:'%';position:absolute;right:4pt;top:50%;transform:translateY(-50%);color:#7a90a5;font-size:6.5pt;pointer-events:none; }
-        .ifrs-box { border-top:1.5pt solid #16355c;border-bottom:0.5pt solid #c9dff0;padding:6pt 8pt;margin-top:8pt;font-size:7pt;line-height:1.6;background:#f8fbfe; }
-        .ifrs-box h4 { font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#0079c8;margin:0 0 3pt; }
-        .ifrs-box p { margin:0 0 4pt;color:#4a5f78; }
-        .ifrs-box ul { margin:0 0 4pt 10pt;padding:0;color:#4a5f78; }
+        .ecl-rate-form input[type='number'] { width:100%;border:1px solid #c4b5fd;padding:3pt 12pt 3pt 4pt;font-size:7pt;font-family:"DejaVu Sans Mono",monospace;box-sizing:border-box;color:#4c1d95; }
+        .ecl-rate-form input[type='number']:focus { outline:none;border-color:#4c1d95; }
+        .ecl-rate-form .input-pct::after { content:'%';position:absolute;right:4pt;top:50%;transform:translateY(-50%);color:#8b7aad;font-size:6.5pt;pointer-events:none; }
+        .ifrs-box { border-top:1.5pt solid #4c1d95;border-bottom:0.5pt solid #c4b5fd;padding:6pt 8pt;margin-top:8pt;font-size:7pt;line-height:1.6;background:#f8fbfe; }
+        .ifrs-box h4 { font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#7c3aed;margin:0 0 3pt; }
+        .ifrs-box p { margin:0 0 4pt;color:#6b5b8a; }
+        .ifrs-box ul { margin:0 0 4pt 10pt;padding:0;color:#6b5b8a; }
         .ifrs-box li { margin-bottom:1pt; }
         .snapshot-table td { padding:2pt 4pt; }
         @media (max-width:640px) {
@@ -77,8 +77,8 @@
 
                         <form method="GET" action="{{ route('companies.ecl-register.index', $company) }}" style="display:flex;gap:4pt;align-items:flex-end;margin:6pt 0 8pt;">
                             <div>
-                                <label style="display:block;font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#4a5f78;margin-bottom:2pt;">As at</label>
-                                <input type="date" name="as_of_date" value="{{ $asOfDate }}" style="border:1px solid #c9dff0;padding:3pt 4pt;font-size:7pt;font-family:Helvetica,Arial,sans-serif;color:#16355c;">
+                                <label style="display:block;font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#6b5b8a;margin-bottom:2pt;">As at</label>
+                                <input type="date" name="as_of_date" value="{{ $asOfDate }}" style="border:1px solid #c4b5fd;padding:3pt 4pt;font-size:7pt;font-family:Helvetica,Arial,sans-serif;color:#4c1d95;">
                             </div>
                             <button type="submit" class="reg-btn">Recalculate</button>
                         </form>

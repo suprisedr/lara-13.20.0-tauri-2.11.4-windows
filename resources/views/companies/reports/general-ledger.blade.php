@@ -24,7 +24,7 @@
 
         .gl-account-card {
             border: none;
-            border-top: 1.5px solid #16355c;
+            border-top: 1.5px solid #4c1d95;
             margin-bottom: 16pt;
             background: #fff;
         }
@@ -34,8 +34,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 3pt 6pt;
-            background: #e7f3fb;
-            border-bottom: 1px solid #c9dff0;
+            background: #ede9fe;
+            border-bottom: 1px solid #c4b5fd;
             flex-wrap: wrap;
             gap: 4pt;
         }
@@ -44,7 +44,7 @@
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 7.5pt;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
             margin-right: 8px;
         }
 
@@ -52,14 +52,14 @@
             font-size: 7.5pt;
             font-weight: bold;
             letter-spacing: 0.01em;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .gl-account-type {
             font-size: 7pt;
             font-weight: normal;
             text-transform: uppercase;
-            color: #0079c8;
+            color: #7c3aed;
         }
 
         .gl-table {
@@ -72,11 +72,11 @@
         .gl-table thead th {
             font-size: 7pt;
             padding: 3pt 4pt;
-            border-top: 1px solid #16355c;
-            border-bottom: 1px solid #9cc3e0;
-            background: #eef6fc;
+            border-top: 1px solid #4c1d95;
+            border-bottom: 1px solid #a78bfa;
+            background: #f5f3ff;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
             text-align: left;
         }
 
@@ -85,11 +85,11 @@
         }
 
         .gl-table tbody tr {
-            border-bottom: 0.4pt solid #ddebf5;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         .gl-table tbody tr:hover {
-            background: #f5faff;
+            background: #faf5ff;
         }
 
         .gl-table td {
@@ -107,7 +107,7 @@
         }
 
         .gl-table td.dim {
-            color: #a9bccd;
+            color: #c4b5fd;
         }
 
         .gl-table tr.gl-ob-row td,
@@ -115,18 +115,18 @@
             font-size: 7pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            background: #eef6fc;
-            color: #0079c8;
+            background: #f5f3ff;
+            color: #7c3aed;
         }
 
         .gl-table tr.gl-ob-row td {
-            border-top: 1px solid #c9dff0;
-            border-bottom: 0.4pt solid #ddebf5;
+            border-top: 1px solid #c4b5fd;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
         .gl-table tr.gl-cb-row td {
-            border-top: 1px solid #9cc3e0;
-            border-bottom: 2px solid #16355c;
+            border-top: 1px solid #a78bfa;
+            border-bottom: 2px solid #4c1d95;
         }
     </style>
 @endpush

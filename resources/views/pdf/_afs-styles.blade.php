@@ -19,7 +19,7 @@
     /* ── Letterhead (standalone PDFs only) ──────────────────── */
     .afs-letterhead-pdf {
         width: 100%;
-        border-bottom: 1.5pt solid #16355c;
+        border-bottom: 1.5pt solid #4c1d95;
         padding-bottom: 8px;
         margin-bottom: 8px;
     }
@@ -29,14 +29,14 @@
     .afs-letterhead-pdf .lh-right { float: right; text-align: right; }
     .afs-letterhead-pdf::after { content: ''; display: table; clear: both; }
     .afs-letterhead-pdf .company-name {
-        font-size: 16pt; font-weight: bold; color: #16355c; letter-spacing: 0.02em;
+        font-size: 16pt; font-weight: bold; color: #4c1d95; letter-spacing: 0.02em;
     }
-    .afs-letterhead-pdf .company-meta { font-size: 9pt; color: #4a5f78; margin-top: 2px; line-height: 1.5; }
+    .afs-letterhead-pdf .company-meta { font-size: 9pt; color: #6b5b8a; margin-top: 2px; line-height: 1.5; }
 
     /* ── Report title (standalone PDFs) ─────────────────────── */
-    .afs-doc-header { text-align: left; margin: 14px 0 12px; border-bottom: 0.75pt solid #b8d6ec; padding-bottom: 8px; }
-    .afs-doc-title  { font-size: 18pt; font-weight: bold; color: #16355c; letter-spacing: -0.01em; text-transform: none; }
-    .afs-doc-subtitle { font-size: 9.5pt; color: #0079c8; margin-top: 3px; }
+    .afs-doc-header { text-align: left; margin: 14px 0 12px; border-bottom: 0.75pt solid #c4b5fd; padding-bottom: 8px; }
+    .afs-doc-title  { font-size: 18pt; font-weight: bold; color: #4c1d95; letter-spacing: -0.01em; text-transform: none; }
+    .afs-doc-subtitle { font-size: 9.5pt; color: #7c3aed; margin-top: 3px; }
 
     /* ── Financial statement table ───────────────────────────── */
     .afs-table {
@@ -49,15 +49,15 @@
     .afs-table thead th {
         padding: 4pt 4pt 5pt 0;
         font-weight: normal;
-        color: #4a5f78;
-        border-bottom: 0.75pt solid #16355c;
+        color: #6b5b8a;
+        border-bottom: 0.75pt solid #4c1d95;
         text-align: left;
         background: #fff;
         vertical-align: bottom;
     }
     .afs-table thead th.afs-col-label  { font-style: normal; }
     .afs-table thead th.afs-col-note   { text-align: center; width: 9%; }
-    .afs-table thead th.afs-col-amount { text-align: right; width: 18%; font-weight: bold; color: #16355c; padding-right: 4pt; }
+    .afs-table thead th.afs-col-amount { text-align: right; width: 18%; font-weight: bold; color: #4c1d95; padding-right: 4pt; }
 
     /* Main section header */
     .afs-table tr.afs-section-main td {
@@ -65,7 +65,7 @@
         font-weight: bold;
         font-size: 6pt;
         background: #fff;
-        color: #16355c;
+        color: #4c1d95;
     }
 
     /* Sub-section header */
@@ -74,27 +74,27 @@
         font-weight: bold;
         font-size: 6pt;
         background: #fff;
-        color: #0079c8;
+        color: #7c3aed;
     }
 
     /* Ordinary line item */
     .afs-table tr.afs-item-row td {
         padding: 3.5pt 4pt 3.5pt 18pt;
-        border-bottom: 0.4pt solid #ddebf5;
+        border-bottom: 0.4pt solid #ddd6fe;
         color: #23282d;
     }
 
     /* Last item in a group */
     .afs-table tr.afs-item-last td {
-        border-bottom: 0.6pt solid #9cc3e0;
+        border-bottom: 0.6pt solid #a78bfa;
     }
 
     /* Intermediate subtotal */
     .afs-table tr.afs-subtotal td {
         padding: 4pt 4pt 4pt 18pt;
         font-weight: bold;
-        color: #16355c;
-        border-bottom: 0.75pt solid #16355c;
+        color: #4c1d95;
+        border-bottom: 0.75pt solid #4c1d95;
         background: #fff;
     }
 
@@ -102,8 +102,8 @@
     .afs-table tr.afs-named-subtotal td {
         padding: 4pt 4pt;
         font-weight: bold;
-        color: #16355c;
-        border-bottom: 0.75pt solid #16355c;
+        color: #4c1d95;
+        border-bottom: 0.75pt solid #4c1d95;
         background: #fff;
     }
 
@@ -111,10 +111,10 @@
     .afs-table tr.afs-grand-total td {
         padding: 5pt 4pt;
         font-weight: bold;
-        color: #16355c;
-        border-top: 0.75pt solid #16355c;
-        border-bottom: 1.5pt solid #16355c;
-        background: #e7f3fb;
+        color: #4c1d95;
+        border-top: 0.75pt solid #4c1d95;
+        border-bottom: 1.5pt solid #4c1d95;
+        background: #ede9fe;
         text-transform: none;
     }
 
@@ -128,29 +128,29 @@
     /* Note reference cells */
     .afs-table td.afs-note {
         text-align: center;
-        color: #4a5f78;
+        color: #6b5b8a;
     }
 
-    .afs-table td.afs-empty    { font-style: italic; color: #8aa2b8; }
-    .afs-table td.afs-dim      { color: #a9bccd; }
+    .afs-table td.afs-empty    { font-style: italic; color: #a78bfa; }
+    .afs-table td.afs-dim      { color: #c4b5fd; }
     .afs-table td.afs-abnormal { color: #b91c1c; }
 
     .afs-warning {
         margin: 8pt 0 0;
         padding: 5pt 8pt;
-        border-left: 2pt solid #0079c8;
-        background: #eef6fc;
+        border-left: 2pt solid #7c3aed;
+        background: #f5f3ff;
         font-size: 6pt;
-        color: #16355c;
+        color: #4c1d95;
     }
 
     /* ── Footer ─────────────────────────────────────────────── */
     .afs-footer {
         margin-top: 16pt;
         padding-top: 6pt;
-        border-top: 0.5pt solid #c9dff0;
+        border-top: 0.5pt solid #c4b5fd;
         font-size: 9pt;
-        color: #7a90a5;
+        color: #8b7aad;
         text-align: center;
     }
 </style>

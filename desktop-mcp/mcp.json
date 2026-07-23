@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chainbook-desktop-mcp": {
+      "command": "node",
+      "args": ["/Users/macbookpro/GUSKI/Lara-tauri/lara-tauri/desktop-mcp/dist/index.js"]
+    }
+  }
+}

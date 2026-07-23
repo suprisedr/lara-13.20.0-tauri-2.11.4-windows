@@ -133,6 +133,9 @@ class TransactionController extends Controller
                     'vat_rate'            => $line->vat_rate,
                 ])->all()
             );
+
+            $correction->load('journalLines.account');
+            $correction->searchable();
         });
 
         return back()->with('success', 'Correction draft created. Edit the lines and post when ready.');
@@ -448,7 +451,11 @@ class TransactionController extends Controller
                     ])->all()
                 );
 
+                $reversal->load('journalLines.account');
+                $reversal->searchable();
+
                 $transaction->update(['status' => 'reversed']);
+                $transaction->searchable();
                 $reversed++;
             }
         });

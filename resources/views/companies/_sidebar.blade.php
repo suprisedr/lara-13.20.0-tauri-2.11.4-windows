@@ -89,7 +89,7 @@
                     </svg>
                     <span>Actions</span>
                     @if ($openActionsCount > 0)
-                        <span style="margin-left:auto;background:#0079c8;color:#fff;font-size:5pt;font-weight:700;border-radius:999px;min-width:10pt;height:10pt;display:inline-flex;align-items:center;justify-content:center;padding:0 2pt;">
+                        <span style="margin-left:auto;background:#7c3aed;color:#fff;font-size:5pt;font-weight:700;border-radius:999px;min-width:10pt;height:10pt;display:inline-flex;align-items:center;justify-content:center;padding:0 2pt;">
                             {{ $openActionsCount }}
                         </span>
                     @endif

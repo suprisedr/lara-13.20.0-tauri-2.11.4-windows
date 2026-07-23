@@ -33,9 +33,9 @@
         .footer {
             margin-top: 20px;
             padding-top: 10px;
-            border-top: 1px solid #c9dff0;
+            border-top: 1px solid #c4b5fd;
             font-size: 6pt;
-            color: #7a90a5;
+            color: #8b7aad;
             text-align: center;
         }
 
@@ -44,9 +44,9 @@
         }
 
         .account-head {
-            background: #e7f3fb;
-            border-top: 1.5px solid #16355c;
-            border-bottom: 1px solid #c9dff0;
+            background: #ede9fe;
+            border-top: 1.5px solid #4c1d95;
+            border-bottom: 1px solid #c4b5fd;
             padding: 4pt 6pt;
         }
 
@@ -54,7 +54,7 @@
             font-family: DejaVu Sans Mono, monospace;
             font-size: 7pt;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .account-name {
@@ -62,12 +62,12 @@
             font-weight: bold;
             letter-spacing: 0.01em;
             margin-left: 8px;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .account-type {
             font-size: 6.5pt;
-            color: #0079c8;
+            color: #7c3aed;
             float: right;
             text-transform: uppercase;
         }
@@ -80,11 +80,11 @@
         .account-table thead th {
             font-size: 6.5pt;
             padding: 3pt 4pt;
-            border-top: 1px solid #16355c;
-            border-bottom: 1px solid #9cc3e0;
-            background: #eef6fc;
+            border-top: 1px solid #4c1d95;
+            border-bottom: 1px solid #a78bfa;
+            background: #f5f3ff;
             font-weight: bold;
-            color: #16355c;
+            color: #4c1d95;
         }
 
         .account-table tbody td {
@@ -100,7 +100,7 @@
         }
 
         .account-table td.dim {
-            color: #a9bccd;
+            color: #c4b5fd;
         }
 
         tr.ob-row td,
@@ -108,17 +108,17 @@
             font-size: 7pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            background: #eef6fc;
-            color: #0079c8;
+            background: #f5f3ff;
+            color: #7c3aed;
         }
 
         tr.ob-row td {
-            border-top: 1px solid #c9dff0;
+            border-top: 1px solid #c4b5fd;
         }
 
         tr.cb-row td {
-            border-top: 1px solid #9cc3e0;
-            border-bottom: 2px solid #16355c;
+            border-top: 1px solid #a78bfa;
+            border-bottom: 2px solid #4c1d95;
         }
 
         .no-tx {
