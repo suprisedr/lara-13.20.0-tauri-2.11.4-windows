@@ -23,6 +23,10 @@ return new class extends Migration
             return; // pgsql unavailable (e.g. test env)
         }
 
+        if (Schema::connection('pgsql')->hasTable('transaction_vectors')) {
+            return;
+        }
+
         Schema::connection('pgsql')->create('transaction_vectors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mysql_transaction_id')->unique();

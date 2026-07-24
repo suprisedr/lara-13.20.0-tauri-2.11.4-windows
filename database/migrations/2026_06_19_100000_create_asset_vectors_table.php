@@ -23,6 +23,10 @@ return new class extends Migration
             return;
         }
 
+        if (Schema::connection('pgsql')->hasTable('asset_vectors')) {
+            return;
+        }
+
         Schema::connection('pgsql')->create('asset_vectors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mysql_asset_id')->unique();

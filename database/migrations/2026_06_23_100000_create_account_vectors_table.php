@@ -23,6 +23,10 @@ return new class extends Migration
             return;
         }
 
+        if (Schema::connection('pgsql')->hasTable('account_vectors')) {
+            return;
+        }
+
         Schema::connection('pgsql')->create('account_vectors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mysql_account_id')->unique();
