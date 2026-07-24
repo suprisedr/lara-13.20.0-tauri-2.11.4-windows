@@ -19,7 +19,8 @@
             "icons/icon.ico"
         ],
         "resources": [
-            "resources/laravel"
+            "resources/laravel",
+            "resources/desktop-mcp"
         ],
         "externalBin": [
             "binaries/frankenphp"

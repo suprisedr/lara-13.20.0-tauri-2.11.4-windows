@@ -404,6 +404,96 @@ fn spawn_artisan(
     }
 }
 
+fn resolve_mcp_dir(app: &tauri::AppHandle) -> PathBuf {
+    if cfg!(debug_assertions) {
+        let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+        let root = if cwd.ends_with("src-tauri") {
+            cwd.parent().unwrap_or(&cwd).to_path_buf()
+        } else {
+            cwd
+        };
+        root.join("desktop-mcp")
+    } else {
+        let mut candidates = Vec::new();
+        if let Ok(res_dir) = app.path().resource_dir() {
+            candidates.push(res_dir.join("resources").join("desktop-mcp"));
+            candidates.push(res_dir.join("desktop-mcp"));
+        }
+        let exe_dir = std::env::current_exe()
+            .ok()
+            .and_then(|p| p.parent().map(|p| p.to_path_buf()))
+            .unwrap_or_else(|| PathBuf::from("."));
+        if let Some(contents) = exe_dir.parent() {
+            candidates.push(contents.join("Resources").join("resources").join("desktop-mcp"));
+        }
+        for candidate in &candidates {
+            if candidate.join("dist").join("index.js").exists() {
+                println!("[resolve] Found bundled MCP at {:?}", candidate);
+                return candidate.clone();
+            }
+        }
+        println!("[resolve] WARNING: No bundled MCP found. Tried: {:?}", candidates);
+        candidates.first().cloned().unwrap_or_else(|| PathBuf::from("."))
+    }
+}
+
+fn register_mcp_with_claude(mcp_entry: &PathBuf) {
+    let home = std::env::var("HOME").unwrap_or_default();
+    if home.is_empty() { return; }
+
+    let config_path = PathBuf::from(&home)
+        .join("Library")
+        .join("Application Support")
+        .join("Claude")
+        .join("claude_desktop_config.json");
+
+    let entry_str = mcp_entry.to_string_lossy().to_string();
+
+    let mut config: serde_json::Value = if config_path.exists() {
+        fs::read_to_string(&config_path)
+            .ok()
+            .and_then(|s| serde_json::from_str(&s).ok())
+            .unwrap_or_else(|| serde_json::json!({}))
+    } else {
+        serde_json::json!({})
+    };
+
+    let servers = config
+        .as_object_mut()
+        .unwrap()
+        .entry("mcpServers")
+        .or_insert_with(|| serde_json::json!({}));
+
+    let current = servers.get("chainbook-desktop-mcp");
+    let needs_update = match current {
+        Some(v) => v.get("args")
+            .and_then(|a| a.as_array())
+            .and_then(|a| a.first())
+            .and_then(|a| a.as_str())
+            != Some(&entry_str),
+        None => true,
+    };
+
+    if needs_update {
+        servers.as_object_mut().unwrap().insert(
+            "chainbook-desktop-mcp".to_string(),
+            serde_json::json!({
+                "command": "node",
+                "args": [entry_str]
+            }),
+        );
+        if let Some(parent) = config_path.parent() {
+            let _ = fs::create_dir_all(parent);
+        }
+        match fs::write(&config_path, serde_json::to_string_pretty(&config).unwrap()) {
+            Ok(_) => println!("[mcp] Registered chainbook-desktop-mcp with Claude at {:?}", config_path),
+            Err(e) => eprintln!("[mcp] Failed to update Claude config: {}", e),
+        }
+    } else {
+        println!("[mcp] Claude MCP config already up to date");
+    }
+}
+
 async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
     let state = app.state::<AppState>();
     let project_root = resolve_project_root(&app);
@@ -631,10 +721,11 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
 
     // 9. Start Desktop MCP server
     {
-        let mcp_dir = project_root.join("desktop-mcp");
+        let mcp_dir = resolve_mcp_dir(&app);
         let mcp_entry = mcp_dir.join("dist").join("index.js");
         if mcp_entry.exists() {
             println!("[startup] Starting Desktop MCP server...");
+            register_mcp_with_claude(&mcp_entry);
             let mut cmd = std::process::Command::new("node");
             cmd.arg(&mcp_entry)
                 .current_dir(&mcp_dir)

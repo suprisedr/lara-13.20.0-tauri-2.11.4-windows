@@ -65,5 +65,24 @@ if [ ! -L "public/storage" ]; then
     ln -sf ../storage/app/public public/storage
 fi
 
+# Bundle desktop-mcp server
+MCP_SRC="$PROJECT_ROOT/desktop-mcp"
+MCP_DST="$SCRIPT_DIR/resources/desktop-mcp"
+rm -rf "$MCP_DST"
+mkdir -p "$MCP_DST"
+
+if [ -d "$MCP_SRC/dist" ]; then
+    cp -R "$MCP_SRC/dist" "$MCP_DST/dist"
+    cp "$MCP_SRC/package.json" "$MCP_DST/package.json"
+    # Install production dependencies only
+    cd "$MCP_DST"
+    npm install --omit=dev --ignore-scripts 2>/dev/null
+    cd "$PROJECT_ROOT"
+    echo "[build-resources] Desktop MCP bundled to $MCP_DST"
+else
+    echo "[build-resources] WARNING: desktop-mcp/dist not found, skipping MCP bundle"
+fi
+
 echo "[build-resources] Laravel project bundled to $RESOURCES_DIR"
-du -sh "$RESOURCES_DIR" | awk '{print "[build-resources] Bundle size: " $1}'
+du -sh "$RESOURCES_DIR" | awk '{print "[build-resources] Laravel bundle size: " $1}'
+du -sh "$MCP_DST" 2>/dev/null | awk '{print "[build-resources] MCP bundle size: " $1}'
