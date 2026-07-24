@@ -33,3 +33,4 @@ Thumbs.db
 /database/database.sqlite
 .phpunit.result.cache
 .rr.yaml.lock
+src-tauri/resources/

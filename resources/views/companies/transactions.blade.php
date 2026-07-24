@@ -226,18 +226,18 @@
         /* Source document inline preview row (collapsed view) */
         .tx-source-row td {
             padding: 0 0.85rem 0.5rem;
-            background: #f5f3ff;
-            border-bottom: 1px solid #ddd6fe;
+            background: #fafafa;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .tx-source-text {
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 6.5pt;
-            color: #4c1d95;
+            color: #000;
             white-space: pre-wrap;
             word-break: break-word;
-            background: #fff;
-            border: 1px solid #c4b5fd;
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
             border-radius: 0;
             padding: 0.5rem 0.7rem;
             max-height: 120px;
@@ -250,7 +250,7 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #6b5b8a;
+            color: #555;
             margin-bottom: 0.25rem;
         }
 
@@ -266,13 +266,13 @@
 
         .line-note-input {
             width: 100%;
-            border: 1px solid #4c1d95;
+            border: 1px solid #ccc;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
             font-size: 6.5pt;
             font-family: inherit;
             outline: none;
-            color: #4c1d95;
+            color: #000;
             background: #fff;
         }
 
@@ -280,13 +280,13 @@
         .line-account-wrap { position: relative; }
         .line-account-search {
             width: 100%;
-            border: 1px solid #4c1d95;
+            border: 1px solid #ccc;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
             font-size: 6.5pt;
             font-family: inherit;
             outline: none;
-            color: #4c1d95;
+            color: #000;
             background: #fff;
         }
         .line-account-dropdown {
@@ -295,13 +295,13 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #4c1d95;
+            border: 1px solid #ccc;
             border-top: none;
             border-radius: 0;
             max-height: 160px;
             overflow-y: auto;
             z-index: 200;
-            box-shadow: 0 4px 12px rgba(22,53,92,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
         .line-account-option {
             padding: 0.28rem 0.5rem;
@@ -312,7 +312,7 @@
             text-overflow: ellipsis;
         }
         .line-account-option:hover,
-        .line-account-option.focused { background: #f5f3ff; }
+        .line-account-option.focused { background: #f7f5ff; }
 
         /* Generic account search field (new transaction lines, add-line form) */
         .acct-search {
@@ -321,20 +321,20 @@
 
         .acct-search-input {
             width: 100%;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #ccc;
             border-radius: 0;
             padding: 0.4rem 0.6rem;
-            font-size: 7pt;
+            font-size: 0.8rem;
             font-family: inherit;
             outline: none;
-            color: #4c1d95;
+            color: #000;
             background: #fff;
             box-sizing: border-box;
             transition: border-color 0.15s;
         }
 
         .acct-search-input:focus {
-            border-color: #4c1d95;
+            border-color: #5e17eb;
         }
 
         .acct-search-dropdown {
@@ -343,18 +343,18 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #4c1d95;
+            border: 1px solid #ccc;
             border-top: none;
             border-radius:0;
             max-height: 180px;
             overflow-y: auto;
             z-index: 1100;
-            box-shadow: 0 4px 12px rgba(22,53,92,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
         .acct-search-option {
             padding: 0.35rem 0.6rem;
-            font-size: 6.5pt;
+            font-size: 0.72rem;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
@@ -362,7 +362,7 @@
         }
 
         .acct-search-option:hover {
-            background: #f5f3ff;
+            background: #f7f5ff;
         }
 
         .acct-search-option.acct-search-empty {
@@ -375,19 +375,18 @@
             background: transparent;
         }
 
-        /* ── Filter card (corporate navy look) ── */
+        /* ── Filter card ── */
         .tx-filter-form {
             background:#fff;
-            border:1px solid #c4b5fd;
-            font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
-            color:#4c1d95;
-            font-size:7pt;
+            border:1px solid #e5e7eb;
+            color:#000;
+            font-size:0.8rem;
             line-height:1.45;
             margin-bottom:1rem;
             position:sticky;
             top:0;
             z-index:20;
-            box-shadow:0 4px 12px rgba(22,53,92,0.06);
+            box-shadow:0 2px 8px rgba(0,0,0,0.04);
         }
         .tx-filter-body { padding:1.1rem 1.35rem; }
         .tx-filter-head {
@@ -395,14 +394,14 @@
             cursor:pointer; user-select:none; padding:0.75rem 1.35rem;
         }
         .tx-filter-title {
-            font-weight:700; font-size:7pt; text-transform:uppercase; letter-spacing:0.07em; color:#4c1d95;
+            font-weight:700; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:#5e17eb;
             display:flex; align-items:center; gap:0.5rem;
         }
-        .tx-filter-chevron { font-size:5.5pt; color:#8b7aad; transition:transform 0.15s; display:inline-block; }
+        .tx-filter-chevron { font-size:0.55rem; color:#999; transition:transform 0.15s; display:inline-block; }
         .tx-filter-form.open .tx-filter-chevron { transform:rotate(180deg); }
         .tx-filter-collapsible { display:none; padding:0 1.35rem 1.1rem; }
         .tx-filter-form.open .tx-filter-collapsible { display:block; }
-        .tx-filter-divider { border:none; border-top:1.5pt solid #4c1d95; margin:0 0 0.85rem; }
+        .tx-filter-divider { border:none; border-top:1px solid #e5e7eb; margin:0 0 0.85rem; }
 
         .tx-filter-form .af-row {
             display:grid; grid-template-columns:repeat(4,1fr); gap:0.55rem 0.85rem;
@@ -411,40 +410,40 @@
         .tx-filter-form .af-field.wide { grid-column:span 2; }
         .tx-filter-form .af-field.full { grid-column:span 4; }
         .tx-filter-form .af-field label {
-            display:block; font-size:5.5pt; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#6b5b8a; margin-bottom:0.2rem;
+            display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em;
+            text-transform:uppercase; color:#555; margin-bottom:0.22rem;
         }
         .tx-filter-form .af-field input,
         .tx-filter-form .af-field select {
-            width:100%; border:1px solid #c4b5fd; padding:0.35rem 0.5rem;
-            font-size:7pt; font-family:inherit; color:#4c1d95;
+            width:100%; border:1px solid #ccc; padding:0.35rem 0.5rem;
+            font-size:0.8rem; font-family:inherit; color:#000;
             box-sizing:border-box; background:#fff; height:2rem;
         }
         .tx-filter-form .af-field input:focus,
-        .tx-filter-form .af-field select:focus { outline:none; border-color:#4c1d95; }
+        .tx-filter-form .af-field select:focus { outline:none; border-color:#5e17eb; }
         .tx-filter-form .acct-search .acct-search-input {
-            border:1px solid #c4b5fd; padding:0.35rem 0.5rem; font-size:7pt; height:2rem; border-radius:0;
+            border:1px solid #ccc; padding:0.35rem 0.5rem; font-size:0.8rem; height:2rem; border-radius:0;
         }
-        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#4c1d95; }
-        .tx-filter-form .acct-search-dropdown { border-color:#4c1d95; }
+        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#5e17eb; }
+        .tx-filter-form .acct-search-dropdown { border-color:#ccc; }
 
         .tx-filter-actions {
             display:flex; align-items:center; justify-content:space-between; gap:0.75rem;
-            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:1px solid #c4b5fd;
+            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:1px solid #e5e7eb;
         }
         .tx-filter-actions-left { display:flex; align-items:center; gap:0.85rem; }
 
         .mgmt-btn {
             display:inline-flex; align-items:center; gap:0.4rem;
-            background:#fff; border:1px solid #4c1d95; color:#4c1d95;
-            font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+            background:#fff; border:1px solid #000; color:#000;
+            font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
             padding:0.4rem 0.95rem; text-decoration:none; cursor:pointer;
             font-family:inherit; transition:background 0.15s, color 0.15s;
             height:2rem; box-sizing:border-box;
         }
-        .mgmt-btn:hover { background:#4c1d95; color:#fff; }
-        .mgmt-btn.primary { background:#4c1d95; color:#fff; }
-        .mgmt-btn.primary:hover { background:#0d2847; }
+        .mgmt-btn:hover { background:#000; color:#fff; }
+        .mgmt-btn.primary { background:#000; color:#fff; }
+        .mgmt-btn.primary:hover { background:#333; }
         .mgmt-btn.success { border-color:#15803d; color:#15803d; }
         .mgmt-btn.success:hover { background:#15803d; color:#fff; }
         .mgmt-btn.warn { border-color:#b45309; color:#b45309; }
@@ -452,41 +451,40 @@
         .mgmt-btn.danger { border-color:#b91c1c; color:#b91c1c; }
         .mgmt-btn.danger:hover { background:#b91c1c; color:#fff; }
         .mgmt-btn.sm {
-            font-size:5.5pt; padding:0.28rem 0.65rem; height:1.7rem; gap:0.3rem;
+            font-size:0.62rem; padding:0.28rem 0.65rem; height:1.7rem; gap:0.3rem;
         }
         .mgmt-btn.ghost {
-            border-style:dashed; color:#6b5b8a; border-color:#c4b5fd;
+            border-style:dashed; color:#999; border-color:#ccc;
         }
-        .mgmt-btn.ghost:hover { background:#faf5ff; color:#4c1d95; border-color:#4c1d95; }
+        .mgmt-btn.ghost:hover { background:#f7f5ff; color:#000; border-color:#000; }
 
         /* Shared form field used inside expanded rows and the new-transaction modal */
         .tx-af-label {
-            display:block; font-size:5.5pt; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#6b5b8a; margin-bottom:0.2rem;
+            display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em;
+            text-transform:uppercase; color:#555; margin-bottom:0.22rem;
         }
         .tx-af-input {
-            width:100%; border:1px solid #c4b5fd; padding:0.35rem 0.55rem;
-            font-size:7pt; font-family:inherit; color:#4c1d95;
+            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            font-size:0.8rem; font-family:inherit; color:#000;
             box-sizing:border-box; background:#fff; height:2rem; border-radius:0;
         }
-        .tx-af-input:focus { outline:none; border-color:#4c1d95; }
+        .tx-af-input:focus { outline:none; border-color:#5e17eb; }
         textarea.tx-af-input { height:auto; padding:0.4rem 0.55rem; line-height:1.45; }
 
-        /* Bulk action bar (corporate navy) */
+        /* Bulk action bar */
         .tx-bulk-bar {
             display:none; padding:0.85rem 1.1rem;
-            background:#f5f3ff; border-top:1px solid #c4b5fd; border-bottom:1px solid #c4b5fd;
+            background:#fafafa; border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb;
             align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
-            font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;
         }
         .tx-bulk-count {
-            font-size:6.5pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#4c1d95;
+            font-size:0.68rem; font-weight:700; letter-spacing:0.06em;
+            text-transform:uppercase; color:#000;
         }
         .tx-bulk-actions { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
 
         /* Expanded-row mini panel (notes, source document) */
-        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #c4b5fd; }
+        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #ddd; }
         .tx-mini-col { display:flex; flex-direction:column; gap:0.3rem; }
         .tx-mini-head { display:flex; align-items:center; gap:0.5rem; }
         .tx-saved-flag { display:none; font-size:5.5pt; color:#15803d; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; }
@@ -528,54 +526,54 @@
         /* Live Meilisearch results panel */
         .tx-live-panel {
             position:absolute; top:100%; left:0; right:0; z-index:200;
-            background:#fff; border:1px solid #000; border-top:none;
-            box-shadow:0 6px 24px rgba(0,0,0,0.10);
+            background:#fff; border:1px solid #ccc; border-top:none;
+            box-shadow:0 6px 24px rgba(0,0,0,0.08);
             max-height:420px; overflow-y:auto;
         }
         .tx-live-hit {
-            padding:0.65rem 0.9rem; border-bottom:1px solid #eee;
+            padding:0.6rem 0.85rem; border-bottom:1px solid #eee;
             cursor:pointer; transition:background 0.1s;
         }
         .tx-live-hit:last-child { border-bottom:none; }
-        .tx-live-hit:hover, .tx-live-hit.focused { background:#f5f5f5; }
+        .tx-live-hit:hover, .tx-live-hit.focused { background:#f7f5ff; }
         .tx-live-hit-top {
             display:flex; align-items:baseline; justify-content:space-between; gap:0.5rem;
-            margin-bottom:0.25rem;
+            margin-bottom:0.2rem;
         }
         .tx-live-hit-desc {
-            font-size:0.8rem; font-weight:700; color:#000; flex:1; min-width:0;
+            font-size:0.78rem; font-weight:700; color:#000; flex:1; min-width:0;
             white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
         }
-        .tx-live-hit-desc mark { background:#fef08a; color:#000; font-weight:900; border-radius:2px; padding:0 1px; }
-        .tx-live-hit-ref { font-size:0.68rem; color:#555; white-space:nowrap; }
-        .tx-live-hit-ref mark { background:#fef08a; color:#000; font-weight:700; border-radius:2px; padding:0 1px; }
+        .tx-live-hit-desc mark { background:#fef08a; color:#000; font-weight:900; padding:0 2px; }
+        .tx-live-hit-ref { font-size:0.65rem; color:#888; white-space:nowrap; font-family:'Courier New',monospace; }
+        .tx-live-hit-ref mark { background:#fef08a; color:#000; font-weight:700; padding:0 2px; }
         .tx-live-hit-snippet {
-            font-size:0.7rem; color:#666; line-height:1.4; margin-top:0.1rem;
+            font-size:0.7rem; color:#666; line-height:1.45; margin-top:0.1rem;
             display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
         }
-        .tx-live-hit-snippet mark { background:#fef08a; color:#000; font-weight:700; border-radius:2px; padding:0 1px; }
+        .tx-live-hit-snippet mark { background:#fef08a; color:#000; font-weight:700; padding:0 2px; }
         .tx-live-hit-meta {
-            display:flex; gap:0.6rem; align-items:center; margin-top:0.3rem;
+            display:flex; gap:0.65rem; align-items:center; margin-top:0.25rem;
         }
-        .tx-live-hit-date { font-size:0.63rem; color:#888; }
-        .tx-live-hit-amount { font-size:0.63rem; color:#000; font-weight:700; }
+        .tx-live-hit-date { font-size:0.62rem; color:#999; }
+        .tx-live-hit-amount { font-size:0.65rem; color:#000; font-weight:700; font-family:'Courier New',monospace; }
         .tx-live-hit-status {
-            font-size:0.58rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase;
-            padding:0.05rem 0.35rem; border-radius:2px;
+            font-size:0.55rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase;
+            padding:0.1rem 0.4rem;
         }
         .tx-live-hit-status.posted   { background:#dcfce7; color:#15803d; }
         .tx-live-hit-status.draft    { background:#f3f4f6; color:#6b7280; }
         .tx-live-hit-status.reversed { background:#fee2e2; color:#b91c1c; }
         .tx-live-hit-status.reversal { background:#fff7ed; color:#b45309; }
         .tx-live-empty {
-            padding:0.8rem 0.9rem; font-size:0.75rem; color:#888; text-align:center;
+            padding:0.85rem 0.9rem; font-size:0.75rem; color:#999; text-align:center;
         }
         .tx-live-loading {
-            padding:0.8rem 0.9rem; font-size:0.72rem; color:#555;
+            padding:0.85rem 0.9rem; font-size:0.72rem; color:#555;
             display:flex; align-items:center; gap:0.5rem;
         }
         .tx-live-spinner {
-            width:12px; height:12px; border:2px solid #ddd; border-top-color:#555;
+            width:12px; height:12px; border:2px solid #eee; border-top-color:#5e17eb;
             border-radius:50%; animation:tx-spin 0.6s linear infinite; flex-shrink:0;
         }
         @keyframes tx-spin { to { transform:rotate(360deg); } }
@@ -764,7 +762,7 @@
                             <span style="font-size:0.78rem;color:#888;">{{ number_format($transactions->total()) }}
                                 {{ Str::plural('entry', $transactions->total()) }}</span>
                             <button type="button" onclick="openNewTxModal()"
-                                style="display:inline-flex;align-items:center;gap:0.4rem;background:#5e17eb;color:#fff;border:none;border-radius:0;padding:0.45rem 0.95rem;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">
+                                style="display:inline-flex;align-items:center;gap:0.4rem;background:#000;color:#fff;border:none;border-radius:0;padding:0.45rem 0.95rem;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -1239,12 +1237,12 @@
         };
     @endphp
     <div id="tx-modal-overlay"
-        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;padding:2rem 1rem;overflow-y:auto;font-family:'DejaVu Sans',Helvetica,Arial,sans-serif;">
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;padding:2rem 1rem;overflow-y:auto;">
         <div role="dialog" aria-modal="true" aria-label="New transaction"
-            style="max-width:860px;margin:0 auto;background:#fff;border:1px solid #000;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;color:#000;font-size:0.78rem;line-height:1.45;">
+            style="max-width:860px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;color:#000;font-size:0.8rem;line-height:1.45;">
 
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1.5px solid #000;">
-                <h2 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;">New Transaction</h2>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid #e5e7eb;">
+                <p style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;margin:0;text-transform:uppercase;color:#5e17eb;">New Transaction</p>
                 <button type="button" onclick="closeNewTxModal()" aria-label="Close"
                     style="background:none;border:none;font-size:1.4rem;line-height:1;color:#000;cursor:pointer;">&times;</button>
             </div>
@@ -1298,19 +1296,18 @@
                     </div>
 
                     {{-- Journal lines --}}
-                    <hr style="border:none;border-top:1.5px solid #000;margin:1rem 0 0.75rem;">
-                    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.4rem;">
-                        <div class="tx-af-label" style="margin:0;font-size:0.66rem;letter-spacing:0.08em;color:#000;">Journal Lines</div>
-                        <span style="font-size:0.68rem;color:#666;">Double-entry: total debits must equal total credits.</span>
+                    <div style="margin-top:1.25rem;margin-bottom:0.5rem;">
+                        <p class="tx-af-label" style="margin:0 0 0.15rem;font-size:0.65rem;letter-spacing:0.1em;color:#5e17eb;">Journal Lines</p>
+                        <span style="font-size:0.68rem;color:#999;">Double-entry: total debits must equal total credits.</span>
                     </div>
-                    <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+                    <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
                         <thead>
                             <tr>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #000;">Account</th>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:110px;border-bottom:1px solid #000;">Type</th>
-                                <th style="text-align:right;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:130px;border-bottom:1px solid #000;">Amount</th>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #000;">Line note</th>
-                                <th style="width:32px;border-bottom:1px solid #000;"></th>
+                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #e5e7eb;">Account</th>
+                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:110px;border-bottom:1px solid #e5e7eb;">Type</th>
+                                <th style="text-align:right;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:130px;border-bottom:1px solid #e5e7eb;">Amount</th>
+                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #e5e7eb;">Line note</th>
+                                <th style="width:32px;border-bottom:1px solid #e5e7eb;"></th>
                             </tr>
                         </thead>
                         <tbody id="tx-lines-body">
@@ -1359,9 +1356,9 @@
                     </div>
                 </div>
 
-                <div style="display:flex;justify-content:flex-end;gap:0.6rem;padding:1rem 1.5rem;border-top:1px solid #ddd;background:#fafafa;">
-                    <button type="button" class="mgmt-btn" onclick="closeNewTxModal()">Cancel</button>
-                    <button type="submit" id="tx-save-btn" class="mgmt-btn primary">Save Transaction</button>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-top:1px solid #e5e7eb;">
+                    <a href="javascript:void(0)" onclick="closeNewTxModal()" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                    <button type="submit" id="tx-save-btn" style="background:#000;color:#fff;border:none;padding:0.55rem 1.5rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;">Save Transaction</button>
                 </div>
             </form>
         </div>

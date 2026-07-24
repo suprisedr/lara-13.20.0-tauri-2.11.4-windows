@@ -6,199 +6,91 @@
 @push('styles')
     @include('companies._styles')
     <style>
-        .inv-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5pt 7pt;
+        .cn-form { max-width:920px; }
+        .cn-section { margin-bottom:1.75rem; }
+        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+        .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
+        .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+        .cn-field input, .cn-field select, .cn-field textarea {
+            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
         }
-
-        @media (max-width: 640px) {
-            .inv-form-grid { grid-template-columns: 1fr; }
-        }
-
-        .inv-field label {
-            display: block;
-            font-size: 5pt;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #8b7aad;
-            margin-bottom: 1.5pt;
-        }
-
-        .inv-field input,
-        .inv-field select,
-        .inv-field textarea {
-            width: 100%;
-            border: 1px solid #c4b5fd;
-            border-radius: 0;
-            padding: 3pt 4pt;
-            font-size: 7pt;
-            color: #4c1d95;
-            background: #fff;
-            outline: none;
-            transition: border-color 0.15s;
-            box-sizing: border-box;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-        }
-
-        .inv-field textarea {
-            min-height: 50pt;
-            resize: vertical;
-        }
-
-        .inv-field input::placeholder,
-        .inv-field textarea::placeholder { color: #c4b5fd; font-size: 6.5pt; }
-
-        .inv-field input:focus,
-        .inv-field select:focus,
-        .inv-field textarea:focus {
-            border-color: #7c3aed;
-        }
-
-        .inv-field .field-hint {
-            font-size: 5.5pt;
-            color: #8b7aad;
-            margin-top: 1pt;
-        }
-
-        .inv-status-field {
-            display: flex;
-            align-items: center;
-            gap: 5pt;
-            padding: 3pt 5pt;
-            border: 1px solid #c4b5fd;
-            border-radius: 0;
-            background: #f5f3ff;
-        }
-
-        .inv-status-field span {
-            font-size: 7pt;
-            font-weight: 600;
-            color: #4c1d95;
-        }
-
-        .inv-field span.optional {
-            font-weight: 400;
-            text-transform: none;
-            letter-spacing: 0;
-            color: #8b7aad;
-            font-size: 4.5pt;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 4pt;
-            justify-content: flex-end;
-            margin-top: 7pt;
-            padding-top: 6pt;
-            border-top: 0.4pt solid #ddd6fe;
-        }
-
-        .btn-cancel {
-            padding: 2.5pt 6pt;
-            border: 1px solid #c4b5fd;
-            border-radius: 0;
-            font-size: 6pt;
-            color: #6b5b8a;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            background: #fff;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .btn-cancel:hover { background: #f5f3ff; }
-
-        .btn-primary {
-            padding: 2.5pt 7pt;
-            background: #7c3aed;
-            color: #fff;
-            border: none;
-            border-radius: 0;
-            font-size: 6pt;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-        }
-
-        .btn-primary:hover { background: #005f9e; }
+        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#5e17eb; }
+        .cn-field textarea { resize:vertical; min-height:70px; }
+        .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; }
+        .btn-submit:hover { background:#333; }
+        .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
     </style>
 @endpush
 
 @section('content')
     <div class="co-wrap">
-
         @include('companies._topbar')
 
         <div class="co-body">
             @include('companies._sidebar')
-
             <main class="co-main">
-                <form method="POST" action="{{ route('companies.customers.store', $company) }}">
+
+                <form method="POST" action="{{ route('companies.customers.store', $company) }}" class="cn-form">
                     @csrf
 
-                    <div class="co-card">
-                        <div class="co-card-head">
-                            <div>
-                                <div class="co-section-heading"><p class="co-section-label">Customers</p><h2>Add New Customer</h2></div>
+                    @if ($errors->any())
+                        <div style="background:#fee2e2;border:1px solid #fecaca;color:#b91c1c;padding:0.75rem 1.25rem;font-size:0.82rem;margin-bottom:1.25rem;">
+                            <strong>Please fix the following:</strong>
+                            <ul style="margin:0.4rem 0 0 1.1rem;padding:0;">
+                                @foreach ($errors->all() as $e) <li>{{ $e }}</li> @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="cn-section">
+                        <p class="cn-section-title">Customer Details</p>
+                        <div class="cn-grid">
+                            <div class="cn-field">
+                                <label>Customer Name <span style="color:#dc2626;">*</span></label>
+                                <input type="text" name="name" value="{{ old('name') }}" required>
+                                @error('name')<p class="form-error">{{ $message }}</p>@enderror
                             </div>
-</div>
-
-                        <div style="padding:8pt 12pt 10pt;">
-                            @if ($errors->any())
-                                <div style="background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:4pt 7pt;font-size:6.5pt;margin-bottom:7pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
-                                    <strong>Please fix the following:</strong>
-                                    <ul style="margin:2pt 0 0 8pt;padding:0;">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            <div class="inv-form-grid">
-                                <div class="inv-field">
-                                    <label for="name">Customer Name</label>
-                                    <input type="text" id="name" name="name" value="{{ old('name') }}"
-                                        required>
-                                </div>
-                                <div class="inv-field">
-                                    <label for="contact_name">Contact Person <span class="optional">(optional)</span></label>
-                                    <input type="text" id="contact_name" name="contact_name"
-                                        value="{{ old('contact_name') }}">
-                                </div>
-                                <div class="inv-field">
-                                    <label for="email">Customer Email <span class="optional">(optional)</span></label>
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}">
-                                </div>
-                                <div class="inv-field">
-                                    <label for="phone">Phone <span class="optional">(optional)</span></label>
-                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}">
-                                </div>
-                                <div class="inv-field" style="grid-column:span 2;">
-                                    <label for="address">Customer Address <span class="optional">(optional)</span></label>
-                                    <textarea id="address" name="address" rows="2">{{ old('address') }}</textarea>
-                                </div>
-                                <div class="inv-field" style="grid-column:span 2;">
-                                    <label class="inv-status-field">
-                                        <input type="hidden" name="is_active" value="0">
-                                        <input type="checkbox" id="is_active" name="is_active" value="1"
-                                            {{ old('is_active', '1') == '1' ? 'checked' : '' }}>
-                                        <span>Active customer</span>
-                                    </label>
-                                </div>
+                            <div class="cn-field">
+                                <label>Contact Person <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                                <input type="text" name="contact_name" value="{{ old('contact_name') }}">
                             </div>
-
-                            <div class="form-actions">
-                                <a href="{{ route('companies.customers.index', $company) }}" class="btn-cancel">Cancel</a>
-                                <button type="submit" class="btn-primary">Create Customer</button>
+                            <div class="cn-field">
+                                <label>Email <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                                <input type="email" name="email" value="{{ old('email') }}">
+                                @error('email')<p class="form-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="cn-field">
+                                <label>Phone <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                                <input type="tel" name="phone" value="{{ old('phone') }}">
                             </div>
                         </div>
                     </div>
+
+                    <div class="cn-section">
+                        <p class="cn-section-title">Address</p>
+                        <div class="cn-grid">
+                            <div class="cn-field" style="grid-column:span 2;">
+                                <label>Customer Address <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                                <textarea name="address" rows="2">{{ old('address') }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cn-section">
+                        <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#000;cursor:pointer;">
+                            <input type="hidden" name="is_active" value="0">
+                            <input type="checkbox" name="is_active" value="1" {{ old('is_active', '1') == '1' ? 'checked' : '' }} style="accent-color:#000;">
+                            Active customer
+                        </label>
+                    </div>
+
+                    <div style="display:flex;gap:1rem;align-items:center;">
+                        <button type="submit" class="btn-submit">Create Customer</button>
+                        <a href="{{ route('companies.customers.index', $company) }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                    </div>
                 </form>
+
             </main>
         </div>
     </div>

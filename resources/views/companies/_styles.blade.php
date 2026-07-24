@@ -1192,6 +1192,28 @@
         padding: 4pt 0;
     }
 
+    .reg-empty-state {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        color: #8b7aad;
+        font-style: normal;
+    }
+
+    .reg-empty-state p {
+        margin: 0 0 0.3rem;
+        font-size: 7pt;
+    }
+
+    .reg-empty-state .reg-empty-title {
+        font-weight: 700;
+        color: #6b5b8a;
+        font-size: 8pt;
+    }
+
+    .reg-empty-state .reg-btn {
+        margin-top: 1rem;
+    }
+
     /* Register row actions (three-dot menu) */
     .reg-row-actions { position: relative; }
     .reg-row-dots {

@@ -5,186 +5,148 @@
 
 @push('styles')
 <style>
-    body { background: #f5f5f0; }
-    .ob-wrap { min-height: 100vh; background: #f5f5f0; padding-bottom: 4rem; }
-    .ob-content { max-width: 720px; margin: 0 auto; padding: 0 1.25rem 3rem; }
-    .ob-topbar {
-        background: linear-gradient(135deg, #5e17eb 0%, #3b0ea8 100%);
-        padding: 1.5rem 1.75rem;
-        margin: 3.5rem 0 0;
-        position: relative; overflow: hidden;
+    .ob-page { min-height:100vh; background:#f7f5ff; display:flex; justify-content:center; padding:2rem 1rem 4rem; }
+    .cn-form { max-width:920px; width:100%; }
+    .cn-section { margin-bottom:1.75rem; }
+    .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+    .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
+    .cn-grid.three { grid-template-columns:1fr 1fr 1fr; }
+    .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+    .cn-field input, .cn-field select {
+        width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+        font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
     }
-    .ob-topbar::before {
-        content: '';
-        position: absolute; inset: 0;
-        background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.025) 40px, rgba(255,255,255,0.025) 41px);
-        pointer-events: none;
-    }
-    .cust-doc { background: #fff; border: 1px solid #ddd; }
-    .cust-doc-body { padding: 1.75rem 2rem; }
-    .ob-section-header { border-top: 2px solid #000; margin: 1.5rem 0 0.85rem; padding-top: 0.35rem; }
-    .ob-section-header:first-child { margin-top: 0; }
-    .ob-section-title { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #000; }
-    .af-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.65rem 1.25rem; margin-bottom: 0.65rem; }
-    .af-field label { display: block; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #888; margin-bottom: 0.3rem; }
-    .af-field input, .af-field select {
-        width: 100%; box-sizing: border-box;
-        border: 1.5px solid #e5e7eb;
-        padding: 0.48rem 0.65rem;
-        font-size: 0.82rem; font-family: inherit; color: #1b1b18;
-        background: #fff; outline: none;
-        transition: border-color 0.15s;
-        appearance: none;
-    }
-    .af-field input:focus, .af-field select:focus { border-color: #5e17eb; }
-    .af-field input.has-error, .af-field select.has-error { border-color: #dc2626; background: #fff8f8; }
-    .ob-hint { font-size: 0.71rem; color: #9ca3af; margin: 0.25rem 0 0; }
-    .ob-error { font-size: 0.71rem; color: #dc2626; margin: 0.2rem 0 0; }
-    .mgmt-btn { display:inline-flex; align-items:center; gap:0.4rem; background:#fff; border:1px solid #000; color:#000; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:0.45rem 1rem; text-decoration:none; cursor:pointer; font-family:inherit; transition:background 0.15s,color 0.15s; }
-    .mgmt-btn:hover { background:#000; color:#fff; }
-    .mgmt-btn.primary { background:#000; color:#fff; }
-    .mgmt-btn.primary:hover { background:#333; }
-    .mgmt-btn.ghost { background:transparent; border-color:#ccc; color:#555; }
-    .mgmt-btn.ghost:hover { background:#f3f4f6; color:#000; border-color:#999; }
-    @media (max-width: 640px) {
-        .ob-topbar { margin-top: 0.75rem; padding: 1.1rem 1.25rem; }
-        .af-row { grid-template-columns: 1fr; }
-        .cust-doc-body { padding: 1.25rem 1.1rem; }
+    .cn-field input:focus, .cn-field select:focus { outline:none; border-color:#5e17eb; }
+    .cn-field input.has-error, .cn-field select.has-error { border-color:#dc2626; background:#fff8f8; }
+    .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
+    .form-hint { font-size:0.68rem; color:#9ca3af; margin-top:0.15rem; }
+    .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; display:inline-flex; align-items:center; gap:0.4rem; }
+    .btn-submit:hover { background:#333; }
+    .ob-header { margin-bottom:0.5rem; }
+    .ob-header h1 { font-size:1.25rem; font-weight:800; color:#000; margin:0 0 0.15rem; letter-spacing:-0.015em; }
+    .ob-header p { font-size:0.78rem; color:#6b7280; margin:0; }
+    .ob-step-label { font-size:0.6rem; font-weight:700; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.35rem; }
+    @media (max-width:640px) {
+        .cn-grid, .cn-grid.three { grid-template-columns:1fr; }
     }
 </style>
 @endpush
 
 @section('content')
-<div class="ob-wrap">
-    <div class="ob-content">
+<div class="ob-page">
+    <div class="cn-form">
 
-        {{-- Violet topbar --}}
-        <div class="ob-topbar" style="position:relative;">
-            <div style="position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-                <div>
-                    <p style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin:0 0 0.25rem;">Chainbook Intelligence</p>
-                    <h1 style="font-size:1.3rem;font-weight:900;color:#fff;margin:0;letter-spacing:-0.02em;">Company Identity &amp; Statutory Info</h1>
-                    <p style="font-size:0.74rem;color:rgba(255,255,255,0.55);margin:0.2rem 0 0;">Your company's legal identity as registered with CIPC.</p>
+        <p class="ob-step-label">Step 1 of 3</p>
+        <div class="ob-header">
+            <h1>Company Identity &amp; Statutory Info</h1>
+            <p>Your company's legal identity as registered with CIPC.</p>
+        </div>
+
+        @include('onboarding.partials.steps', ['current' => 1])
+
+        @if ($errors->any())
+            <div style="background:#fee2e2;border:1px solid #fecaca;color:#b91c1c;padding:0.75rem 1.25rem;font-size:0.82rem;margin-bottom:1.25rem;">
+                <strong>Please fix the following:</strong>
+                <ul style="margin:0.4rem 0 0 1.1rem;padding:0;">
+                    @foreach ($errors->all() as $e) <li>{{ $e }}</li> @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('onboarding.step1.store') }}">
+            @csrf
+
+            <div class="cn-section">
+                <p class="cn-section-title">Company Details</p>
+                <div class="cn-grid">
+                    <div class="cn-field">
+                        <label>Registered Name <span style="color:#dc2626;">*</span></label>
+                        <input type="text" name="registered_name" value="{{ old('registered_name') }}"
+                            placeholder="e.g. Acme Solutions (Pty) Ltd" required
+                            class="{{ $errors->has('registered_name') ? 'has-error' : '' }}">
+                        @error('registered_name')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field">
+                        <label>Company Type <span style="color:#dc2626;">*</span></label>
+                        <select name="company_type" required class="{{ $errors->has('company_type') ? 'has-error' : '' }}">
+                            <option value="" disabled {{ old('company_type') ? '' : 'selected' }}>Select type…</option>
+                            @foreach (\App\Models\Company::companyTypes() as $key => $label)
+                                <option value="{{ $key }}" @selected(old('company_type') === $key)>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @error('company_type')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field">
+                        <label>CIPC Registration Number <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                        <input type="text" name="registration_number" value="{{ old('registration_number') }}"
+                            placeholder="2024/123456/07"
+                            class="{{ $errors->has('registration_number') ? 'has-error' : '' }}">
+                        <p class="form-hint">14-char CIPC format — optional for Sole Proprietors.</p>
+                        @error('registration_number')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field">
+                        <label>Financial Year-End <span style="color:#dc2626;">*</span></label>
+                        <select name="financial_year_end_month" required class="{{ $errors->has('financial_year_end_month') ? 'has-error' : '' }}">
+                            <option value="" disabled {{ old('financial_year_end_month') ? '' : 'selected' }}>Select month…</option>
+                            @foreach (\App\Models\Company::months() as $num => $name)
+                                <option value="{{ $num }}" @selected((int) old('financial_year_end_month') === $num)>{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        <p class="form-hint">Most SA businesses end in February.</p>
+                        @error('financial_year_end_month')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
                 </div>
-                <span style="font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase;padding-top:0.15rem;flex-shrink:0;">Step 1 of 3</span>
             </div>
-            <div style="position:relative;z-index:1;">
-                @include('onboarding.partials.steps', ['current' => 1])
+
+            <div class="cn-section">
+                <p class="cn-section-title">Registered Address</p>
+                <div class="cn-grid">
+                    <div class="cn-field" style="grid-column:span 2;">
+                        <label>Address Line 1 <span style="color:#dc2626;">*</span></label>
+                        <input type="text" name="address_line_1" value="{{ old('address_line_1') }}"
+                            placeholder="Street address or P.O. Box" required
+                            class="{{ $errors->has('address_line_1') ? 'has-error' : '' }}">
+                        @error('address_line_1')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field" style="grid-column:span 2;">
+                        <label>Address Line 2 <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                        <input type="text" name="address_line_2" value="{{ old('address_line_2') }}"
+                            placeholder="Suite, floor, building…">
+                    </div>
+                </div>
+                <div class="cn-grid three" style="margin-top:0.75rem;">
+                    <div class="cn-field">
+                        <label>City <span style="color:#dc2626;">*</span></label>
+                        <input type="text" name="city" value="{{ old('city') }}"
+                            placeholder="e.g. Johannesburg" required
+                            class="{{ $errors->has('city') ? 'has-error' : '' }}">
+                        @error('city')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field">
+                        <label>Province <span style="color:#dc2626;">*</span></label>
+                        <select name="province" required class="{{ $errors->has('province') ? 'has-error' : '' }}">
+                            <option value="" disabled {{ old('province') ? '' : 'selected' }}>Select…</option>
+                            @foreach (\App\Models\Company::saProvinces() as $code => $name)
+                                <option value="{{ $code }}" @selected(old('province') === $code)>{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @error('province')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="cn-field">
+                        <label>Postal Code <span style="color:#dc2626;">*</span></label>
+                        <input type="text" name="postal_code" value="{{ old('postal_code') }}"
+                            placeholder="0000" maxlength="10" required
+                            class="{{ $errors->has('postal_code') ? 'has-error' : '' }}">
+                        @error('postal_code')<p class="form-error">{{ $message }}</p>@enderror
+                    </div>
+                </div>
             </div>
-        </div>
 
-        {{-- Form card --}}
-        <div class="cust-doc">
-            <div class="cust-doc-body">
-
-                @if ($errors->any())
-                    <div style="background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c;padding:0.6rem 0.85rem;font-size:0.77rem;margin-bottom:1.25rem;">
-                        <strong>Please fix the following:</strong>
-                        <ul style="margin:0.3rem 0 0 1rem;padding:0;">
-                            @foreach ($errors->all() as $e)<li>{{ $e }}</li>@endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('onboarding.step1.store') }}">
-                    @csrf
-
-                    <div class="ob-section-header"><span class="ob-section-title">Company Details</span></div>
-                    <div class="af-row">
-                        <div class="af-field">
-                            <label>Registered Name *</label>
-                            <input type="text" name="registered_name" value="{{ old('registered_name') }}"
-                                placeholder="e.g. Acme Solutions (Pty) Ltd" required
-                                class="{{ $errors->has('registered_name') ? 'has-error' : '' }}">
-                            @error('registered_name')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="af-field">
-                            <label>Company Type *</label>
-                            <select name="company_type" required class="{{ $errors->has('company_type') ? 'has-error' : '' }}">
-                                <option value="" disabled {{ old('company_type') ? '' : 'selected' }}>Select type…</option>
-                                @foreach (\App\Models\Company::companyTypes() as $key => $label)
-                                    <option value="{{ $key }}" @selected(old('company_type') === $key)>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                            @error('company_type')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="af-row">
-                        <div class="af-field">
-                            <label>CIPC Registration Number</label>
-                            <input type="text" name="registration_number" value="{{ old('registration_number') }}"
-                                placeholder="2024/123456/07"
-                                class="{{ $errors->has('registration_number') ? 'has-error' : '' }}">
-                            <p class="ob-hint">14-char CIPC format — optional for Sole Proprietors.</p>
-                            @error('registration_number')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="af-field">
-                            <label>Financial Year-End *</label>
-                            <select name="financial_year_end_month" required class="{{ $errors->has('financial_year_end_month') ? 'has-error' : '' }}">
-                                <option value="" disabled {{ old('financial_year_end_month') ? '' : 'selected' }}>Select month…</option>
-                                @foreach (\App\Models\Company::months() as $num => $name)
-                                    <option value="{{ $num }}" @selected((int) old('financial_year_end_month') === $num)>{{ $name }}</option>
-                                @endforeach
-                            </select>
-                            <p class="ob-hint">Most SA businesses end in February.</p>
-                            @error('financial_year_end_month')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                    </div>
-
-                    <div class="ob-section-header"><span class="ob-section-title">Registered Address</span></div>
-                    <div class="af-row" style="grid-template-columns:1fr;">
-                        <div class="af-field">
-                            <label>Address Line 1 *</label>
-                            <input type="text" name="address_line_1" value="{{ old('address_line_1') }}"
-                                placeholder="Street address or P.O. Box" required
-                                class="{{ $errors->has('address_line_1') ? 'has-error' : '' }}">
-                            @error('address_line_1')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                    </div>
-                    <div class="af-row" style="grid-template-columns:1fr;">
-                        <div class="af-field">
-                            <label>Address Line 2 <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#bbb;">(optional)</span></label>
-                            <input type="text" name="address_line_2" value="{{ old('address_line_2') }}"
-                                placeholder="Suite, floor, building…">
-                        </div>
-                    </div>
-                    <div class="af-row">
-                        <div class="af-field">
-                            <label>City *</label>
-                            <input type="text" name="city" value="{{ old('city') }}"
-                                placeholder="e.g. Johannesburg" required
-                                class="{{ $errors->has('city') ? 'has-error' : '' }}">
-                            @error('city')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="af-field">
-                            <label>Province *</label>
-                            <select name="province" required class="{{ $errors->has('province') ? 'has-error' : '' }}">
-                                <option value="" disabled {{ old('province') ? '' : 'selected' }}>Select…</option>
-                                @foreach (\App\Models\Company::saProvinces() as $code => $name)
-                                    <option value="{{ $code }}" @selected(old('province') === $code)>{{ $name }}</option>
-                                @endforeach
-                            </select>
-                            @error('province')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                        <div class="af-field">
-                            <label>Postal Code *</label>
-                            <input type="text" name="postal_code" value="{{ old('postal_code') }}"
-                                placeholder="0000" maxlength="10" required
-                                class="{{ $errors->has('postal_code') ? 'has-error' : '' }}">
-                            @error('postal_code')<p class="ob-error">{{ $message }}</p>@enderror
-                        </div>
-                    </div>
-
-                    <div style="border-top:2px solid #000;margin-top:1.75rem;padding-top:1rem;display:flex;justify-content:flex-end;">
-                        <button type="submit" class="mgmt-btn primary">
-                            Continue: Tax &amp; Compliance &rarr;
-                        </button>
-                    </div>
-                </form>
-
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+                <a href="{{ route('dashboard') }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                <button type="submit" class="btn-submit">Continue: Tax &amp; Compliance</button>
             </div>
-        </div>
+        </form>
 
     </div>
 </div>

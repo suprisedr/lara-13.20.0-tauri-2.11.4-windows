@@ -64,6 +64,7 @@
                                     @endif
                                 </span>
                                 <a href="{{ route('companies.reports.balance-sheet.pdf', [$company, 'as_of_date' => $asOfDate, 'rounding' => $rounding, 'compare' => $compare ? 1 : 0, 'compare_date' => $priorAsOfDate]) }}"
+                                    target="_blank" rel="noopener"
                                     style="display:inline-flex;align-items:center;gap:0.35rem;background:#5e17eb;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
                                     onmouseover="this.style.background='#4a10c4'"
                                     onmouseout="this.style.background='#5e17eb'">

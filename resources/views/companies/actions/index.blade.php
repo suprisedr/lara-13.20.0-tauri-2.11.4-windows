@@ -345,6 +345,7 @@
                                 <div id="export-menu" class="af-export-menu">
                                     <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'xlsx']) }}">Excel (.xlsx)</a>
                                     <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'csv']) }}">CSV (.csv)</a>
+                                    <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'pdf']) }}" target="_blank" rel="noopener">PDF (.pdf)</a>
                                 </div>
                             </div>
                         </div>

@@ -93,4 +93,14 @@ class OnboardingController extends Controller
 
         return redirect()->route('dashboard')->with('company_onboarded', $company->registered_name);
     }
+
+    public function cancel(Company $company): RedirectResponse
+    {
+        abort_unless($company->user_id === auth()->id(), 403);
+        abort_if($company->onboarding_completed_at, 403);
+
+        $company->delete();
+
+        return redirect()->route('dashboard');
+    }
 }

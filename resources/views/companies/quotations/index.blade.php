@@ -99,16 +99,16 @@
                         </div>
 
                         @if ($quotations->isEmpty())
-                            <div class="reg-empty" style="text-align:center;padding:20pt 10pt;">
+                            <div class="reg-empty-state">
                                 <svg width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
-                                    style="margin:0 auto 6pt;display:block;">
+                                    style="display:block;margin:0 auto 0.75rem;">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <polyline points="14 2 14 8 20 8" />
                                     <path d="M9 15l2 2 4-4" />
                                 </svg>
-                                <p style="font-weight:700;color:#6b5b8a;margin:0 0 2pt;font-size:7pt;">No quotations yet</p>
-                                <p style="font-size:6.5pt;margin:0 0 8pt;color:#8b7aad;">Create your first quotation to get started.</p>
+                                <p class="reg-empty-title">No quotations yet</p>
+                                <p>Create your first quotation to get started.</p>
                                 <a href="{{ route('companies.quotations.create', $company) }}" class="reg-btn primary">
                                     Create Quotation
                                 </a>

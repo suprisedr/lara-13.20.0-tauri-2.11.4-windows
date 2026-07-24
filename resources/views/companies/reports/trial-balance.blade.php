@@ -233,6 +233,7 @@
                         <div style="display:flex;align-items:center;gap:0.6rem;">
                             @if ($accounts->isNotEmpty())
                                 <a href="{{ route('companies.reports.trial-balance.pdf', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
+                                    target="_blank" rel="noopener"
                                     style="display:inline-flex;align-items:center;gap:0.35rem;background:#4c1d95;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
                                     onmouseover="this.style.background='#3b0764'" onmouseout="this.style.background='#4c1d95'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
@@ -244,6 +245,7 @@
                                     PDF
                                 </a>
                                 <a href="{{ route('companies.reports.trial-balance.excel', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
+                                    target="_blank" rel="noopener"
                                     style="display:inline-flex;align-items:center;gap:0.35rem;background:#7c3aed;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
                                     onmouseover="this.style.background='#005f9e'" onmouseout="this.style.background='#7c3aed'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"

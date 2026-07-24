@@ -6,378 +6,269 @@
 @push('styles')
     @include('companies._styles')
     <style>
-        /* ── Management bar ─────────────────────────────────────── */
-        .inv-mgmt-bar {
+        /* ── Quotation-specific overrides (corporate palette) ── */
+        .qt-status-form {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            gap: 4pt;
         }
 
-        .inv-mgmt-bar a {
-            font-size: 0.78rem;
-            color: #6b7280;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: color 0.15s;
-        }
-
-        .inv-mgmt-bar a:hover { color: #5e17eb; }
-
-        .inv-status-form {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .inv-status-select {
-            border: 1px solid #ddd6fe;
-            border-radius: 0;
-            padding: 0.35rem 0.6rem;
-            font-size: 0.78rem;
-            color: #1b1b18;
+        .qt-status-select {
+            border: 1px solid #c4b5fd;
+            padding: 2pt 5pt;
+            font-size: 6.5pt;
+            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #23282d;
             background: #fff;
             outline: none;
             cursor: pointer;
+            border-radius: 0;
         }
 
-        .inv-status-btn {
-            background: #5e17eb;
-            color: #fff;
-            border: none;
-            border-radius: 0;
-            padding: 0.38rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.15s;
-            white-space: nowrap;
-        }
-
-        .inv-status-btn:hover { background: #4a10c4; }
-
-        .inv-convert-btn {
-            background: #15803d;
-            color: #fff;
-            border: none;
-            border-radius: 0;
-            padding: 0.38rem 0.85rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.15s;
-            white-space: nowrap;
+        .qt-convert-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-        }
-
-        .inv-convert-btn:hover { background: #116932; }
-
-        /* ── Quotation document ─────────────────────────────────── */
-        .invoice-doc {
-            background: #fff;
-            border: 1px solid #ede9fe;
+            gap: 4pt;
+            background: #15803d;
+            border: 1px solid #15803d;
+            color: #fff;
+            font-size: 6.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 3pt 8pt;
+            cursor: pointer;
+            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            transition: background 0.15s;
             border-radius: 0;
-            overflow: hidden;
+            white-space: nowrap;
         }
+        .qt-convert-btn:hover { background: #116932; }
 
-        .invoice-doc-accent {
-            height: 5px;
-            background: linear-gradient(90deg, #5e17eb 0%, #7c3aed 100%);
-        }
-
-        .invoice-doc-body {
-            padding: 2.5rem 2.75rem;
-        }
-
-        /* ── Header row: logo/company + quotation number ────────── */
-        .invoice-header {
+        /* ── Letterhead ── */
+        .qt-letterhead {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 2rem;
-            margin-bottom: 2.25rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #ede9fe;
-            flex-wrap: wrap;
+            border-bottom: 1.5pt solid #4c1d95;
+            padding: 0 0 6pt;
+            margin: 0 0 8pt;
         }
 
-        .invoice-from {
+        .qt-letterhead-left {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 6pt;
         }
 
-        .invoice-logo {
-            width: 72px;
-            height: 72px;
+        .qt-logo {
+            width: 36pt;
+            height: 36pt;
             object-fit: contain;
-            border-radius: 0;
-            border: 1px solid #f3f0ff;
+            border: 0.5pt solid #c4b5fd;
             flex-shrink: 0;
         }
 
-        .invoice-logo-placeholder {
-            width: 72px;
-            height: 72px;
-            border-radius: 0;
-            background: linear-gradient(135deg, #5e17eb, #7c3aed);
+        .qt-logo-placeholder {
+            width: 36pt;
+            height: 36pt;
+            background: #4c1d95;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 1.5rem;
+            font-size: 11pt;
             font-weight: 900;
             color: #fff;
-            letter-spacing: -0.02em;
         }
 
-        .invoice-company-block h1 {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: #1b1b18;
-            margin: 0 0 0.3rem;
-            letter-spacing: -0.01em;
+        .qt-company-name {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #4c1d95;
+            letter-spacing: 0.01em;
+            margin: 0 0 1pt;
+            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
-        .invoice-company-block p {
-            font-size: 0.78rem;
-            color: #6b7280;
-            margin: 0 0 0.18rem;
-            line-height: 1.5;
+        .qt-company-detail {
+            font-size: 7pt;
+            color: #6b5b8a;
+            margin: 0;
+            line-height: 1.6;
         }
 
-        .invoice-meta {
+        .qt-meta-right {
             text-align: right;
             flex-shrink: 0;
         }
 
-        .invoice-meta .inv-number {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: #5e17eb;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.4rem;
+        .qt-doc-number {
+            font-size: 9pt;
+            font-weight: 800;
+            color: #4c1d95;
+            letter-spacing: 0.02em;
+            margin-bottom: 2pt;
         }
 
-        .inv-status-pill {
-            display: inline-block;
-            padding: 0.2rem 0.65rem;
-            border-radius:0;
-            font-size: 0.65rem;
+        .qt-date-row {
+            font-size: 7pt;
+            color: #6b5b8a;
+            margin-bottom: 1pt;
+            text-align: right;
+        }
+
+        .qt-date-row strong {
+            color: #23282d;
             font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.85rem;
+            margin-left: 3pt;
         }
 
-        .inv-status-pill.draft    { background: #fef9c3; color: #854d0e; }
-        .inv-status-pill.sent     { background: #dbeafe; color: #1d4ed8; }
-        .inv-status-pill.accepted { background: #dcfce7; color: #15803d; }
-        .inv-status-pill.declined { background: #fee2e2; color: #b91c1c; }
-        .inv-status-pill.expired  { background: #f3f4f6; color: #6b7280; }
+        /* ── Status badges (quotation-specific colours) ── */
+        .reg-status.sent     { color: #1d4ed8; border-color: #1d4ed8; }
+        .reg-status.accepted { color: #15803d; border-color: #15803d; }
+        .reg-status.declined { color: #b91c1c; border-color: #b91c1c; }
+        .reg-status.expired  { color: #6b7280; border-color: #6b7280; }
 
-        .inv-date-row {
-            display: flex;
-            justify-content: flex-end;
-            gap: 2rem;
-            font-size: 0.78rem;
-            color: #6b7280;
-            margin-bottom: 0.3rem;
-        }
-
-        .inv-date-row strong {
-            color: #1b1b18;
-            font-weight: 600;
-            margin-left: 0.4rem;
-        }
-
-        /* ── Bill To / From grid ────────────────────────────────── */
-        .invoice-parties {
+        /* ── Parties grid ── */
+        .qt-parties {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2.25rem;
+            gap: 8pt;
+            margin-bottom: 8pt;
         }
 
-        .invoice-party-label {
-            font-size: 0.62rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #7c3aed;
-            margin: 0 0 0.55rem;
-        }
-
-        .invoice-party-name {
-            font-size: 0.92rem;
+        .qt-party-label {
             font-weight: 700;
-            color: #1b1b18;
-            margin: 0 0 0.2rem;
-        }
-
-        .invoice-party-detail {
-            font-size: 0.78rem;
-            color: #6b7280;
-            margin: 0 0 0.15rem;
-            line-height: 1.55;
-        }
-
-        /* ── Line items table ───────────────────────────────────── */
-        .inv-table-wrap {
-            margin-bottom: 1.5rem;
-            border: 1px solid #ede9fe;
-            border-radius: 0;
-            overflow: hidden;
-        }
-
-        .inv-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.82rem;
-        }
-
-        .inv-table thead th {
-            padding: 0.6rem 1rem;
-            font-size: 0.62rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
+            font-size: 5.5pt;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
             color: #7c3aed;
-            background: #faf5ff;
-            border-bottom: 2px solid #ede9fe;
-            text-align: left;
-            white-space: nowrap;
+            margin: 0 0 3pt;
         }
 
-        .inv-table thead th.r { text-align: right; }
-
-        .inv-table tbody tr {
-            border-bottom: 1px solid #f5f3ff;
+        .qt-party-name {
+            font-size: 7pt;
+            font-weight: 700;
+            color: #23282d;
+            margin: 0 0 1pt;
         }
 
-        .inv-table tbody tr:last-child {
-            border-bottom: none;
+        .qt-party-detail {
+            font-size: 7pt;
+            color: #6b5b8a;
+            margin: 0 0 1pt;
+            line-height: 1.5;
         }
 
-        .inv-table td {
-            padding: 0.75rem 1rem;
-            color: #1b1b18;
-            vertical-align: top;
-        }
-
-        .inv-table td.r {
-            text-align: right;
-            font-family: 'Courier New', monospace;
-            font-size: 0.78rem;
-            white-space: nowrap;
-            color: #374151;
-        }
-
-        /* ── Totals ─────────────────────────────────────────────── */
-        .invoice-footer-row {
+        /* ── Totals table ── */
+        .qt-totals-wrap {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 2rem;
+            margin-bottom: 8pt;
         }
 
-        .inv-totals {
-            min-width: 280px;
+        table.qt-totals {
+            min-width: 160pt;
+            border-collapse: collapse;
+            font-size: 7pt;
+            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
-        .inv-total-line {
-            display: flex;
-            justify-content: space-between;
-            gap: 3rem;
-            padding: 0.45rem 0;
-            font-size: 0.855rem;
-            border-bottom: 1px solid #f3f0ff;
+        table.qt-totals td {
+            padding: 2pt 4pt;
+            border-bottom: 0.4pt solid #ddd6fe;
         }
 
-        .inv-total-line:last-child { border-bottom: none; }
+        table.qt-totals td.lbl {
+            color: #6b5b8a;
+        }
 
-        .inv-total-line .lbl { color: #6b7280; }
-        .inv-total-line .amt { font-family: 'Courier New', monospace; color: #1b1b18; }
+        table.qt-totals td.amt {
+            text-align: right;
+            font-family: "DejaVu Sans Mono", monospace;
+            font-size: 7pt;
+            white-space: nowrap;
+            color: #23282d;
+        }
 
-        .inv-total-line.grand {
-            border-top: 2px solid #5e17eb;
-            border-bottom: 2px solid #5e17eb;
-            margin-top: 0.35rem;
-            padding: 0.7rem 0;
-            font-size: 1.05rem;
+        table.qt-totals tr.grand td {
+            padding: 3pt 4pt;
+            font-weight: 800;
+            color: #4c1d95;
+            background: #ede9fe;
+            border-top: 1.5pt solid #4c1d95;
+            border-bottom: 2pt solid #4c1d95;
+        }
+
+        table.qt-totals tr.grand td.amt {
+            color: #4c1d95;
             font-weight: 800;
         }
 
-        .inv-total-line.grand .lbl { color: #1b1b18; }
-        .inv-total-line.grand .amt { color: #5e17eb; }
-
-        /* ── Notes ──────────────────────────────────────────────── */
-        .invoice-notes {
-            background: #faf9ff;
-            border: 1px solid #ede9fe;
-            border-radius: 0;
-            padding: 1rem 1.25rem;
-            font-size: 0.82rem;
-            color: #4b5563;
-            line-height: 1.65;
+        /* ── Notes ── */
+        .qt-notes {
+            background: #f5f3ff;
+            border: 1px solid #c4b5fd;
+            padding: 5pt 8pt;
+            font-size: 7pt;
+            color: #23282d;
+            line-height: 1.55;
             white-space: pre-line;
-            margin-bottom: 2rem;
+            margin-bottom: 8pt;
         }
 
-        .invoice-notes-label {
-            font-size: 0.62rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #7c3aed;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ── Conversion banner ──────────────────────────────────── */
-        .convert-banner {
+        /* ── Conversion banner ── */
+        .qt-convert-banner {
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
-            border-radius: 0;
-            padding: 0.85rem 1.25rem;
-            font-size: 0.82rem;
+            padding: 4pt 8pt;
+            font-size: 7pt;
             color: #15803d;
-            margin-bottom: 1.75rem;
+            margin-bottom: 10pt;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            gap: 6pt;
             flex-wrap: wrap;
         }
 
-        .convert-banner a {
+        .qt-convert-banner a {
             color: #15803d;
             font-weight: 700;
-            text-decoration: underline;
+            text-decoration: none;
+            border-bottom: 0.5pt solid #15803d;
         }
+        .qt-convert-banner a:hover { border-bottom-color: transparent; }
 
-        /* ── Document footer ────────────────────────────────────── */
-        .invoice-doc-footer {
-            border-top: 1px solid #f3f0ff;
-            padding-top: 1.25rem;
+        /* ── Document footer ── */
+        .qt-doc-footer {
+            border-top: 1pt solid #c4b5fd;
+            padding-top: 4pt;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
+            gap: 6pt;
             flex-wrap: wrap;
-            font-size: 0.72rem;
-            color: #9ca3af;
+            font-size: 6pt;
+            color: #8b7aad;
+        }
+
+        /* ── Success alert ── */
+        .qt-alert-success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            padding: 4pt 8pt;
+            font-size: 7pt;
+            font-weight: 600;
+            margin-bottom: 10pt;
         }
 
         @media (max-width: 640px) {
-            .invoice-doc-body { padding: 1.5rem 1.25rem; }
-            .invoice-parties { grid-template-columns: 1fr; }
-            .invoice-header { flex-direction: column; }
-            .invoice-meta { text-align: left; }
+            .qt-letterhead { flex-direction: column; gap: 4pt; }
+            .qt-meta-right { text-align: left; }
+            .qt-parties { grid-template-columns: 1fr; }
         }
     </style>
 @endpush
@@ -393,30 +284,25 @@
             <main class="co-main">
 
                 @if (session('success'))
-                    <div
-                        style="background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:0.75rem 1.25rem;border-radius:0;font-size:0.855rem;font-weight:600;margin-bottom:1.5rem;">
+                    <div class="qt-alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 {{-- Management bar --}}
-                <div class="inv-mgmt-bar">
-<div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
+                <div class="reg-mgmt-bar">
+                    <div style="display:flex;align-items:center;gap:4pt;flex-wrap:wrap;">
                         @if ($quotation->status === \App\Enums\QuotationStatus::Draft->value)
-                            <a href="{{ route('companies.quotations.edit', [$company, $quotation]) }}"
-                               style="display:inline-flex;align-items:center;gap:0.4rem;background:#fff;border:1px solid #ddd6fe;color:#5e17eb;font-size:0.75rem;font-weight:700;padding:0.38rem 0.85rem;border-radius:0;text-decoration:none;transition:background 0.15s,border-color 0.15s;"
-                               onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='#fff'">
-                                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <a href="{{ route('companies.quotations.edit', [$company, $quotation]) }}" class="reg-btn">
+                                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                 </svg>
                                 Edit
                             </a>
                         @endif
-                        <a href="{{ route('companies.quotations.pdf', [$company, $quotation]) }}"
-                           style="display:inline-flex;align-items:center;gap:0.4rem;background:#fff;border:1px solid #ddd6fe;color:#5e17eb;font-size:0.75rem;font-weight:700;padding:0.38rem 0.85rem;border-radius:0;text-decoration:none;transition:background 0.15s,border-color 0.15s;"
-                           onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='#fff'">
-                            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <a href="{{ route('companies.quotations.pdf', [$company, $quotation]) }}" class="reg-btn">
+                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                                 <polyline points="7 10 12 15 17 10"/>
                                 <line x1="12" y1="15" x2="12" y2="3"/>
@@ -428,8 +314,8 @@
                             <form method="POST" action="{{ route('companies.quotations.convert', [$company, $quotation]) }}" onsubmit="return false"
                                 data-confirm-label="Quotations" data-confirm-title="Convert to Invoice" data-confirm-body="Convert this quotation to an invoice? This action cannot be undone." data-confirm-text="Convert">
                                 @csrf
-                                <button type="submit" class="inv-convert-btn">
-                                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <button type="submit" class="qt-convert-btn">
+                                    <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                         <polyline points="14 2 14 8 20 8" />
                                         <path d="M9 15l2 2 4-4" />
@@ -443,23 +329,23 @@
                             $currentQuotationStatus = \App\Enums\QuotationStatus::from($quotation->status);
                             $quotationStatusOptions = [$currentQuotationStatus, ...$currentQuotationStatus->allowedTransitions()];
                         @endphp
-                        <form method="POST" action="{{ route('companies.quotations.update-status', [$company, $quotation]) }}" class="inv-status-form">
+                        <form method="POST" action="{{ route('companies.quotations.update-status', [$company, $quotation]) }}" class="qt-status-form">
                             @csrf
                             @method('PATCH')
-                            <select name="status" class="inv-status-select">
+                            <select name="status" class="qt-status-select">
                                 @foreach ($quotationStatusOptions as $statusOption)
                                     <option value="{{ $statusOption->value }}" {{ $quotation->status === $statusOption->value ? 'selected' : '' }}>{{ $statusOption->label() }}</option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="inv-status-btn">Update Status</button>
+                            <button type="submit" class="reg-btn primary">Update Status</button>
                         </form>
                     </div>
                 </div>
 
                 @if ($quotation->converted_invoice_id && $quotation->convertedInvoice)
-                    <div class="convert-banner">
+                    <div class="qt-convert-banner">
                         <span>
-                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:0.3rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="vertical-align:-1pt;margin-right:2pt;"><polyline points="20 6 9 17 4 12"/></svg>
                             This quotation has been converted to invoice <strong>{{ $quotation->convertedInvoice->invoice_number }}</strong>.
                         </span>
                         <a href="{{ route('companies.invoices.show', [$company, $quotation->convertedInvoice]) }}">View Invoice &rarr;</a>
@@ -467,160 +353,155 @@
                 @endif
 
                 {{-- Quotation document --}}
-                <div class="invoice-doc">
-                    <div class="invoice-doc-accent"></div>
-                    <div class="invoice-doc-body">
+                <div class="reg-doc">
+                    <div class="reg-doc-body">
 
-                        {{-- Header: company + quotation number --}}
-                        <div class="invoice-header">
-                            <div class="invoice-from">
+                        {{-- Letterhead: company + quotation number --}}
+                        <div class="qt-letterhead">
+                            <div class="qt-letterhead-left">
                                 @if ($company->logo_path)
                                     <img src="{{ asset('storage/' . $company->logo_path) }}"
                                          alt="{{ $company->registered_name }}"
-                                         class="invoice-logo">
+                                         class="qt-logo">
                                 @else
-                                    <div class="invoice-logo-placeholder">
+                                    <div class="qt-logo-placeholder">
                                         {{ strtoupper(substr($company->registered_name, 0, 1)) }}
                                     </div>
                                 @endif
-                                <div class="invoice-company-block">
-                                    <h1>{{ $company->registered_name }}</h1>
+                                <div>
+                                    <p class="qt-company-name">{{ $company->registered_name }}</p>
                                     @if ($company->address_line_1)
-                                        <p>{{ $company->address_line_1 }}</p>
+                                        <p class="qt-company-detail">{{ $company->address_line_1 }}</p>
                                     @endif
                                     @if ($company->address_line_2)
-                                        <p>{{ $company->address_line_2 }}</p>
+                                        <p class="qt-company-detail">{{ $company->address_line_2 }}</p>
                                     @endif
                                     @if ($company->city || $company->postal_code)
-                                        <p>
+                                        <p class="qt-company-detail">
                                             {{ implode(', ', array_filter([$company->city, $company->province, $company->postal_code])) }}
                                         </p>
                                     @endif
                                     @if ($company->vat_number)
-                                        <p>VAT Reg. No: {{ $company->vat_number }}</p>
+                                        <p class="qt-company-detail">VAT Reg. No: {{ $company->vat_number }}</p>
                                     @endif
                                     @if ($company->registration_number)
-                                        <p>Reg. No: {{ $company->registration_number }}</p>
+                                        <p class="qt-company-detail">Reg. No: {{ $company->registration_number }}</p>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="invoice-meta">
-                                <div class="inv-number">{{ $quotation->quotation_number }}</div>
-                                <div>
-                                    <span class="inv-status-pill {{ $quotation->status }}">{{ $quotation->status }}</span>
+                            <div class="qt-meta-right">
+                                <div class="qt-doc-number">{{ $quotation->quotation_number }}</div>
+                                <div style="margin-bottom:3pt;">
+                                    <span class="reg-status {{ $quotation->status }}">{{ $quotation->status }}</span>
                                 </div>
-                                <div class="inv-date-row">
-                                    Quote Date:
-                                    <strong>{{ $quotation->quotation_date->format('d M Y') }}</strong>
+                                <div class="qt-date-row">
+                                    Quote Date:<strong>{{ $quotation->quotation_date->format('d M Y') }}</strong>
                                 </div>
                                 @if ($quotation->expiry_date)
-                                    <div class="inv-date-row">
-                                        Valid Until:
-                                        <strong>{{ $quotation->expiry_date->format('d M Y') }}</strong>
+                                    <div class="qt-date-row">
+                                        Valid Until:<strong>{{ $quotation->expiry_date->format('d M Y') }}</strong>
                                     </div>
                                 @endif
                             </div>
                         </div>
 
                         {{-- Parties --}}
-                        <div class="invoice-parties">
+                        <div class="qt-parties">
                             <div>
-                                <p class="invoice-party-label">Quote For</p>
-                                <p class="invoice-party-name">
+                                <p class="qt-party-label">Quote For</p>
+                                <p class="qt-party-name">
                                     {{ optional($quotation->customer)->name ?? $quotation->customer_name }}
                                 </p>
                                 @if ($quotation->customer_email)
-                                    <p class="invoice-party-detail">{{ $quotation->customer_email }}</p>
+                                    <p class="qt-party-detail">{{ $quotation->customer_email }}</p>
                                 @endif
                                 @if ($quotation->customer_address)
-                                    <p class="invoice-party-detail" style="white-space:pre-line;">{{ $quotation->customer_address }}</p>
+                                    <p class="qt-party-detail" style="white-space:pre-line;">{{ $quotation->customer_address }}</p>
                                 @endif
                             </div>
                             <div>
-                                <p class="invoice-party-label">From</p>
-                                <p class="invoice-party-name">{{ $company->registered_name }}</p>
+                                <p class="qt-party-label">From</p>
+                                <p class="qt-party-name">{{ $company->registered_name }}</p>
                                 @if ($company->address_line_1)
-                                    <p class="invoice-party-detail">{{ $company->address_line_1 }}</p>
+                                    <p class="qt-party-detail">{{ $company->address_line_1 }}</p>
                                 @endif
                                 @if ($company->address_line_2)
-                                    <p class="invoice-party-detail">{{ $company->address_line_2 }}</p>
+                                    <p class="qt-party-detail">{{ $company->address_line_2 }}</p>
                                 @endif
                                 @if ($company->city)
-                                    <p class="invoice-party-detail">
+                                    <p class="qt-party-detail">
                                         {{ implode(', ', array_filter([$company->city, $company->province, $company->postal_code])) }}
                                     </p>
                                 @endif
                                 @if ($company->vat_number)
-                                    <p class="invoice-party-detail">VAT No: {{ $company->vat_number }}</p>
+                                    <p class="qt-party-detail">VAT No: {{ $company->vat_number }}</p>
                                 @endif
                             </div>
                         </div>
 
                         {{-- Line items --}}
-                        <div class="inv-table-wrap">
-                            <table class="inv-table">
-                                <thead>
+                        <table class="reg-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th class="amt" style="width:50pt;">Qty</th>
+                                    <th class="amt" style="width:70pt;">Unit Price</th>
+                                    <th class="amt" style="width:45pt;">VAT %</th>
+                                    <th class="amt" style="width:55pt;">Tax</th>
+                                    <th class="amt" style="width:70pt;">Line Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($quotation->items as $item)
+                                    @php
+                                        $base    = (float) $item->quantity * (float) $item->unit_price;
+                                        $itemTax = $item->tax_rate !== null ? $base * ((float) $item->tax_rate / 100) : 0;
+                                    @endphp
                                     <tr>
-                                        <th>Description</th>
-                                        <th class="r" style="width:80px;">Qty</th>
-                                        <th class="r" style="width:120px;">Unit Price</th>
-                                        <th class="r" style="width:70px;">VAT %</th>
-                                        <th class="r" style="width:90px;">Tax</th>
-                                        <th class="r" style="width:110px;">Line Total</th>
+                                        <td>
+                                            <span style="font-weight:600;">{{ $item->description }}</span>
+                                            @if ($item->inventoryItem && $item->inventoryItem->sku)
+                                                <br>
+                                                <span style="font-size:6pt;color:#8b7aad;">SKU: {{ $item->inventoryItem->sku }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="amt">{{ rtrim(rtrim(number_format((float) $item->quantity, 2), '0'), '.') }}</td>
+                                        <td class="amt">R&nbsp;{{ number_format((float) $item->unit_price, 2) }}</td>
+                                        <td class="amt">{{ $item->tax_rate !== null ? number_format((float) $item->tax_rate, 2) . '%' : '—' }}</td>
+                                        <td class="amt">R&nbsp;{{ number_format($itemTax, 2) }}</td>
+                                        <td class="amt" style="font-weight:700;">R&nbsp;{{ number_format($base + $itemTax, 2) }}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($quotation->items as $item)
-                                        @php
-                                            $base    = (float) $item->quantity * (float) $item->unit_price;
-                                            $itemTax = $item->tax_rate !== null ? $base * ((float) $item->tax_rate / 100) : 0;
-                                        @endphp
-                                        <tr>
-                                            <td>
-                                                <span style="font-weight:600;">{{ $item->description }}</span>
-                                                @if ($item->inventoryItem && $item->inventoryItem->sku)
-                                                    <br>
-                                                    <span style="font-size:0.7rem;color:#9ca3af;">SKU: {{ $item->inventoryItem->sku }}</span>
-                                                @endif
-                                            </td>
-                                            <td class="r">{{ rtrim(rtrim(number_format((float) $item->quantity, 2), '0'), '.') }}</td>
-                                            <td class="r">R&nbsp;{{ number_format((float) $item->unit_price, 2) }}</td>
-                                            <td class="r">{{ $item->tax_rate !== null ? number_format((float) $item->tax_rate, 2) . '%' : '—' }}</td>
-                                            <td class="r">R&nbsp;{{ number_format($itemTax, 2) }}</td>
-                                            <td class="r" style="font-weight:700;">R&nbsp;{{ number_format($base + $itemTax, 2) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
 
                         {{-- Totals --}}
-                        <div class="invoice-footer-row">
-                            <div class="inv-totals">
-                                <div class="inv-total-line">
-                                    <span class="lbl">Subtotal</span>
-                                    <span class="amt">R&nbsp;{{ number_format($quotation->subtotal(), 2) }}</span>
-                                </div>
-                                <div class="inv-total-line">
-                                    <span class="lbl">VAT</span>
-                                    <span class="amt">R&nbsp;{{ number_format($quotation->taxTotal(), 2) }}</span>
-                                </div>
-                                <div class="inv-total-line grand">
-                                    <span class="lbl">Estimated Total</span>
-                                    <span class="amt">R&nbsp;{{ number_format($quotation->total(), 2) }}</span>
-                                </div>
-                            </div>
+                        <div class="qt-totals-wrap">
+                            <table class="qt-totals">
+                                <tr>
+                                    <td class="lbl">Subtotal</td>
+                                    <td class="amt">R&nbsp;{{ number_format($quotation->subtotal(), 2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl">VAT</td>
+                                    <td class="amt">R&nbsp;{{ number_format($quotation->taxTotal(), 2) }}</td>
+                                </tr>
+                                <tr class="grand">
+                                    <td class="lbl">Estimated Total</td>
+                                    <td class="amt">R&nbsp;{{ number_format($quotation->total(), 2) }}</td>
+                                </tr>
+                            </table>
                         </div>
 
                         {{-- Notes --}}
                         @if ($quotation->notes)
-                            <div class="invoice-notes-label">Notes / Terms</div>
-                            <div class="invoice-notes">{{ $quotation->notes }}</div>
+                            <div class="reg-section-header">Notes / Terms</div>
+                            <div class="qt-notes">{{ $quotation->notes }}</div>
                         @endif
 
                         {{-- Document footer --}}
-                        <div class="invoice-doc-footer">
+                        <div class="qt-doc-footer">
                             <span>This quotation is valid until the expiry date shown above.</span>
                             @if ($company->vat_number)
                                 <span>VAT Vendor &mdash; {{ $company->vat_number }}</span>
@@ -645,13 +526,13 @@
 
     function showToast(msg, color) {
         const t = document.createElement('div');
-        t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:6px;font-size:0.8rem;font-weight:600;color:#fff;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.4s;background:' + color;
+        t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:4pt 8pt;font-size:7pt;font-weight:600;color:#fff;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:opacity 0.4s;background:' + color;
         t.textContent = msg;
         document.body.appendChild(t);
         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 4000);
     }
 
-    const statusForm = document.querySelector('.inv-status-form');
+    const statusForm = document.querySelector('.qt-status-form');
     if (statusForm) {
         statusForm.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -665,9 +546,9 @@
                     redirect: 'follow',
                 });
                 if (res.ok || res.redirected) {
-                    const pill = document.querySelector('.inv-status-pill');
+                    const pill = document.querySelector('.reg-status');
                     if (pill) {
-                        pill.className = 'inv-status-pill ' + newStatus;
+                        pill.className = 'reg-status ' + newStatus;
                         pill.textContent = statusLabels[newStatus] ?? newStatus;
                     }
                     showToast('Status updated', '#065f46');

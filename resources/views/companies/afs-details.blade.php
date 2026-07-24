@@ -113,6 +113,7 @@
                                 </p>
                             </div>
                             <form method="GET" action="{{ route('companies.reports.afs-bundle.pdf', $company) }}"
+                                target="_blank"
                                 style="display:flex;align-items:flex-end;gap:0.5rem;flex-wrap:wrap;">
                                 <div>
                                     <label style="font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#555;display:block;margin-bottom:0.2rem;">From</label>

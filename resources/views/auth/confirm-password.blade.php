@@ -1,27 +1,58 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('layouts.public')
+
+@section('title', 'Confirm Password')
+@section('meta-robots', 'noindex, nofollow')
+
+@push('styles')
+<style>
+    .auth-page {
+        min-height:100vh; display:flex; align-items:center; justify-content:center;
+        background:#f7f5ff;
+    }
+    .auth-card {
+        width:100%; max-width:400px; background:#fff; border:1px solid #e5e7eb;
+        padding:2.5rem 2.25rem; margin:2rem 1rem;
+    }
+    .auth-brand { display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; }
+    .auth-brand-mark { width:32px; height:32px; background:#5e17eb; display:flex; align-items:center; justify-content:center; }
+    .auth-brand-mark svg { color:#fff; }
+    .auth-brand-name { font-size:1rem; font-weight:800; color:#0a0a0a; letter-spacing:-0.02em; }
+    .auth-card h1 { font-size:1.35rem; font-weight:800; color:#0a0a0a; margin:0 0 0.2rem; letter-spacing:-0.015em; }
+    .auth-card .auth-sub { font-size:0.82rem; color:#6b7280; margin:0 0 1.5rem; line-height:1.5; }
+    .auth-label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+    .auth-input { display:block; width:100%; padding:0.45rem 0.65rem; font-size:0.85rem; font-family:inherit; color:#000; background:#fff; border:1px solid #ccc; outline:none; transition:border-color 0.15s; box-sizing:border-box; }
+    .auth-input:focus { border-color:#5e17eb; }
+    .auth-input.error { border-color:#dc2626; background:#fff5f5; }
+    .auth-error { font-size:0.72rem; color:#dc2626; margin:0.2rem 0 0; }
+    .auth-btn { display:flex; align-items:center; justify-content:center; width:100%; padding:0.6rem 1.25rem; background:#000; color:#fff; font-size:0.85rem; font-weight:700; font-family:inherit; border:none; cursor:pointer; transition:background 0.15s; }
+    .auth-btn:hover { background:#333; }
+</style>
+@endpush
+
+@section('content')
+<div class="auth-page">
+    <div class="auth-card">
+
+        <div class="auth-brand">
+            <img src="{{ asset('storage/images/chainbook-intelligence-logo.png') }}" alt="Chainbook Intelligence" style="height:40px;width:auto;display:block;">
+        </div>
+
+        <h1>Confirm password</h1>
+        <p class="auth-sub">This is a secure area. Please confirm your password before continuing.</p>
+
+        <form method="POST" action="{{ route('password.confirm') }}">
+            @csrf
+
+            <div style="margin-bottom:1.25rem;">
+                <label class="auth-label" for="password">Password</label>
+                <input id="password" class="auth-input {{ $errors->has('password') ? 'error' : '' }}"
+                    type="password" name="password" required autocomplete="current-password"
+                    placeholder="Your current password">
+                @error('password')<p class="auth-error">{{ $message }}</p>@enderror
+            </div>
+
+            <button type="submit" class="auth-btn">Confirm</button>
+        </form>
     </div>
-
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</div>
+@endsection

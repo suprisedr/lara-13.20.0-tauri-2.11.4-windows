@@ -5,7 +5,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -21,6 +25,7 @@ Route::middleware(['auth', 'verified'])->prefix('onboarding')->name('onboarding.
     Route::post('/{company}/step/2', [OnboardingController::class, 'storeStep2'])->name('step2.store');
     Route::get('/{company}/step/3', [OnboardingController::class, 'step3'])->name('step3');
     Route::post('/{company}/step/3', [OnboardingController::class, 'storeStep3'])->name('step3.store');
+    Route::delete('/{company}/cancel', [OnboardingController::class, 'cancel'])->name('cancel');
 });
 
 Route::middleware(['auth', 'verified'])->prefix('companies')->name('companies.')->group(function () {
@@ -366,6 +371,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('settings.edit');
+    Route::patch('/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
+
+    Route::prefix('troubleshooting')->name('troubleshooting.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\TroubleshootingController::class, 'index'])->name('index');
+        Route::get('/feed', [\App\Http\Controllers\TroubleshootingController::class, 'feed'])->name('feed');
+        Route::get('/logs-feed', [\App\Http\Controllers\TroubleshootingController::class, 'logsFeed'])->name('logs-feed');
+        Route::post('/jobs/{id}/retry', [\App\Http\Controllers\TroubleshootingController::class, 'retryJob'])->name('jobs.retry');
+        Route::delete('/jobs/{id}', [\App\Http\Controllers\TroubleshootingController::class, 'deleteJob'])->name('jobs.delete');
+        Route::post('/jobs/retry-all', [\App\Http\Controllers\TroubleshootingController::class, 'retryAll'])->name('jobs.retry-all');
+    });
 });
 
 Route::middleware('auth')->post(

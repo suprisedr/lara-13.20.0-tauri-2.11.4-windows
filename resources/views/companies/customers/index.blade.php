@@ -185,17 +185,16 @@
                     </div>
 
                     @if ($customers->isEmpty())
-                        <div class="reg-empty">
+                        <div class="reg-empty-state">
                             <svg width="36" height="36" fill="none" stroke="#8b7aad" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
-                                style="margin:0 auto 0.75rem;display:block;">
+                                style="display:block;margin:0 auto 0.75rem;">
                                 <path d="M12 2a7 7 0 0 1 7 7v3a7 7 0 0 1-14 0V9a7 7 0 0 1 7-7z" />
                                 <path d="M5 22c0-3 2.5-5.5 7-5.5S19 19 19 22" />
                             </svg>
-                            <p style="font-weight:700;color:#6b5b8a;margin:0 0 0.3rem;">No customers yet</p>
-                            <p style="font-size:7pt;margin:0 0 1rem;">Create customers and attach them to invoices.</p>
-                            <a href="{{ route('companies.customers.create', $company) }}"
-                                style="display:inline-block;background:#4c1d95;color:#fff;border-radius:0;padding:0.5rem 1.25rem;font-size:7pt;font-weight:700;text-decoration:none;">
+                            <p class="reg-empty-title">No customers yet</p>
+                            <p>Create customers and attach them to invoices.</p>
+                            <a href="{{ route('companies.customers.create', $company) }}" class="reg-btn primary">
                                 Add Customer
                             </a>
                         </div>

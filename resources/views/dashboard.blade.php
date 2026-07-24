@@ -102,26 +102,45 @@
         {{-- Top bar --}}
         <div class="co-topbar">
             <div style="position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8pt;">
-                <div>
-                    <p style="font-size:5pt;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8b7aad;margin:0 0 3pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
-                        Chainbook Intelligence
-                    </p>
-                    <h1 style="font-size:16pt;font-weight:900;color:#fff;margin:0;letter-spacing:-0.02em;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
-                        {{ auth()->user()->name }}
-                    </h1>
-                    <p style="font-size:7pt;color:#a78bfa;margin:2pt 0 0;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
-                        {{ $companies->total() }} {{ Str::plural('company', $companies->total()) }} registered
-                    </p>
+                <div style="display:flex;align-items:center;gap:10pt;">
+                    <div style="background:#fff;padding:4pt;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                        <img src="{{ asset('storage/images/chainbook-icon.png') }}" alt="" style="width:28pt;height:28pt;object-fit:contain;display:block;">
+                    </div>
+                    <div>
+                        <p style="font-size:5pt;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8b7aad;margin:0 0 3pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                            Chainbook Intelligence
+                        </p>
+                        <h1 style="font-size:16pt;font-weight:900;color:#fff;margin:0;letter-spacing:-0.02em;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                            {{ auth()->user()->name }}
+                        </h1>
+                        <p style="font-size:7pt;color:#a78bfa;margin:2pt 0 0;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                            {{ $companies->total() }} {{ Str::plural('company', $companies->total()) }} registered
+                        </p>
+                    </div>
                 </div>
-                <a href="{{ route('onboarding.step1') }}"
-                    style="display:inline-flex;align-items:center;gap:3pt;background:rgba(255,255,255,0.1);color:#fff;border:1px solid #6b5b8a;font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 8pt;text-decoration:none;transition:background 0.15s;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;"
-                    onmouseover="this.style.background='rgba(255,255,255,0.18)'"
-                    onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                    <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
-                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
-                    Add Company
-                </a>
+                <div style="display:flex;align-items:center;gap:5pt;">
+                    <a href="{{ route('onboarding.step1') }}"
+                        style="display:inline-flex;align-items:center;gap:3pt;background:rgba(255,255,255,0.1);color:#fff;border:1px solid #6b5b8a;font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 8pt;text-decoration:none;transition:background 0.15s;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;"
+                        onmouseover="this.style.background='rgba(255,255,255,0.18)'"
+                        onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                        <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
+                            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Company
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                        @csrf
+                        <button type="submit"
+                            style="display:inline-flex;align-items:center;gap:3pt;background:rgba(255,255,255,0.1);color:#c4b5fd;border:1px solid #6b5b8a;font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 8pt;cursor:pointer;transition:background 0.15s,color 0.15s;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;"
+                            onmouseover="this.style.background='rgba(255,255,255,0.18)';this.style.color='#fff'"
+                            onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.color='#c4b5fd'">
+                            <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                            Log Out
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 

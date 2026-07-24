@@ -4,7 +4,7 @@
     "identifier": "com.chainbook.desktop",
     "build": {
         "beforeDevCommand": "php artisan serve --port=8080",
-        "beforeBuildCommand": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
+        "beforeBuildCommand": "sh src-tauri/build-resources.sh",
         "devUrl": "http://127.0.0.1:8080",
         "frontendDist": "../desktop-frontend"
     },
@@ -18,14 +18,20 @@
             "icons/icon.icns",
             "icons/icon.ico"
         ],
-        "resources": [],
+        "resources": [
+            "resources/laravel"
+        ],
         "externalBin": [
             "binaries/frankenphp"
         ],
         "copyright": "",
         "category": "DeveloperTool",
         "shortDescription": "",
-        "longDescription": ""
+        "longDescription": "",
+        "macOS": {
+            "signingIdentity": "-",
+            "entitlements": "entitlements.plist"
+        }
     },
     "app": {
         "windows": [],

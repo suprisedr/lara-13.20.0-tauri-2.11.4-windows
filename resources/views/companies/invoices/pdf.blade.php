@@ -318,7 +318,7 @@
         <div class="total-due-bar">
             <table>
                 <tr>
-                    <td>TOTAL DUE</td>
+                    <td>{{ $invoice->status === \App\Enums\InvoiceStatus::Paid->value ? 'TOTAL PAID' : 'TOTAL DUE' }}</td>
                     <td class="amt">R {{ number_format($invoice->total(), 2) }}</td>
                 </tr>
             </table>

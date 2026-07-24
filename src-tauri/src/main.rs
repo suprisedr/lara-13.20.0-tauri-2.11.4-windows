@@ -5,6 +5,7 @@ use std::net::TcpStream;
 use std::path::PathBuf;
 use std::sync::Mutex;
 use tauri::Manager;
+use tauri::menu::{MenuBuilder, SubmenuBuilder, MenuItemBuilder};
 use tauri_plugin_shell::process::CommandChild;
 use tauri_plugin_shell::ShellExt;
 
@@ -36,27 +37,146 @@ fn is_port_in_use(port: u16) -> bool {
     TcpStream::connect(format!("127.0.0.1:{}", port)).is_ok()
 }
 
-fn resolve_project_root() -> PathBuf {
-    let exe_dir = std::env::current_exe()
-        .ok()
-        .and_then(|p| p.parent().map(|p| p.to_path_buf()));
-
+fn resolve_project_root(app: &tauri::AppHandle) -> PathBuf {
     if cfg!(debug_assertions) {
         let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-        // Tauri sets CWD to src-tauri/ during dev — go up one level to the Laravel project root
         if cwd.ends_with("src-tauri") {
             cwd.parent().unwrap_or(&cwd).to_path_buf()
         } else {
             cwd
         }
     } else {
-        // Production: the exe is inside the app bundle, project files are bundled alongside
-        exe_dir.unwrap_or_else(|| PathBuf::from("."))
+        // Production: use Tauri's resource_dir API.
+        // Tauri bundles "resources/laravel" from config, preserving the path,
+        // so the actual location is: resource_dir()/resources/laravel/
+        let candidates: Vec<PathBuf> = {
+            let mut c = Vec::new();
+            if let Ok(res_dir) = app.path().resource_dir() {
+                c.push(res_dir.join("resources").join("laravel"));
+                c.push(res_dir.join("laravel"));
+                c.push(res_dir.clone());
+            }
+            let exe_dir = std::env::current_exe()
+                .ok()
+                .and_then(|p| p.parent().map(|p| p.to_path_buf()))
+                .unwrap_or_else(|| PathBuf::from("."));
+            // macOS fallback
+            if let Some(contents) = exe_dir.parent() {
+                c.push(contents.join("Resources").join("resources").join("laravel"));
+                c.push(contents.join("Resources").join("laravel"));
+            }
+            // Linux fallback
+            c.push(exe_dir.join("resources").join("laravel"));
+            c
+        };
+
+        for candidate in &candidates {
+            if candidate.join("artisan").exists() {
+                println!("[resolve] Found bundled Laravel at {:?}", candidate);
+                return candidate.clone();
+            }
+        }
+
+        let fallback = candidates.first().cloned().unwrap_or_else(|| PathBuf::from("."));
+        println!("[resolve] WARNING: No bundled Laravel found. Tried: {:?}", candidates);
+        fallback
+    }
+}
+
+/// In production the bundled storage dir is read-only.
+/// Copy it to a writable location on first run.
+fn ensure_writable_storage(project_root: &PathBuf) {
+    if cfg!(debug_assertions) {
+        return;
+    }
+
+    let bundled_storage = project_root.join("storage");
+    let writable_root = runtime_home();
+    let writable_storage = writable_root.join("storage");
+
+    if !writable_storage.exists() {
+        println!("[storage] Initialising writable storage at {:?}", writable_storage);
+        if bundled_storage.exists() {
+            let _ = copy_dir_recursive(&bundled_storage, &writable_storage);
+        } else {
+            let _ = fs::create_dir_all(writable_storage.join("app/public"));
+            let _ = fs::create_dir_all(writable_storage.join("framework/cache/data"));
+            let _ = fs::create_dir_all(writable_storage.join("framework/sessions"));
+            let _ = fs::create_dir_all(writable_storage.join("framework/views"));
+            let _ = fs::create_dir_all(writable_storage.join("logs"));
+        }
+    }
+
+    for sub in &[
+        "app/public",
+        "framework/cache/data",
+        "framework/sessions",
+        "framework/views",
+        "logs",
+    ] {
+        let _ = fs::create_dir_all(writable_storage.join(sub));
+    }
+
+    let _ = fs::create_dir_all(writable_root.join("data"));
+
+    let db_dir = writable_root.join("database");
+    let _ = fs::create_dir_all(&db_dir);
+    let db_file = db_dir.join("database.sqlite");
+    if !db_file.exists() {
+        let _ = fs::File::create(&db_file);
+    }
+}
+
+fn copy_dir_recursive(src: &PathBuf, dst: &PathBuf) -> std::io::Result<()> {
+    fs::create_dir_all(dst)?;
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let ty = entry.file_type()?;
+        let dest_path = dst.join(entry.file_name());
+        if ty.is_dir() {
+            copy_dir_recursive(&entry.path(), &dest_path)?;
+        } else {
+            fs::copy(entry.path(), &dest_path)?;
+        }
+    }
+    Ok(())
+}
+
+/// Runtime data (pids, pgdata, meilisearch db) lives outside the project tree
+/// even in dev mode so Tauri's file watcher does not detect changes and
+/// restart the app. `~/.chainbook-dev/` in dev, `~/Chainbook/` in production.
+fn runtime_home() -> PathBuf {
+    let home = std::env::var("HOME").map(PathBuf::from).unwrap_or_else(|_| PathBuf::from("."));
+    if cfg!(debug_assertions) {
+        home.join(".chainbook-dev")
+    } else {
+        home.join("Chainbook")
+    }
+}
+
+fn writable_data_dir() -> PathBuf {
+    runtime_home().join("data")
+}
+
+fn writable_storage_dir() -> PathBuf {
+    if cfg!(debug_assertions) {
+        // In dev, Laravel already has its own storage/ in the project tree
+        std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")).join("storage")
+    } else {
+        runtime_home().join("storage")
+    }
+}
+
+fn writable_database_path() -> PathBuf {
+    if cfg!(debug_assertions) {
+        std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")).join("database").join("database.sqlite")
+    } else {
+        runtime_home().join("database").join("database.sqlite")
     }
 }
 
 fn pid_file_path() -> PathBuf {
-    resolve_project_root().join("data").join(".chainbook_pids")
+    writable_data_dir().join(".chainbook_pids")
 }
 
 fn kill_stale_pids() {
@@ -66,7 +186,6 @@ fn kill_stale_pids() {
             if let Ok(pid) = line.trim().parse::<i32>() {
                 if pid > 0 {
                     unsafe {
-                        // Kill the process group (negative pid) to catch sub-processes
                         libc::kill(-pid, libc::SIGTERM);
                         libc::kill(pid, libc::SIGTERM);
                     }
@@ -107,24 +226,54 @@ fn kill_process_tree(child: &mut std::process::Child) {
 }
 
 fn find_optional_binary(name: &str) -> Option<PathBuf> {
-    let project_root = resolve_project_root();
-    let binaries_dir = project_root.join("src-tauri").join("binaries");
+    let target_triple = current_target_triple();
+    let exe_dir = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(|p| p.to_path_buf()))
+        .unwrap_or_else(|| PathBuf::from("."));
 
-    let target_triple = match (std::env::consts::ARCH, std::env::consts::OS) {
+    // Candidates ordered by likelihood:
+    //   1. Next to the executable (production / Finder launch)
+    //   2. Dev mode: src-tauri/binaries/ relative to CWD
+    let mut candidates = Vec::new();
+    // Production: next to exe, plain name (Tauri strips triple for externalBin)
+    candidates.push(exe_dir.join(name));
+    candidates.push(exe_dir.join(format!("{}-{}", name, target_triple)));
+    // Dev: relative to CWD
+    if let Ok(cwd) = std::env::current_dir() {
+        candidates.push(cwd.join("src-tauri").join("binaries").join(format!("{}-{}", name, target_triple)));
+        candidates.push(cwd.join("src-tauri").join("binaries").join(name));
+    }
+
+    for candidate in &candidates {
+        if candidate.exists() && candidate.metadata().map(|m| m.len() > 0).unwrap_or(false) {
+            return Some(candidate.clone());
+        }
+    }
+    None
+}
+
+fn current_target_triple() -> &'static str {
+    match (std::env::consts::ARCH, std::env::consts::OS) {
         ("x86_64", "macos") => "x86_64-apple-darwin",
         ("aarch64", "macos") => "aarch64-apple-darwin",
         ("x86_64", "linux") => "x86_64-unknown-linux-gnu",
         ("aarch64", "linux") => "aarch64-unknown-linux-gnu",
         ("x86_64", "windows") => "x86_64-pc-windows-msvc",
-        _ => return None,
-    };
-
-    let binary_path = binaries_dir.join(format!("{}-{}", name, target_triple));
-    if binary_path.exists() && binary_path.metadata().map(|m| m.len() > 0).unwrap_or(false) {
-        Some(binary_path)
-    } else {
-        None
+        _ => "x86_64-apple-darwin",
     }
+}
+
+/// Build environment variables for Laravel subprocesses in production.
+fn laravel_env(project_root: &PathBuf) -> Vec<(String, String)> {
+    let mut env = Vec::new();
+    if !cfg!(debug_assertions) {
+        env.push(("APP_STORAGE_PATH".to_string(), writable_storage_dir().to_string_lossy().to_string()));
+        env.push(("DB_DATABASE".to_string(), writable_database_path().to_string_lossy().to_string()));
+        env.push(("LOG_CHANNEL".to_string(), "single".to_string()));
+    }
+    let _ = project_root;
+    env
 }
 
 #[cfg(unix)]
@@ -150,12 +299,12 @@ fn start_optional_service(
     args: &[&str],
 ) -> Option<std::process::Child> {
     let binary_path = find_optional_binary(binary_name)?;
-    let project_root = resolve_project_root();
+    let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
 
     println!("[startup] Starting {}...", name);
     let mut cmd = std::process::Command::new(&binary_path);
     cmd.args(args)
-        .current_dir(&project_root)
+        .current_dir(&cwd)
         .stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped());
 
@@ -172,21 +321,110 @@ fn start_optional_service(
     }
 }
 
+/// Find the FrankenPHP binary — checks both with and without target triple.
+fn find_frankenphp_binary() -> Option<PathBuf> {
+    let exe_dir = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(|p| p.to_path_buf()))
+        .unwrap_or_else(|| PathBuf::from("."));
+
+    // Tauri strips the triple when bundling, so check plain name first
+    let plain = exe_dir.join("frankenphp");
+    if plain.exists() { return Some(plain); }
+
+    let with_triple = exe_dir.join(format!("frankenphp-{}", current_target_triple()));
+    if with_triple.exists() { return Some(with_triple); }
+
+    None
+}
+
+/// Spawn a PHP artisan command using the correct PHP runtime.
+fn spawn_artisan(
+    project_root: &PathBuf,
+    artisan_args: &[&str],
+    label: &str,
+) -> Option<std::process::Child> {
+    let env_vars = laravel_env(project_root);
+
+    if cfg!(debug_assertions) {
+        // Dev: use system php
+        println!("[startup] Starting {} via system php...", label);
+        let mut cmd = std::process::Command::new("php");
+        cmd.arg("artisan");
+        cmd.args(artisan_args);
+        cmd.current_dir(project_root);
+        cmd.stdout(std::process::Stdio::piped());
+        cmd.stderr(std::process::Stdio::piped());
+        for (k, v) in &env_vars {
+            cmd.env(k, v);
+        }
+        match spawn_in_process_group(&mut cmd) {
+            Ok(child) => {
+                println!("[startup] {} started (pid {})", label, child.id());
+                save_pid(child.id());
+                Some(child)
+            }
+            Err(e) => {
+                eprintln!("[startup] {} failed (non-critical): {}", label, e);
+                None
+            }
+        }
+    } else {
+        // Production: use the FrankenPHP sidecar for php-cli
+        let php_bin = match find_frankenphp_binary() {
+            Some(bin) => bin,
+            None => {
+                eprintln!("[startup] {} skipped: no FrankenPHP binary found for php-cli", label);
+                return None;
+            }
+        };
+
+        println!("[startup] Starting {} via FrankenPHP php-cli...", label);
+        let mut cmd = std::process::Command::new(&php_bin);
+        cmd.arg("php-cli");
+        cmd.arg("artisan");
+        cmd.args(artisan_args);
+        cmd.current_dir(project_root);
+        cmd.stdout(std::process::Stdio::piped());
+        cmd.stderr(std::process::Stdio::piped());
+        for (k, v) in &env_vars {
+            cmd.env(k, v);
+        }
+        match spawn_in_process_group(&mut cmd) {
+            Ok(child) => {
+                println!("[startup] {} started (pid {})", label, child.id());
+                save_pid(child.id());
+                Some(child)
+            }
+            Err(e) => {
+                eprintln!("[startup] {} failed (non-critical): {}", label, e);
+                None
+            }
+        }
+    }
+}
+
 async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
     let state = app.state::<AppState>();
-    let project_root = resolve_project_root();
+    let project_root = resolve_project_root(&app);
 
-    // 1. Start PostgreSQL — use system install if bundled binary not found
+    println!("[startup] Project root: {:?}", project_root);
+    println!("[startup] Debug mode: {}", cfg!(debug_assertions));
+    println!("[startup] public/ exists: {}", project_root.join("public").exists());
+    println!("[startup] artisan exists: {}", project_root.join("artisan").exists());
+
+    ensure_writable_storage(&project_root);
+
+    // 1. Start PostgreSQL
     if !is_port_in_use(5432) {
-        let pg_data = project_root.join("data").join("pgdata");
+        let data_dir = writable_data_dir();
+        let pg_data = data_dir.join("pgdata");
         let pg_data_str = pg_data.to_string_lossy().to_string();
 
-        // Initialize data directory if it doesn't exist
         if !pg_data.exists() {
             println!("[startup] Initializing PostgreSQL data directory...");
             let _ = std::process::Command::new("initdb")
                 .args(&["-D", &pg_data_str])
-                .current_dir(&project_root)
                 .output();
         }
 
@@ -196,7 +434,6 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
         println!("[startup] Starting PostgreSQL...");
         let mut cmd = std::process::Command::new(&pg_binary);
         cmd.args(&["-D", &pg_data_str, "-k", "/tmp", "-p", "5432"])
-            .current_dir(&project_root)
             .stdout(std::process::Stdio::piped())
             .stderr(std::process::Stdio::piped());
 
@@ -217,114 +454,182 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
         println!("[startup] PostgreSQL already running on port 5432");
     }
 
-    // Start Meilisearch
+    // 2. Start Meilisearch
     if !is_port_in_use(7700) {
-    if let Some(child) = start_optional_service("Meilisearch", "meilisearch", &["--http-addr", "127.0.0.1:7700", "--db-path", "data/meilisearch", "--env", "development", "--no-analytics"]) {
-        state.process_services.lock().unwrap().push(ProcessChild {
-            name: "Meilisearch".to_string(),
-            child,
-        });
-    }
+        let ms_data = writable_data_dir().join("meilisearch");
+        let ms_data_str = ms_data.to_string_lossy().to_string();
+        if let Some(child) = start_optional_service(
+            "Meilisearch",
+            "meilisearch",
+            &["--http-addr", "127.0.0.1:7700", "--db-path", &ms_data_str, "--env", "development", "--no-analytics"],
+        ) {
+            state.process_services.lock().unwrap().push(ProcessChild {
+                name: "Meilisearch".to_string(),
+                child,
+            });
+        }
     } else {
         println!("[startup] Meilisearch already running on port 7700");
     }
 
     tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
-    // 2. Start FrankenPHP — only if port 8080 is not already in use
-    //    (in dev mode, `php artisan serve` already handles the web server)
+    // 3. Start FrankenPHP web server
+    // In dev mode, beforeDevCommand runs `php artisan serve`, so port 8080
+    // should already be occupied — we skip. In production, we start FrankenPHP.
     if is_port_in_use(8080) {
-        println!("[startup] Port 8080 already in use (dev server running), skipping FrankenPHP sidecar");
+        println!("[startup] Port 8080 already in use, skipping FrankenPHP sidecar");
     } else {
-        println!("[startup] Starting FrankenPHP...");
+        println!("[startup] Starting FrankenPHP sidecar...");
         let public_dir = project_root.join("public");
         let root_arg = public_dir.to_string_lossy().to_string();
+        println!("[startup] FrankenPHP --root={}", root_arg);
 
-        let (mut rx, child) = app
+        let env_vars = laravel_env(&project_root);
+
+        match app
             .shell()
             .sidecar("frankenphp")
-            .map_err(|e| format!("Failed to create FrankenPHP sidecar: {}", e))?
-            .args(&["php-server", "--listen", "127.0.0.1:8080", "--root", &root_arg])
-            .spawn()
-            .map_err(|e| format!("Failed to start FrankenPHP: {}", e))?;
+            .and_then(|cmd| {
+                Ok(cmd
+                    .args(&["php-server", "--listen", "127.0.0.1:8080", "--root", &root_arg])
+                    .envs(env_vars))
+            }) {
+            Ok(cmd) => {
+                match cmd.spawn() {
+                    Ok((mut rx, child)) => {
+                        state.sidecar_services.lock().unwrap().push(ServiceChild {
+                            name: "frankenphp".to_string(),
+                            child,
+                        });
 
-        state.sidecar_services.lock().unwrap().push(ServiceChild {
-            name: "frankenphp".to_string(),
-            child,
-        });
+                        tauri::async_runtime::spawn(async move {
+                            while let Some(event) = rx.recv().await {
+                                match event {
+                                    tauri_plugin_shell::process::CommandEvent::Stdout(line) => {
+                                        println!("[frankenphp] {}", String::from_utf8_lossy(&line));
+                                    }
+                                    tauri_plugin_shell::process::CommandEvent::Stderr(line) => {
+                                        eprintln!("[frankenphp] {}", String::from_utf8_lossy(&line));
+                                    }
+                                    tauri_plugin_shell::process::CommandEvent::Terminated(status) => {
+                                        println!("[frankenphp] terminated with {:?}", status);
+                                        break;
+                                    }
+                                    _ => {}
+                                }
+                            }
+                        });
 
-        tauri::async_runtime::spawn(async move {
-            while let Some(event) = rx.recv().await {
-                match event {
-                    tauri_plugin_shell::process::CommandEvent::Stdout(line) => {
-                        println!("[frankenphp] {}", String::from_utf8_lossy(&line));
+                        println!("[startup] FrankenPHP sidecar spawned, waiting for it to be ready...");
+
+                        // Wait up to 15 seconds for FrankenPHP to bind the port
+                        for i in 0..30 {
+                            if is_port_in_use(8080) {
+                                println!("[startup] FrankenPHP is ready on port 8080 (took ~{}ms)", i * 500);
+                                break;
+                            }
+                            tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
+                        }
+                        if !is_port_in_use(8080) {
+                            eprintln!("[startup] WARNING: FrankenPHP did not bind to port 8080 within 15s");
+                        }
                     }
-                    tauri_plugin_shell::process::CommandEvent::Stderr(line) => {
-                        eprintln!("[frankenphp] {}", String::from_utf8_lossy(&line));
+                    Err(e) => {
+                        eprintln!("[startup] FrankenPHP sidecar spawn failed (non-critical): {}", e);
                     }
-                    tauri_plugin_shell::process::CommandEvent::Terminated(status) => {
-                        println!("[frankenphp] terminated with {:?}", status);
-                        break;
-                    }
-                    _ => {}
                 }
             }
-        });
-
-        println!("[startup] FrankenPHP started on 127.0.0.1:8080");
-        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
-    }
-
-    // 3. Start PHP-based services (queue worker, Reverb) via artisan
-    //    In dev mode these are handled by `composer dev`, so skip them
-    if !is_port_in_use(8081) {
-        let php_services: Vec<(&str, Vec<&str>)> = vec![
-            ("Queue Worker", vec!["artisan", "queue:work", "--queue=asset-postings,intangible-postings,inventory-postings,lease-postings,embeddings,default", "--tries=3", "--timeout=60"]),
-            ("Reverb", vec!["artisan", "reverb:start"]),
-        ];
-
-        for (name, args) in &php_services {
-            println!("[startup] Starting {}...", name);
-            let mut cmd = std::process::Command::new("php");
-            cmd.args(args)
-                .current_dir(&project_root)
-                .stdout(std::process::Stdio::piped())
-                .stderr(std::process::Stdio::piped());
-
-            match spawn_in_process_group(&mut cmd) {
-                Ok(child) => {
-                    println!("[startup] {} started (pid {})", name, child.id());
-                    save_pid(child.id());
-                    state.process_services.lock().unwrap().push(ProcessChild {
-                        name: name.to_string(),
-                        child,
-                    });
-                }
-                Err(e) => {
-                    eprintln!("[startup] {} failed (non-critical): {}", name, e);
-                }
+            Err(e) => {
+                eprintln!("[startup] FrankenPHP sidecar setup failed (non-critical): {}", e);
             }
         }
-    } else {
-        println!("[startup] Port 8081 in use (Reverb already running), skipping PHP services");
     }
 
-    // 4. Start deferred optional services (Temporal, RoadRunner)
-    let deferred_services: Vec<(&str, &str, Vec<&str>)> = vec![
-        ("Temporal", "temporal", vec!["server", "start-dev", "--port", "7233", "--ui-port", "8233"]),
-        ("RoadRunner", "rr", vec!["serve", "-c", ".rr.yaml"]),
-    ];
+    // 4. Run migrations in production on first launch
+    if !cfg!(debug_assertions) {
+        println!("[startup] Running database migrations...");
+        let frankenphp = find_frankenphp_binary();
 
-    for (name, binary, args) in &deferred_services {
-        if let Some(child) = start_optional_service(name, binary, &args) {
+        if let Some(ref frankenphp) = frankenphp {
+            let env_vars = laravel_env(&project_root);
+            let mut cmd = std::process::Command::new(&frankenphp);
+            cmd.args(&["php-cli", "artisan", "migrate", "--force"])
+                .current_dir(&project_root);
+            for (k, v) in &env_vars {
+                cmd.env(k, v);
+            }
+            match cmd.output() {
+                Ok(output) => {
+                    let stdout = String::from_utf8_lossy(&output.stdout);
+                    let stderr = String::from_utf8_lossy(&output.stderr);
+                    if !stdout.is_empty() { println!("[migrate] {}", stdout.trim()); }
+                    if !stderr.is_empty() { eprintln!("[migrate] {}", stderr.trim()); }
+                }
+                Err(e) => eprintln!("[migrate] Failed (non-critical): {}", e),
+            }
+        } else {
+            eprintln!("[migrate] Skipped — FrankenPHP binary not found");
+        }
+    }
+
+    // 5. Start Queue Worker
+    if let Some(child) = spawn_artisan(
+        &project_root,
+        &[
+            "queue:work",
+            "--queue=asset-postings,intangible-postings,inventory-postings,lease-postings,embeddings,default",
+            "--timeout=60",
+        ],
+        "Queue Worker",
+    ) {
+        state.process_services.lock().unwrap().push(ProcessChild {
+            name: "Queue Worker".to_string(),
+            child,
+        });
+    }
+
+    // 6. Start Reverb
+    if !is_port_in_use(8081) {
+        if let Some(child) = spawn_artisan(&project_root, &["reverb:start"], "Reverb") {
             state.process_services.lock().unwrap().push(ProcessChild {
-                name: name.to_string(),
+                name: "Reverb".to_string(),
                 child,
             });
         }
+    } else {
+        println!("[startup] Reverb already running on port 8081");
     }
 
-    // 5. Start the desktop MCP server
+    // 7. Start Temporal
+    if !is_port_in_use(7233) {
+        if let Some(child) = start_optional_service(
+            "Temporal",
+            "temporal",
+            &["server", "start-dev", "--port", "7233", "--ui-port", "8233"],
+        ) {
+            state.process_services.lock().unwrap().push(ProcessChild {
+                name: "Temporal".to_string(),
+                child,
+            });
+        }
+    } else {
+        println!("[startup] Temporal already running on port 7233");
+    }
+
+    // 8. Start RoadRunner
+    if !is_port_in_use(9001) {
+        if let Some(child) = start_optional_service("RoadRunner", "rr", &["serve", "-c", ".rr.yaml"]) {
+            state.process_services.lock().unwrap().push(ProcessChild {
+                name: "RoadRunner".to_string(),
+                child,
+            });
+        }
+    } else {
+        println!("[startup] RoadRunner already running on port 9001");
+    }
+
+    // 9. Start Desktop MCP server
     {
         let mcp_dir = project_root.join("desktop-mcp");
         let mcp_entry = mcp_dir.join("dist").join("index.js");
@@ -351,6 +656,15 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
             }
         } else {
             println!("[startup] Desktop MCP not found at {:?}, skipping", mcp_entry);
+        }
+    }
+
+    // Navigate the webview to the running server once it's ready.
+    // The static loading page can't poll via XHR due to CORS (tauri:// → http://).
+    if is_port_in_use(8080) {
+        if let Some(window) = app.get_webview_window("main") {
+            println!("[startup] Navigating webview to http://127.0.0.1:8080");
+            let _ = window.navigate("http://127.0.0.1:8080".parse().unwrap());
         }
     }
 
@@ -389,7 +703,11 @@ fn shutdown_all_services(state: &AppState) {
 
     let mut processes = state.process_services.lock().unwrap();
     while let Some(mut service) = processes.pop() {
-        println!("[shutdown] Stopping {} (process, pid {})...", service.name, service.child.id());
+        println!(
+            "[shutdown] Stopping {} (process, pid {})...",
+            service.name,
+            service.child.id()
+        );
         kill_process_tree(&mut service.child);
     }
 
@@ -398,7 +716,9 @@ fn shutdown_all_services(state: &AppState) {
 }
 
 fn main() {
+    eprintln!("[main] entered main()");
     kill_stale_pids();
+    eprintln!("[main] kill_stale_pids done, building app");
 
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
@@ -407,20 +727,69 @@ fn main() {
         .manage(AppState::new())
         .invoke_handler(tauri::generate_handler![get_service_status])
         .setup(|app| {
+            eprintln!("[setup] entered setup closure");
+            // ── Native menu bar ──
+            let add_company = MenuItemBuilder::with_id("add_company", "Add Company")
+                .accelerator("CmdOrCtrl+N")
+                .build(app)?;
+            let settings = MenuItemBuilder::with_id("settings", "Settings")
+                .accelerator("CmdOrCtrl+,")
+                .build(app)?;
+            let troubleshooting = MenuItemBuilder::with_id("troubleshooting", "Troubleshooting")
+                .build(app)?;
+
+            let menu = MenuBuilder::new(app)
+                .item(
+                    &SubmenuBuilder::new(app, "File")
+                        .item(&add_company)
+                        .separator()
+                        .item(&settings)
+                        .build()?,
+                )
+                .item(
+                    &SubmenuBuilder::new(app, "Help")
+                        .item(&troubleshooting)
+                        .build()?,
+                )
+                .build()?;
+
+            eprintln!("[setup] menu built, setting menu");
+            app.set_menu(menu)?;
+            eprintln!("[setup] menu set");
+
+            app.on_menu_event(move |app_handle, event| {
+                let id = event.id().as_ref();
+                if let Some(window) = app_handle.get_webview_window("main") {
+                    match id {
+                        "add_company" => {
+                            let _ = window.eval("window.location.href = '/onboarding/step/1';");
+                        }
+                        "settings" => {
+                            let _ = window.eval("window.location.href = '/settings';");
+                        }
+                        "troubleshooting" => {
+                            let _ = window.eval("window.location.href = '/troubleshooting';");
+                        }
+                        _ => {}
+                    }
+                }
+            });
+
+            eprintln!("[setup] menu event handler registered, building window");
+
+            let webview_url = tauri::WebviewUrl::default();
+
             let _window = tauri::WebviewWindowBuilder::new(
                 app,
                 "main",
-                tauri::WebviewUrl::default(),
+                webview_url,
             )
             .title("Chainbook")
             .inner_size(1200.0, 800.0)
             .resizable(true)
             .on_download(|_webview, event| {
                 match event {
-                    tauri::webview::DownloadEvent::Requested {
-                        url,
-                        destination,
-                    } => {
+                    tauri::webview::DownloadEvent::Requested { url, destination } => {
                         let filename = destination
                             .file_name()
                             .map(|f| f.to_os_string())
@@ -439,7 +808,6 @@ fn main() {
                             .map(|h| PathBuf::from(h).join("Downloads"))
                             .unwrap_or_else(|_| PathBuf::from("."));
                         let _ = fs::create_dir_all(&downloads);
-
                         *destination = downloads.join(&filename);
                         println!("[download] {} -> {:?}", url.as_str(), destination);
                         true
@@ -452,9 +820,7 @@ fn main() {
                         if success {
                             if let Some(p) = path {
                                 println!("[download] Complete: {:?}", p);
-                                let _ = std::process::Command::new("open")
-                                    .arg(&p)
-                                    .spawn();
+                                let _ = std::process::Command::new("open").arg(&p).spawn();
                             }
                         } else {
                             eprintln!("[download] Download failed");
@@ -466,6 +832,8 @@ fn main() {
             })
             .build()?;
 
+            eprintln!("[setup] window built successfully");
+
             let app_handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {
                 tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
@@ -473,6 +841,7 @@ fn main() {
                     eprintln!("[startup] Fatal error: {}", e);
                 }
             });
+            eprintln!("[setup] returning Ok from setup closure");
             Ok(())
         })
         .on_window_event(|window, event| {

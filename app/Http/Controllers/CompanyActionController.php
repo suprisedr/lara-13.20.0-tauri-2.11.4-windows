@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\ActionUpdated;
 use App\Models\Company;
 use App\Models\CompanyAction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -193,6 +194,12 @@ class CompanyActionController extends Controller
 
                 fclose($handle);
             }, $baseName . '.csv', ['Content-Type' => 'text/csv']);
+        }
+
+        if ($format === 'pdf') {
+            return Pdf::loadView('pdf.actions', compact('company', 'actions', 'tabLabel'))
+                ->setPaper('a4', 'landscape')
+                ->stream($baseName . '.pdf');
         }
 
         $export = new \App\Exports\ActionsExport($actions, $company->registered_name, $tabLabel);
