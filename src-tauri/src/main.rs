@@ -239,16 +239,34 @@ fn find_optional_binary(name: &str) -> Option<PathBuf> {
     // Production: next to exe, plain name (Tauri strips triple for externalBin)
     candidates.push(exe_dir.join(name));
     candidates.push(exe_dir.join(format!("{}-{}", name, target_triple)));
-    // Dev: relative to CWD
+    // Dev: bundled binaries live at <project_root>/src-tauri/binaries/.
+    // CWD may be either the project root or src-tauri/ depending on how the
+    // Rust binary was launched, so try both layouts.
     if let Ok(cwd) = std::env::current_dir() {
+        // CWD == project root
         candidates.push(cwd.join("src-tauri").join("binaries").join(format!("{}-{}", name, target_triple)));
         candidates.push(cwd.join("src-tauri").join("binaries").join(name));
+        // CWD == src-tauri
+        candidates.push(cwd.join("binaries").join(format!("{}-{}", name, target_triple)));
+        candidates.push(cwd.join("binaries").join(name));
+        // CWD == somewhere under src-tauri (e.g. target/debug/) — walk up looking for binaries/
+        if let Some(parent) = cwd.parent() {
+            candidates.push(parent.join("binaries").join(format!("{}-{}", name, target_triple)));
+            if let Some(gp) = parent.parent() {
+                candidates.push(gp.join("binaries").join(format!("{}-{}", name, target_triple)));
+            }
+        }
     }
 
     for candidate in &candidates {
         if candidate.exists() && candidate.metadata().map(|m| m.len() > 0).unwrap_or(false) {
+            println!("[resolve] Found {} at {:?}", name, candidate);
             return Some(candidate.clone());
         }
+    }
+    eprintln!("[resolve] Could not find binary '{}'. Searched:", name);
+    for c in &candidates {
+        eprintln!("[resolve]   - {:?}", c);
     }
     None
 }
@@ -297,16 +315,16 @@ fn start_optional_service(
     name: &str,
     binary_name: &str,
     args: &[&str],
+    working_dir: &PathBuf,
 ) -> Option<std::process::Child> {
     let binary_path = find_optional_binary(binary_name)?;
-    let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
 
-    println!("[startup] Starting {}...", name);
+    println!("[startup] Starting {} (cwd: {:?})...", name, working_dir);
     let mut cmd = std::process::Command::new(&binary_path);
     cmd.args(args)
-        .current_dir(&cwd)
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped());
+        .current_dir(working_dir)
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::inherit());
 
     match spawn_in_process_group(&mut cmd) {
         Ok(child) => {
@@ -353,8 +371,8 @@ fn spawn_artisan(
         cmd.arg("artisan");
         cmd.args(artisan_args);
         cmd.current_dir(project_root);
-        cmd.stdout(std::process::Stdio::piped());
-        cmd.stderr(std::process::Stdio::piped());
+        cmd.stdout(std::process::Stdio::null());
+        cmd.stderr(std::process::Stdio::null());
         for (k, v) in &env_vars {
             cmd.env(k, v);
         }
@@ -385,8 +403,8 @@ fn spawn_artisan(
         cmd.arg("artisan");
         cmd.args(artisan_args);
         cmd.current_dir(project_root);
-        cmd.stdout(std::process::Stdio::piped());
-        cmd.stderr(std::process::Stdio::piped());
+        cmd.stdout(std::process::Stdio::null());
+        cmd.stderr(std::process::Stdio::null());
         for (k, v) in &env_vars {
             cmd.env(k, v);
         }
@@ -552,6 +570,7 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
             "Meilisearch",
             "meilisearch",
             &["--http-addr", "127.0.0.1:7700", "--db-path", &ms_data_str, "--env", "development", "--no-analytics"],
+            &project_root,
         ) {
             state.process_services.lock().unwrap().push(ProcessChild {
                 name: "Meilisearch".to_string(),
@@ -697,6 +716,7 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
             "Temporal",
             "temporal",
             &["server", "start-dev", "--port", "7233", "--ui-port", "8233"],
+            &project_root,
         ) {
             state.process_services.lock().unwrap().push(ProcessChild {
                 name: "Temporal".to_string(),
@@ -707,9 +727,26 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
         println!("[startup] Temporal already running on port 7233");
     }
 
-    // 8. Start RoadRunner
+    // 8. Start RoadRunner (depends on Temporal — wait for port 7233 first)
     if !is_port_in_use(9001) {
-        if let Some(child) = start_optional_service("RoadRunner", "rr", &["serve", "-c", ".rr.yaml"]) {
+        // RoadRunner's Temporal plugin will crash the whole process if Temporal
+        // isn't reachable. Wait up to 15s for port 7233 before spawning it.
+        if is_port_in_use(7233) {
+            println!("[startup] Temporal already up, starting RoadRunner immediately");
+        } else {
+            println!("[startup] Waiting for Temporal to bind port 7233 before starting RoadRunner...");
+            for i in 0..30 {
+                if is_port_in_use(7233) {
+                    println!("[startup] Temporal ready (took ~{}ms)", i * 500);
+                    break;
+                }
+                tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
+            }
+        }
+
+        if !is_port_in_use(7233) {
+            eprintln!("[startup] WARNING: Temporal never came up — RoadRunner will crash. Skipping.");
+        } else if let Some(child) = start_optional_service("RoadRunner", "rr", &["serve", "-c", ".rr.yaml"], &project_root) {
             state.process_services.lock().unwrap().push(ProcessChild {
                 name: "RoadRunner".to_string(),
                 child,
@@ -761,6 +798,42 @@ async fn start_all_services(app: tauri::AppHandle) -> Result<(), String> {
 
     println!("[startup] All services initialized");
     Ok(())
+}
+
+#[tauri::command]
+fn save_pdf(bytes: Vec<u8>, filename: String) -> Result<String, String> {
+    let downloads = std::env::var("HOME")
+        .map(|h| PathBuf::from(h).join("Downloads"))
+        .unwrap_or_else(|_| PathBuf::from("."));
+    let _ = fs::create_dir_all(&downloads);
+
+    let dest = downloads.join(&filename);
+
+    // Avoid overwriting: append (1), (2), etc.
+    let final_path = if dest.exists() {
+        let stem = dest.file_stem().unwrap_or_default().to_string_lossy().to_string();
+        let ext = dest.extension().unwrap_or_default().to_string_lossy().to_string();
+        let mut n = 1u32;
+        loop {
+            let candidate = downloads.join(format!("{} ({}).{}", stem, n, ext));
+            if !candidate.exists() {
+                break candidate;
+            }
+            n += 1;
+        }
+    } else {
+        dest
+    };
+
+    fs::write(&final_path, &bytes)
+        .map_err(|e| format!("Failed to write: {}", e))?;
+
+    let path_str = final_path.to_string_lossy().to_string();
+
+    // Open in Preview / reveal in Finder
+    let _ = std::process::Command::new("open").arg(&final_path).spawn();
+
+    Ok(path_str)
 }
 
 #[tauri::command]
@@ -816,7 +889,7 @@ fn main() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .manage(AppState::new())
-        .invoke_handler(tauri::generate_handler![get_service_status])
+        .invoke_handler(tauri::generate_handler![get_service_status, save_pdf])
         .setup(|app| {
             eprintln!("[setup] entered setup closure");
             // ── Native menu bar ──
@@ -866,64 +939,7 @@ fn main() {
                 }
             });
 
-            eprintln!("[setup] menu event handler registered, building window");
-
-            let webview_url = tauri::WebviewUrl::default();
-
-            let _window = tauri::WebviewWindowBuilder::new(
-                app,
-                "main",
-                webview_url,
-            )
-            .title("Chainbook")
-            .inner_size(1200.0, 800.0)
-            .resizable(true)
-            .on_download(|_webview, event| {
-                match event {
-                    tauri::webview::DownloadEvent::Requested { url, destination } => {
-                        let filename = destination
-                            .file_name()
-                            .map(|f| f.to_os_string())
-                            .filter(|f| !f.is_empty())
-                            .unwrap_or_else(|| {
-                                let path = url.path();
-                                let name = path.rsplit('/').next().unwrap_or("download.pdf");
-                                if name.is_empty() || !name.contains('.') {
-                                    "download.pdf".into()
-                                } else {
-                                    name.into()
-                                }
-                            });
-
-                        let downloads = std::env::var("HOME")
-                            .map(|h| PathBuf::from(h).join("Downloads"))
-                            .unwrap_or_else(|_| PathBuf::from("."));
-                        let _ = fs::create_dir_all(&downloads);
-                        *destination = downloads.join(&filename);
-                        println!("[download] {} -> {:?}", url.as_str(), destination);
-                        true
-                    }
-                    tauri::webview::DownloadEvent::Finished {
-                        url: _,
-                        path,
-                        success,
-                    } => {
-                        if success {
-                            if let Some(p) = path {
-                                println!("[download] Complete: {:?}", p);
-                                let _ = std::process::Command::new("open").arg(&p).spawn();
-                            }
-                        } else {
-                            eprintln!("[download] Download failed");
-                        }
-                        true
-                    }
-                    _ => true,
-                }
-            })
-            .build()?;
-
-            eprintln!("[setup] window built successfully");
+            eprintln!("[setup] menu event handler registered");
 
             let app_handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {

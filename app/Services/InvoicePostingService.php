@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Ai\Agents\CreateChartOfAccountAgent;
 use App\Ai\Agents\InvoicePostingAgent;
 use App\Enums\InvoiceStatus;
 use App\Enums\StockMovementAction;
@@ -21,6 +22,7 @@ class InvoicePostingService
     public function __construct(
         private TransactionService $transactions,
         private AccountVectorSearchService $accountSearch,
+        private ChartOfAccountCodeResolver $codeResolver,
     ) {}
 
 
@@ -78,11 +80,12 @@ class InvoicePostingService
             }
 
             if ($targetStatus->triggersAiPosting() && ! $invoice->posting_transaction_id) {
-                InvoiceCreated::dispatch($invoice);
+                app(RoadRunnerInvoicePostingDispatcher::class)->dispatchPosting($invoice);
             }
 
             if ($targetStatus === InvoiceStatus::Paid && ! $invoice->payments()->whereNotNull('transaction_id')->exists()) {
-                InvoiceMarkedPaid::dispatch($invoice->fresh('items', 'payments'), $user);
+                app(RoadRunnerInvoicePostingDispatcher::class)
+                    ->dispatchPayment($invoice->fresh('items', 'payments'), $user);
             }
 
             return $invoice;
@@ -286,24 +289,42 @@ class InvoicePostingService
         $cosAccountId   = $response['cost_of_sales_account_id'] ?? null;
         $invAccountId   = $response['inventory_account_id'] ?? null;
 
-        if (! in_array($arAccountId, $validAccountIds, true) || ! in_array($salesAccountId, $validAccountIds, true)) {
+        // Discard any hallucinated ids the agent picked that aren't actually
+        // in the supplied account list, before deciding what's still missing.
+        $discardInvalid = fn (?int $id) => ($id !== null && in_array($id, $validAccountIds, true)) ? $id : null;
+        $arAccountId    = $discardInvalid($arAccountId);
+        $salesAccountId = $discardInvalid($salesAccountId);
+        $vatAccountId   = $discardInvalid($vatAccountId);
+        $cosAccountId   = $discardInvalid($cosAccountId);
+        $invAccountId   = $discardInvalid($invAccountId);
+
+        if (! $arAccountId && ($hint = $response['accounts_receivable_account_hint'] ?? null)) {
+            $arAccountId = $this->createMissingAccount($company, 'assets', null, $hint, $validAccountIds);
+        }
+
+        if (! $salesAccountId && ($hint = $response['sales_account_hint'] ?? null)) {
+            $salesAccountId = $this->createMissingAccount($company, 'income', null, $hint, $validAccountIds);
+        }
+
+        if (! $arAccountId || ! $salesAccountId) {
             throw new RuntimeException('The AI agent could not determine valid accounts for this invoice. Please post it manually.');
         }
 
-        if ($vatAccountId !== null && ! in_array($vatAccountId, $validAccountIds, true)) {
-            $vatAccountId = null;
+        if ($tax > 0 && ! $vatAccountId && ($hint = $response['vat_output_account_hint'] ?? null)) {
+            $vatAccountId = $this->createMissingAccount($company, 'liabilities', null, $hint, $validAccountIds);
         }
 
-        if ($tax > 0 && $vatAccountId === null) {
+        if ($tax > 0 && ! $vatAccountId) {
             throw new RuntimeException('The AI agent could not determine a VAT output account for this invoice. Please post it manually.');
         }
 
-        // Validate CoS/inventory accounts; discard if AI hallucinated an invalid id
-        if ($cosAccountId !== null && ! in_array($cosAccountId, $validAccountIds, true)) {
-            $cosAccountId = null;
-        }
-        if ($invAccountId !== null && ! in_array($invAccountId, $validAccountIds, true)) {
-            $invAccountId = null;
+        if ($hasPhysicalItems && $totalCogs > 0) {
+            if (! $cosAccountId && ($hint = $response['cost_of_sales_account_hint'] ?? null)) {
+                $cosAccountId = $this->createMissingAccount($company, 'expenses', 'cost_of_sales', $hint, $validAccountIds);
+            }
+            if ($cosAccountId && ! $invAccountId && ($hint = $response['inventory_account_hint'] ?? null)) {
+                $invAccountId = $this->createMissingAccount($company, 'assets', null, $hint, $validAccountIds);
+            }
         }
 
         $lines = [
@@ -369,6 +390,60 @@ class InvoicePostingService
         });
     }
 
+    /**
+     * Create a chart-of-account entry that a posting agent flagged as
+     * missing, via the CreateChartOfAccountAgent, and return its new id.
+     * The account_type (and, for expenses, the IFRS expense band) is fixed
+     * by the caller — the agent only decides the name/category/parent.
+     */
+    private function createMissingAccount(Company $company, string $accountType, ?string $expenseClass, string $hint, array &$validAccountIds): int
+    {
+        $existingGroups = $company->chartOfAccounts()
+            ->where('account_type', $accountType)
+            ->whereNull('parent_id')
+            ->orderBy('account_code')
+            ->get(['account_code', 'account_name']);
+
+        $groupsList = $existingGroups->isEmpty()
+            ? '(none yet)'
+            : $existingGroups->map(fn ($a) => "- code={$a->account_code}, name=\"{$a->account_name}\"")->implode("\n");
+
+        $expenseNote = $expenseClass ? " (IFRS expense band: {$expenseClass})" : '';
+
+        $prompt = <<<TEXT
+        A new {$accountType} account{$expenseNote} is needed: {$hint}
+
+        Existing top-level {$accountType} accounts for this company:
+        {$groupsList}
+        TEXT;
+
+        $suggestion = (new CreateChartOfAccountAgent($company))->prompt($prompt);
+
+        $parent = ! empty($suggestion['parent_code'])
+            ? $company->chartOfAccounts()->where('account_code', $suggestion['parent_code'])->whereNull('parent_id')->first()
+            : null;
+
+        $code = $parent
+            ? $this->codeResolver->nextChildCode($company, $parent)
+            : $this->codeResolver->nextTopLevelCode($company, $accountType, $expenseClass);
+
+        $account = $company->chartOfAccounts()->create([
+            'account_code' => $code,
+            'account_name' => $suggestion['account_name'],
+            'account_type' => $accountType,
+            'category' => $suggestion['category'] ?? null,
+            'description' => $suggestion['description'] ?? null,
+            'parent_id' => $parent?->id,
+            'parent_code' => $parent?->account_code,
+            'is_contra' => $suggestion['is_contra'] ?? false,
+            'opening_balance' => 0,
+            'is_active' => true,
+        ]);
+
+        $validAccountIds[] = $account->id;
+
+        return $account->id;
+    }
 
     /**
      * Ask the invoice posting AI to pick a bank/cash account and post the
@@ -427,7 +502,15 @@ class InvoicePostingService
         $bankAccountId = $response['bank_account_id'] ?? null;
         $validIds = $accounts->pluck('id')->all();
 
-        if (! $bankAccountId || ! in_array($bankAccountId, $validIds, true)) {
+        if ($bankAccountId !== null && ! in_array($bankAccountId, $validIds, true)) {
+            $bankAccountId = null;
+        }
+
+        if (! $bankAccountId && ($hint = $response['bank_account_hint'] ?? null)) {
+            $bankAccountId = $this->createMissingAccount($company, 'assets', null, $hint, $validIds);
+        }
+
+        if (! $bankAccountId) {
             throw new \RuntimeException('The AI agent could not determine a bank account for the payment entry. Please use Record Payment instead.');
         }
 
@@ -465,6 +548,9 @@ class InvoicePostingService
                 'method'       => null,
                 'notes'        => 'Auto-posted by AI agent.',
             ]);
+
+            $invoice->payment_transaction_id = $transaction->id;
+            $invoice->save();
         });
     }
 

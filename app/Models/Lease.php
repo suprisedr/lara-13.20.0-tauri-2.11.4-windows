@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BroadcastsChanges;
 
 class Lease extends Model
 {
+    use BroadcastsChanges;
     public const ROLES = [
         'lessee' => 'Lessee',
         'lessor' => 'Lessor',

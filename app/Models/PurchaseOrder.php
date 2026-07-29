@@ -6,9 +6,11 @@ use App\Enums\PurchaseOrderStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BroadcastsChanges;
 
 class PurchaseOrder extends Model
 {
+    use BroadcastsChanges;
     protected $fillable = [
         'company_id',
         'supplier_id',

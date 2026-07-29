@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Concerns\BroadcastsChanges;
 
 class AssetHeldForSale extends Model
 {
+    use BroadcastsChanges;
     protected $table = 'assets_held_for_sale';
 
     public const STATUS_HELD_FOR_SALE = 'held_for_sale';

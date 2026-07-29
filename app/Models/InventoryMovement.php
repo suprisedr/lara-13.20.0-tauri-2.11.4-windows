@@ -6,10 +6,12 @@ use App\Enums\StockMovementAction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Concerns\BroadcastsChanges;
 
 class InventoryMovement extends Model
 {
     use HasFactory;
+    use BroadcastsChanges;
 
     public const STATUS_PENDING = 'pending';
     public const STATUS_POSTED  = 'posted';

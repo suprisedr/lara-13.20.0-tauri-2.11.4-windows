@@ -42,6 +42,10 @@
                             {{ __('Settings') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('subscriptions.manage')">
+                            {{ __('Subscription') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -90,6 +94,10 @@
 
                 <x-responsive-nav-link :href="route('settings.edit')">
                     {{ __('Settings') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('subscriptions.manage')">
+                    {{ __('Subscription') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

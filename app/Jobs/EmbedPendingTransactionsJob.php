@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -32,7 +31,7 @@ class EmbedPendingTransactionsJob implements ShouldQueue, ShouldBeUnique
 
     public function __construct()
     {
-        $this->onQueue(EmbedTransactionJob::QUEUE);
+        $this->onConnection('ai')->onQueue(EmbedTransactionJob::QUEUE);
     }
 
     public function uniqueId(): string

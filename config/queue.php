@@ -81,6 +81,19 @@ return [
             'driver' => 'background',
         ],
 
+        'roadrunner' => [
+            'driver' => 'roadrunner',
+            'queue' => 'default',
+        ],
+
+        'ai' => [
+            'driver' => 'failover',
+            'connections' => [
+                'roadrunner',
+                'database',
+            ],
+        ],
+
         'failover' => [
             'driver' => 'failover',
             'connections' => [

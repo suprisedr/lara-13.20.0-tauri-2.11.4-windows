@@ -273,20 +273,6 @@
             text-transform:uppercase; letter-spacing:0.07em;
         }
         .af-empty-sub { font-size:6.5pt; }
-
-        /* ── Export dropdown ── */
-        .af-export-menu {
-            display:none; position:absolute; right:0; top:100%; margin-top:2px;
-            background:#fff; border:1px solid #c4b5fd; z-index:20; min-width:90pt;
-            box-shadow:0 4px 16px rgba(22,53,92,0.12);
-        }
-        .af-export-menu a {
-            display:block; padding:3pt 6pt;
-            font-size:6pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#4c1d95; text-decoration:none;
-        }
-        .af-export-menu a:hover { background:#f5f3ff; }
-        .af-export-menu a + a { border-top:0.4pt solid #ddd6fe; }
     </style>
 @endpush
 
@@ -341,11 +327,20 @@
                                 <button class="af-tab {{ request('tab') === 'resolved' ? 'active' : '' }}" onclick="switchTab('resolved')">Resolved</button>
                             </div>
                             <div style="position:relative;display:inline-block;" id="export-wrap">
-                                <button class="reg-btn" onclick="document.getElementById('export-menu').style.display=document.getElementById('export-menu').style.display==='block'?'none':'block'" type="button">↓ Export</button>
-                                <div id="export-menu" class="af-export-menu">
-                                    <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'xlsx']) }}">Excel (.xlsx)</a>
-                                    <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'csv']) }}">CSV (.csv)</a>
-                                    <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => 'pdf']) }}" target="_blank" rel="noopener">PDF (.pdf)</a>
+                                <button class="reg-btn" type="button"
+                                    onclick="(function(){var m=document.getElementById('export-menu');m.style.display=m.style.display==='block'?'none':'block';})()">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    Export
+                                    <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                                </button>
+                                <div id="export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
+                                    @foreach ([['xlsx', 'Excel (.xlsx)'], ['csv', 'CSV (.csv)'], ['pdf', 'PDF (.pdf)']] as [$fmt, $label])
+                                        <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => $fmt]) }}"
+                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
+                                            <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                            {{ $label }}
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

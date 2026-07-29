@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Listeners;
-
 use App\Events\AssetCreated;
 use App\Models\AssetEvent;
 use App\Models\CompanyAction;
@@ -20,6 +19,8 @@ use Throwable;
 class PostAssetAcquisitionWithAi implements ShouldQueue
 {
     use InteractsWithQueue;
+
+    public string $connection = 'ai';
 
     private const SERVICE = 'asset-ai-posting';
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -23,7 +22,7 @@ class EmbedPendingInvoicesJob implements ShouldQueue, ShouldBeUnique
 
     public function __construct()
     {
-        $this->onQueue(EmbedInvoiceJob::QUEUE);
+        $this->onConnection('ai')->onQueue(EmbedInvoiceJob::QUEUE);
     }
 
     public function uniqueId(): string

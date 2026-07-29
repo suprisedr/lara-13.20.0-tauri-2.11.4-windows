@@ -35,50 +35,74 @@ jobs:
             config:
                 priority: 10
                 prefetch: 10
-        asset_postings:
+        asset-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        intangible_postings:
+        intangible-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        inventory_postings:
+        inventory-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        lease_postings:
+        lease-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        ecl_postings:
+        ecl-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        credit_note_postings:
+        credit-note-postings:
             driver: memory
             config:
                 priority: 5
                 prefetch: 4
-        chart_of_accounts:
+        invoice-postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        biological-asset-postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        investment-property-postings:
+            driver: memory
+            config:
+                priority: 5
+                prefetch: 4
+        chart-of-accounts:
             driver: memory
             config:
                 priority: 3
                 prefetch: 2
+        default:
+            driver: memory
+            config:
+                priority: 1
+                prefetch: 2
     consume:
         - embeddings
-        - asset_postings
-        - intangible_postings
-        - inventory_postings
-        - lease_postings
-        - ecl_postings
-        - credit_note_postings
-        - chart_of_accounts
+        - asset-postings
+        - intangible-postings
+        - inventory-postings
+        - lease-postings
+        - ecl-postings
+        - credit-note-postings
+        - invoice-postings
+        - biological-asset-postings
+        - investment-property-postings
+        - chart-of-accounts
+        - default
 
 temporal:
     address: '127.0.0.1:7233'

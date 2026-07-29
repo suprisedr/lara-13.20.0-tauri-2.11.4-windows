@@ -24,7 +24,7 @@ class RoadRunnerIntangiblePostingDispatcher
         $payload = json_encode(compact('eventId', 'intangibleId', 'userId', 'action', 'data'));
 
         try {
-            $queue = $this->jobs()->connect('intangible_postings');
+            $queue = $this->jobs()->connect('intangible-postings');
             $task  = $queue->create("post_intangible_{$action}", $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

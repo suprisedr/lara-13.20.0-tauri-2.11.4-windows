@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Asset;
 use App\Models\AssetVector;
 use App\Queue\Middleware\CircuitBreakerMiddleware;
@@ -34,7 +33,7 @@ class EmbedAssetJob implements ShouldQueue
 
     public function __construct(public readonly int $assetId)
     {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     public function middleware(): array

@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Concerns\BroadcastsChanges;
 
 class CompanyAction extends Model
 {
+    use BroadcastsChanges;
     public const PRIORITY_LOW    = 'low';
     public const PRIORITY_MEDIUM = 'medium';
     public const PRIORITY_HIGH   = 'high';

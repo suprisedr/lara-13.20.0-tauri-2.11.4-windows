@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Events\PostingStatusUpdated;
 use App\Models\IntangibleAsset;
 use App\Models\IntangibleAssetEvent;
@@ -42,7 +41,7 @@ class PostIntangibleAssetActionJob implements ShouldQueue
         public readonly string $action,   // acquire | capitalise | revalue | impair | reverse | dispose
         public readonly array  $data,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     /** @return array<int, object> */

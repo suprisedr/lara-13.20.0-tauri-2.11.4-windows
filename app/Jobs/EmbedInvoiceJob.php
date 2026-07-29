@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Invoice;
 use App\Models\InvoiceVector;
 use App\Models\TransactionVector;
@@ -37,7 +36,7 @@ class EmbedInvoiceJob implements ShouldQueue
 
     public function __construct(public readonly int $invoiceId)
     {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     /** @return array<int, object> */

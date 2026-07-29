@@ -40,10 +40,12 @@ class AccountVectorSearchService
 
             $ids = array_column($rows, 'mysql_account_id');
 
-            return ChartOfAccount::whereIn('id', $ids)
+            $accounts = ChartOfAccount::whereIn('id', $ids)
                 ->where('is_active', true)
                 ->orderByRaw('FIELD(id, '.implode(',', $ids).')')
                 ->get();
+
+            return $accounts->isNotEmpty() ? $accounts : $this->fallback($companyId);
         } catch (\Throwable) {
             return $this->fallback($companyId);
         }
@@ -93,11 +95,13 @@ class AccountVectorSearchService
             return $this->fallback($companyId);
         }
 
-        return ChartOfAccount::whereIn('id', $ids->all())
+        $accounts = ChartOfAccount::whereIn('id', $ids->all())
             ->where('is_active', true)
             ->postable()
             ->orderBy('account_code')
             ->get();
+
+        return $accounts->isNotEmpty() ? $accounts : $this->fallback($companyId);
     }
 
     private function fallback(int $companyId): Collection

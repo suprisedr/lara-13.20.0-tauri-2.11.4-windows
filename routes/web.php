@@ -314,6 +314,43 @@ Route::middleware(['auth', 'verified'])->prefix('companies')->name('companies.')
 
         // EMP201
         Route::get('/runs/{run}/emp201', [\App\Http\Controllers\PayrollController::class, 'emp201'])->name('emp201');
+
+        // IRP5/IT3(a) Tax Certificates
+        Route::get('/irp5', [\App\Http\Controllers\Irp5Controller::class, 'index'])->name('irp5.index');
+        Route::get('/irp5/{employee}', [\App\Http\Controllers\Irp5Controller::class, 'show'])->name('irp5.show');
+        Route::get('/irp5/{employee}/pdf', [\App\Http\Controllers\Irp5Controller::class, 'pdf'])->name('irp5.pdf');
+        Route::get('/irp5-bulk-pdf', [\App\Http\Controllers\Irp5Controller::class, 'bulkPdf'])->name('irp5.bulk-pdf');
+
+        // EMP501 Annual Reconciliation
+        Route::get('/emp501', [\App\Http\Controllers\Irp5Controller::class, 'emp501'])->name('emp501.index');
+        Route::get('/emp501/pdf', [\App\Http\Controllers\Irp5Controller::class, 'emp501Pdf'])->name('emp501.pdf');
+    });
+
+    // Supplier Invoices
+    Route::prefix('/{company}/supplier-invoices')->name('supplier-invoices.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\SupplierInvoiceController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\SupplierInvoiceController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\SupplierInvoiceController::class, 'store'])->name('store');
+        Route::get('/{supplierInvoice}', [\App\Http\Controllers\SupplierInvoiceController::class, 'show'])->name('show');
+        Route::get('/{supplierInvoice}/edit', [\App\Http\Controllers\SupplierInvoiceController::class, 'edit'])->name('edit');
+        Route::put('/{supplierInvoice}', [\App\Http\Controllers\SupplierInvoiceController::class, 'update'])->name('update');
+        Route::patch('/{supplierInvoice}/status', [\App\Http\Controllers\SupplierInvoiceController::class, 'updateStatus'])->name('status');
+        Route::get('/{supplierInvoice}/pdf', [\App\Http\Controllers\SupplierInvoiceController::class, 'pdf'])->name('pdf');
+        Route::delete('/{supplierInvoice}', [\App\Http\Controllers\SupplierInvoiceController::class, 'destroy'])->name('destroy');
+    });
+
+    // Purchase Orders
+    Route::prefix('/{company}/purchase-orders')->name('purchase-orders.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\PurchaseOrderController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\PurchaseOrderController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('store');
+        Route::get('/{purchaseOrder}', [\App\Http\Controllers\PurchaseOrderController::class, 'show'])->name('show');
+        Route::get('/{purchaseOrder}/edit', [\App\Http\Controllers\PurchaseOrderController::class, 'edit'])->name('edit');
+        Route::put('/{purchaseOrder}', [\App\Http\Controllers\PurchaseOrderController::class, 'update'])->name('update');
+        Route::patch('/{purchaseOrder}/status', [\App\Http\Controllers\PurchaseOrderController::class, 'updateStatus'])->name('status');
+        Route::post('/{purchaseOrder}/convert', [\App\Http\Controllers\PurchaseOrderController::class, 'convertToInvoice'])->name('convert');
+        Route::get('/{purchaseOrder}/pdf', [\App\Http\Controllers\PurchaseOrderController::class, 'pdf'])->name('pdf');
+        Route::delete('/{purchaseOrder}', [\App\Http\Controllers\PurchaseOrderController::class, 'destroy'])->name('destroy');
     });
 
     // Group accounting (IFRS 10 consolidation)
@@ -389,5 +426,19 @@ Route::middleware('auth')->post(
     '/transactions/semantic-match',
     \App\Http\Controllers\TransactionMatchController::class
 )->name('transactions.semantic-match');
+
+// ── Subscriptions ────────────────────────────────────
+Route::middleware('auth')->prefix('subscriptions')->name('subscriptions.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\SubscriptionController::class, 'plans'])->name('plans');
+    Route::post('/{plan}/subscribe', [\App\Http\Controllers\SubscriptionController::class, 'subscribe'])->name('subscribe');
+    Route::get('/callback', [\App\Http\Controllers\SubscriptionController::class, 'callback'])->name('callback');
+    Route::get('/manage', [\App\Http\Controllers\SubscriptionController::class, 'manage'])->name('manage');
+    Route::post('/cancel', [\App\Http\Controllers\SubscriptionController::class, 'cancel'])->name('cancel');
+});
+
+// ── Paystack Webhook (no auth, no CSRF — verified by signature) ──
+Route::post('/webhooks/paystack', [\App\Http\Controllers\PaystackWebhookController::class, 'handle'])
+    ->name('webhooks.paystack')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
 require __DIR__ . '/auth.php';

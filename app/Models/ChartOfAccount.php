@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BroadcastsChanges;
 
 class ChartOfAccount extends Model
 {
     /** @use HasFactory<\Database\Factories\ChartOfAccountFactory> */
     use HasFactory;
+    use BroadcastsChanges;
 
     protected $fillable = [
         'company_id',

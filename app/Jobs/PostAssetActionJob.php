@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Events\PostingStatusUpdated;
 use App\Models\Asset;
 use App\Models\AssetEvent;
@@ -44,7 +43,7 @@ class PostAssetActionJob implements ShouldQueue
         public readonly string $action,   // capitalise | revalue | impair | reverse | dispose
         public readonly array  $data,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     /** @return array<int, object> */

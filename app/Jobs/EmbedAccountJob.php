@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\AccountVector;
 use App\Models\ChartOfAccount;
 use App\Queue\Middleware\CircuitBreakerMiddleware;
@@ -34,7 +33,7 @@ class EmbedAccountJob implements ShouldQueue
 
     public function __construct(public readonly int $accountId)
     {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     public function middleware(): array

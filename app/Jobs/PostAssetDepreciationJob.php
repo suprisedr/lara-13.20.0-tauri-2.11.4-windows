@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Asset;
 use App\Queue\Middleware\CircuitBreakerMiddleware;
 use App\Services\AssetPostingService;
@@ -34,7 +33,7 @@ class PostAssetDepreciationJob implements ShouldQueue
         public readonly int $assetId,
         public readonly string $monthEndDate,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     /** @return array<int, object> */

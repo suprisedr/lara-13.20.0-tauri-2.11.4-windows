@@ -15,7 +15,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .inv-mgmt-bar a {
+        .inv-mgmt-bar a:not(.reg-btn) {
             font-size: 0.78rem;
             color: #6b7280;
             text-decoration: none;
@@ -25,66 +25,26 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:hover { color: #000; }
-
-        .mgmt-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: #fff;
-            border: 1px solid #000;
-            color: #000;
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 0.4rem 0.85rem;
-            text-decoration: none;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background 0.15s, color 0.15s;
-        }
-
-        .mgmt-btn:hover { background: #000; color: #fff; }
-        .mgmt-btn.primary { background: #000; color: #fff; }
-        .mgmt-btn.primary:hover { background: #333; }
-
-        .cust-doc {
-            background: #fff;
-            border: 1px solid #ddd;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
-            color: #000;
-            font-size: 0.78rem;
-            line-height: 1.45;
-            margin-bottom: 1.5rem;
-        }
-
-        .cust-doc-body { padding: 2rem 2.25rem; }
-
-        .doc-title {
-            font-size: 1.3rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            margin-bottom: 0.25rem;
-        }
+        .inv-mgmt-bar a:not(.reg-btn):hover { color: #4c1d95; }
 
         .divider {
             border: none;
-            border-top: 2px solid #000;
+            border-top: 1.5px solid #4c1d95;
             margin: 1rem 0 1.25rem;
         }
 
         .divider.light {
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #ddd6fe;
             margin: 1.25rem 0;
         }
 
         .section-header {
-            font-weight: 700;
-            font-size: 0.85rem;
+            font-weight: 800;
+            font-size: 0.62rem;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border-bottom: 1.5px solid #000;
+            letter-spacing: 0.12em;
+            color: #4c1d95;
+            border-bottom: 1.5px solid #4c1d95;
             padding-bottom: 0.25rem;
             margin: 1.25rem 0 0.75rem;
         }
@@ -93,7 +53,7 @@
 
         .section-note {
             font-size: 0.73rem;
-            color: #555;
+            color: #6b5b8a;
             margin: -0.5rem 0 0.75rem;
         }
 
@@ -115,24 +75,24 @@
             font-weight: 700;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: #555;
+            color: #6b5b8a;
             margin-bottom: 0.2rem;
         }
 
         .af-field input,
         .af-field select {
             width: 100%;
-            border: 1px solid #ccc;
+            border: 1px solid #c4b5fd;
             padding: 0.38rem 0.55rem;
             font-size: 0.82rem;
             font-family: inherit;
-            color: #000;
+            color: #4c1d95;
             box-sizing: border-box;
             background: #fff;
         }
 
         .af-field input:focus,
-        .af-field select:focus { outline: none; border-color: #000; }
+        .af-field select:focus { outline: none; border-color: #4c1d95; }
 
         .af-field input:disabled { background: #f9f9f9; color: #999; }
 
@@ -141,7 +101,7 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd6fe;
         }
 
         .comp-row:last-child { border-bottom: none; }
@@ -152,14 +112,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border: 1px solid #ccc;
+            border: 1px solid #c4b5fd;
             padding: 0.05rem 0.4rem;
-            color: #555;
+            color: #4c1d95;
             margin-left: 0.4rem;
         }
 
         @media (max-width: 640px) {
-            .cust-doc-body { padding: 1.25rem 1rem; }
             .af-field, .af-field.wide { flex: 1 1 100%; min-width: 0; }
         }
     </style>
@@ -189,10 +148,10 @@
                 <form method="POST" action="{{ route('companies.payroll.employees.store', $company) }}">
                     @csrf
 
-                    <div class="cust-doc">
-                        <div class="cust-doc-body">
-                            <div class="doc-title">New Employee</div>
-                            <p style="font-size:0.78rem;color:#555;margin:0.2rem 0 0.75rem;">All fields marked * are required.</p>
+                    <div class="reg-doc">
+                        <div class="reg-doc-body">
+                            <h3 style="font-size:0.85rem;font-weight:800;color:#1b1b18;margin:0 0 0.25rem;">New Employee</h3>
+                            <p style="font-size:0.78rem;color:#6b5b8a;margin:0.2rem 0 0.75rem;">All fields marked * are required.</p>
                             <hr class="divider">
 
                             {{-- Personal Details --}}
@@ -445,9 +404,9 @@
                             <hr class="divider" style="margin-top:1.5rem;">
 
                             <div style="display:flex;gap:0.75rem;align-items:center;">
-                                <button type="submit" class="mgmt-btn primary">Save Employee</button>
+                                <button type="submit" class="reg-btn primary">Save Employee</button>
                                 <a href="{{ route('companies.payroll.employees.index', $company) }}"
-                                    class="mgmt-btn">Cancel</a>
+                                    class="reg-btn">Cancel</a>
                             </div>
 
                         </div>

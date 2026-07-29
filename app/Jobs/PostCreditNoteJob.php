@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Jobs;
-
+use App\Events\PostingStatusUpdated;
 use App\Models\Company;
 use App\Models\CreditNote;
 use App\Models\User;
@@ -33,7 +33,7 @@ class PostCreditNoteJob implements ShouldQueue
         public readonly int $userId,
         public readonly int $creditNoteId,
     ) {
-        $this->onQueue('credit-note-postings');
+        $this->onConnection('ai')->onQueue('credit-note-postings');
     }
 
     public function handle(CreditNotePostingService $service): void
@@ -52,6 +52,13 @@ class PostCreditNoteJob implements ShouldQueue
             $this->release(60);
         } catch (Throwable $e) {
             Log::error('PostCreditNoteJob: failed', ['credit_note_id' => $this->creditNoteId, 'error' => $e->getMessage()]);
+            event(new PostingStatusUpdated(
+                $this->companyId,
+                'credit_note',
+                $this->creditNoteId,
+                'failed',
+                'Credit note posting failed',
+            ));
             throw $e;
         }
     }

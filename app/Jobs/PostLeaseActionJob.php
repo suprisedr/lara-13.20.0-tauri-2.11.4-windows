@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Events\PostingStatusUpdated;
 use App\Models\Lease;
 use App\Models\LeaseEvent;
@@ -41,7 +40,7 @@ class PostLeaseActionJob implements ShouldQueue
         public readonly string $action,
         public readonly array  $data,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     public function middleware(): array

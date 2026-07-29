@@ -23,6 +23,32 @@ class User extends Authenticatable
         return $this->hasMany(Company::class);
     }
 
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscription(): ?Subscription
+    {
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->where(fn ($q) => $q->whereNull('current_period_end')->orWhere('current_period_end', '>', now()))
+            ->latest()
+            ->first();
+    }
+
+    public function subscribed(): bool
+    {
+        return $this->activeSubscription() !== null;
+    }
+
+    public function subscribedToPlan(string $slug): bool
+    {
+        $sub = $this->activeSubscription();
+
+        return $sub && $sub->plan->slug === $slug;
+    }
+
     /**
      * Get the attributes that should be cast.
      *

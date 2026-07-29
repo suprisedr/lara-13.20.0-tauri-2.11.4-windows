@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Ai\Agents\CreditNotePostingAgent;
+use App\Events\PostingStatusUpdated;
 use App\Models\ChartOfAccount;
 use App\Models\Company;
 use App\Models\CreditNote;
@@ -123,5 +124,13 @@ class CreditNotePostingService
         ]);
 
         $creditNote->update(['posting_transaction_id' => $transaction->id]);
+
+        event(new PostingStatusUpdated(
+            $company->id,
+            'credit_note',
+            $creditNote->id,
+            'posted',
+            'Credit note posted — ' . $creditNote->credit_note_number,
+        ));
     }
 }

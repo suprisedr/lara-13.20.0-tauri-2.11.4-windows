@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Events\PostingStatusUpdated;
 use App\Models\BiologicalAsset;
 use App\Models\BiologicalAssetEvent;
@@ -32,6 +31,7 @@ class PostBiologicalAssetActionJob implements ShouldQueue
         public readonly string $action,
         public readonly array  $data = [],
     ) {
+        $this->onConnection('ai');
         $this->queue = 'asset-postings';
     }
 

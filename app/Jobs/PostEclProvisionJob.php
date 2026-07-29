@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Company;
 use App\Models\User;
 use App\Services\EclPostingService;
@@ -36,7 +35,7 @@ class PostEclProvisionJob implements ShouldQueue
         public readonly int    $userId,
         public readonly string $asOfDate,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     public function handle(EclPostingService $service): void

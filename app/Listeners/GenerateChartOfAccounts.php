@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Listeners;
-
 use App\Ai\Agents\ChartOfAccountsAgent;
 use App\Events\CompanyOnboarded;
 use App\Models\ChartOfAccount;
@@ -12,6 +11,8 @@ use Laravel\Ai\Exceptions\RateLimitedException;
 class GenerateChartOfAccounts implements ShouldQueue
 {
     use InteractsWithQueue;
+
+    public string $connection = 'ai';
 
     /** Maximum number of attempts before the job is failed permanently. */
     public int $tries = 5;

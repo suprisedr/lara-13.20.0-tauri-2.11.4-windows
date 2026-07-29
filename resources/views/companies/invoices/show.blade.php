@@ -23,17 +23,6 @@
             margin-bottom: 10pt;
         }
 
-        /* ── Payment form ──────────────────────────────────────── */
-        .inv-pay-form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4pt 6pt;
-            align-items: flex-end;
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
-            padding: 6pt 8pt;
-        }
-        .inv-pay-form .af-field { margin: 0; min-width: 80pt; }
 
         /* ── Banking details grid ──────────────────────────────── */
         .inv-bank-grid {
@@ -105,6 +94,63 @@
         .reg-btn.dn { border-color: #6b5b8a; color: #6b5b8a; }
         .reg-btn.dn:hover { background: #6b5b8a; color: #fff; }
 
+        /* ── Journal posting status rows ───────────────────────── */
+        .inv-journals {
+            display: flex;
+            flex-direction: column;
+            gap: 6pt;
+            margin-bottom: 8pt;
+        }
+        .inv-journal-row {
+            display: flex;
+            align-items: center;
+            gap: 6pt;
+            padding: 6pt 10pt;
+            border-radius: 4px;
+            font-size: 6.5pt;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .inv-journal-row.pending {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+        }
+        .inv-journal-row.posted {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+        .inv-journal-row.failed {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+        .inv-journal-label {
+            flex: 1;
+        }
+        .inv-journal-status {
+            font-size: 5.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .inv-journal-spinner {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #93c5fd;
+            border-top-color: #1d4ed8;
+            border-radius: 50%;
+            animation: ai-spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes ai-spin { to { transform: rotate(360deg); } }
+        .inv-journal-icon {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
+
         /* ── Success / error flash ─────────────────────────────── */
         .inv-flash {
             padding: 4pt 8pt;
@@ -143,6 +189,45 @@
                 @if (session('error'))
                     <div class="inv-flash error">{{ session('error') }}</div>
                 @endif
+
+                {{-- Journal posting status rows --}}
+                <div class="inv-journals" id="invoiceJournals">
+                    @if ($invoice->status !== 'draft')
+                    <div class="inv-journal-row {{ $invoice->posting_transaction_id ? 'posted' : 'pending' }}" id="journalPosting" data-type="invoice">
+                        @if ($invoice->posting_transaction_id)
+                            <svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        @else
+                            <div class="inv-journal-spinner" data-spinner></div>
+                        @endif
+                        <span class="inv-journal-label">Invoice Journal</span>
+                        <span class="inv-journal-status" data-journal-status>
+                            @if ($invoice->posting_transaction_id)
+                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => $invoice->invoice_date->format('Y-m-d'), 'end_date' => $invoice->invoice_date->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
+                            @else
+                                Journal pending
+                            @endif
+                        </span>
+                    </div>
+                    @endif
+                    @if ($invoice->payment_transaction_id || in_array($invoice->status, ['paid', 'partially_paid']))
+                    <div class="inv-journal-row {{ $invoice->payment_transaction_id ? 'posted' : 'pending' }}" id="journalPayment" data-type="invoice_payment">
+                        @if ($invoice->payment_transaction_id)
+                            <svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        @else
+                            <div class="inv-journal-spinner" data-spinner></div>
+                        @endif
+                        <span class="inv-journal-label">Payment Journal</span>
+                        <span class="inv-journal-status" data-journal-status>
+                            @if ($invoice->payment_transaction_id)
+                                @php $paymentDate = $invoice->paymentTransaction->transaction_date; @endphp
+                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => \Carbon\Carbon::parse($paymentDate)->format('Y-m-d'), 'end_date' => \Carbon\Carbon::parse($paymentDate)->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
+                            @else
+                                Journal pending
+                            @endif
+                        </span>
+                    </div>
+                    @endif
+                </div>
 
                 {{-- Management bar --}}
                 <div class="reg-mgmt-bar">
@@ -203,11 +288,6 @@
                         </select>
                         <button type="submit" class="reg-btn primary">Update Status</button>
                     </form>
-                    @if ($invoice->posting_transaction_id)
-                        <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => $invoice->invoice_date->format('Y-m-d'), 'end_date' => $invoice->invoice_date->format('Y-m-d')]) }}" class="reg-btn">
-                            View Journal Entry
-                        </a>
-                    @endif
                     </div>
                 </div>
 
@@ -363,68 +443,32 @@
                         @endif
 
                         {{-- Payments --}}
-                        @if ($invoice->payments->isNotEmpty() || ($currentInvoiceStatus->isOpen() && $invoice->posting_transaction_id))
+                        @if ($invoice->payments->isNotEmpty())
                             <div style="margin-bottom:10pt;">
                                 <div class="reg-section-header">Payments</div>
 
-                                @if ($invoice->payments->isNotEmpty())
-                                    <table class="reg-table" style="margin-bottom:6pt;">
-                                        <thead>
+                                <table class="reg-table" style="margin-bottom:6pt;">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Method</th>
+                                            <th>Recorded By</th>
+                                            <th>Notes</th>
+                                            <th class="amt">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($invoice->payments as $payment)
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Method</th>
-                                                <th>Recorded By</th>
-                                                <th>Notes</th>
-                                                <th class="amt">Amount</th>
+                                                <td>{{ $payment->payment_date->format('d M Y') }}</td>
+                                                <td>{{ $payment->method ?: '—' }}</td>
+                                                <td>{{ $payment->user->name ?? '—' }}</td>
+                                                <td>{{ $payment->notes ?: '—' }}</td>
+                                                <td class="amt">R&nbsp;{{ number_format($payment->amount, 2) }}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($invoice->payments as $payment)
-                                                <tr>
-                                                    <td>{{ $payment->payment_date->format('d M Y') }}</td>
-                                                    <td>{{ $payment->method ?: '—' }}</td>
-                                                    <td>{{ $payment->user->name ?? '—' }}</td>
-                                                    <td>{{ $payment->notes ?: '—' }}</td>
-                                                    <td class="amt">R&nbsp;{{ number_format($payment->amount, 2) }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @endif
-
-                                @if ($currentInvoiceStatus->isOpen() && $invoice->posting_transaction_id)
-                                    <form method="POST" action="{{ route('companies.invoices.payments.store', [$company, $invoice]) }}" class="inv-pay-form">
-                                        @csrf
-                                        <div class="af-field">
-                                            <label>Date</label>
-                                            <input type="date" name="payment_date" value="{{ now()->format('Y-m-d') }}" required>
-                                        </div>
-                                        <div class="af-field">
-                                            <label>Amount</label>
-                                            <input type="number" name="amount" min="0.01" step="0.01" max="{{ $invoice->balanceDue() }}" value="{{ $invoice->balanceDue() }}" required>
-                                        </div>
-                                        <div class="af-field">
-                                            <label>Deposited To</label>
-                                            <select name="deposit_account_id" required>
-                                                <option value="">— Select account —</option>
-                                                @foreach ($depositAccounts as $account)
-                                                    <option value="{{ $account->id }}">{{ $account->account_code }} — {{ $account->account_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="af-field">
-                                            <label>Method</label>
-                                            <input type="text" name="method" placeholder="EFT, Cash, ...">
-                                        </div>
-                                        <div class="af-field" style="flex:1;">
-                                            <label>Notes</label>
-                                            <input type="text" name="notes" placeholder="Optional">
-                                        </div>
-                                        <button type="submit" class="reg-btn primary">Record Payment</button>
-                                    </form>
-                                    @error('amount')<p class="field-error">{{ $message }}</p>@enderror
-                                    @error('deposit_account_id')<p class="field-error">{{ $message }}</p>@enderror
-                                @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         @endif
 
@@ -506,6 +550,44 @@
         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 4000);
     }
 
+    // ── Journal posting status (asset-style) ──
+    const invoiceId = {{ $invoice->id }};
+    const companyId = {{ $company->id }};
+    const journalsContainer = document.getElementById('invoiceJournals');
+
+    const journalStyle = {
+        pending: { label: 'Journal pending', color: '#1e40af', rowClass: 'pending' },
+        posted:  { label: 'Journal posted',  color: '#166534', rowClass: 'posted' },
+        failed:  { label: 'Journal failed',  color: '#991b1b', rowClass: 'failed' },
+    };
+
+    function updateJournalRow(type, status, label) {
+        if (status === 'posted' || status === 'failed') {
+            location.reload();
+            return;
+        }
+
+        let row = document.querySelector('.inv-journal-row[data-type="' + type + '"]');
+        if (!row) {
+            row = document.createElement('div');
+            row.className = 'inv-journal-row pending';
+            row.dataset.type = type;
+            row.innerHTML = '<div class="inv-journal-spinner" data-spinner></div>'
+                + '<span class="inv-journal-label">' + (type === 'invoice' ? 'Invoice Journal' : 'Payment Journal') + '</span>'
+                + '<span class="inv-journal-status" data-journal-status style="color:#1e40af;">Journal pending</span>';
+            journalsContainer.appendChild(row);
+        }
+    }
+
+    if (window.Echo) {
+        window.Echo.private('company.' + companyId)
+            .listen('.posting.status.updated', function (e) {
+                if ((e.entity_type === 'invoice' || e.entity_type === 'invoice_payment') && e.entity_id === invoiceId) {
+                    updateJournalRow(e.entity_type, e.status, e.label);
+                }
+            });
+    }
+
     // Status update form — update badge in place
     const statusForm = document.querySelector('.inv-status-form');
     if (statusForm) {
@@ -528,6 +610,9 @@
                         badge.textContent = statusLabels[newStatus] ?? newStatus;
                     }
                     showToast('Status updated', '#065f46');
+                    if (newStatus === 'pending') {
+                        updateJournalRow('invoice', 'pending', 'AI is posting this invoice…');
+                    }
                 } else {
                     showToast('Could not update status', '#b91c1c');
                 }
@@ -536,32 +621,6 @@
         });
     }
 
-    // Payment form — reload payments section after recording
-    const paymentForm = document.querySelector('.inv-pay-form');
-    if (paymentForm) {
-        paymentForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = paymentForm.querySelector('[type=submit]');
-            if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
-            try {
-                const res = await fetch(paymentForm.action, {
-                    method: 'POST', body: new FormData(paymentForm),
-                    headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-                    redirect: 'follow',
-                });
-                if (res.ok || res.redirected) {
-                    showToast('Payment recorded', '#065f46');
-                    setTimeout(() => window.location.reload(), 1200);
-                } else {
-                    showToast('Could not record payment', '#b91c1c');
-                    if (btn) { btn.disabled = false; btn.textContent = 'Record Payment'; }
-                }
-            } catch {
-                showToast('Network error', '#b91c1c');
-                if (btn) { btn.disabled = false; btn.textContent = 'Record Payment'; }
-            }
-        });
-    }
 })();
 </script>
 @endpush

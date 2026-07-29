@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Events\PostingStatusUpdated;
 use App\Models\InventoryMovement;
 use App\Models\User;
@@ -37,7 +36,7 @@ class PostInventoryActionJob implements ShouldQueue
         public readonly int $movementId,
         public readonly int $userId,
     ) {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     public function middleware(): array

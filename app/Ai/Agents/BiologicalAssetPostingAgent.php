@@ -12,7 +12,7 @@ You select GL accounts for biological-asset transactions.
 Always prefer existing accounts; only suggest new codes when no reasonable match exists.
 PROMPT;
 
-    protected function schema(): array
+    protected function rawSchema(): array
     {
         return [
             'type'       => 'object',

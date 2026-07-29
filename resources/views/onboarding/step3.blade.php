@@ -53,7 +53,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('onboarding.step3.store', $company) }}">
+        <form method="POST" action="{{ route('onboarding.step3.store', $company) }}" id="step3-form">
             @csrf
 
             <div class="cn-section">
@@ -120,6 +120,7 @@
                     </div>
                 </div>
             </div>
+        </form>
 
             <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
                 <div style="display:flex;align-items:center;gap:1.25rem;">
@@ -133,12 +134,11 @@
                         <button type="submit" style="background:none;border:none;padding:0;font-size:0.78rem;color:#dc2626;cursor:pointer;font-family:inherit;">Cancel Setup</button>
                     </form>
                 </div>
-                <button type="submit" class="btn-submit">
+                <button type="submit" form="step3-form" class="btn-submit">
                     <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
                     Complete Setup
                 </button>
             </div>
-        </form>
 
     </div>
 </div>

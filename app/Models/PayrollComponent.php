@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\BroadcastsChanges;
 
 class PayrollComponent extends Model
 {
+    use BroadcastsChanges;
     protected $fillable = [
         'company_id',
         'name',

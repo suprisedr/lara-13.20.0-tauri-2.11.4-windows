@@ -54,7 +54,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('onboarding.step2.store', $company) }}">
+        <form method="POST" action="{{ route('onboarding.step2.store', $company) }}" id="step2-form">
             @csrf
 
             <div class="cn-section">
@@ -112,6 +112,8 @@
                 </div>
             </div>
 
+        </form>
+
             <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
                 <div style="display:flex;align-items:center;gap:1.25rem;">
                     <a href="{{ route('onboarding.step1') }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">← Back</a>
@@ -124,9 +126,8 @@
                         <button type="submit" style="background:none;border:none;padding:0;font-size:0.78rem;color:#dc2626;cursor:pointer;font-family:inherit;">Cancel Setup</button>
                     </form>
                 </div>
-                <button type="submit" class="btn-submit">Continue: Financial Setup</button>
+                <button type="submit" form="step2-form" class="btn-submit">Continue: Financial Setup</button>
             </div>
-        </form>
 
     </div>
 </div>

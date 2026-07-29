@@ -262,16 +262,9 @@ class InvoiceController extends Controller
         abort_unless($company->user_id === auth()->id(), 403);
         abort_unless($invoice->company_id === $company->id, 403);
 
-        $invoice->load('items.inventoryItem', 'payments.user');
+        $invoice->load('items.inventoryItem', 'payments.user', 'paymentTransaction');
 
-        $depositAccounts = $company->chartOfAccounts()
-            ->postable()
-            ->where('is_active', true)
-            ->where('account_type', 'assets')
-            ->orderBy('account_code')
-            ->get(['id', 'account_code', 'account_name']);
-
-        return view('companies.invoices.show', compact('company', 'invoice', 'depositAccounts'));
+        return view('companies.invoices.show', compact('company', 'invoice'));
     }
 
     public function pdf(Company $company, Invoice $invoice): Response

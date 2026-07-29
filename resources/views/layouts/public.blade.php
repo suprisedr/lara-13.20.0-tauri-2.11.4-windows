@@ -70,6 +70,155 @@
         document.addEventListener('DOMContentLoaded', function() {});
     </script>
 
+    {{-- ── PDF download handler (Tauri desktop) ── --}}
+    <div id="pdf-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:99998;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:2rem 2.5rem;text-align:center;border:1px solid #000;max-width:360px;width:90%;">
+            <div id="pdf-spinner" style="display:inline-block;width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:#7c3aed;border-radius:50%;animation:pdfspin .7s linear infinite;margin-bottom:0.8rem;"></div>
+            <p id="pdf-status" style="font-size:0.82rem;font-weight:600;color:#1b1b18;margin:0;"></p>
+        </div>
+    </div>
+    <style>@keyframes pdfspin{to{transform:rotate(360deg)}}</style>
+
+    <script>
+    (function() {
+        var isTauri = window.__TAURI_INTERNALS__ || window.__TAURI__;
+        if (!isTauri) return;
+
+        var overlay  = document.getElementById('pdf-overlay');
+        var status   = document.getElementById('pdf-status');
+        var spinner  = document.getElementById('pdf-spinner');
+        var busy     = false;
+
+        function showOverlay(msg, isError) {
+            status.textContent = msg;
+            spinner.style.display = isError ? 'none' : 'inline-block';
+            if (isError) status.style.color = '#dc2626';
+            else status.style.color = '#1b1b18';
+            overlay.style.display = 'flex';
+        }
+
+        function hideOverlay() {
+            overlay.style.display = 'none';
+            busy = false;
+        }
+
+        function extractFilenameFromUrl(href) {
+            var params = new URLSearchParams(href.split('?')[1] || '');
+            var fmt = params.get('format') || 'pdf';
+            var ext = { xlsx: 'xlsx', csv: 'csv', ods: 'ods', pdf: 'pdf' }[fmt] || fmt;
+            var segments = href.split('?')[0].split('/');
+            for (var i = segments.length - 2; i >= 0; i--) {
+                if (segments[i] && segments[i] !== 'pdf' && segments[i] !== 'export' && segments[i] !== 'download') {
+                    return segments[i].replace(/\s+/g, '-') + '.' + ext;
+                }
+            }
+            return 'document.' + ext;
+        }
+
+        function extractFilenameFromResponse(resp, fallback) {
+            var cd = resp.headers.get('content-disposition') || '';
+            var match = cd.match(/filename[*]?=(?:UTF-8''|"?)([^";]+)/i);
+            if (match) return decodeURIComponent(match[1].replace(/["]/g, ''));
+            return fallback;
+        }
+
+        function isDownloadLink(href) {
+            return href && (/\/pdf(\?|$|#)/.test(href) || /\/export(\?|$|#)/.test(href) || /\/download(\?|$|#)/.test(href));
+        }
+
+        async function fetchWithRetry(url) {
+            var maxAttempts = 4;
+            for (var attempt = 0; attempt < maxAttempts; attempt++) {
+                showOverlay(attempt > 0 ? 'PDF is being generated, please wait…' : 'Preparing PDF…');
+
+                var resp = await fetch(url, { credentials: 'same-origin' });
+
+                if (resp.status === 202 || resp.status === 204) {
+                    if (attempt < maxAttempts - 1) {
+                        await new Promise(function(r) { setTimeout(r, 2000 * (attempt + 1)); });
+                        continue;
+                    }
+                    throw new Error('PDF is still being generated. Please try again in a moment.');
+                }
+
+                if (!resp.ok) {
+                    throw new Error('Server error: ' + resp.status);
+                }
+
+                var ct = resp.headers.get('content-type') || '';
+                if (ct.indexOf('text/html') !== -1) {
+                    if (attempt < maxAttempts - 1) {
+                        await new Promise(function(r) { setTimeout(r, 2000 * (attempt + 1)); });
+                        continue;
+                    }
+                    throw new Error('PDF is not ready yet. Please try again.');
+                }
+
+                return { response: resp, buffer: await resp.arrayBuffer() };
+            }
+        }
+
+        async function downloadPdf(href) {
+            if (busy) return;
+            busy = true;
+
+            var url = href.startsWith('http') ? href : window.location.origin + href;
+            var fallbackName = extractFilenameFromUrl(href);
+
+            try {
+                var result = await fetchWithRetry(url);
+                var filename = extractFilenameFromResponse(result.response, fallbackName);
+                showOverlay('Saving to Downloads…');
+
+                var bytes = Array.from(new Uint8Array(result.buffer));
+                var savedPath = await window.__TAURI__.core.invoke('save_pdf', {
+                    bytes: bytes,
+                    filename: filename
+                });
+
+                status.style.color = '#16a34a';
+                spinner.style.display = 'none';
+                status.textContent = 'Saved & opened: ' + savedPath.split('/').pop();
+                setTimeout(hideOverlay, 2000);
+            } catch (err) {
+                var msg = (err && err.message) ? err.message : String(err);
+                showOverlay('Download failed: ' + msg, true);
+                setTimeout(hideOverlay, 3500);
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a[href]');
+            if (!link) return;
+
+            var href = link.getAttribute('href');
+            if (!isDownloadLink(href)) return;
+            if (link.hasAttribute('data-pdf-preview')) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            downloadPdf(href);
+        }, true);
+
+        document.addEventListener('submit', function(e) {
+            var form = e.target;
+            if (form.method && form.method.toLowerCase() !== 'get') return;
+
+            var action = form.getAttribute('action') || '';
+            if (!isPdfLink(action)) return;
+            if (form.hasAttribute('data-pdf-preview')) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            var params = new URLSearchParams(new FormData(form)).toString();
+            var base = action.startsWith('http') ? action : window.location.origin + action;
+            var href = params ? base + '?' + params : base;
+            downloadPdf(href);
+        }, true);
+    })();
+    </script>
+
     @stack('scripts')
 
     {{-- ── Global confirm modal (replaces browser confirm()) ── --}}

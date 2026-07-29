@@ -24,7 +24,7 @@ class RoadRunnerBiologicalAssetPostingDispatcher
         $payload = json_encode(compact('eventId', 'assetId', 'userId', 'action', 'data'));
 
         try {
-            $queue = $this->jobs()->connect('biological_asset_postings');
+            $queue = $this->jobs()->connect('biological-asset-postings');
             $task  = $queue->create("post_biological_asset_{$action}", $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

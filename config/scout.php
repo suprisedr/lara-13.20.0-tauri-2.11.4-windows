@@ -44,6 +44,11 @@ return [
 
     'queue' => env('SCOUT_QUEUE', false),
 
+    'jobs' => [
+        'tries' => 5,
+        'backoff' => [3, 10, 30],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Database Transactions

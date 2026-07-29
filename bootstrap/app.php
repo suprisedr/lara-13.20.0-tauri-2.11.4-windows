@@ -14,7 +14,13 @@ $app = Application::configure(basePath: dirname(__DIR__))
         apiPrefix: 'api',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->appendToGroup('web', [
+            \App\Http\Middleware\EnsureSubscribed::class,
+        ]);
+
+        $middleware->alias([
+            'subscribed' => \App\Http\Middleware\EnsureSubscribed::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

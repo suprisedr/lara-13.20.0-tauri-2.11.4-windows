@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BroadcastsChanges;
 
 /**
  * An intangible asset (e.g. software, patents, trademarks, goodwill) carried at
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class IntangibleAsset extends Model
 {
+    use BroadcastsChanges;
     public const STATUS_ACTIVE   = 'active';
     public const STATUS_DISPOSED = 'disposed';
 

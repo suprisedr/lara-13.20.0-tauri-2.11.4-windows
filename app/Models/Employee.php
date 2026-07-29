@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\BroadcastsChanges;
 
 class Employee extends Model
 {
+    use BroadcastsChanges;
     protected $fillable = [
         'company_id',
         'employee_number',

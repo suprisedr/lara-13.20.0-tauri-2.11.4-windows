@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\BroadcastsChanges;
 
 class BiologicalAsset extends Model
 {
+    use BroadcastsChanges;
     public const STATUS_ACTIVE   = 'active';
     public const STATUS_DISPOSED = 'disposed';
 

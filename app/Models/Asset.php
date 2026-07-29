@@ -5,9 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Concerns\BroadcastsChanges;
 
 class Asset extends Model
 {
+    use BroadcastsChanges;
     public const STATUS_ACTIVE        = 'active';
     public const STATUS_DISPOSED      = 'disposed';
     public const STATUS_HELD_FOR_SALE = 'held_for_sale';

@@ -24,7 +24,7 @@ class RoadRunnerLeasePostingDispatcher
         $payload = json_encode(compact('eventId', 'leaseId', 'userId', 'action', 'data'));
 
         try {
-            $queue = $this->jobs()->connect('lease_postings');
+            $queue = $this->jobs()->connect('lease-postings');
             $task  = $queue->create("post_lease_{$action}", $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

@@ -24,7 +24,7 @@ class RoadRunnerChartOfAccountsDispatcher
         $payload = json_encode(compact('companyId'));
 
         try {
-            $queue = $this->jobs()->connect('chart_of_accounts');
+            $queue = $this->jobs()->connect('chart-of-accounts');
             $task  = $queue->create('generate_chart_of_accounts', $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

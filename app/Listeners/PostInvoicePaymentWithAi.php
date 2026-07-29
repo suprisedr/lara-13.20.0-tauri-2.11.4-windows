@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Listeners;
-
 use App\Events\InvoiceMarkedPaid;
+use App\Events\PostingStatusUpdated;
 use App\Models\CompanyAction;
 use App\Services\InvoicePostingService;
 use GabrielAnhaia\LaravelCircuitBreaker\Facades\CircuitBreaker;
@@ -17,6 +17,8 @@ use Throwable;
 class PostInvoicePaymentWithAi implements ShouldQueue
 {
     use InteractsWithQueue;
+
+    public string $connection = 'ai';
 
     private const SERVICE = 'invoice-payment-ai-posting';
 
@@ -54,6 +56,11 @@ class PostInvoicePaymentWithAi implements ShouldQueue
 
         $company = $invoice->company;
 
+        event(new PostingStatusUpdated(
+            $company->id, 'invoice_payment', $invoice->id, 'pending',
+            "AI is posting payment for invoice {$invoice->invoice_number}…"
+        ));
+
         if (! CircuitBreaker::canPass(self::SERVICE)) {
             $this->release(config('circuit_breaker.services.' . self::SERVICE . '.open_timeout', 120));
             return;
@@ -62,6 +69,11 @@ class PostInvoicePaymentWithAi implements ShouldQueue
         try {
             app(InvoicePostingService::class)->postPaymentWithAi($company, $invoice, $user);
             CircuitBreaker::recordSuccess(self::SERVICE);
+
+            event(new PostingStatusUpdated(
+                $company->id, 'invoice_payment', $invoice->id, 'posted',
+                "Payment for invoice {$invoice->invoice_number} posted successfully"
+            ));
 
             Log::info('[InvoicePaymentAI] Posted', [
                 'invoice_id' => $invoice->id,
@@ -101,6 +113,11 @@ class PostInvoicePaymentWithAi implements ShouldQueue
     public function failed(InvoiceMarkedPaid $event, Throwable $exception): void
     {
         $invoice = $event->invoice;
+
+        event(new PostingStatusUpdated(
+            $invoice->company_id, 'invoice_payment', $invoice->id, 'failed',
+            "Payment posting failed for invoice {$invoice->invoice_number}"
+        ));
 
         Log::critical('[InvoicePaymentAI] Permanently failed', [
             'invoice_id' => $invoice->id,

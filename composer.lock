@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbe058b9f2d0f4bd90003b9d65a60c29",
+    "content-hash": "d2701e2fcb3b003856f1bc93c42102bc",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -361,6 +361,41 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "chainbook/paystack",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/chainbook/paystack",
+                "reference": "3ef6e8e9595322a8979001e05cdbfc579b4ad970"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "^13.0",
+                "php": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Chainbook\\Paystack\\PaystackServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Chainbook\\Paystack\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Paystack payment and subscription integration for Chainbook",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
         },
         {
             "name": "clue/redis-protocol",

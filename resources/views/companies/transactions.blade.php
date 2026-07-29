@@ -504,19 +504,6 @@
         }
         .tx-filter-reset:hover { color:#000; border-bottom-color:#000; }
 
-        /* Export menu */
-        .tx-export-menu {
-            display:none; position:absolute; right:0; top:calc(100% + 4px);
-            background:#fff; border:1px solid #000; border-radius:0;
-            box-shadow:0 4px 16px rgba(0,0,0,0.10); min-width:175px; z-index:50; overflow:hidden;
-        }
-        .tx-export-menu a {
-            display:flex; align-items:center; gap:0.55rem;
-            padding:0.55rem 0.9rem; font-size:0.74rem; font-weight:600; color:#000;
-            text-decoration:none; border-bottom:1px solid #eee;
-        }
-        .tx-export-menu a:last-child { border-bottom:none; }
-        .tx-export-menu a:hover { background:#f5f5f5; }
 
         @media (max-width:760px) {
             .tx-filter-form .af-row { grid-template-columns:repeat(2,1fr); }
@@ -692,21 +679,13 @@
 
                             {{-- Export dropdown --}}
                             <div style="position:relative;display:inline-block;" id="tx-export-wrapper">
-                                <button type="button" class="mgmt-btn"
+                                <button type="button" class="reg-btn"
                                     onclick="(function(){var m=document.getElementById('tx-export-menu');m.style.display=m.style.display==='block'?'none':'block';})()">
-                                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                        <polyline points="7 10 12 15 17 10" />
-                                        <line x1="12" y1="15" x2="12" y2="3" />
-                                    </svg>
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                     Export
-                                    <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5"
-                                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <polyline points="6 9 12 15 18 9" />
-                                    </svg>
+                                    <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                                 </button>
-                                <div id="tx-export-menu" class="tx-export-menu">
+                                <div id="tx-export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
                                     @php
                                         $txExportParams = array_filter([
                                             'start_date'  => $startDate,
@@ -718,12 +697,9 @@
                                         ], fn($v) => $v !== null && $v !== '');
                                     @endphp
                                     @foreach ([['csv', 'CSV (.csv)'], ['xlsx', 'Excel (.xlsx)'], ['ods', 'Spreadsheet (.ods)'], ['pdf', 'PDF (.pdf)']] as [$fmt, $label])
-                                        <a href="{{ route('companies.transactions.export', $company) . '?' . http_build_query(array_merge($txExportParams, ['format' => $fmt])) }}">
-                                            <svg width="12" height="12" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                                <polyline points="14 2 14 8 20 8" />
-                                            </svg>
+                                        <a href="{{ route('companies.transactions.export', $company) . '?' . http_build_query(array_merge($txExportParams, ['format' => $fmt])) }}"
+                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
+                                            <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                             {{ $label }}
                                         </a>
                                     @endforeach

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Transaction;
 use App\Models\TransactionVector;
 use App\Queue\Middleware\CircuitBreakerMiddleware;
@@ -38,7 +37,7 @@ class EmbedTransactionJob implements ShouldQueue
 
     public function __construct(public readonly int $transactionId)
     {
-        $this->onQueue(self::QUEUE);
+        $this->onConnection('ai')->onQueue(self::QUEUE);
     }
 
     /** @return array<int, object> */

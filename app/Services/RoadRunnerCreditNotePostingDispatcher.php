@@ -24,7 +24,7 @@ class RoadRunnerCreditNotePostingDispatcher
         $payload = json_encode(compact('companyId', 'userId', 'creditNoteId'));
 
         try {
-            $queue = $this->jobs()->connect('credit_note_postings');
+            $queue = $this->jobs()->connect('credit-note-postings');
             $task  = $queue->create('post_credit_note', $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

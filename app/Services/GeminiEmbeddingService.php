@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\AppSetting;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -15,7 +16,10 @@ class GeminiEmbeddingService
 
     private function key(): string
     {
-        $key = $this->apiKey ?? config('services.gemini.api_key') ?? env('GEMINI_API_KEY');
+        $key = $this->apiKey
+            ?? AppSetting::get('gemini_api_key')
+            ?? config('services.gemini.api_key')
+            ?? env('GEMINI_API_KEY');
         if (! $key) {
             throw new RuntimeException('GEMINI_API_KEY is not configured.');
         }

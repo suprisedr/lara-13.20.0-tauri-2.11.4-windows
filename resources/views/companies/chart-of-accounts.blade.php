@@ -326,9 +326,6 @@
 
         tr.coa-collapsed > td > .coa-collapsed-total { display: inline; }
 
-        /* Export dropdown menu item hover */
-        .coa-export-link:hover { background: #f5f3ff; }
-
         /* Modal overlay */
         .coa-modal-backdrop {
             display: none; position: fixed; inset: 0;
@@ -480,19 +477,18 @@
                         {{-- Export dropdown --}}
                         <div style="position:relative;" id="export-dropdown-wrapper">
                             <button type="button" class="reg-btn"
-                                onclick="(function(){var m=document.getElementById('export-menu');m.style.display=m.style.display==='block'?'none':'block';})()"
-                                style="color:#15803d;border-color:#bbf7d0;">
+                                onclick="(function(){var m=document.getElementById('export-menu');m.style.display=m.style.display==='block'?'none':'block';})()">
                                 <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                 Export
                                 <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                             </button>
                             <div id="export-menu"
-                                style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #c4b5fd;min-width:160px;z-index:50;">
+                                style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
                                 @php $exportParams = array_filter(['start_date' => $startDate, 'end_date' => $endDate]); @endphp
                                 @foreach (['csv' => 'CSV (.csv)', 'xlsx' => 'Excel (.xlsx)', 'ods' => 'Spreadsheet (.ods)', 'pdf' => 'PDF (.pdf)'] as $fmt => $label)
                                     <a href="{{ route('companies.chart-of-accounts.export', $company) . '?' . http_build_query(array_merge($exportParams, ['format' => $fmt])) }}"
-                                        class="coa-export-link"
-                                        style="display:block;padding:4pt 8pt;font-size:6.5pt;font-weight:600;color:#4c1d95;text-decoration:none;border-bottom:1px solid #f5f3ff;">
+                                        style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
+                                        <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                         {{ $label }}
                                     </a>
                                 @endforeach
@@ -588,7 +584,9 @@
                                     'income'      => 'Income',
                                     'expenses'    => 'Expenses',
                                 ];
-                                $currentThreshold = ['assets' => 1500, 'liabilities' => 2500];
+                                // Matches the account-code ranges the chart-of-accounts AI agent uses:
+                                // assets 1006000+ (PPE) and liabilities 2006000+ (long-term) are non-current.
+                                $currentThreshold = ['assets' => 1006000, 'liabilities' => 2006000];
                                 $currentLabel  = ['assets' => 'Current Assets', 'liabilities' => 'Current Liabilities'];
                                 $nonCurrentLabel = ['assets' => 'Non-Current Assets', 'liabilities' => 'Non-Current Liabilities'];
 

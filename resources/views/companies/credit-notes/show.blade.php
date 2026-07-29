@@ -15,12 +15,62 @@
         }
         .cn-alert.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; }
 
-        .cn-journal-tag {
+        /* ── Journal posting status rows ───────────────────────── */
+        .cn-journals {
+            display: flex;
+            flex-direction: column;
+            gap: 6pt;
+            margin-bottom: 8pt;
+        }
+        .cn-journal-row {
+            display: flex;
+            align-items: center;
+            gap: 6pt;
+            padding: 6pt 10pt;
+            border-radius: 4px;
+            font-size: 6.5pt;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .cn-journal-row.pending {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+        }
+        .cn-journal-row.posted {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+        .cn-journal-row.failed {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+        .cn-journal-label {
+            flex: 1;
+        }
+        .cn-journal-status {
             font-size: 5.5pt;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
-        .cn-journal-tag.posted { color: #16a34a; }
-        .cn-journal-tag.pending { color: #d97706; }
+        .cn-journal-spinner {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #93c5fd;
+            border-top-color: #1d4ed8;
+            border-radius: 50%;
+            animation: cn-spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes cn-spin { to { transform: rotate(360deg); } }
+        .cn-journal-icon {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
 
         .reg-btn.danger { border-color: #dc2626; color: #dc2626; }
         .reg-btn.danger:hover { background: #dc2626; color: #fff; }
@@ -105,15 +155,32 @@
                     <div class="cn-alert success">{{ session('success') }}</div>
                 @endif
 
+                {{-- Journal posting status rows --}}
+                @if ($creditNote->status !== 'draft')
+                <div class="cn-journals" id="creditNoteJournals">
+                    <div class="cn-journal-row {{ $creditNote->posting_transaction_id ? 'posted' : 'pending' }}" id="journalPosting" data-type="credit_note">
+                        @if ($creditNote->posting_transaction_id)
+                            <svg class="cn-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        @else
+                            <div class="cn-journal-spinner" data-spinner></div>
+                        @endif
+                        <span class="cn-journal-label">Credit Note Journal</span>
+                        <span class="cn-journal-status" data-journal-status>
+                            @if ($creditNote->posting_transaction_id)
+                                @php $cnTxnDate = $creditNote->postingTransaction->transaction_date; @endphp
+                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($creditNote->total(), 2, '.', ''), 'start_date' => \Carbon\Carbon::parse($cnTxnDate)->format('Y-m-d'), 'end_date' => \Carbon\Carbon::parse($cnTxnDate)->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
+                            @else
+                                Journal pending
+                            @endif
+                        </span>
+                    </div>
+                </div>
+                @endif
+
                 {{-- Management bar --}}
                 <div class="reg-mgmt-bar">
                     <div style="display:flex;align-items:center;gap:6pt;">
                         <span class="reg-status {{ $creditNote->status }}">{{ $creditNote->statusLabel() }}</span>
-                        @if ($creditNote->posting_transaction_id)
-                            <span class="cn-journal-tag posted">&#10003; Journal Posted</span>
-                        @elseif ($creditNote->status === 'issued')
-                            <span class="cn-journal-tag pending">&#9203; Posting in progress&hellip;</span>
-                        @endif
                     </div>
                     <div style="display:flex;align-items:center;gap:4pt;flex-wrap:wrap;">
                         @if ($creditNote->status === 'draft')
@@ -259,4 +326,42 @@
             </main>
         </div>
     </div>
+
+@push('scripts')
+<script>
+(function () {
+    const creditNoteId = {{ $creditNote->id }};
+    const companyId = {{ $company->id }};
+    const journalsContainer = document.getElementById('creditNoteJournals');
+
+    function updateJournalRow(status, label) {
+        if (status === 'posted' || status === 'failed') {
+            location.reload();
+            return;
+        }
+
+        if (!journalsContainer) return;
+        let row = document.querySelector('.cn-journal-row[data-type="credit_note"]');
+        if (!row) {
+            row = document.createElement('div');
+            row.className = 'cn-journal-row pending';
+            row.dataset.type = 'credit_note';
+            row.innerHTML = '<div class="cn-journal-spinner" data-spinner></div>'
+                + '<span class="cn-journal-label">Credit Note Journal</span>'
+                + '<span class="cn-journal-status" data-journal-status style="color:#1e40af;">Journal pending</span>';
+            journalsContainer.appendChild(row);
+        }
+    }
+
+    if (window.Echo) {
+        window.Echo.private('company.' + companyId)
+            .listen('.posting.status.updated', function (e) {
+                if (e.entity_type === 'credit_note' && e.entity_id === creditNoteId) {
+                    updateJournalRow(e.status, e.label);
+                }
+            });
+    }
+})();
+</script>
+@endpush
 @endsection

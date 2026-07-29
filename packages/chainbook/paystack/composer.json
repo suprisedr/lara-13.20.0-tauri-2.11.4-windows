@@ -1,0 +1,24 @@
+{
+    "name": "chainbook/paystack",
+    "description": "Paystack payment and subscription integration for Chainbook",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Chainbook\\Paystack\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Chainbook\\Paystack\\PaystackServiceProvider"
+            ]
+        }
+    },
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^13.0",
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Listeners;
-
 use App\Events\InvoiceCreated;
+use App\Events\PostingStatusUpdated;
 use App\Models\CompanyAction;
 use App\Services\InvoicePostingService;
 use GabrielAnhaia\LaravelCircuitBreaker\Facades\CircuitBreaker;
@@ -17,6 +17,8 @@ use Throwable;
 class PostInvoiceWithAi implements ShouldQueue
 {
     use InteractsWithQueue;
+
+    public string $connection = 'ai';
 
     /** The circuit breaker service name used to guard the AI provider. */
     private const SERVICE = 'invoice-ai-posting';
@@ -54,6 +56,11 @@ class PostInvoiceWithAi implements ShouldQueue
         $company = $invoice->company;
         $postingService = app(InvoicePostingService::class);
 
+        event(new PostingStatusUpdated(
+            $company->id, 'invoice', $invoice->id, 'pending',
+            "AI is posting invoice {$invoice->invoice_number}…"
+        ));
+
         if (! CircuitBreaker::canPass(self::SERVICE)) {
             // The AI provider is currently failing — wait for the circuit to
             // recover before trying this invoice again.
@@ -66,16 +73,26 @@ class PostInvoiceWithAi implements ShouldQueue
             $postingService->postWithAi($company, $invoice, $company->user);
             CircuitBreaker::recordSuccess(self::SERVICE);
 
+            event(new PostingStatusUpdated(
+                $company->id, 'invoice', $invoice->id, 'posted',
+                "Invoice {$invoice->invoice_number} posted successfully"
+            ));
+
             Log::info('[InvoiceAI] Posted', [
                 'invoice_id' => $invoice->id,
                 'company_id' => $company->id,
             ]);
         } catch (InvalidArgumentException $e) {
-            Log::warning('[InvoiceAI] Skipped — invalid argument', [
+            Log::warning('[InvoiceAI] Account lookup came back empty — will retry', [
                 'invoice_id' => $invoice->id,
+                'attempt' => $this->attempts(),
                 'error' => $e->getMessage(),
             ]);
-            return;
+
+            // Usually transient (Postgres/pgvector or Meilisearch still starting up
+            // rather than the company genuinely having no accounts) — let the job's
+            // normal retry/backoff handle it instead of abandoning the invoice silently.
+            throw $e;
         } catch (RequestException $e) {
             CircuitBreaker::recordFailure(self::SERVICE);
 
@@ -109,6 +126,11 @@ class PostInvoiceWithAi implements ShouldQueue
     public function failed(InvoiceCreated $event, Throwable $exception): void
     {
         $invoice = $event->invoice;
+
+        event(new PostingStatusUpdated(
+            $invoice->company_id, 'invoice', $invoice->id, 'failed',
+            "Invoice {$invoice->invoice_number} posting failed"
+        ));
 
         Log::critical('[InvoiceAI] Permanently failed', [
             'invoice_id' => $invoice->id,

@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Scout\Searchable;
+use App\Models\Concerns\BroadcastsChanges;
 
 class Transaction extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory, Searchable;
+    use BroadcastsChanges;
 
     protected $fillable = [
         'company_id',

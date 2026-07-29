@@ -24,7 +24,7 @@ class RoadRunnerInventoryPostingDispatcher
         $payload = json_encode(compact('movementId', 'userId'));
 
         try {
-            $queue = $this->jobs()->connect('inventory_postings');
+            $queue = $this->jobs()->connect('inventory-postings');
             $task  = $queue->create('post_inventory_movement', $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

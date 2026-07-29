@@ -2,17 +2,15 @@
 
 namespace App\Ai\Agents;
 
+use App\Ai\Concerns\HasProviderFallback;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
-use Laravel\Ai\Attributes\Provider;
 use Laravel\Ai\Contracts\Agent;
 use Laravel\Ai\Contracts\HasStructuredOutput;
-use Laravel\Ai\Enums\Lab;
 use Laravel\Ai\Promptable;
 
-#[Provider(Lab::Gemini)]
 class InvoicePostingAgent implements Agent, HasStructuredOutput
 {
-    use Promptable;
+    use Promptable, HasProviderFallback;
 
     public function instructions(): string
     {
@@ -50,7 +48,16 @@ class InvoicePostingAgent implements Agent, HasStructuredOutput
           return null.
 
         Only ever choose account ids that are present in the supplied chart
-        of accounts list. Briefly explain your reasoning.
+        of accounts list — never invent an id.
+
+        If a role is genuinely needed for this invoice (see above) but NONE
+        of the supplied accounts are a reasonable fit, leave that role's
+        *_account_id null and instead fill in the matching *_account_hint
+        field with a short (under 10 words) description of the account that
+        should be created, e.g. "Workshop Labour Revenue — sales income for
+        labour services". Leave the hint null whenever you did choose an id.
+
+        Briefly explain your reasoning.
         TEXT;
     }
 
@@ -58,22 +65,40 @@ class InvoicePostingAgent implements Agent, HasStructuredOutput
     {
         return [
             'accounts_receivable_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the debtors/accounts receivable control account.')
-                ->required(),
+                ->description('Chart of accounts id for the debtors/accounts receivable control account, or null if none of the supplied accounts fit.')
+                ->nullable(),
+            'accounts_receivable_account_hint' => $schema->string()
+                ->description('Short description of the AR account to create, only when accounts_receivable_account_id is null.')
+                ->nullable(),
             'sales_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the sales/revenue account.')
-                ->required(),
+                ->description('Chart of accounts id for the sales/revenue account, or null if none of the supplied accounts fit.')
+                ->nullable(),
+            'sales_account_hint' => $schema->string()
+                ->description('Short description of the sales account to create, only when sales_account_id is null.')
+                ->nullable(),
             'vat_output_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the VAT output account, or null if the invoice has no VAT.')
+                ->description('Chart of accounts id for the VAT output account, or null if the invoice has no VAT or none of the supplied accounts fit.')
+                ->nullable(),
+            'vat_output_account_hint' => $schema->string()
+                ->description('Short description of the VAT output account to create, only when the invoice has VAT but vat_output_account_id is null.')
                 ->nullable(),
             'cost_of_sales_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the cost-of-sales/COGS account, or null for service-only invoices.')
+                ->description('Chart of accounts id for the cost-of-sales/COGS account, or null for service-only invoices or if none of the supplied accounts fit.')
+                ->nullable(),
+            'cost_of_sales_account_hint' => $schema->string()
+                ->description('Short description of the cost-of-sales account to create, only when needed but cost_of_sales_account_id is null.')
                 ->nullable(),
             'inventory_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the inventory asset account to credit, or null for service-only invoices.')
+                ->description('Chart of accounts id for the inventory asset account to credit, or null for service-only invoices or if none of the supplied accounts fit.')
+                ->nullable(),
+            'inventory_account_hint' => $schema->string()
+                ->description('Short description of the inventory account to create, only when needed but inventory_account_id is null.')
                 ->nullable(),
             'bank_account_id' => $schema->integer()
-                ->description('Chart of accounts id for the bank/cash account, or null if the invoice is not yet paid.')
+                ->description('Chart of accounts id for the bank/cash account, or null if the invoice is not yet paid or none of the supplied accounts fit.')
+                ->nullable(),
+            'bank_account_hint' => $schema->string()
+                ->description('Short description of the bank/cash account to create, only when the invoice is paid but bank_account_id is null.')
                 ->nullable(),
             'reasoning' => $schema->string()
                 ->description('A brief explanation of why these accounts were chosen.')

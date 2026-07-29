@@ -24,7 +24,7 @@ class RoadRunnerEclPostingDispatcher
         $payload = json_encode(compact('companyId', 'userId', 'asOfDate'));
 
         try {
-            $queue = $this->jobs()->connect('ecl_postings');
+            $queue = $this->jobs()->connect('ecl-postings');
             $task  = $queue->create('post_ecl_provision', $payload);
             $queue->dispatch($task);
         } catch (\Throwable $e) {

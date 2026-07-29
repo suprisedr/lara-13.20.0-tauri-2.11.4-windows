@@ -1,5 +1,14 @@
 <?php
 
+// Anything written to stdout breaks the goridge frame protocol RoadRunner uses
+// to talk to this worker over pipes. Force PHP errors/warnings/notices to
+// stderr, and open an output buffer that swallows any accidental echo/print
+// from a service provider or config file loaded during bootstrap.
+ini_set('display_errors', 'stderr');
+ini_set('display_startup_errors', 'stderr');
+error_reporting(E_ALL);
+ob_start(fn () => '');
+
 /**
  * Unified RoadRunner Jobs worker.
  *
@@ -21,6 +30,11 @@ use App\Services\InventoryPostingService;
 use App\Services\LeasePostingService;
 use App\Services\EclPostingService;
 use App\Services\CreditNotePostingService;
+use App\Services\InvoicePostingService;
+use App\Services\BiologicalAssetPostingService;
+use App\Services\InvestmentPropertyPostingService;
+use App\Models\BiologicalAssetEvent;
+use App\Models\InvestmentPropertyEvent;
 
 function broadcastStatus(int $companyId, string $entityType, int $entityId, string $status, string $label): void
 {
@@ -34,11 +48,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spiral\RoadRunner\Jobs\Consumer;
 
-ini_set('display_errors', 'stderr');
 require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
 $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+// Discard anything that leaked to the buffer during bootstrap so the very
+// first frame we send to RoadRunner is clean.
+if (ob_get_level() > 0) {
+    ob_end_clean();
+}
 
 $consumer = new Consumer();
 
@@ -57,10 +76,18 @@ while ($task = $consumer->waitTask()) {
             handleInventoryPosting($payload, $app);
         } elseif (str_starts_with($name, 'post_lease_')) {
             handleLeasePosting($payload, $app);
+        } elseif (str_starts_with($name, 'post_biological_asset_')) {
+            handleBiologicalAssetPosting($payload, $app);
+        } elseif (str_starts_with($name, 'post_investment_property_')) {
+            handleInvestmentPropertyPosting($payload, $app);
         } elseif ($name === 'post_ecl_provision') {
             handleEclPosting($payload, $app);
         } elseif ($name === 'post_credit_note') {
             handleCreditNotePosting($payload, $app);
+        } elseif ($name === 'post_invoice') {
+            handleInvoicePosting($payload, $app);
+        } elseif ($name === 'post_invoice_payment') {
+            handleInvoicePaymentPosting($payload, $app);
         } elseif ($name === 'generate_chart_of_accounts') {
             handleChartOfAccountsGeneration($payload, $app);
         } else {
@@ -617,6 +644,255 @@ function handleCreditNotePosting(array $payload, $app): void
             'high',
             'credit_note',
             $creditNoteId,
+        );
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Biological asset posting handler
+// ---------------------------------------------------------------------------
+
+function handleBiologicalAssetPosting(array $payload, $app): void
+{
+    $eventId = $payload['eventId'];
+    $assetId = $payload['assetId'];
+    $userId  = $payload['userId'];
+    $action  = $payload['action'];
+    $data    = $payload['data'] ?? [];
+
+    Log::info('jobs_worker: biological asset posting starting', [
+        'event_id' => $eventId, 'asset_id' => $assetId, 'action' => $action,
+    ]);
+
+    $asset   = \App\Models\BiologicalAsset::with(['company.user', 'biologicalAssetClass'])->findOrFail($assetId);
+    $user    = \App\Models\User::findOrFail($userId);
+    $posting = $app->make(BiologicalAssetPostingService::class);
+
+    try {
+        match ($action) {
+            'acquire'           => $posting->postAcquisitionWithAi($asset, $user),
+            'fair_value_adjust' => $posting->postFairValueAdjustmentWithAi(
+                $asset, $user,
+                (float) $data['new_fair_value'],
+                $data['date'],
+            ),
+            'harvest'           => $posting->postHarvestWithAi(
+                $asset, $user,
+                (float) $data['fair_value_at_harvest'],
+                (float) $data['quantity'],
+                $data['date'],
+                $data['description'] ?? '',
+            ),
+            'dispose'           => $posting->postDisposalWithAi($asset->fresh(), $user),
+            default             => throw new \RuntimeException("Unknown biological asset action: {$action}"),
+        };
+
+        BiologicalAssetEvent::where('id', $eventId)->update(['journal_status' => BiologicalAssetEvent::STATUS_POSTED]);
+        broadcastStatus($asset->company_id, 'biological_asset_event', $eventId, 'posted', ucfirst($action).' posted — '.$asset->name);
+
+        Log::info('jobs_worker: biological asset posting succeeded', [
+            'event_id' => $eventId, 'asset_id' => $assetId, 'action' => $action,
+        ]);
+    } catch (\Throwable $e) {
+        BiologicalAssetEvent::where('id', $eventId)->update(['journal_status' => BiologicalAssetEvent::STATUS_FAILED]);
+        broadcastStatus($asset->company_id, 'biological_asset_event', $eventId, 'failed', ucfirst($action).' failed — '.$asset->name);
+
+        Log::error('jobs_worker: biological asset posting failed', [
+            'event_id' => $eventId, 'asset_id' => $assetId, 'action' => $action,
+            'error'    => $e->getMessage(),
+        ]);
+
+        flagAction(
+            $asset->company_id,
+            ucfirst($action) . ' posting failed — ' . $asset->name,
+            "The AI posting for biological asset \"{$asset->name}\" ({$action}) failed.\n\nError: {$e->getMessage()}\n\nPlease review and post the journal manually or retry.",
+            'high',
+            'biological_asset',
+            $assetId,
+        );
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Investment property posting handler
+// ---------------------------------------------------------------------------
+
+function handleInvestmentPropertyPosting(array $payload, $app): void
+{
+    $eventId    = $payload['eventId'];
+    $propertyId = $payload['propertyId'];
+    $userId     = $payload['userId'];
+    $action     = $payload['action'];
+    $data       = $payload['data'] ?? [];
+
+    Log::info('jobs_worker: investment property posting starting', [
+        'event_id' => $eventId, 'property_id' => $propertyId, 'action' => $action,
+    ]);
+
+    $property = \App\Models\InvestmentProperty::with(['company.user', 'investmentPropertyClass'])->findOrFail($propertyId);
+    $user     = \App\Models\User::findOrFail($userId);
+    $posting  = $app->make(InvestmentPropertyPostingService::class);
+
+    try {
+        match ($action) {
+            'acquire'           => $posting->postAcquisitionWithAi($property, $user),
+            'capitalise'        => $posting->postSubsequentCostWithAi(
+                $property, $user,
+                (float) $data['amount'],
+                $data['date'],
+                $data['description'] ?? '',
+            ),
+            'fair_value_adjust' => $posting->postFairValueAdjustmentWithAi(
+                $property, $user,
+                (float) $data['new_fair_value'],
+                $data['date'],
+            ),
+            'impair'            => $posting->postImpairmentWithAi(
+                $property, $user,
+                (float) $data['impairment_amount'],
+                $data['date'],
+                $data['reason'] ?? '',
+            ),
+            'reverse'           => $posting->postImpairmentReversalWithAi(
+                $property, $user,
+                (float) $data['reversal_amount'],
+                $data['date'],
+            ),
+            'dispose'           => $posting->postDisposalWithAi($property->fresh(), $user),
+            default             => throw new \RuntimeException("Unknown investment property action: {$action}"),
+        };
+
+        InvestmentPropertyEvent::where('id', $eventId)->update(['journal_status' => InvestmentPropertyEvent::STATUS_POSTED]);
+        broadcastStatus($property->company_id, 'investment_property_event', $eventId, 'posted', ucfirst($action).' posted — '.$property->name);
+
+        Log::info('jobs_worker: investment property posting succeeded', [
+            'event_id' => $eventId, 'property_id' => $propertyId, 'action' => $action,
+        ]);
+    } catch (\Throwable $e) {
+        InvestmentPropertyEvent::where('id', $eventId)->update(['journal_status' => InvestmentPropertyEvent::STATUS_FAILED]);
+        broadcastStatus($property->company_id, 'investment_property_event', $eventId, 'failed', ucfirst($action).' failed — '.$property->name);
+
+        Log::error('jobs_worker: investment property posting failed', [
+            'event_id' => $eventId, 'property_id' => $propertyId, 'action' => $action,
+            'error'    => $e->getMessage(),
+        ]);
+
+        flagAction(
+            $property->company_id,
+            ucfirst($action) . ' posting failed — ' . $property->name,
+            "The AI posting for investment property \"{$property->name}\" ({$action}) failed.\n\nError: {$e->getMessage()}\n\nPlease review and post the journal manually or retry.",
+            'high',
+            'investment_property',
+            $propertyId,
+        );
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Invoice posting handler
+// ---------------------------------------------------------------------------
+
+function handleInvoicePosting(array $payload, $app): void
+{
+    $invoiceId = $payload['invoiceId'];
+    $companyId = $payload['companyId'];
+
+    Log::info('jobs_worker: invoice posting starting', ['invoice_id' => $invoiceId]);
+
+    $invoice = \App\Models\Invoice::with(['items', 'company.user'])->find($invoiceId);
+    if (! $invoice || $invoice->posting_transaction_id) {
+        return;
+    }
+
+    $company = $invoice->company;
+    $service = $app->make(InvoicePostingService::class);
+
+    broadcastStatus($companyId, 'invoice', $invoiceId, 'pending',
+        "AI is posting invoice {$invoice->invoice_number}…");
+
+    try {
+        $service->postWithAi($company, $invoice, $company->user);
+
+        broadcastStatus($companyId, 'invoice', $invoiceId, 'posted',
+            "Invoice {$invoice->invoice_number} posted successfully");
+
+        Log::info('jobs_worker: invoice posting succeeded', ['invoice_id' => $invoiceId]);
+    } catch (\Throwable $e) {
+        broadcastStatus($companyId, 'invoice', $invoiceId, 'failed',
+            "Invoice {$invoice->invoice_number} posting failed");
+
+        Log::error('jobs_worker: invoice posting failed', [
+            'invoice_id' => $invoiceId,
+            'error'      => $e->getMessage(),
+        ]);
+
+        flagAction(
+            $companyId,
+            "AI invoice posting failed — Invoice #{$invoice->invoice_number}",
+            'The AI could not post this invoice. ' . get_class($e) . ': ' . $e->getMessage(),
+            'high',
+            'invoice',
+            $invoiceId,
+        );
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Invoice payment posting handler
+// ---------------------------------------------------------------------------
+
+function handleInvoicePaymentPosting(array $payload, $app): void
+{
+    $invoiceId = $payload['invoiceId'];
+    $companyId = $payload['companyId'];
+    $userId    = $payload['userId'];
+
+    Log::info('jobs_worker: invoice payment posting starting', ['invoice_id' => $invoiceId]);
+
+    $invoice = \App\Models\Invoice::with(['items', 'payments', 'postingTransaction.journalLines'])->find($invoiceId);
+    if (! $invoice) {
+        return;
+    }
+
+    // Another path already posted a payment entry — skip.
+    if ($invoice->payments()->whereNotNull('transaction_id')->exists()) {
+        return;
+    }
+
+    if ($invoice->balanceDue() <= 0) {
+        return;
+    }
+
+    $user    = \App\Models\User::findOrFail($userId);
+    $company = $invoice->company;
+    $service = $app->make(InvoicePostingService::class);
+
+    broadcastStatus($companyId, 'invoice_payment', $invoiceId, 'pending',
+        "AI is posting payment for invoice {$invoice->invoice_number}…");
+
+    try {
+        $service->postPaymentWithAi($company, $invoice, $user);
+
+        broadcastStatus($companyId, 'invoice_payment', $invoiceId, 'posted',
+            "Payment for invoice {$invoice->invoice_number} posted successfully");
+
+        Log::info('jobs_worker: invoice payment posting succeeded', ['invoice_id' => $invoiceId]);
+    } catch (\Throwable $e) {
+        broadcastStatus($companyId, 'invoice_payment', $invoiceId, 'failed',
+            "Payment posting failed for invoice {$invoice->invoice_number}");
+
+        Log::error('jobs_worker: invoice payment posting failed', [
+            'invoice_id' => $invoiceId,
+            'error'      => $e->getMessage(),
+        ]);
+
+        flagAction(
+            $companyId,
+            "AI payment posting failed — Invoice #{$invoice->invoice_number}",
+            'The AI could not post the payment receipt entry. Please use Record Payment manually. Error: ' . $e->getMessage(),
+            'high',
+            'invoice',
+            $invoiceId,
         );
     }
 }

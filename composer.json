@@ -14,6 +14,11 @@
         {
             "type": "path",
             "url": "packages/laravel-circuit-breaker"
+        },
+        {
+            "type": "path",
+            "url": "packages/chainbook/paystack",
+            "options": { "symlink": false }
         }
     ],
     "require": {
@@ -40,6 +45,7 @@
         "spiral/roadrunner-laravel": "^6.0",
         "temporal/sdk": "^2.17",
         "thenetworg/oauth2-azure": "^2.2",
+        "chainbook/paystack": "*",
         "webklex/php-imap": "^6.2"
     },
     "require-dev": {
