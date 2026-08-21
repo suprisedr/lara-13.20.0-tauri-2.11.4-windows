@@ -12,20 +12,20 @@
     <style>
         .co-topbar { padding: 1rem 2rem; }
         .co-main { padding: 1.25rem 1.5rem; }
-        .grp-card { background:#fff; border:1px solid rgba(94,23,235,0.1); border-radius:0; padding:1.1rem 1.25rem; margin-bottom:1.25rem; }
-        .grp-card h3 { font-size:0.95rem; font-weight:800; margin:0 0 0.2rem; color:#1b1b18; }
+        .grp-card { background:#fff; border:1px solid rgba(0, 91, 240,0.1); border-radius:0; padding:1.1rem 1.25rem; margin-bottom:1.25rem; }
+        .grp-card h3 { font-size:0.95rem; font-weight:800; margin:0 0 0.2rem; color:#191919; }
         .grp-card p.sub { font-size:0.78rem; color:#888; margin:0 0 1rem; }
         .oe-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:0.75rem 0.9rem; }
-        .oe-field label { display:block; font-size:0.64rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#374151; margin-bottom:0.25rem; }
-        .oe-field .hint { font-size:0.6rem; color:#a78bfa; font-weight:600; }
-        .oe-input { width:100%; box-sizing:border-box; border:1.5px solid #e5e7eb; border-radius:0; padding:0.4rem 0.55rem; font-size:0.8rem; font-family:inherit; }
-        .oe-input:focus { border-color:#7c3aed; outline:none; }
-        .oe-btn { background:#5e17eb; color:#fff; border:none; border-radius:0; padding:0.5rem 1rem; font-size:0.8rem; font-weight:700; cursor:pointer; font-family:inherit; }
-        .oe-btn:hover { background:#4a10c4; }
+        .oe-field label { display:block; font-size:0.64rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#191919; margin-bottom:0.25rem; }
+        .oe-field .hint { font-size:0.7rem; color:#2674f2; font-weight:600; }
+        .oe-input { width:100%; box-sizing:border-box; border:1.5px solid #d3e2f5; border-radius:0; padding:0.4rem 0.55rem; font-size:0.8rem; font-family:inherit; }
+        .oe-input:focus { border-color:#005bf0; outline:none; }
+        .oe-btn { background:#005bf0; color:#fff; border:none; border-radius:0; padding:0.5rem 1rem; font-size:0.8rem; font-weight:700; cursor:pointer; font-family:inherit; }
+        .oe-btn:hover { background:#0047c4; }
         .oe-table { width:100%; border-collapse:collapse; }
-        .oe-table th { text-align:left; font-size:0.6rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#9ca3af; padding:0.45rem 0.6rem; border-bottom:1px solid #eee; }
-        .oe-table td { padding:0.55rem 0.6rem; font-size:0.8rem; border-bottom:1px solid #f3f4f6; vertical-align:top; }
-        .oe-badge { display:inline-block; font-size:0.6rem; font-weight:800; border-radius:0; padding:0.1rem 0.4rem; text-transform:uppercase; letter-spacing:0.04em; }
+        .oe-table th { text-align:left; font-size:0.7rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#6f869b; padding:0.45rem 0.6rem; border-bottom:1px solid #d3e2f5; }
+        .oe-table td { padding:0.55rem 0.6rem; font-size:0.8rem; border-bottom:1px solid #f4fafc; vertical-align:top; }
+        .oe-badge { display:inline-block; font-size:0.7rem; font-weight:800; border-radius:0; padding:0.1rem 0.4rem; text-transform:uppercase; letter-spacing:0.04em; }
         .oe-acq { background:#dcfce7; color:#166534; }
         .oe-inc { background:#dbeafe; color:#1e40af; }
         .oe-dec { background:#fef9c3; color:#854d0e; }
@@ -161,7 +161,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $event->event_date->format('d M Y') }}</td>
-                                        <td><strong>{{ $event->subsidiary?->registered_name ?? '—' }}</strong>@if($event->notes)<div style="font-size:0.7rem;color:#9ca3af;">{{ $event->notes }}</div>@endif</td>
+                                        <td><strong>{{ $event->subsidiary?->registered_name ?? '—' }}</strong>@if($event->notes)<div style="font-size:0.7rem;color:#6f869b;">{{ $event->notes }}</div>@endif</td>
                                         <td><span class="oe-badge {{ $cls }}">{{ ucfirst($event->type) }}</span></td>
                                         <td>{{ rtrim(rtrim(number_format($event->ownership_before, 2), '0'), '.') }}% → {{ rtrim(rtrim(number_format($event->ownership_after, 2), '0'), '.') }}%</td>
                                         <td style="font-size:0.75rem;">

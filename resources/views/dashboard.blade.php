@@ -6,10 +6,10 @@
 @push('styles')
     <style>
         /* ── Layout ──────────────────────────────── */
-        .dash-wrap { min-height: 100vh; background: #f6f9fc; }
+        .dash-wrap { min-height: 100vh; background: #f7fbfd; }
 
         .dash-hero {
-            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #6d28d9 100%);
+            background: linear-gradient(135deg, #1a345b 0%, #005bf0 50%, #005bf0 100%);
             padding: 28pt 24pt 32pt;
             margin: 0;
             position: relative;
@@ -38,7 +38,7 @@
             width: 500px;
             height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(38, 116, 242,0.15) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -71,7 +71,7 @@
         }
 
         .dash-hero-brand-text {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .dash-hero-brand-text .label {
@@ -79,7 +79,7 @@
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(167,139,250,0.8);
+            color: rgba(38, 116, 242,0.8);
             margin: 0 0 1pt;
         }
 
@@ -110,16 +110,16 @@
             padding: 4pt 10pt;
             text-decoration: none;
             transition: background 0.15s;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             cursor: pointer;
         }
 
         .dash-hero-btn:hover { background: rgba(255,255,255,0.2); }
-        .dash-hero-btn.ghost { color: #c4b5fd; border-color: rgba(167,139,250,0.3); }
+        .dash-hero-btn.ghost { color: #9ec1f5; border-color: rgba(38, 116, 242,0.3); }
         .dash-hero-btn.ghost:hover { color: #fff; }
 
         .dash-greeting {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .dash-greeting h1 {
@@ -132,7 +132,7 @@
 
         .dash-greeting p {
             font-size: 7.5pt;
-            color: #c4b5fd;
+            color: #9ec1f5;
             margin: 0;
             line-height: 1.5;
         }
@@ -157,24 +157,24 @@
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: rgba(167,139,250,0.7);
+            color: rgba(38, 116, 242,0.7);
             margin: 0 0 4pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .dash-stat-value {
             font-size: 16pt;
             font-weight: 900;
             color: #fff;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             letter-spacing: -0.02em;
         }
 
         .dash-stat-sub {
             font-size: 5.5pt;
-            color: rgba(167,139,250,0.6);
+            color: rgba(38, 116, 242,0.6);
             margin-top: 2pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         @media (max-width: 760px) {
@@ -195,27 +195,27 @@
         }
 
         /* ── Document shell ──────────────────────── */
-        .cust-doc { background: #fff; border: 1px solid #e5e7eb; color: #4c1d95; font-size: 7pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; line-height: 1.45; box-shadow: 0 1px 3px rgba(76,29,149,0.06); }
+        .cust-doc { background: #fff; border: 1px solid #d3e2f5; color: #1a345b; font-size: 7pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; line-height: 1.45; box-shadow: 0 1px 3px rgba(26, 52, 91,0.06); }
         .cust-doc-body { padding: 16pt 18pt; }
 
-        .section-header { border-top: 1.5pt solid #4c1d95; margin: 0 0 8pt; padding-top: 3pt; display: flex; justify-content: space-between; align-items: baseline; }
-        .section-header-title { font-size: 5.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #4c1d95; }
-        .section-header-sub { font-size: 5.5pt; color: #8b7aad; }
+        .section-header { border-top: 1.5pt solid #1a345b; margin: 0 0 8pt; padding-top: 3pt; display: flex; justify-content: space-between; align-items: baseline; }
+        .section-header-title { font-size: 5.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #1a345b; }
+        .section-header-sub { font-size: 5.5pt; color: #6f869b; }
 
         /* ── Companies table ─────────────────────── */
-        .cust-items-table { width: 100%; border-collapse: collapse; font-size: 7pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; }
-        .cust-items-table thead tr { border-bottom: 1.5pt solid #4c1d95; }
-        .cust-items-table thead th { padding: 3pt 6pt; font-size: 5.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #8b7aad; text-align: left; }
-        .cust-items-table tbody tr { border-bottom: 0.4pt solid #ede9fe; transition: background 0.1s; cursor: pointer; }
-        .cust-items-table tbody tr:hover { background: #f5f3ff; }
+        .cust-items-table { width: 100%; border-collapse: collapse; font-size: 7pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; }
+        .cust-items-table thead tr { border-bottom: 1.5pt solid #1a345b; }
+        .cust-items-table thead th { padding: 3pt 6pt; font-size: 5.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6f869b; text-align: left; }
+        .cust-items-table tbody tr { border-bottom: 0.4pt solid #eaf8fb; transition: background 0.1s; cursor: pointer; }
+        .cust-items-table tbody tr:hover { background: #f4fafc; }
         .cust-items-table tbody tr:last-child { border-bottom: none; }
-        .cust-items-table tbody td { padding: 5pt 6pt; vertical-align: middle; color: #4c1d95; }
+        .cust-items-table tbody td { padding: 5pt 6pt; vertical-align: middle; color: #1a345b; }
 
         /* ── Status badges ───────────────────────── */
         .status-box { display: inline-block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 1pt 4pt; }
         .status-active   { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
         .status-pending  { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
-        .status-inactive { background: #f5f3ff; color: #8b7aad; border: 1px solid #c4b5fd; }
+        .status-inactive { background: #f4fafc; color: #6f869b; border: 1px solid #9ec1f5; }
 
         /* ── Empty state ─────────────────────────── */
         .empty-state { padding: 28pt 16pt; text-align: center; }
@@ -223,36 +223,36 @@
             width: 48pt;
             height: 48pt;
             margin: 0 auto 10pt;
-            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            background: linear-gradient(135deg, #005bf0, #1a345b);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .empty-state-title { font-size: 9pt; font-weight: 800; color: #4c1d95; margin: 0 0 4pt; }
-        .empty-state-body { font-size: 7pt; color: #8b7aad; margin: 0 0 12pt; max-width: 260pt; margin-left: auto; margin-right: auto; line-height: 1.65; }
+        .empty-state-title { font-size: 9pt; font-weight: 800; color: #1a345b; margin: 0 0 4pt; }
+        .empty-state-body { font-size: 7pt; color: #6f869b; margin: 0 0 12pt; max-width: 260pt; margin-left: auto; margin-right: auto; line-height: 1.65; }
 
         /* ── Buttons ─────────────────────────────── */
-        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #c4b5fd; color: #4c1d95; font-size: 6pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3pt 7pt; text-decoration: none; cursor: pointer; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; transition: background 0.15s, color 0.15s; }
-        .mgmt-btn:hover { background: #f5f3ff; }
-        .mgmt-btn.primary { background: #7c3aed; color: #fff; border-color: #7c3aed; }
-        .mgmt-btn.primary:hover { background: #6d28d9; }
+        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #9ec1f5; color: #1a345b; font-size: 6pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3pt 7pt; text-decoration: none; cursor: pointer; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; transition: background 0.15s, color 0.15s; }
+        .mgmt-btn:hover { background: #f4fafc; }
+        .mgmt-btn.primary { background: #005bf0; color: #fff; border-color: #005bf0; }
+        .mgmt-btn.primary:hover { background: #005bf0; }
         .mgmt-btn.warn { border-color: #d97706; color: #d97706; }
         .mgmt-btn.warn:hover { background: #d97706; color: #fff; }
 
         /* ── Actions modal ───────────────────────── */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(22,53,92,0.45); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26, 52, 91,0.45); z-index: 1000; align-items: center; justify-content: center; }
         .modal-overlay.open { display: flex; }
-        .modal-box { background: #fff; border: 1px solid #c4b5fd; width: 100%; max-width: 240pt; margin: 0 10pt; }
-        .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 7pt 10pt; border-bottom: 1px solid #ddd6fe; }
-        .modal-head h3 { font-size: 8pt; font-weight: 800; color: #4c1d95; margin: 0; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; }
-        .modal-close { border: none; background: transparent; font-size: 11pt; line-height: 1; color: #c4b5fd; cursor: pointer; padding: 0; }
-        .modal-close:hover { color: #4c1d95; }
+        .modal-box { background: #fff; border: 1px solid #9ec1f5; width: 100%; max-width: 240pt; margin: 0 10pt; }
+        .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 7pt 10pt; border-bottom: 1px solid #d3e2f5; }
+        .modal-head h3 { font-size: 8pt; font-weight: 800; color: #1a345b; margin: 0; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; }
+        .modal-close { border: none; background: transparent; font-size: 11pt; line-height: 1; color: #9ec1f5; cursor: pointer; padding: 0; }
+        .modal-close:hover { color: #1a345b; }
         .modal-body { padding: 8pt 10pt; display: flex; flex-direction: column; gap: 5pt; }
 
         /* ── Pagination ──────────────────────────── */
-        .dash-pagination { margin-top: 10pt; border-top: 0.4pt solid #ddd6fe; padding-top: 8pt; }
-        .dash-pagination nav { font-size: 6pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; }
+        .dash-pagination { margin-top: 10pt; border-top: 0.4pt solid #d3e2f5; padding-top: 8pt; }
+        .dash-pagination nav { font-size: 6pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; }
     </style>
 @endpush
 
@@ -265,6 +265,20 @@
 
                 <div class="dash-hero-top">
                     <div class="dash-hero-brand">
+                        <div style="display:inline-flex;align-items:center;gap:1pt;margin-right:6pt;flex-shrink:0;">
+                            <button type="button" onclick="history.back()" title="Go back"
+                                style="display:inline-flex;align-items:center;justify-content:center;width:18pt;height:18pt;background:transparent;border:1px solid transparent;color:#9ec1f5;cursor:pointer;padding:0;transition:background 0.15s,color 0.15s,border-color 0.15s;"
+                                onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.borderColor='rgba(38, 116, 242,0.4)';this.style.color='#fff'"
+                                onmouseout="this.style.background='transparent';this.style.borderColor='transparent';this.style.color='#9ec1f5'">
+                                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button type="button" onclick="history.forward()" title="Go forward"
+                                style="display:inline-flex;align-items:center;justify-content:center;width:18pt;height:18pt;background:transparent;border:1px solid transparent;color:#9ec1f5;cursor:pointer;padding:0;transition:background 0.15s,color 0.15s,border-color 0.15s;"
+                                onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.borderColor='rgba(38, 116, 242,0.4)';this.style.color='#fff'"
+                                onmouseout="this.style.background='transparent';this.style.borderColor='transparent';this.style.color='#9ec1f5'">
+                                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
                         <img src="{{ asset('storage/images/chainbook-icon-light.png') }}" alt="">
                         <div class="dash-hero-brand-text">
                             <p class="label">Chainbook Intelligence</p>
@@ -349,7 +363,7 @@
             {{-- Flash messages --}}
             @foreach (['company_onboarded', 'success'] as $key)
                 @if (session($key))
-                    <div style="background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;display:flex;align-items:center;gap:4pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                    <div style="background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;display:flex;align-items:center;gap:4pt;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">
                         <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                         {{ session($key) }}
                     </div>
@@ -415,21 +429,21 @@
                                     @endphp
                                     <tr onclick="{{ $openUrl ? "window.location='{$openUrl}'" : ($nextRoute ? "window.location='{$nextRoute}'" : 'void(0)') }}">
                                         <td>
-                                            <span style="font-family:'DejaVu Sans Mono',monospace;font-size:6pt;color:#8b7aad;">{{ $company->id }}</span>
+                                            <span style="font-family:'DejaVu Sans Mono',monospace;font-size:6pt;color:#6f869b;">{{ $company->id }}</span>
                                         </td>
                                         <td>
-                                            <span style="font-weight:700;color:#4c1d95;">{{ $company->registered_name }}</span>
+                                            <span style="font-weight:700;color:#1a345b;">{{ $company->registered_name }}</span>
                                         </td>
-                                        <td style="color:#6b5b8a;white-space:nowrap;">{{ $company->company_type_label }}</td>
-                                        <td style="font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;color:#8b7aad;">{{ $company->registration_number ?? '—' }}</td>
-                                        <td style="color:#6b5b8a;white-space:nowrap;">
+                                        <td style="color:#5a7186;white-space:nowrap;">{{ $company->company_type_label }}</td>
+                                        <td style="font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;color:#6f869b;">{{ $company->registration_number ?? '—' }}</td>
+                                        <td style="color:#5a7186;white-space:nowrap;">
                                             @if ($company->industry)
                                                 {{ \App\Models\Company::industries()[$company->industry] ?? $company->industry }}
                                             @else
                                                 —
                                             @endif
                                         </td>
-                                        <td style="color:#6b5b8a;">{{ $company->city ?? '—' }}</td>
+                                        <td style="color:#5a7186;">{{ $company->city ?? '—' }}</td>
                                         <td>
                                             @if (! $isActive)
                                                 <span class="status-box status-inactive">Inactive</span>

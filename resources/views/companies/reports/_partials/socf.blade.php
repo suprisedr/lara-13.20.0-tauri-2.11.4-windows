@@ -23,7 +23,7 @@
     // Signed format: negatives in parentheses, nil as a dash.
     $sgn = function ($v) use ($rounding, $roundingDecimals) {
         if (round((float) $v, 2) == 0) return '—';
-        $n = number_format(abs($v) / $rounding, $roundingDecimals);
+        $n = number_format(abs($v) / $rounding, $roundingDecimals, '.', ' ');
         return $v < 0 ? "({$n})" : $n;
     };
     $pv = fn($key) => $prior[$key] ?? 0;
@@ -32,12 +32,15 @@
 
 <table class="afs-table">
     <thead>
+        {{-- Header follows the source document: the label cell is
+             empty, and each year sits above its rounding label on a
+             second line. Only the current-year cell is filled. --}}
         <tr>
-            <th class="afs-col-label">Figures in {{ $roundingLabel }}</th>
-            <th class="afs-col-note">Note(s)</th>
-            <th class="afs-col-amount">{{ $currentYearLabel }}</th>
+            <th class="afs-col-label"></th>
+            <th class="afs-col-note">Notes</th>
+            <th class="afs-col-amount">{{ $currentYearLabel }}<br>{{ $roundingLabel }}</th>
             @if ($compare)
-                <th class="afs-col-amount">{{ $priorYearLabel }}</th>
+                <th class="afs-col-amount">{{ $priorYearLabel }}<br>{{ $roundingLabel }}</th>
             @endif
         </tr>
     </thead>
@@ -45,7 +48,7 @@
 
         {{-- ════ OPERATING ACTIVITIES ════ --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Cash flows from operating activities</td>
+            <td class="afs-name">Cash flows from operating activities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         <tr class="afs-item-row">
             <td class="afs-name">Cash receipts from customers</td>
@@ -90,7 +93,7 @@
 
         {{-- ════ INVESTING ACTIVITIES ════ --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Cash flows from investing activities</td>
+            <td class="afs-name">Cash flows from investing activities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php $invLines = collect($cf['investingLines'])->filter(fn($l) => round((float)$l['cur'], 2) != 0 || round((float)$l['pri'], 2) != 0); @endphp
         @forelse ($invLines as $line)
@@ -98,7 +101,7 @@
                 <td class="afs-name">
                     {{ $line['name'] }}
                     @if (($line['source'] ?? '') === 'register')
-                        <span style="font-size:0.55rem;background:#ede9fe;color:#5e17eb;padding:0.05rem 0.3rem;margin-left:0.3rem;font-weight:700;vertical-align:middle;letter-spacing:0.04em;">AUTO</span>
+                        <span style="font-size:0.55rem;background:#eaf8fb;color:#005bf0;padding:0.05rem 0.3rem;margin-left:0.3rem;font-weight:700;vertical-align:middle;letter-spacing:0.04em;">AUTO</span>
                     @endif
                 </td>
                 <td class="afs-note"></td>
@@ -107,7 +110,7 @@
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">No investing activities for this period</td>
+                <td class="afs-name afs-empty">No investing activities for this period</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-named-subtotal">
@@ -119,7 +122,7 @@
 
         {{-- ════ FINANCING ACTIVITIES ════ --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Cash flows from financing activities</td>
+            <td class="afs-name">Cash flows from financing activities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php $finLines = collect($cf['financingLines'])->filter(fn($l) => round((float)$l['cur'], 2) != 0 || round((float)$l['pri'], 2) != 0); @endphp
         @forelse ($finLines as $line)
@@ -131,7 +134,7 @@
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">No financing activities for this period</td>
+                <td class="afs-name afs-empty">No financing activities for this period</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-named-subtotal">

@@ -12,7 +12,7 @@
         .reg-status.partially_paid { color: #b45309; border-color: #b45309; background: #fef3c7; }
         .reg-status.paid      { color: #15803d; border-color: #15803d; background: #dcfce7; }
         .reg-status.disputed  { color: #b91c1c; border-color: #b91c1c; background: #fee2e2; }
-        .reg-status.voided    { color: #6b5b8a; border-color: #6b5b8a; background: #f3f4f6; }
+        .reg-status.voided    { color: #5a7186; border-color: #5a7186; background: #f4fafc; }
 
         .inv-parties {
             display: grid;
@@ -22,17 +22,17 @@
         }
 
         .inv-notes {
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 6pt 8pt;
             font-size: 7pt;
-            color: #23282d;
+            color: #191919;
             line-height: 1.55;
             white-space: pre-line;
         }
 
         .inv-doc-footer {
-            border-top: 0.75pt solid #c4b5fd;
+            border-top: 0.75pt solid #9ec1f5;
             padding-top: 6pt;
             display: flex;
             justify-content: space-between;
@@ -40,17 +40,17 @@
             gap: 6pt;
             flex-wrap: wrap;
             font-size: 6pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         .inv-date-line {
             font-size: 6.5pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin-bottom: 1pt;
             text-align: right;
         }
         .inv-date-line strong {
-            color: #23282d;
+            color: #191919;
             font-weight: 700;
             margin-left: 3pt;
         }
@@ -61,11 +61,11 @@
             gap: 4pt;
         }
         .inv-status-select {
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 2pt 5pt;
             font-size: 6.5pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
             background: #fff;
             outline: none;
             cursor: pointer;
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="afs-letterhead-meta afs-right">
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;margin-bottom:3pt;">{{ $supplierInvoice->invoice_number }}</div>
+                                <div style="font-size:9pt;font-weight:800;color:#1a345b;margin-bottom:3pt;">{{ $supplierInvoice->invoice_number }}</div>
                                 <div style="margin-bottom:4pt;">
                                     <span class="reg-status {{ $supplierInvoice->status->value }}">{{ $supplierInvoice->status->label() }}</span>
                                 </div>
@@ -185,28 +185,28 @@
                             <div>
                                 <div class="reg-section-header">Supplier</div>
                                 @if ($supplierInvoice->supplier)
-                                    <p style="font-size:7pt;font-weight:700;color:#23282d;margin:2pt 0 1pt;">
+                                    <p style="font-size:7pt;font-weight:700;color:#191919;margin:2pt 0 1pt;">
                                         {{ $supplierInvoice->supplier->name }}
                                     </p>
                                     @if ($supplierInvoice->supplier->email)
-                                        <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $supplierInvoice->supplier->email }}</p>
+                                        <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $supplierInvoice->supplier->email }}</p>
                                     @endif
                                     @if ($supplierInvoice->supplier->phone)
-                                        <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $supplierInvoice->supplier->phone }}</p>
+                                        <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $supplierInvoice->supplier->phone }}</p>
                                     @endif
                                     @if ($supplierInvoice->supplier->address)
-                                        <p style="font-size:7pt;color:#6b5b8a;margin:0;white-space:pre-line;">{{ $supplierInvoice->supplier->address }}</p>
+                                        <p style="font-size:7pt;color:#5a7186;margin:0;white-space:pre-line;">{{ $supplierInvoice->supplier->address }}</p>
                                     @endif
                                 @endif
                             </div>
                             <div>
                                 <div class="reg-section-header">Bill To</div>
-                                <p style="font-size:7pt;font-weight:700;color:#23282d;margin:2pt 0 1pt;">{{ $company->registered_name }}</p>
+                                <p style="font-size:7pt;font-weight:700;color:#191919;margin:2pt 0 1pt;">{{ $company->registered_name }}</p>
                                 @if ($company->address_line_1)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $company->address_line_1 }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $company->address_line_1 }}</p>
                                 @endif
                                 @if ($company->city)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">
                                         {{ implode(', ', array_filter([$company->city, $company->province, $company->postal_code])) }}
                                     </p>
                                 @endif
@@ -236,7 +236,7 @@
                                             <span style="font-weight:700;">{{ $item->description }}</span>
                                             @if ($item->inventoryItem && $item->inventoryItem->sku)
                                                 <br>
-                                                <span style="font-size:6pt;color:#8b7aad;">SKU: {{ $item->inventoryItem->sku }}</span>
+                                                <span style="font-size:6pt;color:#6f869b;">SKU: {{ $item->inventoryItem->sku }}</span>
                                             @endif
                                         </td>
                                         <td class="amt">{{ rtrim(rtrim(number_format((float) $item->quantity, 2), '0'), '.') }}</td>
@@ -254,11 +254,11 @@
                             <table class="reg-table" style="width:180pt;">
                                 <tbody>
                                     <tr>
-                                        <td style="color:#6b5b8a;">Subtotal</td>
+                                        <td style="color:#5a7186;">Subtotal</td>
                                         <td class="amt">R&nbsp;{{ number_format((float) $supplierInvoice->subtotal, 2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td style="color:#6b5b8a;">VAT</td>
+                                        <td style="color:#5a7186;">VAT</td>
                                         <td class="amt">R&nbsp;{{ number_format((float) $supplierInvoice->tax_total, 2) }}</td>
                                     </tr>
                                 </tbody>

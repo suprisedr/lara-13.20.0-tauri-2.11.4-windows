@@ -15,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TransactionsExport implements FromArray, WithColumnFormatting, WithColumnWidths, WithStyles, WithTitle
 {
+    use \App\Exports\Concerns\AfsExcelDesign;
+
     private array $rows    = [];
     private int   $hRow    = 5; // column-header row (1-indexed)
     private int   $lastRow = 0;
@@ -54,9 +56,9 @@ class TransactionsExport implements FromArray, WithColumnFormatting, WithColumnW
     public function columnFormats(): array
     {
         return [
-            'I' => '#,##0.00',
-            'J' => '#,##0.00',
-            'K' => '#,##0.00',
+            'I' => $this->afsNumberFormat(),
+            'J' => $this->afsNumberFormat(),
+            'K' => $this->afsNumberFormat(),
         ];
     }
 
@@ -130,98 +132,33 @@ class TransactionsExport implements FromArray, WithColumnFormatting, WithColumnW
     // ── Styles ───────────────────────────────────────────────────
     public function styles(Worksheet $sheet): void
     {
-        $h        = $this->hRow;       // column-header row
+        $h        = $this->hRow;
         $dataFrom = $h + 1;
         $dataTo   = $this->lastRow - 1;
         $last     = $this->lastRow;
 
-        // ── Letterhead ───────────────────────────────────────────
-        // Company name
-        $sheet->getStyle('A1')->getFont()
-            ->setBold(true)->setSize(14)
-            ->getColor()->setARGB('FF1B1B18');
+        $this->afsBaseSheet($sheet);
+        $this->afsTitleBlock($sheet, $this->companyName, 'Transactions', $this->periodLabel, 'A4');
+        $this->afsFootnoteRow($sheet, 4, 'A', 'M');
 
-        // Report title
-        $sheet->getStyle('A2')->getFont()
-            ->setBold(true)->setSize(11)
-            ->getColor()->setARGB('FF5E17EB');
+        // Debit and credit are a balancing pair, so neither is banded; the
+        // running balance in K is the figure the reader follows.
+        $this->afsHeaderRow($sheet, $h, 'A', 'M', ['K'], ['I', 'J', 'K']);
 
-        // Period + timestamp
-        $sheet->getStyle('A3:A4')->getFont()
-            ->setSize(9)
-            ->getColor()->setARGB('FF6B7280');
-
-        // Thin rule under letterhead
-        $sheet->getStyle("A4:M4")->getBorders()->getBottom()
-            ->setBorderStyle(Border::BORDER_THIN)
-            ->getColor()->setARGB('FFEDE9FE');
-
-        // ── Column header row ────────────────────────────────────
-        $sheet->getStyle("A{$h}:M{$h}")->applyFromArray([
-            'font' => [
-                'bold'  => true,
-                'size'  => 9,
-                'color' => ['argb' => 'FFFFFFFF'],
-            ],
-            'fill' => [
-                'fillType'   => Fill::FILL_SOLID,
-                'startColor' => ['argb' => 'FF374151'],
-            ],
-            'alignment' => [
-                'vertical'   => Alignment::VERTICAL_CENTER,
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-                'wrapText'   => true,
-            ],
-        ]);
-        $sheet->getRowDimension($h)->setRowHeight(30);
-
-        // Right-align numeric header cells
-        $sheet->getStyle("I{$h}:K{$h}")
-            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        // ── Data rows ────────────────────────────────────────────
         if ($dataFrom <= $dataTo) {
-            // Alternating row fill
-            for ($r = $dataFrom; $r <= $dataTo; $r++) {
-                $fill = ($r % 2 === 0) ? 'FFF9FAFB' : 'FFFFFFFF';
-                $sheet->getStyle("A{$r}:M{$r}")
-                    ->getFill()->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB($fill);
-
-                $sheet->getRowDimension($r)->setRowHeight(16);
-            }
-
-            // Light border around data area
-            $sheet->getStyle("A{$dataFrom}:M{$dataTo}")
-                ->getBorders()->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN)
-                ->getColor()->setARGB('FFE5E7EB');
-
-            // Right-align numeric columns
-            $sheet->getStyle("I{$dataFrom}:K{$dataTo}")
-                ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-            // Vertical center all data
-            $sheet->getStyle("A{$dataFrom}:M{$dataTo}")
-                ->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+            $this->afsBodyRange($sheet, "A{$dataFrom}:M{$dataTo}", $dataFrom, $dataTo);
+            $this->afsFigureColumn($sheet, 'I', $dataFrom, $last);
+            $this->afsFigureColumn($sheet, 'J', $dataFrom, $last);
+            $this->afsBandColumn($sheet, 'K', $dataFrom, $last);
+            $sheet->getStyle("K{$dataFrom}:K{$last}")
+                ->getNumberFormat()->setFormatCode($this->afsNumberFormat());
         }
 
-        // ── Totals row ───────────────────────────────────────────
-        $sheet->getStyle("A{$last}:M{$last}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FF1B1B18']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFEDE9FE']],
-        ]);
+        $this->afsEmphasisRow($sheet, $last, 'A', 'M');
+        $this->afsRuleRow($sheet, $last, 'A', 'M');
+        $this->afsBandColumn($sheet, 'K', $last, $last);
+        $sheet->getRowDimension($last)->setRowHeight(self::AFS_ROW_HEIGHT);
 
-        $sheet->getStyle("A{$last}:M{$last}")->getBorders()->getTop()
-            ->setBorderStyle(Border::BORDER_MEDIUM)
-            ->getColor()->setARGB('FF5E17EB');
-
-        $sheet->getStyle("I{$last}:J{$last}")
-            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->getRowDimension($last)->setRowHeight(18);
-
-        // ── Freeze below column headers ──────────────────────────
         $sheet->freezePane("A{$dataFrom}");
     }
 }

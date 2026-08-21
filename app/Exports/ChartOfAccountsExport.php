@@ -41,81 +41,36 @@ class ChartOfAccountsExport implements WithMultipleSheets
 // ── Shared letterhead + style helper ─────────────────────────────
 trait CoaSheetStyle
 {
+    use \App\Exports\Concerns\AfsExcelDesign;
+
     private function applyLetterhead(Worksheet $sheet, string $companyName, string $reportTitle, string $periodLabel, string $lastCol, int $hRow): void
     {
         $dataFrom = $hRow + 1;
-
-        // Company name
-        $sheet->getStyle('A1')->getFont()
-            ->setBold(true)->setSize(14)
-            ->getColor()->setARGB('FF1B1B18');
-
-        // Report title
-        $sheet->getStyle('A2')->getFont()
-            ->setBold(true)->setSize(11)
-            ->getColor()->setARGB('FF5E17EB');
-
-        // Period + timestamp
-        $sheet->getStyle('A3:A4')->getFont()
-            ->setSize(9)
-            ->getColor()->setARGB('FF6B7280');
-
-        // Thin rule under letterhead
-        $sheet->getStyle("A4:{$lastCol}4")->getBorders()->getBottom()
-            ->setBorderStyle(Border::BORDER_THIN)
-            ->getColor()->setARGB('FFEDE9FE');
-
-        // Column header row
-        $sheet->getStyle("A{$hRow}:{$lastCol}{$hRow}")->applyFromArray([
-            'font' => [
-                'bold'  => true,
-                'size'  => 9,
-                'color' => ['argb' => 'FFFFFFFF'],
-            ],
-            'fill' => [
-                'fillType'   => Fill::FILL_SOLID,
-                'startColor' => ['argb' => 'FF374151'],
-            ],
-            'alignment' => [
-                'vertical'   => Alignment::VERTICAL_CENTER,
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-                'wrapText'   => true,
-            ],
-        ]);
-        $sheet->getRowDimension($hRow)->setRowHeight(30);
-
-        // Data rows
         $lastRow = $sheet->getHighestRow();
-        $dataTo  = $lastRow - 1;
+        $dataTo = $lastRow - 1;
+
+        $this->afsBaseSheet($sheet);
+        $this->afsTitleBlock($sheet, $companyName, $reportTitle, $periodLabel, 'A4');
+        $this->afsFootnoteRow($sheet, 4, 'A', $lastCol);
+
+        // The balance column is the primary one, so it takes the #005BF0
+        // header cell and the band below; every other header cell is plain
+        // with a black hairline.
+        $this->afsHeaderRow($sheet, $hRow, 'A', $lastCol, [$lastCol], [$lastCol]);
 
         if ($dataFrom <= $dataTo) {
-            for ($r = $dataFrom; $r <= $dataTo; $r++) {
-                $fill = ($r % 2 === 0) ? 'FFF9FAFB' : 'FFFFFFFF';
-                $sheet->getStyle("A{$r}:{$lastCol}{$r}")
-                    ->getFill()->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB($fill);
-
-                $sheet->getRowDimension($r)->setRowHeight(16);
-            }
-
-            $sheet->getStyle("A{$dataFrom}:{$lastCol}{$dataTo}")
-                ->getBorders()->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN)
-                ->getColor()->setARGB('FFE5E7EB');
-
-            $sheet->getStyle("A{$dataFrom}:{$lastCol}{$dataTo}")
-                ->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+            // No alternating fill and no grid: the tint is a column band, and
+            // the document rules rows rather than boxing every cell.
+            $this->afsBodyRange($sheet, "A{$dataFrom}:{$lastCol}{$dataTo}", $dataFrom, $dataTo);
+            $this->afsBandColumn($sheet, $lastCol, $dataFrom, $lastRow);
         }
 
-        // Totals row (last row)
-        $sheet->getStyle("A{$lastRow}:{$lastCol}{$lastRow}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FF1B1B18']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFEDE9FE']],
-        ]);
-        $sheet->getStyle("A{$lastRow}:{$lastCol}{$lastRow}")->getBorders()->getTop()
-            ->setBorderStyle(Border::BORDER_MEDIUM)
-            ->getColor()->setARGB('FF5E17EB');
-        $sheet->getRowDimension($lastRow)->setRowHeight(18);
+        $this->afsEmphasisRow($sheet, $lastRow, 'A', $lastCol);
+        $this->afsRuleRow($sheet, $lastRow, 'A', $lastCol);
+        // The band carries through the totals row, so its bold black figure is
+        // reapplied after the emphasis colour above.
+        $this->afsBandColumn($sheet, $lastCol, $lastRow, $lastRow);
+        $sheet->getRowDimension($lastRow)->setRowHeight(self::AFS_ROW_HEIGHT);
 
         $sheet->freezePane("A{$dataFrom}");
     }
@@ -158,7 +113,7 @@ class CoaSummarySheet implements FromArray, WithColumnFormatting, WithColumnWidt
 
     public function columnFormats(): array
     {
-        return ['H' => '#,##0.00'];
+        return ['H' => $this->afsNumberFormat()];
     }
 
     private function build(): array
@@ -189,7 +144,7 @@ class CoaSummarySheet implements FromArray, WithColumnFormatting, WithColumnWidt
             ];
         }
 
-        $rows[] = ['TOTAL', '', '', '', '', '', '', $totalBalance];
+        $rows[] = ['Total', '', '', '', '', '', '', $totalBalance];
 
         $this->lastRow = count($rows);
 
@@ -254,7 +209,7 @@ class CoaTypeSheet implements FromArray, WithColumnFormatting, WithColumnWidths,
 
     public function columnFormats(): array
     {
-        return ['G' => '#,##0.00'];
+        return ['G' => $this->afsNumberFormat()];
     }
 
     private function build(): array
@@ -286,7 +241,7 @@ class CoaTypeSheet implements FromArray, WithColumnFormatting, WithColumnWidths,
             ];
         }
 
-        $rows[] = ['TOTAL', '', '', '', '', '', $totalBalance];
+        $rows[] = ['Total', '', '', '', '', '', $totalBalance];
 
         $this->lastRow = count($rows);
 

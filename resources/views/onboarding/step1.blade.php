@@ -5,27 +5,27 @@
 
 @push('styles')
 <style>
-    .ob-page { min-height:100vh; background:#f7f5ff; display:flex; justify-content:center; padding:2rem 1rem 4rem; }
+    .ob-page { min-height:100vh; background:#f7fbfd; display:flex; justify-content:center; padding:2rem 1rem 4rem; }
     .cn-form { max-width:920px; width:100%; }
     .cn-section { margin-bottom:1.75rem; }
-    .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+    .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#005bf0; margin:0 0 0.75rem; }
     .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
     .cn-grid.three { grid-template-columns:1fr 1fr 1fr; }
-    .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+    .cn-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
     .cn-field input, .cn-field select {
-        width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+        width:100%; border:1px solid #d3e2f5; padding:0.35rem 0.55rem;
         font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
     }
-    .cn-field input:focus, .cn-field select:focus { outline:none; border-color:#5e17eb; }
+    .cn-field input:focus, .cn-field select:focus { outline:none; border-color:#005bf0; }
     .cn-field input.has-error, .cn-field select.has-error { border-color:#dc2626; background:#fff8f8; }
     .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
-    .form-hint { font-size:0.68rem; color:#9ca3af; margin-top:0.15rem; }
+    .form-hint { font-size:0.68rem; color:#6f869b; margin-top:0.15rem; }
     .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; display:inline-flex; align-items:center; gap:0.4rem; }
-    .btn-submit:hover { background:#333; }
+    .btn-submit:hover { background:#1a345b; }
     .ob-header { margin-bottom:0.5rem; }
     .ob-header h1 { font-size:1.25rem; font-weight:800; color:#000; margin:0 0 0.15rem; letter-spacing:-0.015em; }
-    .ob-header p { font-size:0.78rem; color:#6b7280; margin:0; }
-    .ob-step-label { font-size:0.6rem; font-weight:700; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.35rem; }
+    .ob-header p { font-size:0.78rem; color:#5a7186; margin:0; }
+    .ob-step-label { font-size:0.7rem; font-weight:700; color:#6f869b; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.35rem; }
     @media (max-width:640px) {
         .cn-grid, .cn-grid.three { grid-template-columns:1fr; }
     }
@@ -143,7 +143,7 @@
             </div>
 
             <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-                <a href="{{ route('dashboard') }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                <a href="{{ route('dashboard') }}" style="font-size:0.78rem;color:#5a7186;text-decoration:none;">Cancel</a>
                 <button type="submit" class="btn-submit">Continue: Tax &amp; Compliance</button>
             </div>
         </form>

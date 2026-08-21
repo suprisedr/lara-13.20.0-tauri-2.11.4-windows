@@ -14,8 +14,8 @@
             font-size: 5.5pt;
             letter-spacing: 0.06em;
             padding: 1pt 4pt;
-            border: 0.5pt solid #4c1d95;
-            color: #4c1d95;
+            border: 0.5pt solid #1a345b;
+            color: #1a345b;
         }
         .supplier-status-badge.off {
             color: #dc2626;
@@ -44,7 +44,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(22,53,92,0.45);
+            background: rgba(26, 52, 91,0.45);
             z-index: 100;
             align-items: center;
             justify-content: center;
@@ -56,27 +56,27 @@
             background: #fff;
             width: 100%;
             max-width: 200pt;
-            box-shadow: 0 8pt 24pt rgba(22,53,92,0.16);
+            box-shadow: 0 8pt 24pt rgba(26, 52, 91,0.16);
             overflow: hidden;
-            border-top: 2pt solid #4c1d95;
+            border-top: 2pt solid #1a345b;
         }
 
         .supplier-modal-head {
             padding: 6pt 8pt 5pt;
-            border-bottom: 1pt solid #c4b5fd;
+            border-bottom: 1pt solid #9ec1f5;
         }
         .supplier-modal-head p.label {
             font-size: 5.5pt;
             font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #7c3aed;
+            color: #005bf0;
             margin: 0 0 1pt;
         }
         .supplier-modal-head h3 {
             font-size: 7.5pt;
             font-weight: 800;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 0;
         }
 
@@ -94,19 +94,19 @@
             padding: 3pt 6pt;
             font-size: 6.5pt;
             font-weight: 700;
-            color: #4c1d95;
+            color: #1a345b;
             text-decoration: none;
             border: none;
             background: none;
             width: 100%;
             text-align: left;
             cursor: pointer;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             transition: background 0.12s, color 0.12s;
         }
-        .supplier-modal-item svg { flex-shrink: 0; color: #8b7aad; transition: color 0.12s; }
-        .supplier-modal-item:hover { background: #f5f3ff; color: #4c1d95; }
-        .supplier-modal-item:hover svg { color: #4c1d95; }
+        .supplier-modal-item svg { flex-shrink: 0; color: #6f869b; transition: color 0.12s; }
+        .supplier-modal-item:hover { background: #f4fafc; color: #1a345b; }
+        .supplier-modal-item:hover svg { color: #1a345b; }
 
         .supplier-modal-foot {
             padding: 3pt 8pt 6pt;
@@ -116,16 +116,16 @@
             width: 100%;
             text-align: center;
             padding: 3pt;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             background: #fff;
-            color: #6b5b8a;
+            color: #5a7186;
             font-size: 6pt;
             font-weight: 700;
             cursor: pointer;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             transition: background 0.12s;
         }
-        .supplier-modal-cancel:hover { background: #f5f3ff; }
+        .supplier-modal-cancel:hover { background: #f4fafc; }
     </style>
 @endpush
 
@@ -167,7 +167,7 @@
 
                         @if ($suppliers->isEmpty())
                             <div style="padding:20pt 10pt;text-align:center;">
-                                <svg width="24" height="24" fill="none" stroke="#a78bfa" stroke-width="1.5"
+                                <svg width="24" height="24" fill="none" stroke="#2674f2" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
                                     style="margin:0 auto 5pt;display:block;">
                                     <rect x="1" y="3" width="15" height="13" />
@@ -175,8 +175,8 @@
                                     <circle cx="5.5" cy="18.5" r="2.5" />
                                     <circle cx="18.5" cy="18.5" r="2.5" />
                                 </svg>
-                                <p style="font-weight:700;color:#4c1d95;margin:0 0 2pt;font-size:7pt;">No suppliers yet</p>
-                                <p style="font-size:6.5pt;margin:0 0 8pt;color:#8b7aad;">Add suppliers to track purchases and accounts payable.</p>
+                                <p style="font-weight:700;color:#1a345b;margin:0 0 2pt;font-size:7pt;">No suppliers yet</p>
+                                <p style="font-size:6.5pt;margin:0 0 8pt;color:#6f869b;">Add suppliers to track purchases and accounts payable.</p>
                                 <a href="{{ route('companies.suppliers.create', $company) }}" class="reg-btn primary">
                                     Add Supplier
                                 </a>
@@ -282,6 +282,8 @@
             ];
         });
     @endphp
+
+    @include('companies._row-actions')
 
     <script>
         const supplierActionsData = @json($supplierActionsData);

@@ -10,7 +10,7 @@
             display: flex;
             justify-content: space-between;
             padding: 2pt 0;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
             font-size: 7pt;
         }
 
@@ -46,7 +46,7 @@
                                 <div class="reg-doc-subtitle">
                                     <form method="GET" action="{{ route('companies.payroll.emp501.index', $company) }}" style="display:inline-flex;align-items:center;gap:3pt;">
                                         <span>Tax Year:</span>
-                                        <select name="tax_year" id="tax_year" onchange="this.form.submit()" style="border:0.5pt solid #c4b5fd;padding:1pt 4pt;font-size:6.5pt;background:#fff;color:#4c1d95;font-family:Helvetica,Arial,sans-serif;">
+                                        <select name="tax_year" id="tax_year" onchange="this.form.submit()" style="border:0.5pt solid #9ec1f5;padding:1pt 4pt;font-size:6.5pt;background:#fff;color:#1a345b;font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;">
                                             @foreach ($taxYears as $year)
                                                 <option value="{{ $year }}" {{ $year === $selectedYear ? 'selected' : '' }}>
                                                     {{ $year - 1 }}/{{ $year }}
@@ -85,7 +85,7 @@
                         <div class="recon-line"><span>Total PAYE</span><span style="color:#dc2626;">R {{ number_format($report['emp201_totals']['paye'], 2) }}</span></div>
                         <div class="recon-line"><span>Total UIF (employee + employer)</span><span>R {{ number_format($report['emp201_totals']['total_uif'], 2) }}</span></div>
                         <div class="recon-line"><span>Total SDL</span><span>R {{ number_format($report['emp201_totals']['sdl'], 2) }}</span></div>
-                        <div class="recon-line" style="font-weight:700;"><span>Total Liability Declared</span><strong style="color:#4c1d95;">R {{ number_format($report['emp201_totals']['total_liability'], 2) }}</strong></div>
+                        <div class="recon-line" style="font-weight:700;"><span>Total Liability Declared</span><strong style="color:#1a345b;">R {{ number_format($report['emp201_totals']['total_liability'], 2) }}</strong></div>
 
                         {{-- Variance Analysis --}}
                         <div class="reg-section-header" style="margin-top:8pt;">Variance Analysis (EMP201 vs IRP5 Certificates)</div>
@@ -169,13 +169,13 @@
                                         <td class="amt">R {{ number_format($mUifE, 2) }}</td>
                                         <td class="amt">R {{ number_format($mUifR, 2) }}</td>
                                         <td class="amt">R {{ number_format($mSdl, 2) }}</td>
-                                        <td class="amt" style="color:#4c1d95;">R {{ number_format($mTotal, 2) }}</td>
+                                        <td class="amt" style="color:#1a345b;">R {{ number_format($mTotal, 2) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
 
-                        <p style="font-size:6pt;color:#8b7aad;margin-top:4pt;">
+                        <p style="font-size:6pt;color:#6f869b;margin-top:4pt;">
                             * This EMP501 reconciliation is generated from payroll records and IRP5 certificate data.
                             Verify against SARS eFiling before submission. Variances should be investigated and resolved before filing.
                         </p>

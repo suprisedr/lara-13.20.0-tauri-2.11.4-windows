@@ -38,6 +38,7 @@ class IntangibleAssetPostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postAcquisitionWithAi(IntangibleAsset $asset, User $user): IntangibleAsset
@@ -771,6 +772,12 @@ class IntangibleAssetPostingService
 
         $prompt = "Posting type: {$kind}\n\n{$details}{$extraStr}\nChart of accounts:\n{$list}\n\nPick the IFRS-appropriate accounts for this IAS 38 posting.";
 
-        return (new IntangibleAssetPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('intangible_asset_posting', 'intangible_asset', $asset->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new IntangibleAssetPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('intangible_asset_posting', 'intangible_asset', $asset->id, $prompt, json_encode($response));
+
+        return $response;
     }
 }

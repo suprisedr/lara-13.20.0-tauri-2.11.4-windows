@@ -30,6 +30,7 @@ class InvestmentPropertyPostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postAcquisitionWithAi(InvestmentProperty $property, User $user): InvestmentProperty
@@ -542,6 +543,12 @@ class InvestmentPropertyPostingService
 
         $prompt = "Posting type: {$kind}\n\n{$details}{$extraStr}\nChart of accounts:\n{$list}\n\nPick the IFRS-appropriate accounts for this posting.";
 
-        return (new InvestmentPropertyPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('investment_property_posting', 'investment_property', $property->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new InvestmentPropertyPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('investment_property_posting', 'investment_property', $property->id, $prompt, json_encode($response));
+
+        return $response;
     }
 }

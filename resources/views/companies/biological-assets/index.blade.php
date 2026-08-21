@@ -23,7 +23,7 @@
                 @endif
 
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:7pt;color:#6b5b8a;">
+                    <span style="font-size:7pt;color:#5a7186;">
                         {{ $assets->where('status', 'active')->count() }} active biological asset{{ $assets->where('status', 'active')->count() !== 1 ? 's' : '' }}
                     </span>
                     <div style="display:flex;gap:4pt;">
@@ -33,8 +33,8 @@
                 </div>
 
                 {{-- Add class form --}}
-                <div id="add-class-form" style="display:none;margin-bottom:12pt;background:#f8fbfe;border:1px solid #c4b5fd;padding:8pt 10pt;">
-                    <p style="font-size:6pt;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin:0 0 6pt;">New Biological Asset Class</p>
+                <div id="add-class-form" style="display:none;margin-bottom:12pt;background:#f7fbfd;border:1px solid #9ec1f5;padding:8pt 10pt;">
+                    <p style="font-size:6pt;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#005bf0;margin:0 0 6pt;">New Biological Asset Class</p>
                     <form method="POST" action="{{ route('companies.biological-assets.classes.store', $company) }}">
                         @csrf
                         <div style="display:flex;flex-wrap:wrap;gap:4pt 6pt;align-items:flex-end;">
@@ -56,8 +56,8 @@
                 </div>
 
                 {{-- Add asset form --}}
-                <div id="add-asset-form" style="display:none;margin-bottom:12pt;background:#f8fbfe;border:1px solid #c4b5fd;padding:8pt 10pt;">
-                    <p style="font-size:6pt;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7c3aed;margin:0 0 6pt;">Register New Biological Asset</p>
+                <div id="add-asset-form" style="display:none;margin-bottom:12pt;background:#f7fbfd;border:1px solid #9ec1f5;padding:8pt 10pt;">
+                    <p style="font-size:6pt;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#005bf0;margin:0 0 6pt;">Register New Biological Asset</p>
                     <form method="POST" action="{{ route('companies.biological-assets.store', $company) }}">
                         @csrf
                         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4pt 6pt;margin-bottom:6pt;">
@@ -141,7 +141,7 @@
                                             <td style="text-align:right;">
                                                 @if ($class->biological_assets_count === 0)
                                                 <div class="reg-row-actions">
-                                                    <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
+                                                    <button type="button" class="reg-row-dots">&#x22EE;</button>
                                                     <div class="reg-row-menu">
                                                         <form method="POST" action="{{ route('companies.biological-assets.classes.destroy', [$company, $class]) }}"
                                                             onsubmit="return false" data-confirm-label="Biological Assets" data-confirm-title="Remove Class" data-confirm-body="Remove class {{ addslashes($class->name) }}?" data-confirm-text="Remove" data-confirm-danger="1">
@@ -165,7 +165,7 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Biological Asset Register</div>
-                        <p style="font-size:7pt;color:#6b5b8a;margin:1pt 0 6pt;">
+                        <p style="font-size:7pt;color:#5a7186;margin:1pt 0 6pt;">
                             IAS 41 Agriculture — biological assets measured at fair value less costs to sell, with changes recognised in profit or loss.
                         </p>
 
@@ -207,9 +207,9 @@
                                                 <td class="dim" style="font-size:6.5pt;">{{ $asset->reference ?? "\u{2014}" }}</td>
                                                 <td class="dim" style="font-size:6.5pt;">{{ $asset->biologicalAssetClass?->name ?? "\u{2014}" }}</td>
                                                 <td class="amt">{{ number_format((float) $asset->quantity, 2) }}</td>
-                                                <td style="font-size:6pt;color:#8b7aad;">{{ $asset->unit }}</td>
+                                                <td style="font-size:6pt;color:#6f869b;">{{ $asset->unit }}</td>
                                                 <td class="amt">{{ number_format((float) $asset->cost, 2) }}</td>
-                                                <td class="amt" style="color:#7c3aed;">{{ $asset->fair_value !== null ? number_format((float) $asset->fair_value, 2) : "\u{2014}" }}</td>
+                                                <td class="amt" style="color:#005bf0;">{{ $asset->fair_value !== null ? number_format((float) $asset->fair_value, 2) : "\u{2014}" }}</td>
                                                 <td class="amt" style="color:{{ (float) $asset->fair_value_gain_loss >= 0 ? '#166534' : '#dc2626' }};">
                                                     {{ (float) $asset->fair_value_gain_loss != 0 ? number_format((float) $asset->fair_value_gain_loss, 2) : "\u{2014}" }}
                                                 </td>
@@ -221,7 +221,7 @@
                                                 </td>
                                                 <td style="text-align:right;">
                                                     <div class="reg-row-actions">
-                                                        <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
+                                                        <button type="button" class="reg-row-dots">&#x22EE;</button>
                                                         <div class="reg-row-menu">
                                                             <a href="{{ route('companies.biological-assets.show', [$company, $asset]) }}">View</a>
                                                             <form method="POST" action="{{ route('companies.biological-assets.destroy', [$company, $asset]) }}"
@@ -254,17 +254,5 @@
             </main>
         </div>
     </div>
-    <script>
-        function toggleMenu(btn) {
-            var menu = btn.nextElementSibling;
-            var wasOpen = menu.classList.contains('open');
-            document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            if (!wasOpen) menu.classList.add('open');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.reg-row-actions')) {
-                document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            }
-        });
-    </script>
+    @include('companies._row-actions')
 @endsection

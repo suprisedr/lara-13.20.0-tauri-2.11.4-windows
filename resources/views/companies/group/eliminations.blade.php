@@ -14,18 +14,18 @@
     <style>
         .co-topbar { padding: 1rem 2rem; }
         .co-main { padding: 1.25rem 1.5rem; }
-        .grp-card { background:#fff; border:1px solid rgba(94,23,235,0.1); border-radius:0; padding:1.1rem 1.25rem; margin-bottom:1.25rem; }
-        .grp-card h3 { font-size:0.95rem; font-weight:800; margin:0 0 0.2rem; color:#1b1b18; }
+        .grp-card { background:#fff; border:1px solid rgba(0, 91, 240,0.1); border-radius:0; padding:1.1rem 1.25rem; margin-bottom:1.25rem; }
+        .grp-card h3 { font-size:0.95rem; font-weight:800; margin:0 0 0.2rem; color:#191919; }
         .grp-card p.sub { font-size:0.78rem; color:#888; margin:0 0 1rem; }
-        .el-input { box-sizing:border-box; border:1.5px solid #e5e7eb; border-radius:0; padding:0.4rem 0.55rem; font-size:0.8rem; font-family:inherit; width:100%; }
-        .el-input:focus { border-color:#7c3aed; outline:none; }
-        .el-btn { background:#5e17eb; color:#fff; border:none; border-radius:0; padding:0.45rem 0.9rem; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:inherit; }
-        .el-btn:hover { background:#4a10c4; }
-        .el-btn-light { background:#fff; border:1.5px solid #e5e7eb; color:#374151; }
+        .el-input { box-sizing:border-box; border:1.5px solid #d3e2f5; border-radius:0; padding:0.4rem 0.55rem; font-size:0.8rem; font-family:inherit; width:100%; }
+        .el-input:focus { border-color:#005bf0; outline:none; }
+        .el-btn { background:#005bf0; color:#fff; border:none; border-radius:0; padding:0.45rem 0.9rem; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:inherit; }
+        .el-btn:hover { background:#0047c4; }
+        .el-btn-light { background:#fff; border:1.5px solid #d3e2f5; color:#191919; }
         .el-line-row { display:grid; grid-template-columns:1.6fr 1.6fr 1fr 1fr 32px; gap:0.5rem; margin-bottom:0.5rem; align-items:center; }
         .el-table { width:100%; border-collapse:collapse; }
-        .el-table th { text-align:left; font-size:0.6rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#9ca3af; padding:0.4rem 0.6rem; border-bottom:1px solid #eee; }
-        .el-table td { padding:0.5rem 0.6rem; font-size:0.8rem; border-bottom:1px solid #f3f4f6; vertical-align:top; }
+        .el-table th { text-align:left; font-size:0.7rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#6f869b; padding:0.4rem 0.6rem; border-bottom:1px solid #d3e2f5; }
+        .el-table td { padding:0.5rem 0.6rem; font-size:0.8rem; border-bottom:1px solid #f4fafc; vertical-align:top; }
         .el-table td.amt { text-align:right; font-family:monospace; white-space:nowrap; }
         .el-balance { font-size:0.78rem; font-weight:700; }
         .el-balance.ok { color:#166534; }
@@ -63,11 +63,11 @@
                         @csrf
                         <div style="display:grid;grid-template-columns:1fr 1.4fr 2fr;gap:0.75rem;margin-bottom:1rem;">
                             <div>
-                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#374151;margin-bottom:0.25rem;">Date</label>
+                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#191919;margin-bottom:0.25rem;">Date</label>
                                 <input class="el-input" type="date" name="elimination_date" value="{{ now()->toDateString() }}" required>
                             </div>
                             <div>
-                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#374151;margin-bottom:0.25rem;">Type</label>
+                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#191919;margin-bottom:0.25rem;">Type</label>
                                 <select class="el-input" name="type" required>
                                     @foreach (GroupElimination::TYPES as $key => $label)
                                         <option value="{{ $key }}">{{ $label }}</option>
@@ -75,16 +75,16 @@
                                 </select>
                             </div>
                             <div>
-                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#374151;margin-bottom:0.25rem;">Description</label>
+                                <label style="display:block;font-size:0.66rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#191919;margin-bottom:0.25rem;">Description</label>
                                 <input class="el-input" type="text" name="description" placeholder="e.g. Eliminate intragroup loan: Parent ↔ Sub" required>
                             </div>
                         </div>
 
                         <div style="display:grid;grid-template-columns:1.6fr 1.6fr 1fr 1fr 32px;gap:0.5rem;margin-bottom:0.4rem;">
-                            <span style="font-size:0.6rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;">Consolidated line</span>
-                            <span style="font-size:0.6rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;">Label (optional)</span>
-                            <span style="font-size:0.6rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;text-align:right;">Debit</span>
-                            <span style="font-size:0.6rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;text-align:right;">Credit</span>
+                            <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6f869b;">Consolidated line</span>
+                            <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6f869b;">Label (optional)</span>
+                            <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6f869b;text-align:right;">Debit</span>
+                            <span style="font-size:0.7rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6f869b;text-align:right;">Credit</span>
                             <span></span>
                         </div>
 
@@ -121,14 +121,14 @@
                                         <td>{{ $elim->elimination_date->format('d M Y') }}</td>
                                         <td>
                                             <strong>{{ $elim->description }}</strong>
-                                            <div style="font-size:0.7rem;color:#9ca3af;">{{ $elim->type_label }}</div>
+                                            <div style="font-size:0.7rem;color:#6f869b;">{{ $elim->type_label }}</div>
                                         </td>
                                         <td>
                                             @foreach ($elim->lines as $line)
                                                 <div style="font-size:0.74rem;">
                                                     {{ $line->bucket_label }}@if($line->label) — {{ $line->label }}@endif:
-                                                    @if($line->debit > 0)<span style="color:#1b1b18;">Dr {{ number_format($line->debit, 2) }}</span>@endif
-                                                    @if($line->credit > 0)<span style="color:#1b1b18;">Cr {{ number_format($line->credit, 2) }}</span>@endif
+                                                    @if($line->debit > 0)<span style="color:#191919;">Dr {{ number_format($line->debit, 2) }}</span>@endif
+                                                    @if($line->credit > 0)<span style="color:#191919;">Cr {{ number_format($line->credit, 2) }}</span>@endif
                                                 </div>
                                             @endforeach
                                         </td>

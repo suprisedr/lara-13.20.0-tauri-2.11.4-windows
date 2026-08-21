@@ -13,7 +13,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7.5pt;
             color: #000;
             background: #fff;
@@ -43,7 +43,7 @@
         .section-title {
             font-size: 8pt;
             font-weight: bold;
-            background: #f0f0f0;
+            background: #f4fafc;
             padding: 3px 6px;
             margin: 8px 0 4px;
             border-bottom: 1px solid #000;
@@ -63,7 +63,7 @@
         .info-table td.lbl {
             font-weight: bold;
             width: 140px;
-            color: #333;
+            color: #191919;
         }
 
         .info-table td.val {
@@ -88,7 +88,7 @@
         .codes-table tbody td {
             padding: 2px 4px;
             font-size: 7.5pt;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
         }
 
         .codes-table .code-col {
@@ -135,7 +135,7 @@
         .footer-text {
             text-align: center;
             font-size: 6.5pt;
-            color: #666;
+            color: #5a7186;
             margin-top: 10px;
         }
 
@@ -162,7 +162,7 @@
     <div class="cert-header">
         <h1>{{ $certificate['certificate_type'] }} TAX CERTIFICATE</h1>
         <p>Employees' Tax Certificate [IT3(a) / IRP5] -- Tax Year {{ $certificate['tax_year_label'] }}</p>
-        <p style="font-size:7pt;color:#666;">Period: {{ \Carbon\Carbon::parse($certificate['tax_year_start'])->format('d/m/Y') }} to {{ \Carbon\Carbon::parse($certificate['tax_year_end'])->format('d/m/Y') }}</p>
+        <p style="font-size:7pt;color:#5a7186;">Period: {{ \Carbon\Carbon::parse($certificate['tax_year_start'])->format('d/m/Y') }} to {{ \Carbon\Carbon::parse($certificate['tax_year_end'])->format('d/m/Y') }}</p>
     </div>
 
     {{-- Employer and Employee details side by side --}}
@@ -281,5 +281,6 @@
         Generated from payroll records ({{ $certificate['payslip_count'] }} payslip(s)). Verify against SARS requirements before submission.
     </div>
 
+    @include('pdf._attribution', ['attrLeft' => '15mm', 'attrWidth' => '180mm'])
 </body>
 </html>

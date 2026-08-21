@@ -1,7 +1,7 @@
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { graphqlRequest, getBearerToken } from "../lib/graphql.js";
+import { API_BASE } from "../lib/api.js";
 
-const API_BASE = "http://localhost:8000/api";
 
 async function apiPatch(path: string, body: Record<string, unknown>): Promise<Record<string, unknown>> {
   const token = getBearerToken();

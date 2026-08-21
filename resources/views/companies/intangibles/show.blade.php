@@ -7,55 +7,55 @@
     @include('companies._styles')
     <style>
         .inv-mgmt-bar { display:flex; align-items:center; justify-content:space-between; gap:8pt; flex-wrap:wrap; margin-bottom:12pt; }
-        .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back { font-size:7pt; color:#8b7aad; text-decoration:none; display:inline-flex; align-items:center; gap:3pt; transition:color 0.15s; background:none; border:none; cursor:pointer; font-family:inherit; }
-        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color:#4c1d95; }
-        .mgmt-btn { display:inline-flex; align-items:center; gap:3pt; background:#fff; border:1px solid #c4b5fd; color:#4c1d95; font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:4pt 7pt; text-decoration:none; cursor:pointer; font-family:inherit; transition:background 0.15s, color 0.15s; }
-        .mgmt-btn:hover { background:#f5f3ff; color:#4c1d95; }
-        .mgmt-btn.primary { background:#7c3aed; color:#fff; }
+        .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back { font-size:7pt; color:#6f869b; text-decoration:none; display:inline-flex; align-items:center; gap:3pt; transition:color 0.15s; background:none; border:none; cursor:pointer; font-family:inherit; }
+        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color:#1a345b; }
+        .mgmt-btn { display:inline-flex; align-items:center; gap:3pt; background:#fff; border:1px solid #9ec1f5; color:#1a345b; font-size:6.5pt; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:4pt 7pt; text-decoration:none; cursor:pointer; font-family:inherit; transition:background 0.15s, color 0.15s; }
+        .mgmt-btn:hover { background:#f4fafc; color:#1a345b; }
+        .mgmt-btn.primary { background:#005bf0; color:#fff; }
         .mgmt-btn.primary:hover { background:#005f9e; }
         .mgmt-btn.danger { border-color:#dc2626; color:#dc2626; }
         .mgmt-btn.danger:hover { background:#dc2626; color:#fff; }
-        .cust-doc { background:#fff; border:1px solid #c4b5fd; font-family:Helvetica,Arial,"DejaVu Sans",sans-serif; color:#4c1d95; font-size:7pt; line-height:1.45; }
+        .cust-doc { background:#fff; border:1px solid #9ec1f5; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; color:#1a345b; font-size:7pt; line-height:1.45; }
         .cust-doc-body { padding:16pt 18pt; }
         .cust-header-table { width:100%; border-collapse:collapse; margin-bottom:6pt; }
         .doc-title { font-size:11pt; font-weight:800; text-align:right; margin-bottom:2pt; letter-spacing:0.04em; }
         .doc-meta-line { text-align:right; font-size:7pt; }
-        .status-box { display:inline-block; font-weight:700; text-transform:uppercase; border:1px solid #4c1d95; padding:0.08rem 4pt; font-size:5pt; letter-spacing:0.08em; margin-top:3pt; }
+        .status-box { display:inline-block; font-weight:700; text-transform:uppercase; border:1px solid #1a345b; padding:0.08rem 4pt; font-size:5pt; letter-spacing:0.08em; margin-top:3pt; }
         .status-box.disposed { color:#dc2626; border-color:#dc2626; }
-        .divider { border:none; border-top:1.5pt solid #4c1d95; margin:8pt 0 10pt; }
+        .divider { border:none; border-top:1.5pt solid #1a345b; margin:8pt 0 10pt; }
         .summary-table { width:100%; border-collapse:collapse; margin-bottom:2pt; }
         .summary-table td { padding:0 10pt 0 0; font-size:7pt; vertical-align:top; }
         .summary-table .lbl { display:block; font-weight:700; font-size:5pt; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.5pt; }
         .summary-table .amt { font-size:8pt; font-weight:800; }
-        .section-header { font-weight:700; font-size:7.5pt; text-transform:uppercase; letter-spacing:0.06em; border-bottom:1.5px solid #4c1d95; padding-bottom:2pt; margin-bottom:4pt; }
+        .section-header { font-weight:700; font-size:7.5pt; text-transform:uppercase; letter-spacing:0.06em; border-bottom:1.5px solid #1a345b; padding-bottom:2pt; margin-bottom:4pt; }
         .info-section { margin-top:12pt; }
         table.cust-items-table { width:100%; border-collapse:collapse; }
-        table.cust-items-table thead td { font-weight:700; font-size:6.5pt; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1.5px solid #4c1d95; padding-bottom:4pt; }
+        table.cust-items-table thead td { font-weight:700; font-size:6.5pt; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1.5px solid #1a345b; padding-bottom:4pt; }
         table.cust-items-table thead td.amt { text-align:right; }
-        table.cust-items-table tbody td { padding:4pt 0; font-size:7pt; border-bottom:1px solid #ddd6fe; vertical-align:middle; }
+        table.cust-items-table tbody td { padding:4pt 0; font-size:7pt; border-bottom:1px solid #d3e2f5; vertical-align:middle; }
         table.cust-items-table tbody td.amt { text-align:right; font-family:"DejaVu Sans Mono",monospace; white-space:nowrap; }
         table.cust-items-table tbody tr:last-child td { border-bottom:none; }
-        table.cust-items-table tbody tr:hover td { background:#f5f3ff; }
+        table.cust-items-table tbody tr:hover td { background:#f4fafc; }
         .ev-chip { display:inline-block; font-size:5pt; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; padding:0.1rem 4pt; border-radius:0; white-space:nowrap; }
         .action-section { margin-top:12pt; }
-        .action-panel { border-bottom:1px solid #ddd6fe; }
+        .action-panel { border-bottom:1px solid #d3e2f5; }
         .action-panel-head { display:flex; align-items:center; justify-content:space-between; padding:5pt 0; cursor:pointer; user-select:none; }
         .action-panel-title { font-size:7pt; font-weight:700; display:flex; align-items:center; gap:4pt; }
         .action-panel-body { display:none; padding-bottom:8pt; }
         .action-panel.open .action-panel-body { display:block; }
-        .action-panel-chevron { font-size:6pt; color:#8b7aad; transition:transform 0.15s; }
+        .action-panel-chevron { font-size:6pt; color:#6f869b; transition:transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform:rotate(180deg); }
         .af-row { display:flex; flex-wrap:wrap; gap:4pt 6pt; align-items:flex-end; margin-bottom:5pt; }
         .af-field { flex:1; min-width:100pt; }
         .af-field.wide { flex:2; min-width:150pt; }
-        .af-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#8b7aad; margin-bottom:0.2rem; }
-        .af-field input, .af-field select { width:100%; border:1px solid #c4b5fd; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#4c1d95; box-sizing:border-box; background:#fff; }
-        .af-field input:disabled { background:#f5f3ff; color:#8b7aad; }
-        .af-field input:focus, .af-field select:focus { outline:none; border-color:#7c3aed; }
-        .af-hint { font-size:6pt; color:#8b7aad; margin-bottom:4pt; line-height:1.4; }
-        .as-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#8b7aad; margin-bottom:0.2rem; }
-        .as-field input, .as-field select { width:100%; border:1px solid #c4b5fd; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#4c1d95; background:#fff; outline:none; box-sizing:border-box; height:16pt; border-radius:0; }
-        .as-field input:focus, .as-field select:focus { border-color:#7c3aed; }
+        .af-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#6f869b; margin-bottom:0.2rem; }
+        .af-field input, .af-field select { width:100%; border:1px solid #9ec1f5; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#1a345b; box-sizing:border-box; background:#fff; }
+        .af-field input:disabled { background:#f4fafc; color:#6f869b; }
+        .af-field input:focus, .af-field select:focus { outline:none; border-color:#005bf0; }
+        .af-hint { font-size:6pt; color:#6f869b; margin-bottom:4pt; line-height:1.4; }
+        .as-field label { display:block; font-size:5pt; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#6f869b; margin-bottom:0.2rem; }
+        .as-field input, .as-field select { width:100%; border:1px solid #9ec1f5; padding:3pt 4pt; font-size:7pt; font-family:inherit; color:#1a345b; background:#fff; outline:none; box-sizing:border-box; height:16pt; border-radius:0; }
+        .as-field input:focus, .as-field select:focus { border-color:#005bf0; }
         @media (max-width:640px) {
             .cust-doc-body { padding:10pt 8pt; }
             .cust-header-table, .cust-header-table tr, .cust-header-table td { display:block; width:100%!important; text-align:left!important; }
@@ -131,7 +131,7 @@
                                         @endif
                                     </div>
                                     @if ($asset->reference)
-                                        <div style="font-size:7pt;color:#8b7aad;margin-top:0.2rem;">{{ $asset->reference }}</div>
+                                        <div style="font-size:7pt;color:#6f869b;margin-top:0.2rem;">{{ $asset->reference }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -158,7 +158,7 @@
                                     <div><span style="font-weight:700;display:inline-block;width:130px;">Useful life</span>{{ $indef ? 'Indefinite (no amortisation)' : ($life ? rtrim(rtrim(number_format((float)$life,2),'0'),'.').' years' : '—') }}</div>
                                     <div><span style="font-weight:700;display:inline-block;width:130px;">Method</span>{{ $indef ? '— (impairment-only)' : (\App\Models\IntangibleAsset::METHODS[$asset->amortisation_method ?? $asset->intangibleClass?->amortisation_method] ?? 'Straight-line') }}</div>
                                     @if ($asset->notes)
-                                        <div style="margin-top:3pt;color:#8b7aad;font-style:italic;">{{ $asset->notes }}</div>
+                                        <div style="margin-top:3pt;color:#6f869b;font-style:italic;">{{ $asset->notes }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:50%;text-align:right;">
@@ -209,8 +209,8 @@
                         {{-- IAS 38 Movement History --}}
                         <div class="info-section">
                             <div class="section-header">IAS 38 Movement History</div>
-                            <div id="history-loading" style="color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history…</div>
-                            <div id="history-empty"   style="display:none;color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded yet for this intangible.</div>
+                            <div id="history-loading" style="color:#6f869b;font-size:7pt;font-style:italic;padding:6pt 0;">Loading history…</div>
+                            <div id="history-empty"   style="display:none;color:#6f869b;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded yet for this intangible.</div>
                             <table class="cust-items-table" id="history-table" style="display:none;">
                                 <thead>
                                     <tr>
@@ -229,12 +229,12 @@
                         @unless ($asset->isDisposed())
                         <div class="action-section">
                             <div class="section-header">Record a Movement</div>
-                            <p style="font-size:6.5pt;color:#8b7aad;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
+                            <p style="font-size:6.5pt;color:#6f869b;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
 
                             {{-- Capitalise --}}
                             <div class="action-panel" id="panel-capitalise">
                                 <div class="action-panel-head" onclick="togglePanel('capitalise')">
-                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#8b7aad;">(IAS 38.18 — extends future economic benefits)</small></span>
+                                    <span class="action-panel-title">Capitalise subsequent cost <small style="font-weight:400;color:#6f869b;">(IAS 38.18 — extends future economic benefits)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -266,7 +266,7 @@
                             {{-- Revalue --}}
                             <div class="action-panel" id="panel-revalue">
                                 <div class="action-panel-head" onclick="togglePanel('revalue')">
-                                    <span class="action-panel-title">Revalue intangible <small style="font-weight:400;color:#8b7aad;">(IAS 38.75 — active market required)</small></span>
+                                    <span class="action-panel-title">Revalue intangible <small style="font-weight:400;color:#6f869b;">(IAS 38.75 — active market required)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -298,7 +298,7 @@
                             {{-- Impair --}}
                             <div class="action-panel" id="panel-impair">
                                 <div class="action-panel-head" onclick="togglePanel('impair')">
-                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36{{ $indef ? ' — required annually' : '' }})</small></span>
+                                    <span class="action-panel-title">Record impairment <small style="font-weight:400;color:#6f869b;">(IAS 36{{ $indef ? ' — required annually' : '' }})</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -334,7 +334,7 @@
                             {{-- Reverse impairment --}}
                             <div class="action-panel" id="panel-reverse">
                                 <div class="action-panel-head" onclick="togglePanel('reverse')">
-                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#8b7aad;">(IAS 36.114)</small></span>
+                                    <span class="action-panel-title">Reverse impairment <small style="font-weight:400;color:#6f869b;">(IAS 36.114)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -366,7 +366,7 @@
                             {{-- Dispose --}}
                             <div class="action-panel" id="panel-dispose">
                                 <div class="action-panel-head" onclick="togglePanel('dispose')">
-                                    <span class="action-panel-title">Dispose intangible <small style="font-weight:400;color:#8b7aad;">(IAS 38.112)</small></span>
+                                    <span class="action-panel-title">Dispose intangible <small style="font-weight:400;color:#6f869b;">(IAS 38.112)</small></span>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -591,11 +591,11 @@
     {{-- Edit intangible modal --}}
     <div id="edit-modal"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:16pt 8pt;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #4c1d95;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5px solid #4c1d95;">
-                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#4c1d95;">Edit Intangible</h3>
+        <div style="background:#fff;width:100%;max-width:640px;border:1px solid #1a345b;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5px solid #1a345b;">
+                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#1a345b;">Edit Intangible</h3>
                 <button onclick="closeEditModal()"
-                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#4c1d95;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#1a345b;cursor:pointer;">&times;</button>
             </div>
 
             <form method="POST" action="{{ route('companies.intangibles.update', [$company, $asset]) }}">
@@ -651,7 +651,7 @@
                         <input type="number" name="useful_life_years" value="{{ old('useful_life_years', $asset->useful_life_years) }}" min="0" max="999.99" step="0.01" placeholder="from class">
                     </div>
                     <div class="as-field" style="display:flex;align-items:flex-end;">
-                        <label style="display:inline-flex;align-items:center;gap:4pt;font-size:0.74rem;color:#4c1d95;">
+                        <label style="display:inline-flex;align-items:center;gap:4pt;font-size:0.74rem;color:#1a345b;">
                             <input type="checkbox" name="useful_life_indefinite" value="1" @checked(old('useful_life_indefinite', $asset->useful_life_indefinite))>
                             Indefinite life (IAS 38.107)
                         </label>
@@ -669,11 +669,11 @@
                         <input type="text" name="notes" value="{{ old('notes', $asset->notes) }}" placeholder="Any additional detail">
                     </div>
                 </div>
-                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #c4b5fd;">
+                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #9ec1f5;">
                     <button type="button" onclick="closeEditModal()"
-                        style="padding:4pt 9pt;border:1px solid #c4b5fd;font-size:6.5pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                        style="padding:4pt 9pt;border:1px solid #9ec1f5;font-size:6.5pt;color:#1a345b;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                     <button type="submit"
-                        style="padding:4pt 10pt;background:#7c3aed;color:#fff;border:1px solid #7c3aed;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
+                        style="padding:4pt 10pt;background:#005bf0;color:#fff;border:1px solid #005bf0;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
                 </div>
                 </div>
             </form>

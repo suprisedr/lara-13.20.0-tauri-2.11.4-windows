@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\InventoryItem;
 use App\Services\InvoicePostingService;
+use App\Services\RoadRunnerInvoicePostingDispatcher;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -325,37 +326,53 @@ class InvoiceController extends Controller
                 ->with('error', $e->getMessage());
         }
 
-        return redirect()
+        $newStatus = InvoiceStatus::from($validated['status']);
+        $message = $newStatus === InvoiceStatus::Paid && $updated->status !== InvoiceStatus::Paid->value
+            ? 'Payment journal is being posted by AI. Status will update once the journal is confirmed.'
+            : 'Invoice status updated to "' . InvoiceStatus::from($updated->status)->label() . '".';
+
+        $redirect = redirect()
             ->route('companies.invoices.show', [$company, $invoice])
-            ->with('success', 'Invoice status updated to "' . InvoiceStatus::from($updated->status)->label() . '".');
+            ->with('success', $message);
+
+        if ($newStatus === InvoiceStatus::Paid && $updated->status !== InvoiceStatus::Paid->value) {
+            $redirect->with('payment_posting', true);
+        }
+
+        return $redirect;
     }
 
-    public function recordPayment(Company $company, Invoice $invoice, Request $request, InvoicePostingService $postingService): RedirectResponse
+    public function recordPayment(Company $company, Invoice $invoice, Request $request): RedirectResponse
     {
         abort_unless($company->user_id === auth()->id(), 403);
         abort_unless($invoice->company_id === $company->id, 403);
 
         $validated = $request->validate([
-            'payment_date'       => ['required', 'date'],
-            'amount'             => ['required', 'numeric', 'min:0.01'],
-            'deposit_account_id' => ['required', 'integer', 'exists:chart_of_accounts,id'],
-            'method'             => ['nullable', 'string', 'max:50'],
-            'notes'              => ['nullable', 'string', 'max:255'],
+            'amount' => ['required', 'numeric', 'min:0.01'],
         ]);
 
-        $invoice->load('items');
+        $amount = round((float) $validated['amount'], 2);
+        $balanceDue = $invoice->balanceDue();
 
-        try {
-            $postingService->recordPayment($company, $invoice, auth()->user(), $validated);
-        } catch (InvalidArgumentException $e) {
+        if ($amount > $balanceDue) {
             return redirect()
                 ->route('companies.invoices.show', [$company, $invoice])
-                ->with('error', $e->getMessage());
+                ->with('error', 'Payment amount cannot exceed the outstanding balance of R' . number_format($balanceDue, 2) . '.');
         }
+
+        if (! $invoice->posting_transaction_id) {
+            return redirect()
+                ->route('companies.invoices.show', [$company, $invoice])
+                ->with('error', 'This invoice has not been posted to the ledger yet.');
+        }
+
+        app(RoadRunnerInvoicePostingDispatcher::class)
+            ->dispatchPayment($invoice->fresh('items', 'payments'), auth()->user(), $amount);
 
         return redirect()
             ->route('companies.invoices.show', [$company, $invoice])
-            ->with('success', 'Payment of R' . number_format((float) $validated['amount'], 2) . ' recorded for invoice ' . $invoice->invoice_number . '.');
+            ->with('success', 'AI is posting payment of R' . number_format($amount, 2) . ' for invoice ' . $invoice->invoice_number . '.')
+            ->with('payment_posting', true);
     }
 
     private function resolveCustomer(Company $company, array $validated): \App\Models\Customer

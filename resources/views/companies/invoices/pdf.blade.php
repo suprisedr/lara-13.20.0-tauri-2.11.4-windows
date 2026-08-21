@@ -12,7 +12,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7.5pt;
             color: #000;
             background: #fff;
@@ -78,7 +78,7 @@
         table.items-table tbody td {
             padding: 4px 0;
             font-size: 7.5pt;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: top;
         }
 
@@ -134,7 +134,7 @@
 
         .notes-text {
             font-size: 7.5pt;
-            color: #333;
+            color: #191919;
             white-space: pre-line;
         }
 
@@ -166,7 +166,7 @@
         .footer-text {
             text-align: center;
             font-size: 7pt;
-            color: #666;
+            color: #5a7186;
             margin-top: 6px;
         }
     </style>
@@ -328,5 +328,6 @@
         </div>
     </div>
 
+    @include('pdf._attribution', ['attrLeft' => '15mm', 'attrWidth' => '180mm'])
 </body>
 </html>

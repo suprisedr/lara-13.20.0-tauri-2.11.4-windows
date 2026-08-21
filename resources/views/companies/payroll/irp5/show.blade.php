@@ -22,18 +22,18 @@
             font-weight: 700;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: #8b7aad;
+            color: #6f869b;
             margin-bottom: 1pt;
         }
 
         .cert-detail-item .val {
-            color: #23282d;
+            color: #191919;
             font-weight: 600;
         }
 
         .source-code {
             font-family: 'DejaVu Sans Mono', monospace;
-            color: #4c1d95;
+            color: #1a345b;
             font-weight: 700;
             min-width: 30pt;
             display: inline-block;
@@ -43,7 +43,7 @@
             display: flex;
             justify-content: space-between;
             padding: 2pt 0;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
             font-size: 7pt;
         }
 
@@ -97,8 +97,8 @@
                                 </div>
                             </div>
                             <div class="afs-letterhead-meta afs-right">
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;margin-bottom:3pt;">{{ $certificate['employee']->full_name }}</div>
-                                <div style="font-size:6.5pt;color:#6b5b8a;">
+                                <div style="font-size:9pt;font-weight:800;color:#1a345b;margin-bottom:3pt;">{{ $certificate['employee']->full_name }}</div>
+                                <div style="font-size:6.5pt;color:#5a7186;">
                                     {{ $certificate['employee']->employee_number }}<br>
                                     {{ $certificate['periods_employed'] }} month(s) employed
                                 </div>
@@ -155,9 +155,9 @@
                                 <strong>R {{ number_format($source['amount'], 2) }}</strong>
                             </div>
                         @empty
-                            <div class="cert-line"><span style="color:#8b7aad;">No income recorded</span><span>---</span></div>
+                            <div class="cert-line"><span style="color:#6f869b;">No income recorded</span><span>---</span></div>
                         @endforelse
-                        <div class="cert-line" style="border-top:1pt solid #4c1d95;padding-top:3pt;font-weight:800;">
+                        <div class="cert-line" style="border-top:1pt solid #1a345b;padding-top:3pt;font-weight:800;">
                             <span>Gross Remuneration</span>
                             <span>R {{ number_format($certificate['gross_remuneration'], 2) }}</span>
                         </div>
@@ -170,15 +170,15 @@
                                 <strong>R {{ number_format($deduction['amount'], 2) }}</strong>
                             </div>
                         @empty
-                            <div class="cert-line"><span style="color:#8b7aad;">No deductions recorded</span><span>---</span></div>
+                            <div class="cert-line"><span style="color:#6f869b;">No deductions recorded</span><span>---</span></div>
                         @endforelse
-                        <div class="cert-line" style="border-top:1pt solid #4c1d95;padding-top:3pt;font-weight:800;">
+                        <div class="cert-line" style="border-top:1pt solid #1a345b;padding-top:3pt;font-weight:800;">
                             <span>Total Deductions</span>
                             <span>R {{ number_format($certificate['total_deductions'], 2) }}</span>
                         </div>
 
                         {{-- Summary --}}
-                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;padding:6pt 8pt;margin:8pt 0;">
+                        <div style="background:#f4fafc;border:1px solid #d3e2f5;padding:6pt 8pt;margin:8pt 0;">
                             <div style="display:flex;justify-content:space-between;padding:2pt 0;font-size:7pt;">
                                 <span>Gross Remuneration</span>
                                 <strong>R {{ number_format($certificate['gross_remuneration'], 2) }}</strong>
@@ -193,7 +193,7 @@
                             </div>
                         </div>
 
-                        <p style="font-size:6pt;color:#8b7aad;margin-top:4pt;">
+                        <p style="font-size:6pt;color:#6f869b;margin-top:4pt;">
                             * This {{ $certificate['certificate_type'] }} certificate is generated from posted payroll records for the {{ $certificate['tax_year_label'] }} tax year.
                             Verify against SARS requirements before submission. Source codes follow SARS IRP5 specifications.
                             Based on {{ $certificate['payslip_count'] }} payslip(s).

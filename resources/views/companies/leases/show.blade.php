@@ -7,63 +7,63 @@
     @include('companies._styles')
     <style>
         .inv-mgmt-bar { display: flex; align-items: center; justify-content: space-between; gap: 8pt; flex-wrap: wrap; margin-bottom: 12pt; }
-        .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back { font-size: 7pt; color: #8b7aad; text-decoration: none; display: inline-flex; align-items: center; gap: 3pt; transition: color 0.15s; background: none; border: none; cursor: pointer; font-family: inherit; }
-        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color: #4c1d95; }
-        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #c4b5fd; color: #4c1d95; font-size: 6.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4pt 7pt; text-decoration: none; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
-        .mgmt-btn:hover { background: #f5f3ff; color: #4c1d95; }
-        .mgmt-btn.primary { background: #7c3aed; color: #fff; }
+        .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back { font-size: 7pt; color: #6f869b; text-decoration: none; display: inline-flex; align-items: center; gap: 3pt; transition: color 0.15s; background: none; border: none; cursor: pointer; font-family: inherit; }
+        .inv-mgmt-bar a:hover, .inv-mgmt-bar .mgmt-back:hover { color: #1a345b; }
+        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #9ec1f5; color: #1a345b; font-size: 6.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4pt 7pt; text-decoration: none; cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; }
+        .mgmt-btn:hover { background: #f4fafc; color: #1a345b; }
+        .mgmt-btn.primary { background: #005bf0; color: #fff; }
         .mgmt-btn.primary:hover { background: #005f9e; }
         .mgmt-btn.danger { border-color: #dc2626; color: #dc2626; }
         .mgmt-btn.danger:hover { background: #dc2626; color: #fff; }
-        .cust-doc { background: #fff; border: 1px solid #c4b5fd; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; color: #4c1d95; font-size: 7pt; line-height: 1.45; margin-bottom: 12pt; }
+        .cust-doc { background: #fff; border: 1px solid #9ec1f5; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; color: #1a345b; font-size: 7pt; line-height: 1.45; margin-bottom: 12pt; }
         .cust-doc-body { padding: 16pt 18pt; }
         .cust-header-table { width: 100%; border-collapse: collapse; margin-bottom: 6pt; }
         .doc-title { font-size: 11pt; font-weight: 800; text-align: right; margin-bottom: 2pt; letter-spacing: 0.04em; }
         .doc-meta-line { text-align: right; font-size: 7pt; }
-        .status-box { display: inline-block; font-weight: 700; text-transform: uppercase; border: 1px solid #4c1d95; padding: 0.08rem 4pt; font-size: 5pt; letter-spacing: 0.08em; margin-top: 3pt; }
+        .status-box { display: inline-block; font-weight: 700; text-transform: uppercase; border: 1px solid #1a345b; padding: 0.08rem 4pt; font-size: 5pt; letter-spacing: 0.08em; margin-top: 3pt; }
         .status-box.terminated { color: #dc2626; border-color: #dc2626; }
         .status-box.expired { color: #92400e; border-color: #92400e; }
-        .status-box.exempt { color: #7c3aed; border-color: #7c3aed; }
-        .divider { border: none; border-top: 1.5pt solid #4c1d95; margin: 8pt 0 10pt; }
-        .divider.light { border-top: 1px solid #c4b5fd; margin: 10pt 0; }
+        .status-box.exempt { color: #005bf0; border-color: #005bf0; }
+        .divider { border: none; border-top: 1.5pt solid #1a345b; margin: 8pt 0 10pt; }
+        .divider.light { border-top: 1px solid #9ec1f5; margin: 10pt 0; }
         .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 2pt; }
         .summary-table td { padding: 0 10pt 0 0; font-size: 7pt; vertical-align: top; }
         .summary-table .lbl { display: block; font-weight: 700; font-size: 5pt; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5pt; }
         .summary-table .amt { font-size: 8pt; font-weight: 800; }
-        .section-header { font-weight: 700; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1.5px solid #4c1d95; padding-bottom: 2pt; margin-bottom: 4pt; }
+        .section-header { font-weight: 700; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1.5px solid #1a345b; padding-bottom: 2pt; margin-bottom: 4pt; }
         .info-section { margin-top: 12pt; }
         table.cust-items-table { width: 100%; border-collapse: collapse; }
-        table.cust-items-table thead td { font-weight: 700; font-size: 6.5pt; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1.5px solid #4c1d95; padding-bottom: 4pt; }
+        table.cust-items-table thead td { font-weight: 700; font-size: 6.5pt; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1.5px solid #1a345b; padding-bottom: 4pt; }
         table.cust-items-table thead td.amt { text-align: right; }
-        table.cust-items-table tbody td { padding: 5pt 0; font-size: 7pt; border-bottom: 1px solid #ddd6fe; vertical-align: middle; }
+        table.cust-items-table tbody td { padding: 5pt 0; font-size: 7pt; border-bottom: 1px solid #d3e2f5; vertical-align: middle; }
         table.cust-items-table tbody td.amt { text-align: right; font-family: "DejaVu Sans Mono", monospace; white-space: nowrap; }
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
-        table.cust-items-table tbody tr:hover td { background: #f5f3ff; }
+        table.cust-items-table tbody tr:hover td { background: #f4fafc; }
         .ev-chip { display: inline-block; font-size: 5pt; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.1rem 4pt; border-radius: 0; white-space: nowrap; }
         .ev-chip.commencement { background: #dcfce7; color: #15803d; }
         .ev-chip.payment { background: #dbeafe; color: #1d4ed8; }
         .ev-chip.modification { background: #fef3c7; color: #92400e; }
         .ev-chip.impairment { background: #fee2e2; color: #dc2626; }
-        .ev-chip.reverse_impairment { background: #f5f3ff; color: #7c3aed; }
-        .ev-chip.reassessment { background: #e0e7ff; color: #4338ca; }
+        .ev-chip.reverse_impairment { background: #f4fafc; color: #005bf0; }
+        .ev-chip.reassessment { background: #f4fafc; color: #4338ca; }
         .ev-chip.termination { background: #fecaca; color: #991b1b; }
-        .ev-chip.rou_depreciation { background: #f1f5f9; color: #475569; }
+        .ev-chip.rou_depreciation { background: #f4fafc; color: #475569; }
         .action-section { margin-top: 12pt; }
-        .action-panel { border-bottom: 1px solid #ddd6fe; }
+        .action-panel { border-bottom: 1px solid #d3e2f5; }
         .action-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 5pt 0; cursor: pointer; user-select: none; }
         .action-panel-title { font-size: 7pt; font-weight: 700; display: flex; align-items: center; gap: 4pt; }
         .action-panel-body { display: none; padding-bottom: 8pt; }
         .action-panel.open .action-panel-body { display: block; }
-        .action-panel-chevron { font-size: 6pt; color: #8b7aad; transition: transform 0.15s; }
+        .action-panel-chevron { font-size: 6pt; color: #6f869b; transition: transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform: rotate(180deg); }
         .af-row { display: flex; flex-wrap: wrap; gap: 4pt 6pt; align-items: flex-end; margin-bottom: 5pt; }
         .af-field { flex: 1; min-width: 100pt; }
         .af-field.wide { flex: 2; min-width: 150pt; }
         .af-field.full { flex-basis: 100%; }
-        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #8b7aad; margin-bottom: 0.2rem; }
-        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #c4b5fd; padding: 0.32rem 4pt; font-size: 7pt; font-family: inherit; color: #4c1d95; box-sizing: border-box; background: #fff; }
-        .af-field input:focus, .af-field select:focus { outline: none; border-color: #7c3aed; }
-        .af-hint { font-size: 6pt; color: #8b7aad; margin-bottom: 4pt; line-height: 1.4; }
+        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #6f869b; margin-bottom: 0.2rem; }
+        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #9ec1f5; padding: 0.32rem 4pt; font-size: 7pt; font-family: inherit; color: #1a345b; box-sizing: border-box; background: #fff; }
+        .af-field input:focus, .af-field select:focus { outline: none; border-color: #005bf0; }
+        .af-hint { font-size: 6pt; color: #6f869b; margin-bottom: 4pt; line-height: 1.4; }
         .del-btn { background: none; border: none; font-size: 6.5pt; color: #dc2626; text-decoration: underline; cursor: pointer; font-family: inherit; padding: 0; }
         .del-btn:hover { color: #991b1c; }
         #schedule-table { display: none; margin-top: 6pt; }
@@ -135,10 +135,10 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:11pt;font-weight:800;letter-spacing:-0.01em;">{{ $lease->name }}</div>
                                     @if ($lease->counterparty)
-                                        <div style="font-size:7pt;color:#8b7aad;margin-top:0.2rem;">{{ $isLessee ? 'Lessor' : 'Lessee' }}: {{ $lease->counterparty }}</div>
+                                        <div style="font-size:7pt;color:#6f869b;margin-top:0.2rem;">{{ $isLessee ? 'Lessor' : 'Lessee' }}: {{ $lease->counterparty }}</div>
                                     @endif
                                     @if ($lease->asset_tag)
-                                        <div style="font-size:7pt;color:#8b7aad;">{{ $lease->asset_tag }}</div>
+                                        <div style="font-size:7pt;color:#6f869b;">{{ $lease->asset_tag }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -165,7 +165,7 @@
                                     <div><span style="font-weight:700;display:inline-block;width:150px;">Monthly payment</span>R {{ number_format((float)$lease->monthly_payment, 2) }}</div>
                                     <div><span style="font-weight:700;display:inline-block;width:150px;">Remaining</span>{{ $lease->remainingMonths($asOf) }} months</div>
                                     @if ($lease->notes)
-                                        <div style="margin-top:3pt;color:#8b7aad;font-style:italic;">{{ $lease->notes }}</div>
+                                        <div style="margin-top:3pt;color:#6f869b;font-style:italic;">{{ $lease->notes }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:50%;text-align:right;">
@@ -180,7 +180,7 @@
                                         <div>Residual guarantee: <strong>R {{ number_format((float)$lease->residual_value_guarantee, 2) }}</strong></div>
                                     @endif
                                     @if ($exempt)
-                                        <div style="margin-top:3pt;color:#7c3aed;font-weight:700;">
+                                        <div style="margin-top:3pt;color:#005bf0;font-weight:700;">
                                             {{ $lease->is_short_term ? 'Short-term lease exempt' : '' }}
                                             {{ $lease->is_short_term && $lease->is_low_value ? ' · ' : '' }}
                                             {{ $lease->is_low_value ? 'Low-value asset exempt' : '' }}
@@ -259,7 +259,7 @@
                         <div class="info-section">
                             <div class="section-header">IFRS 16 Event History</div>
                             @if ($events->isEmpty())
-                                <p style="color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded.</p>
+                                <p style="color:#6f869b;font-size:7pt;font-style:italic;padding:6pt 0;">No events recorded.</p>
                             @else
                                 <table class="cust-items-table">
                                     <thead>
@@ -287,7 +287,7 @@
                                                 <td style="white-space:nowrap;">{{ $event->event_date->format('d M Y') }}</td>
                                                 <td><span class="ev-chip {{ $event->type }}">{{ $event->type_label }}</span></td>
                                                 <td class="amt">{{ number_format((float)$event->amount, 2) }}</td>
-                                                <td style="color:#8b7aad;">{{ $event->description ?? '—' }}</td>
+                                                <td style="color:#6f869b;">{{ $event->description ?? '—' }}</td>
                                                 <td data-journal-status-cell style="white-space:nowrap;">
                                                     @if($event->transaction_id && ($evTxn = $eventTxnMap->get($event->transaction_id)))
                                                         <a href="{{ route('companies.transactions', $company) }}?{{ http_build_query(['description' => $evTxn->reference, 'start_date' => substr($evTxn->transaction_date, 0, 10), 'end_date' => substr($evTxn->transaction_date, 0, 10), 'highlight' => $event->transaction_id]) }}" data-journal-status style="font-size:5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:{{ $jsColors[$jsStatus] ?? '#92400e' }};text-decoration:underline;">{{ $jsLabel }}</a>
@@ -314,7 +314,7 @@
                                 <button type="button" class="mgmt-btn" onclick="loadSchedule()" id="load-schedule-btn" style="font-size:5pt;padding:2pt 5pt;">Load Schedule</button>
                             </div>
                             <div id="schedule-table">
-                                <div id="schedule-loading" style="color:#8b7aad;font-size:7pt;font-style:italic;padding:6pt 0;">Loading…</div>
+                                <div id="schedule-loading" style="color:#6f869b;font-size:7pt;font-style:italic;padding:6pt 0;">Loading…</div>
                                 <div id="schedule-content" style="overflow-x:auto;"></div>
                             </div>
                         </div>
@@ -395,7 +395,7 @@
                             @if ($accImp > 0)
                             <div class="action-panel" id="panel-reverse">
                                 <div class="action-panel-head" onclick="togglePanel('reverse')">
-                                    <div class="action-panel-title"><span style="color:#7c3aed;">▲</span> Reverse Impairment</div>
+                                    <div class="action-panel-title"><span style="color:#005bf0;">▲</span> Reverse Impairment</div>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -463,7 +463,7 @@
                             {{-- Edit --}}
                             <div class="action-panel" id="panel-edit">
                                 <div class="action-panel-head" onclick="togglePanel('edit')">
-                                    <div class="action-panel-title"><span style="color:#8b7aad;">✎</span> Edit Lease Details</div>
+                                    <div class="action-panel-title"><span style="color:#6f869b;">✎</span> Edit Lease Details</div>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -577,7 +577,7 @@
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     loading.style.display = 'none';
-                    if (!data.length) { content.innerHTML = '<p style="color:#8b7aad;font-size:7pt;font-style:italic;">No schedule data.</p>'; return; }
+                    if (!data.length) { content.innerHTML = '<p style="color:#6f869b;font-size:7pt;font-style:italic;">No schedule data.</p>'; return; }
                     var html = '<table class="cust-items-table"><thead><tr>';
 
                     if (role === 'lessor' && classification === 'operating') {

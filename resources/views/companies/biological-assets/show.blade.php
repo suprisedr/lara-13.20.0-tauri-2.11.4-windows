@@ -7,52 +7,52 @@
     @include('companies._styles')
     <style>
         .inv-mgmt-bar { display:flex;align-items:center;justify-content:space-between;gap:8pt;flex-wrap:wrap;margin-bottom:12pt; }
-        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:7pt;color:#8b7aad;text-decoration:none;display:inline-flex;align-items:center;gap:3pt;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
-        .inv-mgmt-bar a:hover,.inv-mgmt-bar .mgmt-back:hover { color:#4c1d95; }
-        .mgmt-btn { display:inline-flex;align-items:center;gap:3pt;background:#fff;border:1px solid #c4b5fd;color:#4c1d95;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 7pt;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
-        .mgmt-btn:hover { background:#f5f3ff;color:#4c1d95; }
-        .mgmt-btn.primary { background:#7c3aed;color:#fff; }
+        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:7pt;color:#6f869b;text-decoration:none;display:inline-flex;align-items:center;gap:3pt;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
+        .inv-mgmt-bar a:hover,.inv-mgmt-bar .mgmt-back:hover { color:#1a345b; }
+        .mgmt-btn { display:inline-flex;align-items:center;gap:3pt;background:#fff;border:1px solid #9ec1f5;color:#1a345b;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:4pt 7pt;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
+        .mgmt-btn:hover { background:#f4fafc;color:#1a345b; }
+        .mgmt-btn.primary { background:#005bf0;color:#fff; }
         .mgmt-btn.primary:hover { background:#005f9e; }
         .mgmt-btn.danger { border-color:#dc2626;color:#dc2626; }
         .mgmt-btn.danger:hover { background:#dc2626;color:#fff; }
-        .cust-doc { background:#fff;border:1px solid #c4b5fd;font-family:Helvetica,Arial,"DejaVu Sans",sans-serif;color:#4c1d95;font-size:7pt;line-height:1.45; }
+        .cust-doc { background:#fff;border:1px solid #9ec1f5;font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;color:#1a345b;font-size:7pt;line-height:1.45; }
         .cust-doc-body { padding:16pt 18pt; }
         .cust-header-table { width:100%;border-collapse:collapse;margin-bottom:6pt; }
         .doc-title { font-size:11pt;font-weight:800;text-align:right;margin-bottom:2pt;letter-spacing:0.04em; }
         .doc-meta-line { text-align:right;font-size:7pt; }
-        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #4c1d95;padding:0.08rem 4pt;font-size:5pt;letter-spacing:0.08em;margin-top:3pt; }
+        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #1a345b;padding:0.08rem 4pt;font-size:5pt;letter-spacing:0.08em;margin-top:3pt; }
         .status-box.disposed { color:#dc2626;border-color:#dc2626; }
-        .divider { border:none;border-top:1.5pt solid #4c1d95;margin:8pt 0 10pt; }
+        .divider { border:none;border-top:1.5pt solid #1a345b;margin:8pt 0 10pt; }
         .summary-table { width:100%;border-collapse:collapse;margin-bottom:2pt; }
         .summary-table td { padding:0 10pt 0 0;font-size:7pt;vertical-align:top; }
         .summary-table .lbl { display:block;font-weight:700;font-size:5pt;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.5pt; }
         .summary-table .amt { font-size:8pt;font-weight:800; }
-        .section-header { font-weight:700;font-size:7.5pt;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #4c1d95;padding-bottom:2pt;margin-bottom:4pt;color:#4c1d95; }
+        .section-header { font-weight:700;font-size:7.5pt;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #1a345b;padding-bottom:2pt;margin-bottom:4pt;color:#1a345b; }
         .action-section { margin-top:12pt; }
-        .action-panel { border-bottom:1px solid #ddd6fe; }
+        .action-panel { border-bottom:1px solid #d3e2f5; }
         .action-panel-head { display:flex;align-items:center;justify-content:space-between;padding:5pt 0;cursor:pointer;user-select:none; }
         .action-panel-title { font-size:7pt;font-weight:700;display:flex;align-items:center;gap:4pt; }
         .action-panel-body { display:none;padding-bottom:8pt; }
         .action-panel.open .action-panel-body { display:block; }
-        .action-panel-chevron { font-size:6pt;color:#8b7aad;transition:transform 0.15s; }
+        .action-panel-chevron { font-size:6pt;color:#6f869b;transition:transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform:rotate(180deg); }
         .af-row { display:flex;flex-wrap:wrap;gap:4pt 6pt;align-items:flex-end;margin-bottom:5pt; }
         .af-field { flex:1;min-width:100pt; }
         .af-field.wide { flex:2;min-width:150pt; }
-        .af-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin-bottom:0.2rem; }
-        .af-field input,.af-field select { width:100%;border:1px solid #c4b5fd;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#4c1d95;box-sizing:border-box;background:#fff; }
-        .af-field input:disabled { background:#f5f3ff;color:#8b7aad; }
-        .af-field input:focus,.af-field select:focus { outline:none;border-color:#7c3aed; }
-        .af-hint { font-size:6pt;color:#8b7aad;margin-bottom:4pt;line-height:1.4; }
-        .history-row { display:flex;align-items:flex-start;gap:6pt;padding:5pt 0;border-bottom:1px solid #ddd6fe;font-size:7pt; }
+        .af-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin-bottom:0.2rem; }
+        .af-field input,.af-field select { width:100%;border:1px solid #9ec1f5;padding:3pt 4pt;font-size:7pt;font-family:inherit;color:#1a345b;box-sizing:border-box;background:#fff; }
+        .af-field input:disabled { background:#f4fafc;color:#6f869b; }
+        .af-field input:focus,.af-field select:focus { outline:none;border-color:#005bf0; }
+        .af-hint { font-size:6pt;color:#6f869b;margin-bottom:4pt;line-height:1.4; }
+        .history-row { display:flex;align-items:flex-start;gap:6pt;padding:5pt 0;border-bottom:1px solid #d3e2f5;font-size:7pt; }
         .history-row:last-child { border-bottom:none; }
         .history-badge { display:inline-block;padding:0.15rem 5pt;font-size:5pt;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap; }
-        .history-date { color:#8b7aad;font-size:6.5pt;white-space:nowrap;min-width:56pt; }
+        .history-date { color:#6f869b;font-size:6.5pt;white-space:nowrap;min-width:56pt; }
         .history-desc { flex:1; }
         .history-amt { font-family:"DejaVu Sans Mono",monospace;white-space:nowrap;font-weight:700; }
-        .as-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin-bottom:0.2rem; }
-        .as-field input,.as-field select { width:100%;border:1px solid #c4b5fd;padding:3pt 5pt;font-size:7pt;font-family:inherit;color:#4c1d95;background:#fff;outline:none;box-sizing:border-box;height:16pt;border-radius:0; }
-        .as-field input:focus,.as-field select:focus { border-color:#7c3aed; }
+        .as-field label { display:block;font-size:5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin-bottom:0.2rem; }
+        .as-field input,.as-field select { width:100%;border:1px solid #9ec1f5;padding:3pt 5pt;font-size:7pt;font-family:inherit;color:#1a345b;background:#fff;outline:none;box-sizing:border-box;height:16pt;border-radius:0; }
+        .as-field input:focus,.as-field select:focus { border-color:#005bf0; }
         .posting-status { display:inline-block;font-size:5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:1pt 3pt;margin-left:4pt; }
         @media (max-width:640px) {
             .cust-doc-body { padding:10pt 8pt; }
@@ -112,7 +112,7 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:11pt;font-weight:800;letter-spacing:-0.01em;">{{ $biologicalAsset->name }}</div>
                                     @if ($biologicalAsset->reference)
-                                        <div style="font-size:7pt;color:#8b7aad;margin-top:0.2rem;">{{ $biologicalAsset->reference }}</div>
+                                        <div style="font-size:7pt;color:#6f869b;margin-top:0.2rem;">{{ $biologicalAsset->reference }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -146,7 +146,7 @@
                                         <div>Proceeds: <strong>R {{ number_format((float) ($biologicalAsset->disposal_proceeds ?? 0), 2) }}</strong></div>
                                     @endif
                                     @if ($biologicalAsset->notes)
-                                        <div style="color:#8b7aad;font-style:italic;font-size:6.5pt;margin-top:0.3rem;">{{ $biologicalAsset->notes }}</div>
+                                        <div style="color:#6f869b;font-style:italic;font-size:6.5pt;margin-top:0.3rem;">{{ $biologicalAsset->notes }}</div>
                                     @endif
                                 </td>
                             </tr>
@@ -163,7 +163,7 @@
                                 </td>
                                 <td>
                                     <span class="lbl">Fair Value</span>
-                                    <span class="amt" style="color:#7c3aed;">{{ $biologicalAsset->fair_value !== null ? 'R ' . number_format((float) $biologicalAsset->fair_value, 2) : "\u{2014}" }}</span>
+                                    <span class="amt" style="color:#005bf0;">{{ $biologicalAsset->fair_value !== null ? 'R ' . number_format((float) $biologicalAsset->fair_value, 2) : "\u{2014}" }}</span>
                                 </td>
                                 <td>
                                     <span class="lbl">Cumulative FV Gain/Loss</span>
@@ -182,7 +182,7 @@
                         <div style="margin-top:12pt;">
                             <div class="section-header">Movement History</div>
                             <div id="history-container">
-                                <p style="color:#8b7aad;font-style:italic;font-size:6.5pt;">Loading history…</p>
+                                <p style="color:#6f869b;font-style:italic;font-size:6.5pt;">Loading history…</p>
                             </div>
                         </div>
 
@@ -190,12 +190,12 @@
                         @unless ($biologicalAsset->isDisposed())
                         <div class="action-section">
                             <div class="section-header">Record a Movement</div>
-                            <p style="font-size:6.5pt;color:#8b7aad;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
+                            <p style="font-size:6.5pt;color:#6f869b;margin:3pt 0 6pt;">Select an action above or click a heading below. AI posts the journal automatically after you save.</p>
 
                             {{-- Fair Value Adjustment --}}
                             <div class="action-panel" id="panel-fair-value">
                                 <div class="action-panel-head" onclick="togglePanel('fair-value')">
-                                    <span class="action-panel-title">Fair value adjustment <small style="font-weight:400;color:#8b7aad;">(IAS 41.12)</small></span>
+                                    <span class="action-panel-title">Fair value adjustment <small style="font-weight:400;color:#6f869b;">(IAS 41.12)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -227,7 +227,7 @@
                             {{-- Harvest --}}
                             <div class="action-panel" id="panel-harvest">
                                 <div class="action-panel-head" onclick="togglePanel('harvest')">
-                                    <span class="action-panel-title">Harvest <small style="font-weight:400;color:#8b7aad;">(IAS 41.13)</small></span>
+                                    <span class="action-panel-title">Harvest <small style="font-weight:400;color:#6f869b;">(IAS 41.13)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -265,7 +265,7 @@
                             {{-- Natural Increase --}}
                             <div class="action-panel" id="panel-natural-increase">
                                 <div class="action-panel-head" onclick="togglePanel('natural-increase')">
-                                    <span class="action-panel-title">Natural increase <small style="font-weight:400;color:#8b7aad;">(births / growth)</small></span>
+                                    <span class="action-panel-title">Natural increase <small style="font-weight:400;color:#6f869b;">(births / growth)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -297,7 +297,7 @@
                             {{-- Mortality --}}
                             <div class="action-panel" id="panel-mortality">
                                 <div class="action-panel-head" onclick="togglePanel('mortality')">
-                                    <span class="action-panel-title">Mortality / loss <small style="font-weight:400;color:#8b7aad;">(deaths, disease, etc.)</small></span>
+                                    <span class="action-panel-title">Mortality / loss <small style="font-weight:400;color:#6f869b;">(deaths, disease, etc.)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -329,7 +329,7 @@
                             {{-- Dispose --}}
                             <div class="action-panel" id="panel-dispose">
                                 <div class="action-panel-head" onclick="togglePanel('dispose')">
-                                    <span class="action-panel-title">Dispose / sell <small style="font-weight:400;color:#8b7aad;">(IAS 41.27)</small></span>
+                                    <span class="action-panel-title">Dispose / sell <small style="font-weight:400;color:#6f869b;">(IAS 41.27)</small></span>
                                     <span class="action-panel-chevron">&#9660;</span>
                                 </div>
                                 <div class="action-panel-body">
@@ -462,7 +462,7 @@
             fetch('{{ route("companies.biological-assets.history", [$company, $biologicalAsset]) }}')
                 .then(r => r.json())
                 .then(events => {
-                    if (!events.length) { container.innerHTML = '<p style="color:#8b7aad;font-style:italic;font-size:6.5pt;">No movement history yet.</p>'; return; }
+                    if (!events.length) { container.innerHTML = '<p style="color:#6f869b;font-style:italic;font-size:6.5pt;">No movement history yet.</p>'; return; }
                     container.innerHTML = '';
                     events.forEach(function(e) {
                         var sc = jsStatusColors[e.journal_status] || jsStatusColors.pending;
@@ -477,7 +477,7 @@
                             '<span class="history-date">' + e.date + '</span>' +
                             '<span class="history-badge" style="background:' + e.bg + ';color:' + e.color + ';">' + e.label + '</span>' +
                             '<span class="history-desc">' + e.description +
-                                (e.quantity_change ? ' <span style="color:#8b7aad;font-size:6pt;">(' + e.quantity_change + ')</span>' : '') +
+                                (e.quantity_change ? ' <span style="color:#6f869b;font-size:6pt;">(' + e.quantity_change + ')</span>' : '') +
                             '</span>' +
                             '<span class="history-amt">R ' + e.amount + '</span>' +
                             (e.transaction_url
@@ -508,11 +508,11 @@
     @unless ($biologicalAsset->isDisposed())
     <div id="edit-modal"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:16pt 8pt;overflow-y:auto;">
-        <div style="background:#fff;width:100%;max-width:520px;border:1px solid #4c1d95;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5px solid #4c1d95;">
-                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#4c1d95;">Edit Biological Asset</h3>
+        <div style="background:#fff;width:100%;max-width:520px;border:1px solid #1a345b;border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,0.4);overflow:hidden;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9pt 12pt;border-bottom:1.5px solid #1a345b;">
+                <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:0.04em;margin:0;text-transform:uppercase;color:#1a345b;">Edit Biological Asset</h3>
                 <button onclick="closeEditModal()"
-                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#4c1d95;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#1a345b;cursor:pointer;">&times;</button>
             </div>
 
             <form method="POST" action="{{ route('companies.biological-assets.update', [$company, $biologicalAsset]) }}">
@@ -554,11 +554,11 @@
                         <input type="text" name="notes" value="{{ old('notes', $biologicalAsset->notes) }}" maxlength="500">
                     </div>
                 </div>
-                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #c4b5fd;">
+                <div style="display:flex;gap:5pt;justify-content:flex-end;padding-top:4pt;border-top:1px solid #9ec1f5;">
                     <button type="button" onclick="closeEditModal()"
-                        style="padding:4pt 9pt;border:1px solid #c4b5fd;font-size:6.5pt;color:#4c1d95;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
+                        style="padding:4pt 9pt;border:1px solid #9ec1f5;font-size:6.5pt;color:#1a345b;background:#fff;cursor:pointer;font-weight:600;border-radius:0;">Cancel</button>
                     <button type="submit"
-                        style="padding:4pt 10pt;background:#7c3aed;color:#fff;border:1px solid #7c3aed;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
+                        style="padding:4pt 10pt;background:#005bf0;color:#fff;border:1px solid #005bf0;font-size:6.5pt;font-weight:700;cursor:pointer;border-radius:0;">Save changes</button>
                 </div>
                 </div>
             </form>

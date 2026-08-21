@@ -18,11 +18,11 @@
 
         .inv-field label {
             display: block;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #5e17eb;
+            color: #005bf0;
             margin-bottom: 0.15rem;
         }
 
@@ -30,11 +30,11 @@
         .inv-field select,
         .inv-field textarea {
             width: 100%;
-            border: 1px solid rgba(94, 23, 235, 0.2);
+            border: 1px solid rgba(0, 91, 240, 0.2);
             border-radius: 0;
             padding: 0.3rem 0.5rem;
             font-size: 0.74rem;
-            color: #1b1b18;
+            color: #191919;
             background: #fff;
             outline: none;
             transition: border-color 0.15s, box-shadow 0.15s;
@@ -48,18 +48,18 @@
         }
 
         .inv-field input::placeholder,
-        .inv-field textarea::placeholder { color: #c4b5fd; font-size: 0.7rem; }
+        .inv-field textarea::placeholder { color: #9ec1f5; font-size: 0.7rem; }
 
         .inv-field input:focus,
         .inv-field select:focus,
         .inv-field textarea:focus {
-            border-color: #5e17eb;
-            box-shadow: 0 0 0 2px rgba(94, 23, 235, 0.08);
+            border-color: #005bf0;
+            box-shadow: 0 0 0 2px rgba(0, 91, 240, 0.08);
         }
 
         .inv-field .field-hint {
-            font-size: 0.6rem;
-            color: #9ca3af;
+            font-size: 0.7rem;
+            color: #6f869b;
             margin-top: 0.12rem;
         }
 
@@ -68,22 +68,22 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.35rem 0.55rem;
-            border: 1px solid rgba(94, 23, 235, 0.12);
+            border: 1px solid rgba(0, 91, 240, 0.12);
             border-radius: 0;
-            background: #faf5ff;
+            background: #f4fafc;
         }
 
         .inv-status-field span {
             font-size: 0.74rem;
             font-weight: 600;
-            color: #1b1b18;
+            color: #191919;
         }
 
         .inv-field span.optional {
             font-weight: 400;
             text-transform: none;
             letter-spacing: 0;
-            color: #9ca3af;
+            color: #6f869b;
             font-size: 0.55rem;
         }
 
@@ -93,15 +93,15 @@
             justify-content: flex-end;
             margin-top: 0.85rem;
             padding-top: 0.7rem;
-            border-top: 1px solid #f3f0ff;
+            border-top: 1px solid #f4fafc;
         }
 
         .btn-cancel {
             padding: 0.28rem 0.75rem;
-            border: 1px solid #d1d5db;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             font-size: 0.7rem;
-            color: #555;
+            color: #5a7186;
             text-decoration: none;
             font-weight: 600;
             font-family: inherit;
@@ -110,11 +110,11 @@
             transition: background 0.15s;
         }
 
-        .btn-cancel:hover { background: #f9fafb; }
+        .btn-cancel:hover { background: #f7fbfd; }
 
         .btn-primary {
             padding: 0.28rem 0.85rem;
-            background: #5e17eb;
+            background: #005bf0;
             color: #fff;
             border: none;
             border-radius: 0;
@@ -125,7 +125,7 @@
             font-family: inherit;
         }
 
-        .btn-primary:hover { background: #4a10c4; }
+        .btn-primary:hover { background: #0047c4; }
     </style>
 @endpush
 

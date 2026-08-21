@@ -14,14 +14,14 @@
         /* ── VAT201 document ─────────────────────── */
         .vat-doc {
             background: #fff;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #4c1d95;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #1a345b;
         }
 
         /* Header band */
         .vat-doc-header {
-            background: #4c1d95;
+            background: #1a345b;
             color: #fff;
             padding: 6pt 10pt;
             display: flex;
@@ -30,10 +30,10 @@
             gap: 12pt;
         }
         .vat-doc-header-left .vat-form-no {
-            font-size: 5pt;
+            font-size: 10pt;
             font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             color: rgba(255,255,255,0.5);
             margin: 0 0 2pt;
         }
@@ -44,7 +44,7 @@
             letter-spacing: -0.01em;
         }
         .vat-doc-header-left p.vat-subtitle {
-            font-size: 6.5pt;
+            font-size: 11.5pt;
             color: rgba(255,255,255,0.6);
             margin: 0;
         }
@@ -53,10 +53,10 @@
             flex-shrink: 0;
         }
         .vat-doc-header-right .vat-reg-label {
-            font-size: 5pt;
+            font-size: 10pt;
             font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             color: rgba(255,255,255,0.45);
             margin: 0 0 2pt;
         }
@@ -65,10 +65,11 @@
             font-weight: 800;
             letter-spacing: 0.08em;
             color: #fff;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
         }
         .vat-doc-header-right .vat-period {
-            font-size: 6pt;
+            font-size: 10pt;
             color: rgba(255,255,255,0.5);
             margin: 3pt 0 0;
         }
@@ -77,25 +78,25 @@
         .vat-vendor-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
         }
         .vat-vendor-cell {
             padding: 4pt 6pt;
-            border-right: 0.5pt solid #d5e6f2;
+            border-right: 0.5pt solid #d3e2f5;
         }
         .vat-vendor-cell:last-child { border-right: none; }
         .vat-vendor-cell .vc-label {
-            font-size: 5pt;
+            font-size: 10pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #6b5b8a;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #5a7186;
             margin: 0 0 1.5pt;
         }
         .vat-vendor-cell .vc-value {
-            font-size: 7.5pt;
+            font-size: 10.5pt;
             font-weight: 700;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         /* Section heading rows */
@@ -103,19 +104,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #4c1d95;
+            background: #1a345b;
             color: #fff;
             padding: 3pt 6pt;
         }
         .vat-section-head span {
-            font-size: 6pt;
+            font-size: 10pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            text-transform: none;
+            letter-spacing: 0;
         }
         .vat-section-head .vat-section-total {
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7.5pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             font-weight: 700;
             letter-spacing: 0;
             color: #fff;
@@ -126,44 +128,45 @@
             display: grid;
             grid-template-columns: 18pt 1fr auto;
             align-items: stretch;
-            border-bottom: 0.5pt solid #e4f0f9;
+            border-bottom: 0.5pt solid #eaf8fb;
         }
         .vat-field-row:last-child { border-bottom: none; }
         .vat-field-no {
-            background: #f2f8fd;
-            border-right: 0.5pt solid #d5e6f2;
+            background: #f4fafc;
+            border-right: 0.5pt solid #d3e2f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6pt;
+            font-size: 10pt;
             font-weight: 800;
-            color: #6b5b8a;
+            color: #5a7186;
             padding: 4pt 2pt;
         }
         .vat-field-desc {
             padding: 4pt 6pt;
-            font-size: 7pt;
-            color: #6b5b8a;
+            font-size: 10.5pt;
+            color: #5a7186;
         }
         .vat-field-desc strong {
             display: block;
             font-weight: 700;
-            color: #4c1d95;
-            font-size: 7pt;
+            color: #1a345b;
+            font-size: 10.5pt;
         }
         .vat-field-desc span {
-            font-size: 5.5pt;
-            color: #6b5b8a;
+            font-size: 7pt;
+            color: #5a7186;
         }
         .vat-field-amount {
             min-width: 80pt;
             padding: 4pt 6pt;
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             font-weight: 700;
-            font-size: 8pt;
-            color: #4c1d95;
-            border-left: 0.5pt solid #d5e6f2;
+            font-size: 10.5pt;
+            color: #1a345b;
+            border-left: 0.5pt solid #d3e2f5;
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -175,102 +178,104 @@
             display: grid;
             grid-template-columns: 18pt 1fr auto;
             align-items: stretch;
-            background: #ede9fe;
-            border-top: 1.5pt solid #4c1d95;
+            background: #eaf8fb;
+            border-top: 1.5pt solid #1a345b;
         }
         .vat-net-row .vat-field-no {
-            background: #d8ecf9;
-            border-right: 0.5pt solid #c4b5fd;
-            font-size: 7pt;
+            background: #d3e2f5;
+            border-right: 0.5pt solid #9ec1f5;
+            font-size: 10pt;
             font-weight: 900;
         }
         .vat-net-row .vat-field-desc strong {
-            font-size: 8pt;
+            font-size: 10.5pt;
         }
         .vat-net-row .vat-field-amount {
-            font-size: 10pt;
-            border-left: 0.5pt solid #c4b5fd;
+            font-size: 10.5pt;
+            border-left: 0.5pt solid #9ec1f5;
             min-width: 90pt;
         }
 
         /* Detail transaction table */
         .vat-detail-head {
-            background: #f2f8fd;
-            border-top: 1.5pt solid #4c1d95;
-            border-bottom: 0.5pt solid #d5e6f2;
+            background: #f4fafc;
+            border-top: 1.5pt solid #1a345b;
+            border-bottom: 0.5pt solid #d3e2f5;
             padding: 3pt 6pt;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .vat-detail-head span {
-            font-size: 5.5pt;
+            font-size: 10pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #6b5b8a;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #5a7186;
         }
 
         .vat-tx-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 7pt;
+            font-size: 10.5pt;
         }
         .vat-tx-table thead th {
-            background: #4c1d95;
-            color: rgba(255,255,255,0.85);
-            font-size: 5.5pt;
+            background: #005bf0;
+            color: #ffffff;
+            font-size: 10.5pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 3pt 4pt;
             text-align: left;
             border: none;
             white-space: nowrap;
         }
         .vat-tx-table thead th.r { text-align: right; }
-        .vat-tx-table tbody tr { border-bottom: 0.5pt solid #e4f0f9; }
-        .vat-tx-table tbody tr:hover { background: #faf5ff; }
+        .vat-tx-table tbody tr { border-bottom: 0.5pt solid #eaf8fb; }
+        .vat-tx-table tbody tr:hover { background: #f4fafc; }
         .vat-tx-table td {
             padding: 2pt 4pt;
-            color: #4c1d95;
-            font-size: 7pt;
+            color: #1a345b;
+            font-size: 10.5pt;
         }
         .vat-tx-table td.r {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             white-space: nowrap;
         }
-        .vat-tx-table td.dim { color: #6b5b8a; font-size: 6.5pt; }
+        .vat-tx-table td.dim { color: #5a7186; font-size: 7pt; }
         .vat-tx-table tfoot td {
             padding: 3pt 4pt;
             font-weight: 800;
-            background: #ede9fe;
-            border-top: 1.5pt solid #4c1d95;
-            font-size: 7pt;
-            color: #4c1d95;
+            background: #eaf8fb;
+            border-top: 1.5pt solid #1a345b;
+            font-size: 10.5pt;
+            color: #1a345b;
         }
         .vat-tx-table tfoot td.r {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             white-space: nowrap;
         }
 
         .vat-empty {
             text-align: center;
             padding: 8pt 6pt;
-            color: #8b7aad;
-            font-size: 6.5pt;
-            background: #f8fbfe;
+            color: #6f869b;
+            font-size: 7pt;
+            background: #f7fbfd;
         }
 
         .vat-footer {
             padding: 4pt 6pt;
-            background: #f2f8fd;
-            border-top: 0.5pt solid #d5e6f2;
-            font-size: 5pt;
-            color: #6b5b8a;
+            background: #f4fafc;
+            border-top: 0.5pt solid #d3e2f5;
+            font-size: 7pt;
+            color: #5a7186;
             line-height: 1.5;
         }
 
@@ -293,7 +298,7 @@
             <main class="co-main">
 
                 @if (session('success'))
-                    <div style="display:flex;align-items:center;gap:0.6rem;background:#dcfce7;border:1px solid #bbf7d0;padding:0.65rem 1rem;margin-bottom:1rem;font-size:0.82rem;font-weight:600;color:#15803d;">
+                    <div style="display:flex;align-items:center;gap:0.6rem;background:#dcfce7;border:1px solid #bbf7d0;padding:0.65rem 1rem;margin-bottom:1rem;font-size:10.5pt;font-weight:600;color:#15803d;">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -310,8 +315,8 @@
                         <div style="display:flex;align-items:center;gap:0.6rem;">
                             <a href="{{ route('companies.reports.vat-return.pdf', [$company, 'start_date' => $startDate, 'end_date' => $endDate]) }}"
                                 target="_blank" rel="noopener"
-                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#4c1d95;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                onmouseover="this.style.background='#3b0764'" onmouseout="this.style.background='#4c1d95'">
+                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#1a345b;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:10pt;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                onmouseover="this.style.background='#005bf0'" onmouseout="this.style.background='#1a345b'">
                                 <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -521,7 +526,7 @@
                                                     <td class="r hide-mobile dim">
                                                         {{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0) . '%' : '—' }}
                                                     </td>
-                                                    <td class="r" style="font-weight:700;color:#7c3aed;">
+                                                    <td class="r" style="font-weight:700;color:#005bf0;">
                                                         R {{ number_format($line['amount'], 2) }}
                                                     </td>
                                                 </tr>

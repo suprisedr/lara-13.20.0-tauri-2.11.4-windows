@@ -45,12 +45,9 @@ class PostInvoicePaymentWithAi implements ShouldQueue
             return;
         }
 
-        // Another path (recordPayment) already posted a payment entry — skip.
-        if ($invoice->payments()->whereNotNull('transaction_id')->exists()) {
-            return;
-        }
-
-        if ($invoice->balanceDue() <= 0) {
+        // Skip if the invoice is already fully paid (no balance remaining).
+        $postedTotal = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+        if (round($invoice->total() - $postedTotal, 2) <= 0) {
             return;
         }
 
@@ -67,7 +64,7 @@ class PostInvoicePaymentWithAi implements ShouldQueue
         }
 
         try {
-            app(InvoicePostingService::class)->postPaymentWithAi($company, $invoice, $user);
+            app(InvoicePostingService::class)->postPaymentWithAi($company, $invoice, $user, $event->amount);
             CircuitBreaker::recordSuccess(self::SERVICE);
 
             event(new PostingStatusUpdated(

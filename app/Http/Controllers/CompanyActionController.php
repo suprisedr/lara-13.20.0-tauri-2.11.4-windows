@@ -198,7 +198,7 @@ class CompanyActionController extends Controller
 
         if ($format === 'pdf') {
             return Pdf::loadView('pdf.actions', compact('company', 'actions', 'tabLabel'))
-                ->setPaper('a4', 'landscape')
+                ->setPaper([0, 0, 1440, 810])
                 ->stream($baseName . '.pdf');
         }
 

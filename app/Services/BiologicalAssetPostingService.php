@@ -27,6 +27,7 @@ class BiologicalAssetPostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postAcquisitionWithAi(BiologicalAsset $asset, User $user): BiologicalAsset
@@ -261,6 +262,12 @@ class BiologicalAssetPostingService
 
         $prompt = "Posting type: {$kind}\n\n{$details}{$extraStr}\nChart of accounts:\n{$accountList}\n\nPick the IAS 41-appropriate accounts for this posting.";
 
-        return (new BiologicalAssetPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('biological_asset_posting', 'biological_asset', $asset->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new BiologicalAssetPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('biological_asset_posting', 'biological_asset', $asset->id, $prompt, json_encode($response));
+
+        return $response;
     }
 }

@@ -15,12 +15,12 @@
         .cfs-table { width: 100%; border-collapse: collapse; }
         .cfs-table td { padding: 0.4rem 0.75rem; font-size: 0.85rem; }
         .cfs-table td.amt { text-align: right; font-family: monospace; white-space: nowrap; }
-        .cfs-total td { font-weight: 800; border-top: 1.5px solid #1b1b18; border-bottom: 1px solid #1b1b18; }
-        .cfs-grand td { font-weight: 900; border-top: 2px solid #5e17eb; border-bottom: 3px double #5e17eb; }
-        .cfs-attrib td { font-size: 0.8rem; color: #374151; padding: 0.35rem 0.75rem; }
+        .cfs-total td { font-weight: 800; border-top: 1.5px solid #191919; border-bottom: 1px solid #191919; }
+        .cfs-grand td { font-weight: 900; border-top: 2px solid #005bf0; border-bottom: 3px double #005bf0; }
+        .cfs-attrib td { font-size: 0.8rem; color: #191919; padding: 0.35rem 0.75rem; }
         .ws-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
-        .ws-table th, .ws-table td { padding: 0.4rem 0.6rem; font-size: 0.76rem; border-bottom: 1px solid #f3f4f6; }
-        .ws-table th { text-align: right; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; }
+        .ws-table th, .ws-table td { padding: 0.4rem 0.6rem; font-size: 0.76rem; border-bottom: 1px solid #f4fafc; }
+        .ws-table th { text-align: right; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6f869b; }
         .ws-table th:first-child, .ws-table td:first-child { text-align: left; }
         .ws-table td.amt { text-align: right; font-family: monospace; white-space: nowrap; }
     </style>
@@ -76,7 +76,7 @@
                         </table>
 
                         <table class="cfs-table" style="margin-top:1rem;">
-                            <tr class="cfs-attrib"><td colspan="2" style="font-weight:800;color:#5e17eb;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;">Profit attributable to</td></tr>
+                            <tr class="cfs-attrib"><td colspan="2" style="font-weight:800;color:#005bf0;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;">Profit attributable to</td></tr>
                             <tr class="cfs-attrib"><td>Owners of the parent</td><td class="amt">{{ $fmt($ownersProfit) }}</td></tr>
                             <tr class="cfs-attrib"><td>Non-controlling interests</td><td class="amt">{{ $fmt($nciProfit) }}</td></tr>
                             <tr class="cfs-total"><td>Profit for the period</td><td class="amt">{{ $fmt($profit) }}</td></tr>
@@ -104,7 +104,7 @@
                             <tbody>
                                 @foreach ($worksheet as $row)
                                     <tr>
-                                        <td>{{ $row['company']->registered_name }} @if($row['is_parent'])<span style="font-size:0.6rem;color:#7c3aed;font-weight:800;">(PARENT)</span>@endif</td>
+                                        <td>{{ $row['company']->registered_name }} @if($row['is_parent'])<span style="font-size:0.7rem;color:#005bf0;font-weight:800;">(PARENT)</span>@endif</td>
                                         <td class="amt">{{ $fmt($row['revenue']) }}</td>
                                         <td class="amt">{{ $fmt($row['expenses']) }}</td>
                                         <td class="amt">{{ $fmt($row['profit']) }}</td>
@@ -113,9 +113,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <p style="font-size:0.72rem;color:#9ca3af;margin:0.8rem 0 0;">
+                        <p style="font-size:0.72rem;color:#6f869b;margin:0.8rem 0 0;">
                             Intragroup trading is removed via
-                            <a href="{{ route('companies.group.eliminations', $company) }}" style="color:#5e17eb;">Eliminations</a>.
+                            <a href="{{ route('companies.group.eliminations', $company) }}" style="color:#005bf0;">Eliminations</a>.
                             NCI share of profit = (1 − holding %) × each subsidiary's profit for the period.
                         </p>
                     </div>

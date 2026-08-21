@@ -15,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class RegisterExport implements FromArray, WithColumnWidths, WithStyles, WithTitle
 {
+    use \App\Exports\Concerns\AfsExcelDesign;
+
     private array $rows    = [];
     private int   $hRow    = 5;
     private int   $lastRow = 0;
@@ -271,7 +273,7 @@ class RegisterExport implements FromArray, WithColumnWidths, WithStyles, WithTit
 
         // Totals
         $rows[] = [
-            'TOTAL',
+            'Total',
             $this->items->sum('current_amount'),
             $this->items->sum('days_31_60'),
             $this->items->sum('days_61_90'),
@@ -291,7 +293,7 @@ class RegisterExport implements FromArray, WithColumnWidths, WithStyles, WithTit
 
         $last = end($rows);
         $total = array_fill(0, count($last), '');
-        $total[0] = 'TOTAL';
+        $total[0] = 'Total';
 
         foreach ($sumCols as $col) {
             $total[$col] = array_sum(array_column(
@@ -310,52 +312,31 @@ class RegisterExport implements FromArray, WithColumnWidths, WithStyles, WithTit
         $h        = $this->hRow;
         $dataFrom = $h + 1;
         $last     = $this->lastRow;
+        $lastCol  = $this->lastCol();
 
-        // Title rows
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(13)->getColor()->setARGB('FF1B1B18');
-        $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(10);
-        $sheet->getStyle('A3:A4')->getFont()->setSize(8)->getColor()->setARGB('FF6B7280');
+        $this->afsBaseSheet($sheet);
+        $this->afsTitleBlock($sheet, $this->companyName, $this->title(), 'as at ' . $this->asOfDate, 'A4');
+        $this->afsFootnoteRow($sheet, 4, 'A', $lastCol);
 
-        // Column header row
-        $sheet->getStyle("A{$h}:" . $this->lastCol() . "{$h}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FFFFFFFF']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FF374151']],
-            'alignment' => ['vertical' => Alignment::VERTICAL_CENTER, 'wrapText' => true],
-        ]);
-        $sheet->getRowDimension($h)->setRowHeight(28);
+        // A register has no single primary column — the figures are peer
+        // measures of one asset — so nothing is banded, as with the matrix
+        // statements.
+        $this->afsHeaderRow($sheet, $h, 'A', $lastCol, [], []);
 
-        // Data rows — zebra
-        for ($r = $dataFrom; $r < $last; $r++) {
-            $fill = ($r % 2 === 0) ? 'FFF9FAFB' : 'FFFFFFFF';
-            $sheet->getStyle("A{$r}:" . $this->lastCol() . "{$r}")
-                ->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB($fill);
-            $sheet->getRowDimension($r)->setRowHeight(16);
+        if ($dataFrom < $last) {
+            $this->afsBodyRange($sheet, "A{$dataFrom}:{$lastCol}" . ($last - 1), $dataFrom, $last - 1);
         }
 
-        // Grid lines over data
-        if ($dataFrom <= $last) {
-            $sheet->getStyle("A{$dataFrom}:" . $this->lastCol() . "{$last}")
-                ->getBorders()->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN)->getColor()->setARGB('FFE5E7EB');
-        }
-
-        // Totals row
-        $sheet->getStyle("A{$last}:" . $this->lastCol() . "{$last}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 9],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFF5F5F5']],
-        ]);
-        $sheet->getStyle("A{$last}:" . $this->lastCol() . "{$last}")
-            ->getBorders()->getTop()->setBorderStyle(Border::BORDER_MEDIUM)->getColor()->setARGB('FF000000');
-
-        // Right-align numeric columns (all except A and B)
+        // Figure columns: everything past the code and name.
         $colCount = count($this->columnWidths());
         for ($c = 3; $c <= $colCount; $c++) {
             $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($c);
-            $sheet->getStyle("{$col}{$dataFrom}:{$col}{$last}")
-                ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-            $sheet->getStyle("{$col}{$dataFrom}:{$col}{$last}")
-                ->getNumberFormat()->setFormatCode('#,##0.00');
+            $this->afsFigureColumn($sheet, $col, $dataFrom, $last);
         }
+
+        $this->afsEmphasisRow($sheet, $last, 'A', $lastCol);
+        $this->afsRuleRow($sheet, $last, 'A', $lastCol);
+        $sheet->getRowDimension($last)->setRowHeight(self::AFS_ROW_HEIGHT);
 
         $sheet->freezePane("A{$dataFrom}");
     }

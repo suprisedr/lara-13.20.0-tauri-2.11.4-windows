@@ -6,29 +6,29 @@
 @push('styles')
     <style>
         :root {
-            --ts-purple: #4c1d95;
-            --ts-purple-light: #7c3aed;
-            --ts-purple-bg: #f5f3ff;
-            --ts-purple-border: #c4b5fd;
-            --ts-purple-muted: #8b7aad;
-            --ts-purple-faint: #ede9fe;
-            --ts-purple-deep: #6b5b8a;
+            --ts-purple: #1a345b;
+            --ts-purple-light: #005bf0;
+            --ts-purple-bg: #f4fafc;
+            --ts-purple-border: #9ec1f5;
+            --ts-purple-muted: #6f869b;
+            --ts-purple-faint: #eaf8fb;
+            --ts-purple-deep: #5a7186;
             --ts-red: #b91c1c;
             --ts-red-bg: #fee2e2;
             --ts-green: #15803d;
             --ts-green-bg: #dcfce7;
             --ts-amber: #92400e;
             --ts-amber-bg: #fef9c3;
-            --ts-text: #23282d;
+            --ts-text: #191919;
             --ts-font: Helvetica, Arial, "DejaVu Sans", sans-serif;
             --ts-mono: "DejaVu Sans Mono", "Courier New", monospace;
         }
 
-        .ts-wrap { min-height: 100vh; background: #f6f9fc; font-family: var(--ts-font); display: flex; flex-direction: column; }
+        .ts-wrap { min-height: 100vh; background: #f7fbfd; font-family: var(--ts-font); display: flex; flex-direction: column; }
 
         /* ── Hero header ─────────────────────────── */
         .ts-hero {
-            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #6d28d9 100%);
+            background: linear-gradient(135deg, #1a345b 0%, #005bf0 50%, #005bf0 100%);
             padding: 22pt 24pt 24pt;
             position: relative;
             overflow: hidden;
@@ -50,7 +50,7 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(38, 116, 242,0.15) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -87,7 +87,7 @@
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(167,139,250,0.8);
+            color: rgba(38, 116, 242,0.8);
             margin: 0 0 1pt;
         }
 
@@ -123,7 +123,7 @@
         }
 
         .hero-btn:hover { background: rgba(255,255,255,0.2); }
-        .hero-btn.ghost { color: #c4b5fd; border-color: rgba(167,139,250,0.3); }
+        .hero-btn.ghost { color: #9ec1f5; border-color: rgba(38, 116, 242,0.3); }
         .hero-btn.ghost:hover { color: #fff; }
 
         .ts-hero-heading h1 {
@@ -136,7 +136,7 @@
 
         .ts-hero-heading p {
             font-size: 7pt;
-            color: #c4b5fd;
+            color: #9ec1f5;
             margin: 0;
         }
 
@@ -169,7 +169,7 @@
         .ts-hero-pill-dot.green { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.5); animation: ts-pulse 1.4s ease-in-out infinite; }
         .ts-hero-pill-dot.amber { background: #f59e0b; }
         .ts-hero-pill-dot.red { background: #ef4444; }
-        .ts-hero-pill-dot.muted { background: rgba(167,139,250,0.4); }
+        .ts-hero-pill-dot.muted { background: rgba(38, 116, 242,0.4); }
 
         .ts-hero-pill-label { font-size: 5.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); }
         .ts-hero-pill-value { font-size: 8pt; font-weight: 900; color: #fff; }
@@ -201,9 +201,9 @@
 
         /* ── Section card ────────────────────────── */
         .ts-card {
-            background: #fff; border: 1px solid #e5e7eb;
+            background: #fff; border: 1px solid #d3e2f5;
             font-size: 7pt; line-height: 1.45; margin-bottom: 12pt;
-            box-shadow: 0 1px 3px rgba(76,29,149,0.06);
+            box-shadow: 0 1px 3px rgba(26, 52, 91,0.06);
         }
 
         .ts-card-header {
@@ -217,7 +217,7 @@
         .ts-card-header-icon {
             width: 20pt;
             height: 20pt;
-            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            background: linear-gradient(135deg, #005bf0, #1a345b);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -251,7 +251,7 @@
         .ts-circuit {
             display: flex; align-items: center; gap: 6pt;
             padding: 6pt 8pt; border: 1px solid var(--ts-purple-faint);
-            background: #faf8ff; transition: border-color 0.3s, background 0.3s;
+            background: #f7fbfd; transition: border-color 0.3s, background 0.3s;
             position: relative; overflow: hidden;
         }
         .ts-circuit::before {
@@ -321,7 +321,7 @@
             position: absolute; right: 10pt; display: none;
             align-items: center; gap: 2pt;
             background: #fff; border: 1px solid var(--ts-purple);
-            box-shadow: 0 2px 8px rgba(22,53,92,0.12);
+            box-shadow: 0 2px 8px rgba(26, 52, 91,0.12);
             padding: 2pt 3pt;
         }
         .ts-job-row:hover .ts-job-actions { display: flex; }
@@ -383,7 +383,7 @@
         .ts-log-search {
             height: 16pt; border: 1px solid var(--ts-purple-faint);
             padding: 0 6pt; font-size: 6pt; font-family: inherit;
-            color: var(--ts-purple); background: #faf8ff; width: 130pt; box-sizing: border-box;
+            color: var(--ts-purple); background: #f7fbfd; width: 130pt; box-sizing: border-box;
             margin-left: auto;
         }
         .ts-log-search:focus { outline: none; border-color: var(--ts-purple); background: #fff; }
@@ -399,7 +399,7 @@
             display: flex; gap: 6pt; align-items: baseline; font-size: 6pt;
             transition: background 0.15s;
         }
-        .ts-log-line:hover { background: #faf8ff; }
+        .ts-log-line:hover { background: #f7fbfd; }
         .ts-log-line:last-child { border-bottom: none; }
         .ts-log-line.new-entry { animation: ts-log-flash 1.2s ease-out; }
         @keyframes ts-log-flash { 0% { background: #fef9c3; } 100% { background: transparent; } }
@@ -412,7 +412,7 @@
         .ts-log-level-tag.lvl-error, .ts-log-level-tag.lvl-critical { color: var(--ts-red); }
         .ts-log-level-tag.lvl-warning { color: var(--ts-amber); }
         .ts-log-level-tag.lvl-info { color: var(--ts-purple-deep); }
-        .ts-log-level-tag.lvl-debug { color: #6b7280; }
+        .ts-log-level-tag.lvl-debug { color: #5a7186; }
         .ts-log-msg { color: var(--ts-text); word-break: break-word; flex: 1; }
         .ts-log-msg mark { background: #fef08a; padding: 0 1px; font-weight: inherit; }
 
@@ -439,7 +439,7 @@
         }
         .ts-btn:hover { background: var(--ts-purple-bg); }
         .ts-btn.primary { background: var(--ts-purple-light); color: #fff; border-color: var(--ts-purple-light); }
-        .ts-btn.primary:hover { background: #6d28d9; }
+        .ts-btn.primary:hover { background: #005bf0; }
         .ts-btn.danger { border-color: var(--ts-red); color: var(--ts-red); }
         .ts-btn.danger:hover { background: var(--ts-red); color: #fff; }
 
@@ -487,7 +487,7 @@
                     </div>
                 </div>
                 <div class="ts-hero-actions">
-                    <span class="ts-last-updated" id="ts-last-updated" style="color:rgba(167,139,250,0.6);"></span>
+                    <span class="ts-last-updated" id="ts-last-updated" style="color:rgba(38, 116, 242,0.6);"></span>
                     <button class="ts-live-btn live" id="ts-live-toggle" onclick="TS.toggleLive()" title="Toggle live updates">
                         <span class="live-dot"></span>
                         <span id="ts-live-label">Live</span>

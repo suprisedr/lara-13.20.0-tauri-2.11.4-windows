@@ -24,7 +24,7 @@
 
         .gl-account-card {
             border: none;
-            border-top: 1.5px solid #4c1d95;
+            border-top: 0.5pt solid #000000;
             margin-bottom: 16pt;
             background: #fff;
         }
@@ -34,50 +34,55 @@
             align-items: center;
             justify-content: space-between;
             padding: 3pt 6pt;
-            background: #ede9fe;
-            border-bottom: 1px solid #c4b5fd;
+            background: #eaf8fb;
+            border-bottom: 0.5pt solid #d3e2f5;
             flex-wrap: wrap;
             gap: 4pt;
         }
 
         .gl-account-code {
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7.5pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 7pt;
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
             margin-right: 8px;
         }
 
         .gl-account-name {
-            font-size: 7.5pt;
+            font-size: 11.5pt;
             font-weight: bold;
             letter-spacing: 0.01em;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .gl-account-type {
             font-size: 7pt;
             font-weight: normal;
-            text-transform: uppercase;
-            color: #7c3aed;
+            text-transform: none;
+            color: #005bf0;
         }
 
         .gl-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
+        /* Header follows the source document: a #005BF0 band with
+           white sentence-case text over a 0.5pt black hairline. */
         .gl-table thead th {
-            font-size: 7pt;
-            padding: 3pt 4pt;
-            border-top: 1px solid #4c1d95;
-            border-bottom: 1px solid #a78bfa;
-            background: #f5f3ff;
+            font-size: 10.5pt;
+            padding: 4pt 4pt;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
+            background: #005bf0;
             font-weight: bold;
-            color: #4c1d95;
+            color: #ffffff;
             text-align: left;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
         .gl-table thead th.right {
@@ -85,48 +90,51 @@
         }
 
         .gl-table tbody tr {
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         .gl-table tbody tr:hover {
-            background: #faf5ff;
+            background: #f4fafc;
         }
 
         .gl-table td {
             padding: 2pt 4pt;
-            font-size: 7pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
             vertical-align: middle;
         }
 
+        /* Century Gothic with tabular figures, as the document sets
+           its own numerals — not a monospace face. */
         .gl-table td.right {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             white-space: nowrap;
         }
 
         .gl-table td.dim {
-            color: #c4b5fd;
+            color: #9ec1f5;
         }
 
         .gl-table tr.gl-ob-row td,
         .gl-table tr.gl-cb-row td {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            background: #f5f3ff;
-            color: #7c3aed;
+            background: #f4fafc;
+            color: #005bf0;
         }
 
         .gl-table tr.gl-ob-row td {
-            border-top: 1px solid #c4b5fd;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-top: 0.5pt solid #d3e2f5;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         .gl-table tr.gl-cb-row td {
-            border-top: 1px solid #a78bfa;
-            border-bottom: 2px solid #4c1d95;
+            border-top: 0.5pt solid #000000;
+            border-bottom: 0.5pt solid #000000;
         }
     </style>
 @endpush
@@ -150,8 +158,8 @@
                         </div>
                         <a href="{{ route('companies.reports.general-ledger.pdf', [$company, 'start_date' => $startDate, 'end_date' => $endDate, 'rounding' => $rounding]) }}"
                             target="_blank" rel="noopener"
-                            style="display:inline-flex;align-items:center;gap:0.35rem;background:#5e17eb;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                            onmouseover="this.style.background='#4a10c4'" onmouseout="this.style.background='#5e17eb'">
+                            style="display:inline-flex;align-items:center;gap:0.35rem;background:#005bf0;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                            onmouseover="this.style.background='#0047c4'" onmouseout="this.style.background='#005bf0'">
                             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -244,7 +252,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="6" style="font-style:italic;color:#aaa;padding:4px 6px;">No posted transactions in this period.</td>
+                                                    <td colspan="6" style="font-style:italic;color:#6f869b;padding:4px 6px;">No posted transactions in this period.</td>
                                                 </tr>
                                             @endforelse
                                             <tr class="gl-cb-row">
@@ -261,7 +269,7 @@
                             </div>
                         @empty
                             <div class="empty-state">
-                                <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No transactions found</p>
+                                <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No transactions found</p>
                                 <p style="font-size:0.8rem;margin:0;">No posted transactions exist in the selected period.
                                 </p>
                             </div>

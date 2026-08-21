@@ -14,21 +14,23 @@
         .tb-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
+        /* Header follows the source document: a #005BF0 band with
+           white sentence-case text over a 0.5pt black hairline. */
         .tb-table thead th {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 3pt 4pt;
-            color: #4c1d95;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 1.5px solid #4c1d95;
+            text-transform: none;
+            letter-spacing: 0;
+            padding: 4pt 4pt;
+            color: #ffffff;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
             text-align: left;
-            background: #ede9fe;
+            background: #005bf0;
         }
 
         .tb-table thead th.right {
@@ -36,63 +38,68 @@
         }
 
         .tb-table tbody tr {
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         .tb-table tbody tr:hover {
-            background: #faf5ff;
+            background: #f4fafc;
         }
 
         .tb-table td {
             padding: 2pt 4pt;
-            font-size: 7pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
             vertical-align: middle;
         }
 
+        /* The document sets figures in Century Gothic with tabular
+           figures, not a monospace face. */
         .tb-table td.right {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             white-space: nowrap;
         }
 
         .tb-table td.dim {
-            color: #c4b5fd;
+            color: #9ec1f5;
         }
 
         .tb-table td.code {
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             font-weight: bold;
             white-space: nowrap;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .tb-table td.type-label {
-            font-size: 6.5pt;
-            color: #8b7aad;
+            font-size: 7pt;
+            color: #6f869b;
         }
 
         .tb-table tr.tb-section-row td {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            color: #7c3aed;
-            border-top: 0.5pt solid #ddd6fe;
-            background: #f5f3ff;
+            color: #005bf0;
+            border-top: 0.5pt solid #d3e2f5;
+            background: #f4fafc;
             cursor: pointer;
             user-select: none;
         }
 
         .tb-table tr.tb-section-row:hover td {
-            background: #ede9fe;
+            background: #eaf8fb;
         }
 
         .tb-table tr.tb-section-row td.right {
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .tb-section-label {
@@ -108,7 +115,7 @@
             width: 10px;
             height: 10px;
             transition: transform 0.18s ease;
-            color: #7c3aed;
+            color: #005bf0;
         }
 
         .tb-section-row.is-collapsed .tb-chevron {
@@ -121,16 +128,17 @@
 
         .tb-table tfoot tr.tb-grand-total td {
             padding: 4pt 4pt;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 2px solid #4c1d95;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 1.5px solid #1a345b;
+            border-bottom: 2px solid #1a345b;
         }
 
         .tb-table tfoot tr.tb-grand-total td.right {
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
         }
 
         .tb-off-banner {
@@ -144,22 +152,23 @@
             font-size: 7pt;
             font-weight: 700;
             color: #b91c1c;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            text-transform: none;
+            letter-spacing: 0;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .tb-diff-row td {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: 700;
             color: #b91c1c;
             padding: 3pt 4pt;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
         .tb-diff-row td.right {
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             color: #b91c1c;
         }
     </style>
@@ -234,8 +243,8 @@
                             @if ($accounts->isNotEmpty())
                                 <a href="{{ route('companies.reports.trial-balance.pdf', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
                                     target="_blank" rel="noopener"
-                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#4c1d95;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                    onmouseover="this.style.background='#3b0764'" onmouseout="this.style.background='#4c1d95'">
+                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#1a345b;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                    onmouseover="this.style.background='#005bf0'" onmouseout="this.style.background='#1a345b'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -246,8 +255,8 @@
                                 </a>
                                 <a href="{{ route('companies.reports.trial-balance.excel', $company) }}?start_date={{ $startDate }}&end_date={{ $endDate }}&rounding={{ $rounding }}"
                                     target="_blank" rel="noopener"
-                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#7c3aed;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                    onmouseover="this.style.background='#005f9e'" onmouseout="this.style.background='#7c3aed'">
+                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#005bf0;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                    onmouseover="this.style.background='#005f9e'" onmouseout="this.style.background='#005bf0'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -257,8 +266,8 @@
                                     Excel
                                 </a>
 
-                                <label style="display:inline-flex;align-items:center;gap:0.35rem;background:#fff;border:1px solid #4c1d95;color:#4c1d95;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s,color 0.15s;white-space:nowrap;cursor:pointer;"
-                                    onmouseover="this.style.background='#4c1d95';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#4c1d95'"
+                                <label style="display:inline-flex;align-items:center;gap:0.35rem;background:#fff;border:1px solid #1a345b;color:#1a345b;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s,color 0.15s;white-space:nowrap;cursor:pointer;"
+                                    onmouseover="this.style.background='#1a345b';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#1a345b'"
                                     title="Import opening balances from an Excel file exported by this system or matching the same column format (Code, Account Name, Type, Debit, Credit).">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -315,7 +324,7 @@
 
                     @if ($accounts->isEmpty())
                         <div class="empty-state">
-                            <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No accounts found</p>
+                            <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No accounts found</p>
                             <p style="font-size:0.8rem;margin:0;">Set up your chart of accounts first.</p>
                         </div>
                     @else
@@ -333,7 +342,7 @@
                             </div>
                         @endif
                         @if ($rounding > 1)
-                            <p style="font-size:6.5pt;color:#8b7aad;margin:0 1.25rem 6pt;font-style:italic;">Amounts
+                            <p style="font-size:6.5pt;color:#6f869b;margin:0 1.25rem 6pt;font-style:italic;">Amounts
                                 in {{ $roundingLabel }}</p>
                         @endif
                         @php
@@ -372,10 +381,10 @@
                                                         {{ $typeLabels[$type] ?? $type }}
                                                     </span>
                                                 </td>
-                                                <td class="right" style="color:{{ $sectDebit > 0 ? '#4c1d95' : '#c4b5fd' }};">
+                                                <td class="right" style="color:{{ $sectDebit > 0 ? '#1a345b' : '#9ec1f5' }};">
                                                     {{ $sectDebit > 0 ? number_format($sectDebit / $rounding, $roundingDecimals) : '—' }}
                                                 </td>
-                                                <td class="right" style="color:{{ $sectCredit > 0 ? '#4c1d95' : '#c4b5fd' }};">
+                                                <td class="right" style="color:{{ $sectCredit > 0 ? '#1a345b' : '#9ec1f5' }};">
                                                     {{ $sectCredit > 0 ? number_format($sectCredit / $rounding, $roundingDecimals) : '—' }}
                                                 </td>
                                             </tr>

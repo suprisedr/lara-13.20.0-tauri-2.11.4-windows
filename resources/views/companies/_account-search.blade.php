@@ -19,7 +19,7 @@
 
             .acct-search-input {
                 width: 100%;
-                border: 1px solid #ccc;
+                border: 1px solid #d3e2f5;
                 border-radius: 0;
                 padding: 0.4rem 0.6rem;
                 font-size: 0.78rem;
@@ -60,11 +60,11 @@
             }
 
             .acct-search-option:hover {
-                background: #f5f5f5;
+                background: #f4fafc;
             }
 
             .acct-search-option.acct-search-empty {
-                color: #9ca3af;
+                color: #6f869b;
                 font-style: italic;
                 cursor: default;
             }

@@ -14,6 +14,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ActionsExport implements FromArray, WithColumnWidths, WithStyles, WithTitle
 {
+    use \App\Exports\Concerns\AfsExcelDesign;
+
     private array $rows    = [];
     private int   $hRow    = 5;
     private int   $lastRow = 0;
@@ -46,33 +48,30 @@ class ActionsExport implements FromArray, WithColumnWidths, WithStyles, WithTitl
 
     public function styles(Worksheet $sheet): array
     {
-        $last = $this->lastRow;
+        $last     = $this->lastRow;
+        $dataFrom = $this->hRow + 1;
 
-        $sheet->mergeCells("A1:H1");
-        $sheet->mergeCells("A2:H2");
-        $sheet->mergeCells("A3:H3");
+        $sheet->mergeCells('A1:H1');
+        $sheet->mergeCells('A2:H2');
+        $sheet->mergeCells('A3:H3');
 
-        $sheet->getStyle("A1")->getFont()->setBold(true)->setSize(13);
-        $sheet->getStyle("A2")->getFont()->setBold(true)->setSize(10);
-        $sheet->getStyle("A3")->getFont()->setSize(9)->getColor()->setRGB('666666');
+        $this->afsBaseSheet($sheet);
+        $this->afsTitleBlock($sheet, $this->companyName, 'Actions', $this->tabLabel, null);
 
-        $headerRange = "A{$this->hRow}:H{$this->hRow}";
-        $sheet->getStyle($headerRange)->applyFromArray([
-            'font'      => ['bold' => true, 'size' => 10, 'color' => ['rgb' => 'FFFFFF']],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '000000']],
-            'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
-        ]);
+        // Nothing is banded: an action list carries no figures, so there is no
+        // primary column for the tint to mark.
+        $this->afsHeaderRow($sheet, $this->hRow, 'A', 'H', [], []);
 
         if ($last > $this->hRow) {
-            $dataRange = "A" . ($this->hRow + 1) . ":H{$last}";
-            $sheet->getStyle($dataRange)->applyFromArray([
-                'borders' => [
-                    'allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => 'DDDDDD']],
-                ],
-                'alignment' => ['vertical' => Alignment::VERTICAL_TOP, 'wrapText' => true],
-            ]);
-            $sheet->getStyle($dataRange)->getFont()->setSize(9);
+            // Actions carry prose that wraps, so rows are left to auto-height
+            // rather than pinned to the 13.5pt body leading.
+            $this->afsBodyRange($sheet, "A{$dataFrom}:H{$last}");
+            $sheet->getStyle("A{$dataFrom}:H{$last}")->getAlignment()
+                ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP)
+                ->setWrapText(true);
         }
+
+        $sheet->freezePane("A{$dataFrom}");
 
         return [];
     }

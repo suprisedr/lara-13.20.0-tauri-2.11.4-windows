@@ -89,7 +89,7 @@
                     </svg>
                     <span>Actions</span>
                     @if ($openActionsCount > 0)
-                        <span style="margin-left:auto;background:#7c3aed;color:#fff;font-size:5pt;font-weight:700;border-radius:999px;min-width:10pt;height:10pt;display:inline-flex;align-items:center;justify-content:center;padding:0 2pt;">
+                        <span style="margin-left:auto;background:#005bf0;color:#fff;font-size:7pt;font-weight:700;border-radius:999px;min-width:10pt;height:10pt;display:inline-flex;align-items:center;justify-content:center;padding:0 2pt;">
                             {{ $openActionsCount }}
                         </span>
                     @endif
@@ -236,7 +236,7 @@
             </div>
         </div>
 
-        @php $registersActive = request()->routeIs('companies.assets.*') || request()->routeIs('companies.intangibles.*') || request()->routeIs('companies.investment-properties.*') || request()->routeIs('companies.held-for-sale.*') || request()->routeIs('companies.biological-assets.*') || request()->routeIs('companies.leases.*') || request()->routeIs('companies.ecl-register.*'); @endphp
+        @php $registersActive = request()->routeIs('companies.assets.*') || request()->routeIs('companies.intangibles.*') || request()->routeIs('companies.investment-properties.*') || request()->routeIs('companies.held-for-sale.*') || request()->routeIs('companies.biological-assets.*') || request()->routeIs('companies.leases.*') || request()->routeIs('companies.ecl-register.*') || request()->routeIs('companies.provisions.*') || request()->routeIs('companies.related-parties.*') || request()->routeIs('companies.borrowing-costs.*') || request()->routeIs('companies.revenue-contracts.*') || request()->routeIs('companies.government-grants.*') || request()->routeIs('companies.share-based-payments.*') || request()->routeIs('companies.deferred-tax.*'); @endphp
         <div class="co-sidebar-section {{ $registersActive ? '' : 'collapsed' }}">
             <button type="button" class="co-sidebar-section-label co-sidebar-section-toggle" aria-expanded="{{ $registersActive ? 'true' : 'false' }}">
                 <span>Registers</span>
@@ -323,6 +323,81 @@
                         <path d="M9 12l2 2 4-4" />
                     </svg>
                     <span>ECL (IFRS 9)</span>
+                </a>
+
+                <a href="{{ route('companies.provisions.index', $company) }}"
+                    title="Provisions Register" class="co-nav-item {{ request()->routeIs('companies.provisions.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Provisions (IAS 37)</span>
+                </a>
+
+                <a href="{{ route('companies.revenue-contracts.index', $company) }}"
+                    title="Revenue Contracts" class="co-nav-item {{ request()->routeIs('companies.revenue-contracts.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <span>Revenue (IFRS 15)</span>
+                </a>
+
+                <a href="{{ route('companies.borrowing-costs.index', $company) }}"
+                    title="Borrowing Costs" class="co-nav-item {{ request()->routeIs('companies.borrowing-costs.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                        <polyline points="17 6 23 6 23 12" />
+                    </svg>
+                    <span>Borrowing (IAS 23)</span>
+                </a>
+
+                <a href="{{ route('companies.government-grants.index', $company) }}"
+                    title="Government Grants" class="co-nav-item {{ request()->routeIs('companies.government-grants.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3" />
+                    </svg>
+                    <span>Grants (IAS 20)</span>
+                </a>
+
+                <a href="{{ route('companies.share-based-payments.index', $company) }}"
+                    title="Share-Based Payments" class="co-nav-item {{ request()->routeIs('companies.share-based-payments.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                    <span>SBP (IFRS 2)</span>
+                </a>
+
+                <a href="{{ route('companies.deferred-tax.index', $company) }}"
+                    title="Deferred Tax" class="co-nav-item {{ request()->routeIs('companies.deferred-tax.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="18" rx="2" />
+                        <line x1="8" y1="7" x2="16" y2="7" />
+                        <line x1="8" y1="11" x2="16" y2="11" />
+                        <line x1="8" y1="15" x2="12" y2="15" />
+                    </svg>
+                    <span>Deferred Tax (IAS 12)</span>
+                </a>
+
+                <a href="{{ route('companies.related-parties.index', $company) }}"
+                    title="Related Parties" class="co-nav-item {{ request()->routeIs('companies.related-parties.*') ? 'active' : '' }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span>Related (IAS 24)</span>
                 </a>
             </div>
         </div>
@@ -585,6 +660,33 @@
         @endif
 
     </nav>
+
+    <div class="co-sidebar-footer">
+        @php $__sidebarSub = auth()->user()?->activeSubscription(); @endphp
+        @if ($__sidebarSub?->isCancelled())
+            <div class="co-sidebar-footer-grace">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span>{{ $__sidebarSub->daysRemaining() }} {{ Str::plural('day', $__sidebarSub->daysRemaining()) }} left</span>
+            </div>
+        @endif
+        <a href="{{ route('subscriptions.manage') }}" class="co-sidebar-footer-link">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            <span>Subscription</span>
+        </a>
+        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+            @csrf
+            <button type="submit" class="co-sidebar-footer-link">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span>Log Out</span>
+            </button>
+        </form>
+    </div>
 </aside>
 
 <script>

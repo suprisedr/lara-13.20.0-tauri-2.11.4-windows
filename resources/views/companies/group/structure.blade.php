@@ -11,7 +11,7 @@
             gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
         }
         .inv-mgmt-bar a {
-            font-size: 0.78rem; color: #6b7280; text-decoration: none;
+            font-size: 0.78rem; color: #5a7186; text-decoration: none;
             display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.15s;
         }
         .inv-mgmt-bar a:hover { color: #000; }
@@ -24,10 +24,10 @@
         }
         .mgmt-btn:hover { background: #000; color: #fff; }
         .mgmt-btn.primary { background: #000; color: #fff; }
-        .mgmt-btn.primary:hover { background: #333; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
         .cust-doc {
-            background: #fff; border: 1px solid #ddd;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            background: #fff; border: 1px solid #d3e2f5;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
             color: #000; font-size: 0.78rem; line-height: 1.45; margin-bottom: 1.5rem;
         }
         .cust-doc-body { padding: 2rem 2.25rem; }
@@ -40,20 +40,20 @@
         }
         table.cust-items-table thead td.amt { text-align: right; }
         table.cust-items-table tbody td {
-            padding: 0.55rem 0; font-size: 0.78rem; border-bottom: 1px solid #ddd; vertical-align: middle;
+            padding: 0.55rem 0; font-size: 0.78rem; border-bottom: 1px solid #d3e2f5; vertical-align: middle;
         }
         table.cust-items-table tbody td.amt {
             text-align: right; font-family: 'Courier New', monospace; white-space: nowrap;
         }
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
-        table.cust-items-table tbody tr:hover td { background: #fafafa; }
+        table.cust-items-table tbody tr:hover td { background: #f7fbfd; }
         table.cust-items-table tfoot td {
             padding: 0.55rem 0; font-size: 0.78rem; font-weight: 800; border-top: 1.5px solid #000;
         }
         table.cust-items-table tfoot td.amt { text-align: right; font-family: 'Courier New', monospace; }
         .status-box {
             display: inline-block; font-weight: 700; text-transform: uppercase;
-            border: 1px solid #000; padding: 0.08rem 0.5rem; font-size: 0.6rem; letter-spacing: 0.08em;
+            border: 1px solid #000; padding: 0.08rem 0.5rem; font-size: 0.7rem; letter-spacing: 0.08em;
         }
         .status-box.disposed { color: #dc2626; border-color: #dc2626; }
         .row-link { color: #000; font-weight: 700; text-decoration: none; border-bottom: 1px solid #000; }
@@ -74,13 +74,13 @@
         .add-panel-head:hover { background: #000; color: #fff; }
         .add-panel-body {
             display: none; margin-top: 0.75rem; padding: 1rem 1.25rem;
-            border: 1px solid #ddd; background: #fafafa;
+            border: 1px solid #d3e2f5; background: #f7fbfd;
         }
         .add-panel.open .add-panel-body { display: block; }
         .af-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem 0.75rem; align-items: end; margin-bottom: 0.65rem; }
         .af-field.wide { grid-column: span 2; }
-        .af-field label { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #555; margin-bottom: 0.2rem; }
-        .af-field input, .af-field select { width: 100%; border: 1px solid #ccc; padding: 0.32rem 0.5rem; font-size: 0.78rem; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; }
+        .af-field label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #5a7186; margin-bottom: 0.2rem; }
+        .af-field input, .af-field select { width: 100%; border: 1px solid #d3e2f5; padding: 0.32rem 0.5rem; font-size: 0.78rem; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; }
         .af-field input:focus, .af-field select:focus { outline: none; border-color: #000; }
         .af-submit { display: flex; justify-content: flex-end; margin-top: 0.5rem; }
         @media (max-width: 640px) { .cust-doc-body { padding: 1.25rem 1rem; } }
@@ -108,7 +108,7 @@
                 @endif
 
                 <div class="inv-mgmt-bar">
-                    <span style="font-size:0.78rem;color:#6b7280;">
+                    <span style="font-size:0.78rem;color:#5a7186;">
                         {{ $subsidiaries->count() }} investment{{ $subsidiaries->count() !== 1 ? 's' : '' }}
                     </span>
                     <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
@@ -125,7 +125,7 @@
                 <div class="cust-doc">
                     <div class="cust-doc-body">
                         <div class="doc-title">Investments & Subsidiaries</div>
-                        <p style="font-size:0.78rem;color:#555;margin:0.2rem 0 0.75rem;">
+                        <p style="font-size:0.78rem;color:#5a7186;margin:0.2rem 0 0.75rem;">
                             Entities in which {{ $company->registered_name }} holds an interest. The relationship type and
                             accounting treatment are auto-classified based on ownership percentage.
                         </p>
@@ -133,7 +133,7 @@
                         <hr class="divider">
 
                         @if ($subsidiaries->isEmpty())
-                            <p style="color:#999;font-style:italic;font-size:0.78rem;">No subsidiaries yet. Add your first subsidiary below.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:0.78rem;">No subsidiaries yet. Add your first subsidiary below.</p>
                         @else
                             @php
                                 $totalInvestment = 0.0;
@@ -173,7 +173,7 @@
                                                     'subsidiary'   => ['bg' => '#dcfce7', 'fg' => '#15803d'],
                                                     'associate'    => ['bg' => '#dbeafe', 'fg' => '#1d4ed8'],
                                                     'joint_venture'=> ['bg' => '#fef3c7', 'fg' => '#92400e'],
-                                                    'investment'   => ['bg' => '#f3f4f6', 'fg' => '#374151'],
+                                                    'investment'   => ['bg' => '#f4fafc', 'fg' => '#191919'],
                                                 ];
                                                 $rc = $relColors[$relType] ?? $relColors['investment'];
                                             @endphp
@@ -182,15 +182,15 @@
                                                     <a class="row-link" href="{{ route('companies.group.subsidiaries.show', [$company, $sub]) }}">
                                                         {{ $sub->registered_name }}
                                                     </a>
-                                                    <div style="font-size:0.72rem;color:#9ca3af;">{{ $sub->company_type_label }}</div>
+                                                    <div style="font-size:0.72rem;color:#6f869b;">{{ $sub->company_type_label }}</div>
                                                 </td>
                                                 <td>{{ $own ? rtrim(rtrim(number_format($own, 2), '0'), '.') . '%' : '—' }}</td>
                                                 <td>
-                                                    <span style="font-size:0.6rem;font-weight:700;padding:0.12rem 0.45rem;background:{{ $rc['bg'] }};color:{{ $rc['fg'] }};letter-spacing:0.04em;white-space:nowrap;">
+                                                    <span style="font-size:0.7rem;font-weight:700;padding:0.12rem 0.45rem;background:{{ $rc['bg'] }};color:{{ $rc['fg'] }};letter-spacing:0.04em;white-space:nowrap;">
                                                         {{ $relInfo['label'] }}
                                                     </span>
                                                 </td>
-                                                <td style="font-size:0.72rem;color:#555;">{{ $relInfo['standard'] }}</td>
+                                                <td style="font-size:0.72rem;color:#5a7186;">{{ $relInfo['standard'] }}</td>
                                                 <td style="font-size:0.72rem;white-space:nowrap;">
                                                     {{ $sub->acquisition_date ? \Carbon\Carbon::parse($sub->acquisition_date)->format('d M Y') : '—' }}
                                                 </td>
@@ -278,7 +278,7 @@
                                         <div style="margin:0.5rem 0 0.75rem;padding:0.5rem 0.75rem;border-left:3px solid;font-size:0.72rem;"
                                             :style="'border-color:' + classColor + ';background:' + classBg">
                                             <strong x-text="classLabel"></strong>
-                                            <span style="color:#555;"> — <span x-text="classStandard"></span>, <span x-text="classMethod"></span></span>
+                                            <span style="color:#5a7186;"> — <span x-text="classStandard"></span>, <span x-text="classMethod"></span></span>
                                         </div>
                                         <div class="af-submit">
                                             <button type="submit" class="mgmt-btn primary">Add Investment</button>
@@ -320,7 +320,7 @@
                         this.classColor = '#1d4ed8'; this.classBg = '#eff6ff';
                     } else {
                         this.classLabel = 'Financial Investment'; this.classStandard = 'IFRS 9'; this.classMethod = 'Fair Value';
-                        this.classColor = '#374151'; this.classBg = '#f9fafb';
+                        this.classColor = '#191919'; this.classBg = '#f7fbfd';
                     }
                 }
             };

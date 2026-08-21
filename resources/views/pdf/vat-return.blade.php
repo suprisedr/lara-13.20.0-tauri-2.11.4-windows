@@ -5,20 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>VAT201 &mdash; {{ $company->registered_name }}</title>
     <style>
-        @page { margin: 12mm 15mm; }
+        /* Page geometry from CGL-YE25 sectPr: 508mm x 285.75mm
+           landscape. dompdf ignores @page margins, so the inset is
+           applied to body below (this view has no .page-frame). */
+        @page { size: 508mm 285.75mm; margin: 0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #4c1d95;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #1a345b;
             background: #fff;
-            line-height: 1.4;
+            line-height: 1.2857;
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         /* ── Header ─────────────────────────────── */
         .doc-header {
-            background: #4c1d95;
+            background: #1a345b;
             color: #fff;
             padding: 6mm 8mm;
             margin-bottom: 0;
@@ -26,10 +30,10 @@
         .doc-header table { width: 100%; border-collapse: collapse; }
         .doc-header td { vertical-align: top; padding: 0; }
         .form-no {
-            font-size: 5pt;
+            font-size: 7pt;
             font-weight: bold;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             color: rgba(255,255,255,0.5);
             margin-bottom: 2pt;
         }
@@ -39,145 +43,145 @@
             color: #fff;
             margin-bottom: 1pt;
         }
-        .doc-subtitle { font-size: 6.5pt; color: rgba(255,255,255,0.6); }
+        .doc-subtitle { font-size: 10pt; color: rgba(255,255,255,0.6); }
         .reg-label {
-            font-size: 5pt;
+            font-size: 7pt;
             font-weight: bold;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             color: rgba(255,255,255,0.45);
             margin-bottom: 2pt;
         }
         .reg-no {
             font-size: 10pt;
             font-weight: bold;
-            letter-spacing: 0.08em;
+            letter-spacing: 0;
             color: #fff;
         }
-        .period-label { font-size: 6pt; color: rgba(255,255,255,0.5); margin-top: 3pt; }
+        .period-label { font-size: 7pt; color: rgba(255,255,255,0.5); margin-top: 3pt; }
 
         /* ── Vendor bar ──────────────────────────── */
-        .vendor-bar { border-bottom: 1.5pt solid #4c1d95; }
+        .vendor-bar { border-bottom: 1.5pt solid #1a345b; }
         .vendor-bar table { width: 100%; border-collapse: collapse; }
         .vendor-bar td {
             padding: 3mm 4mm;
-            border-right: 0.5pt solid #d5e6f2;
+            border-right: 0.5pt solid #d3e2f5;
             vertical-align: top;
         }
         .vendor-bar td:last-child { border-right: none; }
         .vc-label {
-            font-size: 5pt;
+            font-size: 7pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #6b5b8a;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #5a7186;
             margin-bottom: 1.5pt;
         }
-        .vc-value { font-size: 7.5pt; font-weight: bold; color: #4c1d95; }
+        .vc-value { font-size: 10.5pt; font-weight: bold; color: #1a345b; }
         .vc-draft { color: #92400e; }
 
         /* ── Section heading ─────────────────────── */
         .section-head {
-            background: #4c1d95;
+            background: #1a345b;
             color: #fff;
             padding: 2.5mm 4mm;
         }
         .section-head table { width: 100%; border-collapse: collapse; }
         .section-head td { padding: 0; }
         .sh-label {
-            font-size: 6pt;
+            font-size: 7pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            text-transform: none;
+            letter-spacing: 0;
             color: #fff;
         }
         .sh-total {
-            font-size: 7.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
             color: #fff;
             text-align: right;
         }
 
         /* ── Field rows ──────────────────────────── */
-        .field-row { border-bottom: 0.5pt solid #e4f0f9; }
+        .field-row { border-bottom: 0.5pt solid #eaf8fb; }
         .field-row table { width: 100%; border-collapse: collapse; }
         .field-row td { vertical-align: middle; padding: 0; }
         .field-no {
             width: 18pt;
-            background: #f2f8fd;
-            border-right: 0.5pt solid #d5e6f2;
+            background: #f4fafc;
+            border-right: 0.5pt solid #d3e2f5;
             text-align: center;
             padding: 3mm 1mm;
-            font-size: 6pt;
+            font-size: 7pt;
             font-weight: bold;
-            color: #6b5b8a;
+            color: #5a7186;
         }
         .field-desc { padding: 3mm 4mm; }
-        .field-desc strong { display: block; font-weight: bold; font-size: 7pt; color: #4c1d95; }
-        .field-desc span { font-size: 5.5pt; color: #6b5b8a; }
+        .field-desc strong { display: block; font-weight: bold; font-size: 10.5pt; color: #1a345b; }
+        .field-desc span { font-size: 7pt; color: #5a7186; }
         .field-amount {
             width: 80pt;
             padding: 3mm 4mm;
             text-align: right;
-            border-left: 0.5pt solid #d5e6f2;
+            border-left: 0.5pt solid #d3e2f5;
             font-weight: bold;
-            font-size: 8pt;
-            color: #4c1d95;
+            font-size: 10.5pt;
+            color: #1a345b;
         }
 
         /* ── Net payable row ─────────────────────── */
-        .net-row { background: #ede9fe; border-top: 1.5pt solid #4c1d95; }
-        .net-row .field-no { background: #d8ecf9; border-right: 0.5pt solid #c4b5fd; font-size: 7pt; }
-        .net-row .field-desc strong { font-size: 8pt; }
-        .net-row .field-amount { font-size: 10pt; border-left: 0.5pt solid #c4b5fd; }
+        .net-row { background: #eaf8fb; border-top: 1.5pt solid #1a345b; }
+        .net-row .field-no { background: #d3e2f5; border-right: 0.5pt solid #9ec1f5; font-size: 10pt; }
+        .net-row .field-desc strong { font-size: 10.5pt; }
+        .net-row .field-amount { font-size: 10.5pt; border-left: 0.5pt solid #9ec1f5; }
 
         /* ── Detail table ────────────────────────── */
         .detail-head {
-            background: #f2f8fd;
-            border-top: 1.5pt solid #4c1d95;
-            border-bottom: 0.5pt solid #d5e6f2;
+            background: #f4fafc;
+            border-top: 1.5pt solid #1a345b;
+            border-bottom: 0.5pt solid #d3e2f5;
             padding: 2mm 4mm;
         }
         .detail-head table { width: 100%; border-collapse: collapse; }
-        .dh-label { font-size: 5.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #6b5b8a; }
-        .dh-count { font-size: 5.5pt; color: #6b5b8a; text-align: right; }
+        .dh-label { font-size: 7pt; font-weight: bold; text-transform: none; letter-spacing: 0; color: #5a7186; }
+        .dh-count { font-size: 7pt; color: #5a7186; text-align: right; }
 
         table.tx-table { width: 100%; border-collapse: collapse; }
         table.tx-table thead th {
-            background: #4c1d95;
+            background: #1a345b;
             color: rgba(255,255,255,0.85);
-            font-size: 5.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 2mm 3mm;
             text-align: left;
             border: none;
         }
         table.tx-table thead th.r { text-align: right; }
-        table.tx-table tbody tr { border-bottom: 0.5pt solid #e4f0f9; }
-        table.tx-table td { padding: 1.8mm 3mm; font-size: 6.5pt; color: #4c1d95; }
+        table.tx-table tbody tr { border-bottom: 0.5pt solid #eaf8fb; }
+        table.tx-table td { padding: 1.8mm 3mm; font-size: 10.5pt; color: #1a345b; }
         table.tx-table td.r { text-align: right; font-weight: bold; }
-        table.tx-table td.dim { color: #6b5b8a; }
+        table.tx-table td.dim { color: #5a7186; }
         table.tx-table tfoot td {
             padding: 2mm 3mm;
             font-weight: bold;
-            background: #ede9fe;
-            border-top: 1pt solid #4c1d95;
-            font-size: 7pt;
+            background: #eaf8fb;
+            border-top: 1pt solid #1a345b;
+            font-size: 10.5pt;
         }
         table.tx-table tfoot td.r { text-align: right; }
 
-        .empty-row { padding: 4mm; text-align: center; color: #9ca3af; font-size: 6.5pt; background: #fafafa; }
+        .empty-row { padding: 4mm; text-align: center; color: #6f869b; font-size: 7pt; background: #f7fbfd; }
 
         /* ── Footer ──────────────────────────────── */
         .doc-footer {
             margin-top: 0;
             padding: 2.5mm 4mm;
-            background: #f2f8fd;
-            border-top: 0.5pt solid #d5e6f2;
-            font-size: 5pt;
-            color: #6b5b8a;
+            background: #f4fafc;
+            border-top: 0.5pt solid #d3e2f5;
+            font-size: 7pt;
+            color: #5a7186;
             line-height: 1.5;
         }
         .clearfix::after { content: ''; display: table; clear: both; }
@@ -243,7 +247,7 @@
 <div class="section-head">
     <table><tr>
         <td><span class="sh-label">Section A &mdash; Output Tax</span></td>
-        <td><span class="sh-total">R {{ number_format($totalOutputVat, 2) }}</span></td>
+        <td><span class="sh-total">R {{ number_format($totalOutputVat, 2, '.', ' ') }}</span></td>
     </tr></table>
 </div>
 
@@ -254,7 +258,7 @@
             <strong>Standard-rated supplies (incl. VAT)</strong>
             <span>Sales, services and other taxable supplies at 15%</span>
         </td>
-        <td class="field-amount">R {{ number_format($totalOutputVat / 0.15 * 1.15, 2) }}</td>
+        <td class="field-amount">R {{ number_format($totalOutputVat / 0.15 * 1.15, 2, '.', ' ') }}</td>
     </tr></table>
 </div>
 <div class="field-row">
@@ -264,7 +268,7 @@
             <strong>Output tax (VAT on standard-rated supplies)</strong>
             <span>15% of standard-rated supplies excluding VAT</span>
         </td>
-        <td class="field-amount">R {{ number_format($totalOutputVat, 2) }}</td>
+        <td class="field-amount">R {{ number_format($totalOutputVat, 2, '.', ' ') }}</td>
     </tr></table>
 </div>
 
@@ -272,7 +276,7 @@
 <div class="section-head">
     <table><tr>
         <td><span class="sh-label">Section B &mdash; Input Tax</span></td>
-        <td><span class="sh-total">R {{ number_format($totalInputVat, 2) }}</span></td>
+        <td><span class="sh-total">R {{ number_format($totalInputVat, 2, '.', ' ') }}</span></td>
     </tr></table>
 </div>
 
@@ -283,7 +287,7 @@
             <strong>Input tax deductible (purchases and expenses)</strong>
             <span>VAT paid on qualifying business expenses at 15%</span>
         </td>
-        <td class="field-amount">R {{ number_format($totalInputVat, 2) }}</td>
+        <td class="field-amount">R {{ number_format($totalInputVat, 2, '.', ' ') }}</td>
     </tr></table>
 </div>
 
@@ -295,7 +299,7 @@
             <strong>{{ $netLabel }}</strong>
             <span>Field 4 (Output tax) minus Field 14 (Input tax)</span>
         </td>
-        <td class="field-amount">R {{ number_format(abs($netVatPayable), 2) }}</td>
+        <td class="field-amount">R {{ number_format(abs($netVatPayable), 2, '.', ' ') }}</td>
     </tr></table>
 </div>
 
@@ -328,15 +332,15 @@
                 <td>{{ $line['description'] }}</td>
                 <td class="dim">{{ $line['reference'] ?? '—' }}</td>
                 <td class="dim">{{ $line['account'] }}</td>
-                <td class="r dim">{{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0).'%' : '—' }}</td>
-                <td class="r">R {{ number_format($line['amount'], 2) }}</td>
+                <td class="r dim">{{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0, '.', ' ').'%' : '—' }}</td>
+                <td class="r">R {{ number_format($line['amount'], 2, '.', ' ') }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="5">Total Output VAT (Field 4)</td>
-                <td class="r">R {{ number_format($totalOutputVat, 2) }}</td>
+                <td class="r">R {{ number_format($totalOutputVat, 2, '.', ' ') }}</td>
             </tr>
         </tfoot>
     </table>
@@ -371,15 +375,15 @@
                 <td>{{ $line['description'] }}</td>
                 <td class="dim">{{ $line['reference'] ?? '—' }}</td>
                 <td class="dim">{{ $line['account'] }}</td>
-                <td class="r dim">{{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0).'%' : '—' }}</td>
-                <td class="r">R {{ number_format($line['amount'], 2) }}</td>
+                <td class="r dim">{{ $line['vat_rate'] !== null ? number_format($line['vat_rate'], 0, '.', ' ').'%' : '—' }}</td>
+                <td class="r">R {{ number_format($line['amount'], 2, '.', ' ') }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="5">Total Input VAT (Field 14)</td>
-                <td class="r">R {{ number_format($totalInputVat, 2) }}</td>
+                <td class="r">R {{ number_format($totalInputVat, 2, '.', ' ') }}</td>
             </tr>
         </tfoot>
     </table>
@@ -392,5 +396,6 @@
     Generated: {{ now()->format('d M Y H:i') }}
 </div>
 
+    @include('pdf._attribution')
 </body>
 </html>

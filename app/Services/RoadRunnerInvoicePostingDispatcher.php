@@ -42,13 +42,14 @@ class RoadRunnerInvoicePostingDispatcher
         }
     }
 
-    public function dispatchPayment(Invoice $invoice, User $user): void
+    public function dispatchPayment(Invoice $invoice, User $user, ?float $amount = null): void
     {
-        $payload = json_encode([
+        $payload = json_encode(array_filter([
             'invoiceId' => $invoice->id,
             'companyId' => $invoice->company_id,
             'userId'    => $user->id,
-        ]);
+            'amount'    => $amount,
+        ], fn($v) => $v !== null));
 
         try {
             $queue = $this->jobs()->connect('invoice-postings');
@@ -59,7 +60,7 @@ class RoadRunnerInvoicePostingDispatcher
                 'invoice_id' => $invoice->id,
                 'error'      => $e->getMessage(),
             ]);
-            InvoiceMarkedPaid::dispatch($invoice, $user);
+            InvoiceMarkedPaid::dispatch($invoice, $user, $amount);
         }
     }
 }

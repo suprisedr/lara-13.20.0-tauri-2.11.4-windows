@@ -37,12 +37,12 @@
             <h2 class="ppe-section-title" style="margin:0;font-size:0.8rem;">IAS 2 Inventory Movement Schedule</h2>
             <form method="GET" action="{{ route('companies.notes-to-afs.show', [$company, $note]) }}"
                 style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-left:auto;">
-                <label style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">From</label>
+                <label style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">From</label>
                 <input type="date" name="start_date" value="{{ $startDate }}"
-                    style="border:1px solid #ccc;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
-                <label style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">To</label>
+                    style="border:1px solid #d3e2f5;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
+                <label style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">To</label>
                 <input type="date" name="end_date" value="{{ $endDate }}"
-                    style="border:1px solid #ccc;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
+                    style="border:1px solid #d3e2f5;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
                 <button type="submit"
                     style="background:#000;color:#fff;border:none;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;cursor:pointer;">
                     Update
@@ -51,7 +51,7 @@
         </div>
 
         @if (empty($inventoryMovements))
-            <p style="color:#999;font-style:italic;font-size:0.78rem;">No inventory items in the register.</p>
+            <p style="color:#6f869b;font-style:italic;font-size:0.78rem;">No inventory items in the register.</p>
         @else
             <div style="overflow-x:auto;">
                 <table class="cust-items-table" style="table-layout:fixed;font-size:0.72rem;">
@@ -228,13 +228,13 @@
         @endif
     </div>
 
-    <div class="notes-card" style="padding:0.65rem 1.1rem;font-size:0.72rem;color:#555;">
+    <div class="notes-card" style="padding:0.65rem 1.1rem;font-size:0.72rem;color:#5a7186;">
         <p style="margin:0;">
             <strong>IAS 2.36(d)</strong> — The financial statements shall disclose the carrying amount of inventories
             and the amount recognised as an expense during the period, including any write-down and any reversal of write-down.
         </p>
         <p style="margin:0.4rem 0 0;">
-            Figures sourced from the <a href="{{ route('companies.inventory.index', $company) }}" style="color:#5e17eb;font-weight:700;">inventory register</a>.
+            Figures sourced from the <a href="{{ route('companies.inventory.index', $company) }}" style="color:#005bf0;font-weight:700;">inventory register</a>.
         </p>
     </div>
 </div>

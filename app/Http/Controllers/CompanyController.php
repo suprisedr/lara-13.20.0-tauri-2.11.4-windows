@@ -346,7 +346,7 @@ class CompanyController extends Controller
                 \Maatwebsite\Excel\Excel::ODS,
             ),
             'pdf'   => Pdf::loadView('pdf.chart-of-accounts', compact('company', 'accounts', 'periodLabel'))
-                ->setPaper('a4', 'potrait')
+                ->setPaper([0, 0, 1440, 810])
                 ->download($baseName . '.pdf'),
             default => response()->streamDownload(function () use ($accounts, $periodLabel, $company) {
                 $handle = fopen('php://output', 'w');
@@ -1156,7 +1156,7 @@ class CompanyController extends Controller
                 \Maatwebsite\Excel\Excel::ODS,
             ),
             'pdf' => Pdf::loadView('pdf.transactions', compact('company', 'transactions', 'periodLabel'))
-                ->setPaper('a4', 'potrait')
+                ->setPaper([0, 0, 1440, 810])
                 ->download($baseName . '.pdf'),
             default => response()->streamDownload(function () use ($transactions, $periodLabel, $company) {
                 $handle = fopen('php://output', 'w');
@@ -1220,6 +1220,526 @@ class CompanyController extends Controller
                 fclose($handle);
             }, $baseName . '.csv', ['Content-Type' => 'text/csv; charset=UTF-8']),
         };
+    }
+
+    /**
+     * The four primary statements as a presentation-neutral row model.
+     *
+     * Consumed by the desktop MCP server's generate_financial_statements tool,
+     * which renders it to a Word document in the CGL-YE25 design. Everything
+     * here is assembled by the same builders the PDF endpoints use, so the
+     * Word output cannot drift from the PDFs.
+     */
+    public function afsStatementModel(Company $company, Request $request): \Illuminate\Http\JsonResponse
+    {
+        abort_unless($company->user_id === auth()->id(), 403);
+
+        $startDate = $request->input('start_date', $this->fyStartDate($company));
+        $endDate = $request->input('end_date', $this->fyEndDate($company));
+        $rounding = in_array((int) $request->input('rounding', 1), [1, 1000, 1000000]) ? (int) $request->input('rounding', 1) : 1;
+        $compare = $request->boolean('compare', true);
+
+        $wanted = $request->input('statements', ['income-statement', 'balance-sheet', 'cash-flow', 'changes-in-equity']);
+        $wanted = is_array($wanted) ? $wanted : explode(',', (string) $wanted);
+
+        $model = app(\App\Services\AfsStatementModelService::class)
+            ->forRounding($rounding)
+            ->withComparatives($compare);
+
+        $noteRefs = $this->noteRefs($company);
+        $priorStart = Carbon::parse($startDate)->subYear()->format('Y-m-d');
+        $priorEnd = Carbon::parse($endDate)->subYear()->format('Y-m-d');
+
+        $statements = [];
+
+        if (in_array('income-statement', $wanted, true)) {
+            ['income' => $incomeAccounts, 'expense' => $expenseAccounts] =
+                $this->buildProfitOrLossRows($company, $startDate, $endDate, $compare);
+            $ociAccounts = $this->buildOciAccounts($company, $startDate, $endDate, $compare, $priorStart, $priorEnd);
+
+            $statements[] = $model->profitOrLoss(compact(
+                'incomeAccounts', 'expenseAccounts', 'ociAccounts', 'endDate', 'noteRefs'
+            ));
+        }
+
+        if (in_array('balance-sheet', $wanted, true)) {
+            $statements[] = $model->financialPosition(array_merge(
+                $this->balanceSheetData($company, $endDate, $compare, $priorEnd),
+                ['asOfDate' => $endDate, 'noteRefs' => $noteRefs]
+            ));
+        }
+
+        if (in_array('cash-flow', $wanted, true)) {
+            $cf = $this->manualCashFlowViewData($company, $startDate, $endDate, true);
+            $statements[] = $model->cashFlows(compact('cf', 'endDate'));
+        }
+
+        if (in_array('changes-in-equity', $wanted, true)) {
+            $statements[] = $model->changesInEquity(array_merge(
+                $this->changesInEquityData($company, $startDate, $endDate),
+                ['endDate' => $endDate]
+            ));
+        }
+
+        $payload = $model->envelope($company, $startDate, $endDate, $statements);
+
+        if ($request->boolean('notes', true)) {
+            $noteModels = $company->financialStatementNotes()
+                ->where('is_active', true)
+                ->where('include_in_afs', true)
+                ->orderBy('sort_order')
+                ->get();
+
+            $payload['notes'] = $model->notes($company, $noteModels, $startDate, $endDate, $noteRefs);
+        }
+
+        return response()->json($payload);
+    }
+
+    /**
+     * The business plan as a narrative + statistics model.
+     *
+     * Consumed by the desktop MCP server's generate_business_plan tool. The
+     * narrative comes from business_plan_sections (seeded on first request);
+     * the statistics are derived from the same builders that produce the AFS,
+     * so a plan and a set of statements for one period cannot disagree.
+     */
+    public function businessPlanModel(Company $company, Request $request): \Illuminate\Http\JsonResponse
+    {
+        abort_unless($company->user_id === auth()->id(), 403);
+
+        $startDate = $request->input('start_date', $this->fyStartDate($company));
+        $endDate = $request->input('end_date', $this->fyEndDate($company));
+        $rounding = in_array((int) $request->input('rounding', 1), [1, 1000, 1000000]) ? (int) $request->input('rounding', 1) : 1;
+        $compare = $request->boolean('compare', true);
+        $includeStatistics = $request->boolean('include_statistics', true);
+
+        app(\App\Services\BusinessPlanSectionsSeeder::class)->seed($company);
+
+        $sections = \App\Models\BusinessPlanSection::where('company_id', $company->id)
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get()
+            ->map(fn ($s) => [
+                'slug' => $s->slug,
+                'number' => (int) $s->section_number,
+                'title' => $s->title,
+                'body' => (string) $s->body,
+                'include_statistics' => $includeStatistics && (bool) $s->include_statistics,
+                'is_placeholder' => str_starts_with(
+                    trim((string) $s->body),
+                    \App\Services\BusinessPlanSectionsSeeder::PLACEHOLDER_PREFIX
+                ),
+            ])
+            ->values()
+            ->all();
+
+        $statistics = $includeStatistics
+            ? app(\App\Services\BusinessStatisticsService::class)
+                ->forRounding($rounding)
+                ->withComparatives($compare)
+                ->build($this->businessStatisticsInputs($company, $startDate, $endDate), $startDate, $endDate)
+            : [];
+
+        return response()->json([
+            'company' => [
+                'name' => $company->registered_name,
+                'registration_number' => $company->registration_number,
+                'income_tax_number' => $company->income_tax_number,
+                // Human labels, not the stored enum keys — the cover page would
+                // otherwise read "pty_ltd" and "automotive".
+                'industry' => Company::industries()[$company->industry] ?? $company->industry,
+                'company_type' => $company->company_type_label,
+            ],
+            'period' => [
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'label' => 'for the period ' . Carbon::parse($startDate)->format('d F Y')
+                    . ' to ' . Carbon::parse($endDate)->format('d F Y'),
+            ],
+            'rounding' => [
+                'divisor' => $rounding,
+                'label' => match ($rounding) { 1000 => "R'000", 1000000 => "R'm", default => 'R' },
+            ],
+            'compare' => $compare,
+            'sections' => $sections,
+            'statistics' => $statistics,
+        ]);
+    }
+
+    /**
+     * Presentation model for the monthly management accounts pack.
+     *
+     * Runs the same builders as the statement PDFs and the AFS Word pack, over
+     * two spans: the reporting period, and the year to date that ends with it.
+     * The balance sheet and cash flow are shaped by AfsStatementModelService
+     * and only re-columned here, so a management pack and an AFS covering an
+     * overlapping period cannot disagree.
+     */
+    public function managementAccountsModel(Company $company, Request $request): \Illuminate\Http\JsonResponse
+    {
+        abort_unless($company->user_id === auth()->id(), 403);
+
+        // Default to the month just ended — a management pack is normally cut
+        // after month end, not part way through the current one.
+        $periodEnd = $request->input('period_end', now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d'));
+        $periodEnd = Carbon::parse($periodEnd)->format('Y-m-d');
+        $periodStart = $request->input('period_start', Carbon::parse($periodEnd)->startOfMonth()->format('Y-m-d'));
+        $periodStart = Carbon::parse($periodStart)->format('Y-m-d');
+
+        // The financial year that contains the reporting period, not the one
+        // containing today — fyStartDate() is anchored to now(), so a pack for
+        // a past month would otherwise take its year to date from this year.
+        $ytdStart = $request->input('ytd_start') ?? $this->fyStartContaining($company, $periodEnd);
+        $ytdStart = Carbon::parse($ytdStart)->format('Y-m-d');
+
+        $rounding = in_array((int) $request->input('rounding', 1), [1, 1000, 1000000]) ? (int) $request->input('rounding', 1) : 1;
+        $compare = $request->boolean('compare', true);
+
+        $wanted = $request->input('sheets', ['trading', 'monthly-trend', 'financial-position', 'cash-flow', 'ratios', 'trial-balance']);
+        $wanted = is_array($wanted) ? $wanted : explode(',', (string) $wanted);
+
+        $model = app(\App\Services\ManagementAccountsModelService::class)
+            ->forRounding($rounding)
+            ->withComparatives($compare);
+
+        $afs = app(\App\Services\AfsStatementModelService::class)
+            ->forRounding($rounding)
+            ->withComparatives($compare);
+
+        $priorYtdStart = Carbon::parse($ytdStart)->subYear()->format('Y-m-d');
+        $priorPeriodEnd = Carbon::parse($periodEnd)->subYear()->format('Y-m-d');
+
+        $statements = [];
+
+        if (in_array('trading', $wanted, true)) {
+            // Detailed, not rolled up — management accounts report by account,
+            // and this ties the statement to the trial balance control sheet.
+            ['income' => $periodIncome, 'expense' => $periodExpense] =
+                $this->detailedProfitOrLossRows($company, $periodStart, $periodEnd, $compare);
+            ['income' => $ytdIncome, 'expense' => $ytdExpense] =
+                $this->detailedProfitOrLossRows($company, $ytdStart, $periodEnd, $compare);
+
+            // Opening retained earnings and dividends for the roll-forward that
+            // closes the statement. Taken from the equity movement builder that
+            // feeds the statement of changes in equity, so the two agree.
+            $equityData = $this->changesInEquityData($company, $ytdStart, $periodEnd);
+            $movement = $equityData['equityMovement'] ?? [];
+            $dividends = collect($equityData['equityDetails'] ?? [])
+                ->firstWhere('name', 'Dividends declared')['amount'] ?? 0.0;
+
+            $statements[] = $model->trading([
+                'periodIncome' => $periodIncome,
+                'periodExpense' => $periodExpense,
+                'ytdIncome' => $ytdIncome,
+                'ytdExpense' => $ytdExpense,
+                'equity' => [
+                    'retained_open' => (float) ($movement['retained_open'] ?? 0),
+                    'dividends' => (float) $dividends,
+                ],
+                'subtitle' => 'for the period ended ' . Carbon::parse($periodEnd)->format('d F Y'),
+                'periodLabel' => Carbon::parse($periodEnd)->format('M Y'),
+                'priorPeriodLabel' => Carbon::parse($priorPeriodEnd)->format('M Y'),
+                'ytdLabel' => 'Year to date',
+                'priorYtdLabel' => 'Prior year to date',
+            ]);
+        }
+
+        if (in_array('monthly-trend', $wanted, true)) {
+            $months = [];
+            $cursor = Carbon::parse($ytdStart)->startOfMonth();
+            $last = Carbon::parse($periodEnd);
+
+            // One column per month from the financial-year start up to the
+            // reporting month. Guarded at 12 so a malformed ytd_start cannot
+            // spin the ledger builders indefinitely.
+            while ($cursor->lessThanOrEqualTo($last) && count($months) < 12) {
+                $monthStart = $cursor->copy()->startOfMonth()->format('Y-m-d');
+                $monthEnd = min($cursor->copy()->endOfMonth(), $last)->format('Y-m-d');
+
+                ['income' => $mIncome, 'expense' => $mExpense] =
+                    $this->detailedProfitOrLossRows($company, $monthStart, $monthEnd, false);
+
+                $months[] = [
+                    'label' => $cursor->format('M Y'),
+                    'income' => $mIncome,
+                    'expense' => $mExpense,
+                ];
+                $cursor->addMonthNoOverflow()->startOfMonth();
+            }
+
+            $statements[] = $model->monthlyTrading([
+                'months' => $months,
+                'subtitle' => 'by month, ' . Carbon::parse($ytdStart)->format('M Y')
+                    . ' to ' . Carbon::parse($periodEnd)->format('M Y'),
+            ]);
+        }
+
+        if (in_array('financial-position', $wanted, true)) {
+            $statements[] = $model->fromAfsStatement(
+                $afs->financialPosition(array_merge(
+                    $this->balanceSheetData($company, $periodEnd, $compare, $priorPeriodEnd),
+                    ['asOfDate' => $periodEnd, 'noteRefs' => []]
+                )),
+                [
+                    'varianceLabel' => 'Movement',
+                    'varianceSub' => $model->basisLabel(),
+                    'columnLabels' => [
+                        Carbon::parse($periodEnd)->format('d M Y'),
+                        Carbon::parse($priorPeriodEnd)->format('d M Y'),
+                    ],
+                    'footnotes' => ['Movement is the change against the comparative balance date.'],
+                ]
+            );
+        }
+
+        if (in_array('cash-flow', $wanted, true)) {
+            $decorate = fn (array $cf, array $labels, string $subtitle) => $model->fromAfsStatement(
+                $afs->cashFlows(['cf' => $cf, 'endDate' => $periodEnd]),
+                [
+                    'varianceLabel' => 'Variance',
+                    'varianceSub' => 'fav/(adv)',
+                    // The AFS shaper titles this "for the year ended" and
+                    // labels its columns with financial years; these cover a
+                    // month and a year to date, both usually part years.
+                    'subtitle' => $subtitle,
+                    'columnLabels' => $labels,
+                ]
+            );
+
+            $monthCf = $decorate(
+                $this->manualCashFlowViewData($company, $periodStart, $periodEnd, $compare),
+                [Carbon::parse($periodEnd)->format('M Y'), Carbon::parse($priorPeriodEnd)->format('M Y')],
+                'for the month ended ' . Carbon::parse($periodEnd)->format('d F Y')
+            );
+            $ytdCf = $decorate(
+                $this->manualCashFlowViewData($company, $ytdStart, $periodEnd, $compare),
+                ['Year to date', 'Prior year to date'],
+                'for the month and year to date ended ' . Carbon::parse($periodEnd)->format('d F Y')
+            );
+
+            $statements[] = $model->mergeGroups($monthCf, $ytdCf);
+        }
+
+        if (in_array('trial-balance', $wanted, true)) {
+            $statements[] = $model->trialBalance([
+                'accounts' => $this->loadTrialBalanceAccounts($company, $ytdStart, $periodEnd),
+                'subtitle' => 'for the year to date ended ' . Carbon::parse($periodEnd)->format('d F Y'),
+            ]);
+        }
+
+        $statistics = in_array('ratios', $wanted, true)
+            ? app(\App\Services\BusinessStatisticsService::class)
+                ->forRounding($rounding)
+                ->withComparatives($compare)
+                ->build($this->businessStatisticsInputs($company, $ytdStart, $periodEnd), $ytdStart, $periodEnd)
+            : [];
+
+        return response()->json($model->envelope($company, [
+            'period_start' => $periodStart,
+            'period_end' => $periodEnd,
+            'ytd_start' => $ytdStart,
+            'label' => 'for the month ended ' . Carbon::parse($periodEnd)->format('d F Y'),
+            'ytd_label' => 'year to date from ' . Carbon::parse($ytdStart)->format('d F Y')
+                . ' to ' . Carbon::parse($periodEnd)->format('d F Y'),
+        ], $statements, $statistics));
+    }
+
+    /**
+     * Profit-or-loss account movements straight off the trial balance, with no
+     * roll-up.
+     *
+     * `buildProfitOrLossRows` folds every child account into its parent unless
+     * the child is flagged `show_separately` — the right presentation for the
+     * statutory statements, which report by group. Management accounts are the
+     * opposite: they exist to show which account the money actually moved on,
+     * so every account that moved gets its own line.
+     *
+     * Sourcing this from `loadTrialBalanceAccounts` rather than un-rolling the
+     * statutory builder is what makes the pack tie to itself: the trading
+     * statement and the trial balance control sheet are then two views of one
+     * query, and a difference between them is impossible by construction.
+     *
+     * Accounts are deliberately NOT filtered by `is_active`. An inactive
+     * account carrying posted movement still moved, and dropping it would put
+     * the trading statement out of agreement with the trial balance sitting a
+     * few sheets away.
+     *
+     * @return array{income: Collection, expense: Collection}
+     */
+    private function detailedProfitOrLossRows(Company $company, string $startDate, string $endDate, bool $compare): array
+    {
+        // Sign convention matches buildProfitOrLossRows: both sides positive,
+        // income as credits net of debits and expenses the other way round.
+        $net = fn ($account) => $account->account_type === 'income'
+            ? (float) $account->posted_credits - (float) $account->posted_debits
+            : (float) $account->posted_debits - (float) $account->posted_credits;
+
+        $prior = collect();
+        if ($compare) {
+            $prior = $this->loadTrialBalanceAccounts(
+                $company,
+                Carbon::parse($startDate)->subYear()->format('Y-m-d'),
+                Carbon::parse($endDate)->subYear()->format('Y-m-d'),
+            )->keyBy('id');
+        }
+
+        $accounts = $this->loadTrialBalanceAccounts($company, $startDate, $endDate)
+            ->whereIn('account_type', ['income', 'expenses'])
+            // OCI and contra accounts are presented elsewhere; including them
+            // here would double-count them against profit or loss.
+            ->filter(fn ($a) => ! $a->is_oci && ! $a->is_contra)
+            ->map(function ($account) use ($net, $prior, $compare) {
+                $account->net_amount = $net($account);
+                $account->prior_net_amount = $compare && ($p = $prior->get($account->id))
+                    ? $net($p)
+                    : 0.0;
+
+                return $account;
+            })
+            ->values();
+
+        return [
+            'income' => $accounts->where('account_type', 'income')->values(),
+            'expense' => $accounts->where('account_type', 'expenses')->values(),
+        ];
+    }
+
+    /**
+     * Start of the financial year containing the given date.
+     *
+     * fyStartDate() answers the same question for today; a management pack is
+     * routinely cut for a month that has closed, sometimes in a prior year.
+     */
+    private function fyStartContaining(Company $company, string $date): string
+    {
+        $yearEndMonth = $company->financial_year_end_month ?? 12;
+        $on = Carbon::parse($date);
+        $fyStartMonth = ($yearEndMonth % 12) + 1;
+        $fyStartYear = $on->month >= $fyStartMonth ? $on->year : $on->year - 1;
+
+        return Carbon::create($fyStartYear, $fyStartMonth, 1)->format('Y-m-d');
+    }
+
+    /**
+     * Raw figures for the statistics tables, taken from the statement builders.
+     *
+     * Balances are summed over `groupBalance` — the same field the balance
+     * sheet totals itself from — so a subtotal here always ties back to the
+     * statement of financial position.
+     */
+    private function businessStatisticsInputs(Company $company, string $startDate, string $endDate): array
+    {
+        $priorStart = Carbon::parse($startDate)->subYear()->format('Y-m-d');
+        $priorEnd = Carbon::parse($endDate)->subYear()->format('Y-m-d');
+
+        ['income' => $income, 'expense' => $expense] =
+            $this->buildProfitOrLossRows($company, $startDate, $endDate, true);
+
+        $prefix = fn ($a) => (int) substr(ltrim((string) $a->account_code, '0'), 0, 4);
+        $band = function ($collection, int $lo, int $hi) use ($prefix) {
+            $rows = $collection->filter(fn ($a) => $prefix($a) >= $lo && $prefix($a) < $hi);
+
+            return [
+                'cur' => (float) $rows->sum('net_amount'),
+                'pri' => (float) $rows->sum('prior_net_amount'),
+            ];
+        };
+
+        $revenueRows = $income->filter(fn ($a) => $prefix($a) < 4500);
+        $otherIncomeRows = $income->filter(fn ($a) => $prefix($a) >= 4500);
+
+        $bs = $this->balanceSheetData($company, $endDate, true, $priorEnd);
+
+        // Keyword matching for lines the chart of accounts does not flag.
+        // Mirrors sofp's noteForName; the flags (is_cash, is_inventory) are
+        // used wherever the schema actually carries one.
+        $sumWhere = function (iterable $accounts, callable $predicate, string $field) {
+            $total = 0.0;
+            foreach ($accounts as $account) {
+                if ($predicate($account)) {
+                    $total += (float) ($account->{$field} ?? 0);
+                }
+            }
+
+            return $total;
+        };
+        $nameMatches = fn (array $keywords) => function ($account) use ($keywords) {
+            $name = strtolower((string) $account->account_name);
+            foreach ($keywords as $keyword) {
+                if (str_contains($name, $keyword)) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        $receivables = $nameMatches(['receivable', 'debtor']);
+        $payables = $nameMatches(['payable', 'creditor']);
+        $isCash = fn ($a) => (bool) ($a->is_cash ?? false) || str_contains(strtolower((string) $a->account_name), 'cash')
+            || str_contains(strtolower((string) $a->account_name), 'bank');
+        $isInventory = fn ($a) => (bool) ($a->is_inventory ?? false) || str_contains(strtolower((string) $a->account_name), 'inventor')
+            || str_contains(strtolower((string) $a->account_name), 'stock');
+
+        $pair = fn (iterable $accounts, callable $predicate) => [
+            'cur' => $sumWhere($accounts, $predicate, 'groupBalance'),
+            'pri' => $sumWhere($accounts, $predicate, 'prior_groupBalance'),
+        ];
+
+        return [
+            'revenue' => ['cur' => (float) $revenueRows->sum('net_amount'), 'pri' => (float) $revenueRows->sum('prior_net_amount')],
+            'other_income' => ['cur' => (float) $otherIncomeRows->sum('net_amount'), 'pri' => (float) $otherIncomeRows->sum('prior_net_amount')],
+            'cost_of_sales' => $band($expense, 5000, 6000),
+            'operating_expenses' => $band($expense, 6000, 7000),
+            'finance_costs' => $band($expense, 7000, 8000),
+            'tax' => $band($expense, 8000, 9000),
+
+            'total_assets' => ['cur' => (float) $bs['totalAssets'], 'pri' => (float) ($bs['totalAssetsPrior'] ?? 0)],
+            'non_current_assets' => ['cur' => (float) $bs['totalNonCurrentAssets'], 'pri' => (float) ($bs['totalNonCurrentAssetsPrior'] ?? 0)],
+            'current_assets' => ['cur' => (float) $bs['totalCurrentAssets'], 'pri' => (float) ($bs['totalCurrentAssetsPrior'] ?? 0)],
+            'total_liabilities' => ['cur' => (float) $bs['totalLiabilities'], 'pri' => (float) ($bs['totalLiabilitiesPrior'] ?? 0)],
+            'non_current_liabilities' => ['cur' => (float) ($bs['totalNonCurrentLiabilities'] ?? 0), 'pri' => (float) ($bs['totalNonCurrentLiabilitiesPrior'] ?? 0)],
+            'current_liabilities' => ['cur' => (float) ($bs['totalCurrentLiabilities'] ?? 0), 'pri' => (float) ($bs['totalCurrentLiabilitiesPrior'] ?? 0)],
+            'total_equity' => ['cur' => (float) $bs['totalEquity'], 'pri' => (float) ($bs['totalEquityPrior'] ?? 0)],
+
+            'receivables' => $pair($bs['currentAssets'], $receivables),
+            'payables' => $pair($bs['currentLiabilities'], $payables),
+            'cash' => $pair($bs['currentAssets'], $isCash),
+            'inventory' => $pair($bs['currentAssets'], $isInventory),
+
+            'counts' => [
+                'transactions' => DB::table('transactions')->where('company_id', $company->id)
+                    ->whereBetween('transaction_date', [$startDate, $endDate])->count(),
+                'invoices' => DB::table('invoices')->where('company_id', $company->id)
+                    ->whereBetween('invoice_date', [$startDate, $endDate])->count(),
+                'accounts' => DB::table('chart_of_accounts')->where('company_id', $company->id)
+                    ->where('is_active', true)->count(),
+                'assets' => DB::table('assets')->where('company_id', $company->id)
+                    ->where('status', 'active')->count(),
+                'intangibles' => DB::table('intangible_assets')->where('company_id', $company->id)
+                    ->where('status', 'active')->count(),
+                'inventory_items' => DB::table('inventory_items')->where('company_id', $company->id)
+                    ->where('is_active', true)->count(),
+                'leases' => DB::table('leases')->where('company_id', $company->id)
+                    ->where('status', 'active')->count(),
+            ],
+        ];
+    }
+
+    /** Balance sheet with comparatives attached — shared by the report and the AFS model. */
+    private function balanceSheetData(Company $company, string $asOfDate, bool $compare, string $priorAsOfDate): array
+    {
+        $data = $this->buildBalanceSheet($company, $asOfDate);
+
+        if (! $compare) {
+            return array_merge($data, ['compare' => false, 'priorAsOfDate' => null]);
+        }
+
+        $prior = $this->buildBalanceSheet($company, $priorAsOfDate);
+
+        return array_merge($data, $this->mergeBalanceSheetComparatives($data, $prior, $priorAsOfDate));
     }
 
     public function incomeStatement(Company $company, Request $request): View
@@ -1305,7 +1825,7 @@ class CompanyController extends Controller
             'compare',
             'noteRefs',
             'ociAccounts',
-        ))->setPaper('a4', 'potrait');
+        ))->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-income-statement.pdf');
     }
@@ -1430,7 +1950,7 @@ class CompanyController extends Controller
             'endDate',
             'rounding',
             'compare',
-        ))->setPaper('a4', 'potrait');
+        ))->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-cash-flow.pdf');
     }
@@ -1697,7 +2217,7 @@ class CompanyController extends Controller
         $noteRefs = $this->noteRefs($company);
 
         $pdf = Pdf::loadView('pdf.balance-sheet', array_merge($data, compact('company', 'asOfDate', 'rounding', 'compare', 'noteRefs')))
-            ->setPaper('a4', 'potrait');
+            ->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-balance-sheet.pdf');
     }
@@ -1923,7 +2443,7 @@ class CompanyController extends Controller
             'inventoryMovements',
             'ociAccounts',
             'noteFigures',
-        )))->setPaper('a4', 'potrait');
+        )))->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-annual-financial-statements.pdf');
     }
@@ -2219,7 +2739,7 @@ class CompanyController extends Controller
         $data = $this->changesInEquityData($company, $startDate, $endDate);
 
         $pdf = Pdf::loadView('pdf.changes-in-equity', array_merge($data, compact('company', 'startDate', 'endDate', 'rounding')))
-            ->setPaper('a4', 'potrait');
+            ->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-changes-in-equity.pdf');
     }
@@ -2315,7 +2835,7 @@ class CompanyController extends Controller
             'startDate',
             'endDate',
             'rounding',
-        ))->setPaper('a4', 'portrait');
+        ))->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-general-ledger.pdf');
     }
@@ -2397,7 +2917,7 @@ class CompanyController extends Controller
         $accounts  = $this->loadTrialBalanceAccounts($company, $startDate, $endDate);
 
         $pdf = Pdf::loadView('pdf.trial-balance', compact('company', 'accounts', 'startDate', 'endDate', 'rounding'))
-            ->setPaper('a4', 'portrait');
+            ->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-trial-balance.pdf');
     }
@@ -2567,7 +3087,8 @@ class CompanyController extends Controller
                 $q->where('is_vat_line', true)
                     ->whereHas('transaction', fn($t) => $t
                         ->whereIn('status', ['posted', 'reversed'])
-                        ->whereBetween('transaction_date', [$startDate, $endDate]))
+                        ->whereDate('transaction_date', '>=', $startDate)
+                        ->whereDate('transaction_date', '<=', $endDate))
                     ->with(['transaction:id,transaction_date,description,reference']);
             }])
             ->get()
@@ -2619,7 +3140,8 @@ class CompanyController extends Controller
                 $q->where('is_vat_line', true)
                     ->whereHas('transaction', fn($t) => $t
                         ->whereIn('status', ['posted', 'reversed'])
-                        ->whereBetween('transaction_date', [$startDate, $endDate]))
+                        ->whereDate('transaction_date', '>=', $startDate)
+                        ->whereDate('transaction_date', '<=', $endDate))
                     ->with(['transaction:id,transaction_date,description,reference']);
             }])
             ->get()
@@ -2645,7 +3167,7 @@ class CompanyController extends Controller
             'company', 'startDate', 'endDate',
             'outputVatLines', 'inputVatLines',
             'totalOutputVat', 'totalInputVat', 'netVatPayable',
-        ))->setPaper('a4', 'portrait');
+        ))->setPaper([0, 0, 1440, 810]);
 
         return $pdf->download($company->slug . '-vat201-' . $startDate . '.pdf');
     }
@@ -3338,7 +3860,8 @@ class CompanyController extends Controller
                 ->whereIn('journal_lines.chart_of_account_id', $cashIds)
                 ->where('transactions.company_id', $company->id)
                 ->whereIn('transactions.status', ['posted', 'reversed'])
-                ->whereBetween('transactions.transaction_date', [$start, $end])
+                ->whereDate('transactions.transaction_date', '>=', $start)
+                ->whereDate('transactions.transaction_date', '<=', $end)
                 ->distinct()
                 ->pluck('transactions.id');
 
@@ -3438,7 +3961,8 @@ class CompanyController extends Controller
             ->whereIn('journal_lines.chart_of_account_id', $accountIds)
             ->where('transactions.company_id', $company->id)
             ->whereIn('transactions.status', ['posted', 'reversed'])
-            ->whereBetween('transactions.transaction_date', [$startDate, $endDate])
+            ->whereDate('transactions.transaction_date', '>=', $startDate)
+            ->whereDate('transactions.transaction_date', '<=', $endDate)
             ->select([
                 'journal_lines.chart_of_account_id',
                 DB::raw("SUM(CASE WHEN journal_lines.type = 'debit' THEN journal_lines.amount ELSE 0 END) as total_debits"),
@@ -3456,7 +3980,7 @@ class CompanyController extends Controller
             ->whereIn('journal_lines.chart_of_account_id', $accountIds)
             ->where('transactions.company_id', $company->id)
             ->whereIn('transactions.status', ['posted', 'reversed'])
-            ->where('transactions.transaction_date', '<=', $asOfDate)
+            ->whereDate('transactions.transaction_date', '<=', $asOfDate)
             ->select([
                 'journal_lines.chart_of_account_id',
                 DB::raw("SUM(CASE WHEN journal_lines.type = 'debit' THEN journal_lines.amount ELSE 0 END) as total_debits"),
@@ -3487,7 +4011,7 @@ class CompanyController extends Controller
             ->whereIn('journal_lines.chart_of_account_id', $allIds)
             ->where('transactions.company_id', $company->id)
             ->whereIn('transactions.status', ['posted', 'reversed'])
-            ->where('transactions.transaction_date', '<', $startDate);
+            ->whereDate('transactions.transaction_date', '<', $startDate);
 
         if ($preStart) {
             $preQuery->where('transactions.transaction_date', '>=', $preStart);
@@ -3508,7 +4032,8 @@ class CompanyController extends Controller
             ->whereIn('journal_lines.chart_of_account_id', $allIds)
             ->where('transactions.company_id', $company->id)
             ->whereIn('transactions.status', ['posted', 'reversed'])
-            ->whereBetween('transactions.transaction_date', [$startDate, $endDate])
+            ->whereDate('transactions.transaction_date', '>=', $startDate)
+            ->whereDate('transactions.transaction_date', '<=', $endDate)
             ->select([
                 'journal_lines.chart_of_account_id',
                 'transactions.transaction_date',

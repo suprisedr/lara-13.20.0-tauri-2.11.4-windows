@@ -1,6 +1,6 @@
 import { grpcCall, getAuthService, getTransactionService, getAssetService, getLeaseService, getInventoryService, getIntangibleService, setGrpcBearerToken, getGrpcBearerToken } from "./grpc-client.js";
 import { graphqlRequest, setBearerToken as setRestBearerToken, getBearerToken as getRestBearerToken } from "./graphql.js";
-const API_BASE = process.env.API_BASE ?? "http://localhost:8080/api";
+import { API_BASE } from "./api.js";
 const USE_GRPC = process.env.USE_GRPC !== "false";
 let grpcAvailable = null;
 async function isGrpcAvailable() {
@@ -284,6 +284,90 @@ export async function getTransactionByReference(companyId, reference) {
         return parseGrpcData(res);
     }
     return restPost("/transactions/search", { company_id: companyId, query: reference, limit: 1 });
+}
+// --- Annual financial statements ---
+/**
+ * The row model for the four primary statements. REST only — this is a
+ * presentation payload assembled from the same builders the PDF endpoints
+ * use, and it has no gRPC counterpart.
+ */
+export async function getAfsModel(params) {
+    const query = new URLSearchParams();
+    if (params.startDate)
+        query.set("start_date", params.startDate);
+    if (params.endDate)
+        query.set("end_date", params.endDate);
+    if (params.rounding)
+        query.set("rounding", String(params.rounding));
+    query.set("compare", params.compare === false ? "0" : "1");
+    for (const key of params.statements ?? [])
+        query.append("statements[]", key);
+    const token = getRestBearerToken();
+    if (!token)
+        throw new Error("Not authenticated. Please run the login tool first.");
+    const res = await fetch(`${API_BASE}/companies/${params.companyId}/afs-model?${query}`, {
+        headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Failed to fetch statement data (HTTP ${res.status}): ${body.slice(0, 400)}`);
+    }
+    return res.json();
+}
+/**
+ * Narrative sections plus derived statistics for the business plan. REST only,
+ * for the same reason as getAfsModel — it is a presentation payload.
+ */
+export async function getBusinessPlanModel(params) {
+    const query = new URLSearchParams();
+    if (params.startDate)
+        query.set("start_date", params.startDate);
+    if (params.endDate)
+        query.set("end_date", params.endDate);
+    if (params.rounding)
+        query.set("rounding", String(params.rounding));
+    query.set("compare", params.compare === false ? "0" : "1");
+    query.set("include_statistics", params.includeStatistics === false ? "0" : "1");
+    const token = getRestBearerToken();
+    if (!token)
+        throw new Error("Not authenticated. Please run the login tool first.");
+    const res = await fetch(`${API_BASE}/companies/${params.companyId}/business-plan-model?${query}`, {
+        headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Failed to fetch business plan data (HTTP ${res.status}): ${body.slice(0, 400)}`);
+    }
+    return res.json();
+}
+/**
+ * Trading, position, cash flow and ratios for the management accounts pack.
+ * REST only, for the same reason as getAfsModel — it is a presentation payload.
+ */
+export async function getManagementAccountsModel(params) {
+    const query = new URLSearchParams();
+    if (params.periodStart)
+        query.set("period_start", params.periodStart);
+    if (params.periodEnd)
+        query.set("period_end", params.periodEnd);
+    if (params.ytdStart)
+        query.set("ytd_start", params.ytdStart);
+    if (params.rounding)
+        query.set("rounding", String(params.rounding));
+    query.set("compare", params.compare === false ? "0" : "1");
+    for (const key of params.sheets ?? [])
+        query.append("sheets[]", key);
+    const token = getRestBearerToken();
+    if (!token)
+        throw new Error("Not authenticated. Please run the login tool first.");
+    const res = await fetch(`${API_BASE}/companies/${params.companyId}/management-accounts-model?${query}`, {
+        headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Failed to fetch management accounts data (HTTP ${res.status}): ${body.slice(0, 400)}`);
+    }
+    return res.json();
 }
 // Re-export graphqlRequest for tools that still need it
 export { graphqlRequest } from "./graphql.js";

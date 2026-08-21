@@ -27,17 +27,17 @@
 
         .inbox-search-wrap { position:relative; display:flex; align-items:center; }
         .inbox-search-input {
-            height:18pt; border:1px solid #ccc;
+            height:18pt; border:1px solid #d3e2f5;
             padding:0 14pt 0 5pt; font-size:6.5pt; font-family:inherit;
             color:#000; background:#fff; width:160pt; box-sizing:border-box;
         }
         .inbox-search-input:focus { outline:none; border-color:#000; }
         .inbox-search-clear {
             position:absolute; right:3pt; background:none; border:none;
-            cursor:pointer; font-size:9pt; color:#999; line-height:1; padding:0; display:none;
+            cursor:pointer; font-size:9pt; color:#6f869b; line-height:1; padding:0; display:none;
         }
         .inbox-search-clear:hover { color:#000; }
-        .inbox-search-count { font-size:5.5pt; color:#6b7280; white-space:nowrap; }
+        .inbox-search-count { font-size:5.5pt; color:#5a7186; white-space:nowrap; }
 
         .inbox-tabs { display:flex; }
         .inbox-tab {
@@ -50,12 +50,12 @@
         }
         .inbox-tab + .inbox-tab { border-left:none; }
         .inbox-tab.active { background:#000; color:#fff; }
-        .inbox-tab:hover:not(.active) { background:#f5f5f5; }
+        .inbox-tab:hover:not(.active) { background:#f4fafc; }
 
         .inbox-sync-form { display:flex; align-items:center; gap:2pt; }
-        .inbox-sync-label { font-size:5.5pt; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+        .inbox-sync-label { font-size:5.5pt; font-weight:700; color:#5a7186; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
         .inbox-sync-input {
-            border:1px solid #ccc; padding:1pt 3pt; font-size:6pt; color:#000;
+            border:1px solid #d3e2f5; padding:1pt 3pt; font-size:6pt; color:#000;
             background:#fff; outline:none; font-family:inherit;
             width:25pt; text-align:center; height:18pt; box-sizing:border-box;
             -moz-appearance:textfield;
@@ -78,15 +78,15 @@
         .inbox-feed { max-height:60vh; overflow-y:auto; }
         .inbox-feed::-webkit-scrollbar { width:4px; }
         .inbox-feed::-webkit-scrollbar-track { background:transparent; }
-        .inbox-feed::-webkit-scrollbar-thumb { background:#ccc; }
+        .inbox-feed::-webkit-scrollbar-thumb { background:#eaf8fb; }
 
         .inbox-divider {
             display:flex; align-items:center; gap:6pt;
             padding:6pt 10pt 3pt;
-            color:#555; font-size:5.5pt; font-weight:700;
+            color:#5a7186; font-size:5.5pt; font-weight:700;
             letter-spacing:0.09em; text-transform:uppercase;
         }
-        .inbox-divider::before, .inbox-divider::after { content:''; flex:1; height:1px; background:#ddd; }
+        .inbox-divider::before, .inbox-divider::after { content:''; flex:1; height:1px; background:#eaf8fb; }
 
         /* ── Email row ── */
         .inbox-row {
@@ -94,13 +94,13 @@
             padding:5pt 10pt; cursor:pointer; position:relative;
             transition:background 0.1s;
             border-left:3px solid transparent;
-            border-bottom:1px solid #eee;
+            border-bottom:1px solid #d3e2f5;
         }
         .inbox-row:last-child { border-bottom:none; }
-        .inbox-row:hover { background:#fafafa; }
+        .inbox-row:hover { background:#f7fbfd; }
         .inbox-row.status-matched       { border-left-color:#15803d; }
         .inbox-row.status-new_supplier   { border-left-color:#b45309; }
-        .inbox-row.status-pending_review { border-left-color:#999; }
+        .inbox-row.status-pending_review { border-left-color:#bfbfbf; }
         .inbox-row.unreviewed { background:#fffef5; }
         .inbox-row.unreviewed:hover { background:#fefce8; }
 
@@ -112,7 +112,7 @@
         }
         .inbox-avatar.src-matched       { color:#15803d; border-color:#15803d; }
         .inbox-avatar.src-new_supplier   { color:#b45309; border-color:#b45309; }
-        .inbox-avatar.src-pending_review { color:#555; border-color:#999; }
+        .inbox-avatar.src-pending_review { color:#5a7186; border-color:#bfbfbf; }
 
         .inbox-row-body { flex:1; min-width:0; display:flex; flex-direction:column; gap:0.5pt; }
         .inbox-row-subject {
@@ -133,7 +133,7 @@
         }
         .inbox-badge.badge-matched       { color:#15803d; border-color:#15803d; }
         .inbox-badge.badge-new_supplier   { color:#b45309; border-color:#b45309; }
-        .inbox-badge.badge-pending_review { color:#555; border-color:#999; }
+        .inbox-badge.badge-pending_review { color:#5a7186; border-color:#bfbfbf; }
         .inbox-badge.badge-attach { color:#000; border-color:#000; }
 
         .inbox-row-time {
@@ -155,11 +155,11 @@
             background:none; border:none; cursor:pointer;
             padding:2pt 4pt; font-family:inherit;
             font-size:5pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#555;
+            text-transform:uppercase; color:#5a7186;
             transition:background 0.1s, color 0.1s;
             white-space:nowrap;
         }
-        .inbox-action-btn:hover { background:#f5f5f5; color:#000; }
+        .inbox-action-btn:hover { background:#f4fafc; color:#000; }
         .inbox-action-btn.btn-confirm { color:#15803d; }
         .inbox-action-btn.btn-confirm:hover { background:#15803d; color:#fff; }
         .inbox-action-btn.btn-dismiss { color:#b91c1c; }
@@ -169,11 +169,11 @@
         .inbox-detail {
             display:none; margin:0 10pt 0 37pt;
             border-left:2px solid #000; padding:5pt 0 6pt 10pt;
-            border-bottom:1px solid #eee; background:#fafafa;
+            border-bottom:1px solid #d3e2f5; background:#f7fbfd;
         }
         .inbox-detail.open { display:block; }
 
-        .inbox-detail-body { font-size:7pt; color:#1b1b18; line-height:1.55; margin:0 0 5pt; }
+        .inbox-detail-body { font-size:7pt; color:#191919; line-height:1.55; margin:0 0 5pt; }
         .inbox-detail-footer { display:flex; align-items:center; flex-wrap:wrap; gap:4pt; }
         .inbox-detail-ref {
             display:inline-flex; align-items:center; gap:3pt;
@@ -183,26 +183,26 @@
         }
         .inbox-detail-ref:hover { background:#000; color:#fff; }
         .inbox-detail-meta { font-size:5.5pt; color:#888; }
-        .inbox-detail-sep { width:3px; height:3px; border-radius:50%; background:#bbb; flex-shrink:0; }
+        .inbox-detail-sep { width:3px; height:3px; border-radius:50%; background:#d3e2f5; flex-shrink:0; }
         .inbox-detail-attachments { display:flex; flex-wrap:wrap; gap:3pt; margin-top:4pt; }
         .inbox-detail-file {
             display:inline-flex; align-items:center; gap:3pt;
-            font-size:5.5pt; font-weight:700; color:#555;
-            background:#fff; border:1px solid #ccc; padding:1pt 4pt;
+            font-size:5.5pt; font-weight:700; color:#5a7186;
+            background:#fff; border:1px solid #d3e2f5; padding:1pt 4pt;
             text-transform:uppercase; letter-spacing:0.05em;
         }
 
         /* ── Pagination ── */
         .inbox-pagination {
             display:flex; align-items:center; justify-content:center;
-            gap:3pt; padding:8pt 10pt; border-top:1px solid #ddd;
+            gap:3pt; padding:8pt 10pt; border-top:1px solid #d3e2f5;
         }
         .inbox-pagination a, .inbox-pagination span {
             display:inline-flex; align-items:center; justify-content:center;
             min-width:18pt; height:18pt;
             font-size:6pt; font-weight:700;
-            text-decoration:none; color:#555;
-            border:1px solid #ccc; background:#fff;
+            text-decoration:none; color:#5a7186;
+            border:1px solid #d3e2f5; background:#fff;
             padding:0 4pt; font-family:inherit;
         }
         .inbox-pagination a:hover { border-color:#000; color:#000; }
@@ -213,7 +213,7 @@
             display:flex; flex-direction:column; align-items:center; justify-content:center;
             color:#888; gap:4pt; padding:3rem 1rem;
         }
-        .inbox-empty-icon { font-size:2rem; color:#bbb; line-height:1; }
+        .inbox-empty-icon { font-size:2rem; color:#6f869b; line-height:1; }
         .inbox-empty-title { font-size:7.5pt; font-weight:700; color:#000; text-transform:uppercase; letter-spacing:0.07em; }
         .inbox-empty-sub { font-size:6.5pt; }
 
@@ -333,7 +333,7 @@
                                             <div class="inbox-detail" id="detail-{{ $email->id }}">
                                                 @if ($email->ai_summary)
                                                     <p class="inbox-detail-body">
-                                                        <span style="font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">AI Summary</span><br>
+                                                        <span style="font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">AI Summary</span><br>
                                                         {{ $email->ai_summary }}
                                                     </p>
                                                 @endif
@@ -517,7 +517,7 @@
                 if (e.ai_summary || e.supplier_name) {
                     detailHtml = '<div class="inbox-detail" id="detail-' + e.id + '">';
                     if (e.ai_summary) {
-                        detailHtml += '<p class="inbox-detail-body"><span style="font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">AI Summary</span><br>' + escHtml(e.ai_summary) + '</p>';
+                        detailHtml += '<p class="inbox-detail-body"><span style="font-size:5.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">AI Summary</span><br>' + escHtml(e.ai_summary) + '</p>';
                     }
                     detailHtml += '<div class="inbox-detail-footer">';
                     if (e.supplier_name) {

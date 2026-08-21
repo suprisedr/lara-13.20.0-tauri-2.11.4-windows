@@ -40,7 +40,7 @@
                         @endif
                         <div style="display:flex;gap:0.5rem;align-items:center;">
                             <a href="{{ route('companies.cash-flow-manual.edit', [$company, 'start_date' => $startDate, 'end_date' => $endDate]) }}"
-                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#f3f0ff;color:#5e17eb;border:1px solid #d6caf7;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#f4fafc;color:#005bf0;border:1px solid #d6caf7;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;white-space:nowrap;">
                                 <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -50,8 +50,8 @@
                             </a>
                             <a href="{{ route('companies.reports.cash-flow.pdf', [$company, 'start_date' => $startDate, 'end_date' => $endDate, 'rounding' => $rounding, 'compare' => $compare ? 1 : 0]) }}"
                                 target="_blank" rel="noopener"
-                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#5e17eb;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                onmouseover="this.style.background='#4a10c4'" onmouseout="this.style.background='#5e17eb'">
+                                style="display:inline-flex;align-items:center;gap:0.35rem;background:#005bf0;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                onmouseover="this.style.background='#0047c4'" onmouseout="this.style.background='#005bf0'">
                                 <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -94,7 +94,7 @@
 
                     @if (false)
                         <div class="empty-state">
-                            <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No accounts found</p>
+                            <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No accounts found</p>
                             <p style="font-size:0.8rem;margin:0;">Set up your chart of accounts first.</p>
                         </div>
                     @else

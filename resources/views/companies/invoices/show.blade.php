@@ -12,8 +12,8 @@
         .reg-status.partially_paid { color: #b45309; border-color: #b45309; background: #fef3c7; }
         .reg-status.paid      { color: #15803d; border-color: #15803d; background: #dcfce7; }
         .reg-status.overdue   { color: #b91c1c; border-color: #b91c1c; background: #fee2e2; }
-        .reg-status.voided    { color: #6b5b8a; border-color: #6b5b8a; background: #f3f4f6; }
-        .reg-status.write_off { color: #4c1d95; border-color: #4c1d95; background: #ede9fe; }
+        .reg-status.voided    { color: #5a7186; border-color: #5a7186; background: #f4fafc; }
+        .reg-status.write_off { color: #1a345b; border-color: #1a345b; background: #eaf8fb; }
 
         /* ── Invoice parties grid ──────────────────────────────── */
         .inv-parties {
@@ -29,25 +29,25 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6pt 14pt;
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 6pt 8pt;
         }
 
         /* ── Notes block ───────────────────────────────────────── */
         .inv-notes {
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 6pt 8pt;
             font-size: 7pt;
-            color: #23282d;
+            color: #191919;
             line-height: 1.55;
             white-space: pre-line;
         }
 
         /* ── Document footer ───────────────────────────────────── */
         .inv-doc-footer {
-            border-top: 0.75pt solid #c4b5fd;
+            border-top: 0.75pt solid #9ec1f5;
             padding-top: 6pt;
             display: flex;
             justify-content: space-between;
@@ -55,18 +55,18 @@
             gap: 6pt;
             flex-wrap: wrap;
             font-size: 6pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         /* ── Date rows ─────────────────────────────────────────── */
         .inv-date-line {
             font-size: 6.5pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin-bottom: 1pt;
             text-align: right;
         }
         .inv-date-line strong {
-            color: #23282d;
+            color: #191919;
             font-weight: 700;
             margin-left: 3pt;
         }
@@ -78,11 +78,11 @@
             gap: 4pt;
         }
         .inv-status-select {
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 2pt 5pt;
             font-size: 6.5pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
             background: #fff;
             outline: none;
             cursor: pointer;
@@ -91,8 +91,8 @@
         /* ── Credit note / delivery note accent buttons ────────── */
         .reg-btn.cn { border-color: #b91c1c; color: #b91c1c; }
         .reg-btn.cn:hover { background: #b91c1c; color: #fff; }
-        .reg-btn.dn { border-color: #6b5b8a; color: #6b5b8a; }
-        .reg-btn.dn:hover { background: #6b5b8a; color: #fff; }
+        .reg-btn.dn { border-color: #5a7186; color: #5a7186; }
+        .reg-btn.dn:hover { background: #5a7186; color: #fff; }
 
         /* ── Journal posting status rows ───────────────────────── */
         .inv-journals {
@@ -164,6 +164,59 @@
         /* ── Field error ───────────────────────────────────────── */
         .field-error { font-size: 6pt; color: #b91c1c; margin: 2pt 0 0; }
 
+        /* ── Payment modal ─────────────────────────────────────── */
+        .pmt-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 9000;
+            align-items: center;
+            justify-content: center;
+        }
+        .pmt-overlay.open { display: flex; }
+        .pmt-modal {
+            background: #fff;
+            border: 1px solid #9ec1f5;
+            padding: 16pt;
+            width: 280pt;
+            max-width: 90vw;
+            box-shadow: 0 8px 24px rgba(26, 52, 91,0.18);
+        }
+        .pmt-modal h3 {
+            font-size: 8pt;
+            font-weight: 800;
+            color: #1a345b;
+            margin: 0 0 10pt;
+        }
+        .pmt-modal label {
+            font-size: 6pt;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #6f869b;
+            display: block;
+            margin-bottom: 3pt;
+        }
+        .pmt-modal input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #9ec1f5;
+            padding: 5pt 8pt;
+            font-size: 8pt;
+            font-family: inherit;
+            color: #1a345b;
+            background: #f4fafc;
+            outline: none;
+            margin-bottom: 10pt;
+        }
+        .pmt-modal input:focus { border-color: #1a345b; }
+        .pmt-modal-actions {
+            display: flex;
+            gap: 6pt;
+            justify-content: flex-end;
+        }
+
         @media (max-width: 640px) {
             .inv-parties { grid-template-columns: 1fr; }
             .afs-letterhead { flex-direction: column; gap: 4pt; }
@@ -193,38 +246,36 @@
                 {{-- Journal posting status rows --}}
                 <div class="inv-journals" id="invoiceJournals">
                     @if ($invoice->status !== 'draft')
-                    <div class="inv-journal-row {{ $invoice->posting_transaction_id ? 'posted' : 'pending' }}" id="journalPosting" data-type="invoice">
+                    <div class="inv-journal-row {{ $invoice->posting_transaction_id ? 'posted' : 'pending' }}" data-type="invoice">
                         @if ($invoice->posting_transaction_id)
                             <svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="inv-journal-label">Invoice Journal</span>
+                            <span class="inv-journal-status" data-journal-status>
+                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => $invoice->invoice_date->format('Y-m-d'), 'end_date' => $invoice->invoice_date->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
+                            </span>
                         @else
                             <div class="inv-journal-spinner" data-spinner></div>
+                            <span class="inv-journal-label">Invoice Journal</span>
+                            <span class="inv-journal-status" data-journal-status style="color:#1e40af;">Journal pending</span>
                         @endif
-                        <span class="inv-journal-label">Invoice Journal</span>
-                        <span class="inv-journal-status" data-journal-status>
-                            @if ($invoice->posting_transaction_id)
-                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => $invoice->invoice_date->format('Y-m-d'), 'end_date' => $invoice->invoice_date->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
-                            @else
-                                Journal pending
-                            @endif
-                        </span>
                     </div>
                     @endif
-                    @if ($invoice->payment_transaction_id || in_array($invoice->status, ['paid', 'partially_paid']))
-                    <div class="inv-journal-row {{ $invoice->payment_transaction_id ? 'posted' : 'pending' }}" id="journalPayment" data-type="invoice_payment">
-                        @if ($invoice->payment_transaction_id)
-                            <svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        @else
-                            <div class="inv-journal-spinner" data-spinner></div>
-                        @endif
-                        <span class="inv-journal-label">Payment Journal</span>
+                    @php $postedPayments = $invoice->payments()->whereNotNull('transaction_id')->with('transaction')->get(); @endphp
+                    @foreach ($postedPayments as $pmt)
+                    <div class="inv-journal-row posted" data-type="invoice_payment">
+                        <svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span class="inv-journal-label">Payment Journal — R{{ number_format($pmt->amount, 2) }}</span>
                         <span class="inv-journal-status" data-journal-status>
-                            @if ($invoice->payment_transaction_id)
-                                @php $paymentDate = $invoice->paymentTransaction->transaction_date; @endphp
-                                <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($invoice->total(), 2, '.', ''), 'start_date' => \Carbon\Carbon::parse($paymentDate)->format('Y-m-d'), 'end_date' => \Carbon\Carbon::parse($paymentDate)->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
-                            @else
-                                Journal pending
-                            @endif
+                            @php $pmtDate = $pmt->transaction->transaction_date; @endphp
+                            <a href="{{ route('companies.transactions', [$company, 'amount' => number_format($pmt->amount, 2, '.', ''), 'start_date' => \Carbon\Carbon::parse($pmtDate)->format('Y-m-d'), 'end_date' => \Carbon\Carbon::parse($pmtDate)->format('Y-m-d')]) }}" style="color:inherit;text-decoration:underline;">Journal posted</a>
                         </span>
+                    </div>
+                    @endforeach
+                    @if (session('payment_posting'))
+                    <div class="inv-journal-row pending" data-type="invoice_payment">
+                        <div class="inv-journal-spinner" data-spinner></div>
+                        <span class="inv-journal-label">Payment Journal</span>
+                        <span class="inv-journal-status" data-journal-status style="color:#1e40af;">Journal pending</span>
                     </div>
                     @endif
                 </div>
@@ -318,7 +369,7 @@
                                 </div>
                             </div>
                             <div class="afs-letterhead-meta afs-right">
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;margin-bottom:3pt;">{{ $invoice->invoice_number }}</div>
+                                <div style="font-size:9pt;font-weight:800;color:#1a345b;margin-bottom:3pt;">{{ $invoice->invoice_number }}</div>
                                 <div style="margin-bottom:4pt;">
                                     <span class="reg-status {{ $invoice->status }}">{{ $currentInvoiceStatus->label() }}</span>
                                 </div>
@@ -337,32 +388,32 @@
                         <div class="inv-parties" style="margin-top:8pt;">
                             <div>
                                 <div class="reg-section-header">Bill To</div>
-                                <p style="font-size:7pt;font-weight:700;color:#23282d;margin:2pt 0 1pt;">
+                                <p style="font-size:7pt;font-weight:700;color:#191919;margin:2pt 0 1pt;">
                                     {{ optional($invoice->customer)->name ?? $invoice->customer_name }}
                                 </p>
                                 @if ($invoice->customer_email)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $invoice->customer_email }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $invoice->customer_email }}</p>
                                 @endif
                                 @if ($invoice->customer_address)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0;white-space:pre-line;">{{ $invoice->customer_address }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0;white-space:pre-line;">{{ $invoice->customer_address }}</p>
                                 @endif
                             </div>
                             <div>
                                 <div class="reg-section-header">From</div>
-                                <p style="font-size:7pt;font-weight:700;color:#23282d;margin:2pt 0 1pt;">{{ $company->registered_name }}</p>
+                                <p style="font-size:7pt;font-weight:700;color:#191919;margin:2pt 0 1pt;">{{ $company->registered_name }}</p>
                                 @if ($company->address_line_1)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $company->address_line_1 }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $company->address_line_1 }}</p>
                                 @endif
                                 @if ($company->address_line_2)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">{{ $company->address_line_2 }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">{{ $company->address_line_2 }}</p>
                                 @endif
                                 @if ($company->city)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0 0 1pt;">
+                                    <p style="font-size:7pt;color:#5a7186;margin:0 0 1pt;">
                                         {{ implode(', ', array_filter([$company->city, $company->province, $company->postal_code])) }}
                                     </p>
                                 @endif
                                 @if ($company->vat_number)
-                                    <p style="font-size:7pt;color:#6b5b8a;margin:0;">VAT No: {{ $company->vat_number }}</p>
+                                    <p style="font-size:7pt;color:#5a7186;margin:0;">VAT No: {{ $company->vat_number }}</p>
                                 @endif
                             </div>
                         </div>
@@ -390,7 +441,7 @@
                                             <span style="font-weight:700;">{{ $item->description }}</span>
                                             @if ($item->inventoryItem && $item->inventoryItem->sku)
                                                 <br>
-                                                <span style="font-size:6pt;color:#8b7aad;">SKU: {{ $item->inventoryItem->sku }}</span>
+                                                <span style="font-size:6pt;color:#6f869b;">SKU: {{ $item->inventoryItem->sku }}</span>
                                             @endif
                                         </td>
                                         <td class="amt">{{ rtrim(rtrim(number_format((float) $item->quantity, 2), '0'), '.') }}</td>
@@ -404,43 +455,40 @@
                         </table>
 
                         {{-- Totals --}}
+                        @php
+                            $amountPaid = $invoice->amountPaid();
+                            $balanceDue = $invoice->balanceDue();
+                        @endphp
                         <div style="display:flex;justify-content:flex-end;margin-bottom:10pt;">
                             <table class="reg-table" style="width:180pt;">
                                 <tbody>
                                     <tr>
-                                        <td style="color:#6b5b8a;">Subtotal</td>
+                                        <td style="color:#5a7186;">Subtotal</td>
                                         <td class="amt">R&nbsp;{{ number_format($invoice->subtotal(), 2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td style="color:#6b5b8a;">VAT</td>
+                                        <td style="color:#5a7186;">VAT</td>
                                         <td class="amt">R&nbsp;{{ number_format($invoice->taxTotal(), 2) }}</td>
                                     </tr>
+                                    <tr>
+                                        <td style="color:#5a7186;">Invoice Total</td>
+                                        <td class="amt">R&nbsp;{{ number_format($invoice->total(), 2) }}</td>
+                                    </tr>
+                                    @if ($amountPaid > 0)
+                                        <tr>
+                                            <td style="color:#15803d;">Amount Paid</td>
+                                            <td class="amt" style="color:#15803d;">R&nbsp;{{ number_format($amountPaid, 2) }}</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>{{ $invoice->status === \App\Enums\InvoiceStatus::Paid->value ? 'Total Paid' : 'Total Due' }}</td>
-                                        <td class="amt">R&nbsp;{{ number_format($invoice->total(), 2) }}</td>
+                                        <td>{{ $balanceDue <= 0 ? 'Fully Paid' : 'Balance Due' }}</td>
+                                        <td class="amt" style="font-weight:800;color:{{ $balanceDue <= 0 ? '#15803d' : '#1a345b' }};">R&nbsp;{{ number_format($balanceDue, 2) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
-
-                        @if ($invoice->payments->isNotEmpty())
-                            <div style="display:flex;justify-content:flex-end;margin-bottom:10pt;">
-                                <table class="reg-table" style="width:180pt;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="color:#6b5b8a;">Amount Paid</td>
-                                            <td class="amt">R&nbsp;{{ number_format($invoice->amountPaid(), 2) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight:700;">Balance Due</td>
-                                            <td class="amt" style="font-weight:800;color:#4c1d95;">R&nbsp;{{ number_format($invoice->balanceDue(), 2) }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        @endif
 
                         {{-- Payments --}}
                         @if ($invoice->payments->isNotEmpty())
@@ -472,6 +520,7 @@
                             </div>
                         @endif
 
+
                         {{-- Payment / banking details --}}
                         @if ($company->bank_name || $company->bank_account_number)
                             <div style="margin-bottom:10pt;">
@@ -479,31 +528,31 @@
                                 <div class="inv-bank-grid">
                                     @if ($company->bank_name)
                                         <div>
-                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin:0 0 1pt;">Bank</p>
-                                            <p style="font-size:7pt;font-weight:700;color:#23282d;margin:0;">{{ $company->bank_name }}</p>
+                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin:0 0 1pt;">Bank</p>
+                                            <p style="font-size:7pt;font-weight:700;color:#191919;margin:0;">{{ $company->bank_name }}</p>
                                         </div>
                                     @endif
                                     @if ($company->bank_account_number)
                                         <div>
-                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin:0 0 1pt;">Account Number</p>
-                                            <p style="font-size:7pt;font-weight:700;color:#23282d;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $company->bank_account_number }}</p>
+                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin:0 0 1pt;">Account Number</p>
+                                            <p style="font-size:7pt;font-weight:700;color:#191919;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $company->bank_account_number }}</p>
                                         </div>
                                     @endif
                                     @if ($company->bank_account_type)
                                         <div>
-                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin:0 0 1pt;">Account Type</p>
-                                            <p style="font-size:7pt;font-weight:700;color:#23282d;margin:0;">{{ ucfirst($company->bank_account_type) }}</p>
+                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin:0 0 1pt;">Account Type</p>
+                                            <p style="font-size:7pt;font-weight:700;color:#191919;margin:0;">{{ ucfirst($company->bank_account_type) }}</p>
                                         </div>
                                     @endif
                                     @if ($company->bank_branch_code)
                                         <div>
-                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin:0 0 1pt;">Branch Code</p>
-                                            <p style="font-size:7pt;font-weight:700;color:#23282d;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $company->bank_branch_code }}</p>
+                                            <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin:0 0 1pt;">Branch Code</p>
+                                            <p style="font-size:7pt;font-weight:700;color:#191919;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $company->bank_branch_code }}</p>
                                         </div>
                                     @endif
                                     <div>
-                                        <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b7aad;margin:0 0 1pt;">Reference</p>
-                                        <p style="font-size:7pt;font-weight:700;color:#4c1d95;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $invoice->invoice_number }}</p>
+                                        <p style="font-size:5.5pt;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#6f869b;margin:0 0 1pt;">Reference</p>
+                                        <p style="font-size:7pt;font-weight:700;color:#1a345b;margin:0;font-family:'DejaVu Sans Mono',monospace;">{{ $invoice->invoice_number }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -529,6 +578,25 @@
                     </div>
                 </div>
 
+                {{-- Payment modal --}}
+                @if ($invoice->posting_transaction_id && \App\Enums\InvoiceStatus::from($invoice->status)->isOpen())
+                <div class="pmt-overlay" id="paymentOverlay">
+                    <div class="pmt-modal">
+                        <h3>Record Payment — {{ $invoice->invoice_number }}</h3>
+                        <form method="POST" action="{{ route('companies.invoices.payments.store', [$company, $invoice]) }}" id="paymentForm">
+                            @csrf
+                            <label for="paymentAmount">Payment Amount (Balance: R{{ number_format($balanceDue, 2) }})</label>
+                            <input type="number" name="amount" id="paymentAmount" step="0.01" min="0.01" max="{{ $balanceDue }}" value="{{ $balanceDue }}" required autofocus>
+                            @error('amount') <p class="field-error">{{ $message }}</p> @enderror
+                            <div class="pmt-modal-actions">
+                                <button type="button" class="reg-btn" id="cancelPayment">Cancel</button>
+                                <button type="submit" class="reg-btn primary" id="submitPayment">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @endif
+
             </main>
         </div>
     </div>
@@ -550,42 +618,79 @@
         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 4000);
     }
 
-    // ── Journal posting status (asset-style) ──
+    // ── Journal posting status (asset-register style) ──
     const invoiceId = {{ $invoice->id }};
     const companyId = {{ $company->id }};
     const journalsContainer = document.getElementById('invoiceJournals');
 
     const journalStyle = {
-        pending: { label: 'Journal pending', color: '#1e40af', rowClass: 'pending' },
-        posted:  { label: 'Journal posted',  color: '#166534', rowClass: 'posted' },
-        failed:  { label: 'Journal failed',  color: '#991b1b', rowClass: 'failed' },
+        pending: { label: 'Journal pending', color: '#1e40af', rowClass: 'pending',
+                   icon: '<div class="inv-journal-spinner" data-spinner></div>' },
+        posted:  { label: 'Journal posted',  color: '#166534', rowClass: 'posted',
+                   icon: '<svg class="inv-journal-icon" fill="none" stroke="#166534" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>' },
+        failed:  { label: 'Journal failed',  color: '#991b1b', rowClass: 'failed',
+                   icon: '<svg class="inv-journal-icon" fill="none" stroke="#991b1b" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>' },
     };
 
     function updateJournalRow(type, status, label) {
-        if (status === 'posted' || status === 'failed') {
-            location.reload();
-            return;
-        }
-
+        const style = journalStyle[status] || journalStyle.pending;
         let row = document.querySelector('.inv-journal-row[data-type="' + type + '"]');
+
         if (!row) {
             row = document.createElement('div');
-            row.className = 'inv-journal-row pending';
             row.dataset.type = type;
-            row.innerHTML = '<div class="inv-journal-spinner" data-spinner></div>'
-                + '<span class="inv-journal-label">' + (type === 'invoice' ? 'Invoice Journal' : 'Payment Journal') + '</span>'
-                + '<span class="inv-journal-status" data-journal-status style="color:#1e40af;">Journal pending</span>';
             journalsContainer.appendChild(row);
+        }
+
+        row.className = 'inv-journal-row ' + style.rowClass;
+        const rowLabel = type === 'invoice' ? 'Invoice Journal' : 'Payment Journal';
+        row.innerHTML = style.icon
+            + '<span class="inv-journal-label">' + rowLabel + '</span>'
+            + '<span class="inv-journal-status" data-journal-status style="color:' + style.color + ';">' + (label || style.label) + '</span>';
+
+        if (status === 'posted') {
+            showToast(label || (rowLabel + ' posted'), '#065f46');
+            setTimeout(() => location.reload(), 1200);
+        } else if (status === 'failed') {
+            showToast(label || (rowLabel + ' failed'), '#b91c1c');
         }
     }
 
-    if (window.Echo) {
+    window.addEventListener('echo:ready', function () {
         window.Echo.private('company.' + companyId)
             .listen('.posting.status.updated', function (e) {
                 if ((e.entity_type === 'invoice' || e.entity_type === 'invoice_payment') && e.entity_id === invoiceId) {
                     updateJournalRow(e.entity_type, e.status, e.label);
                 }
             });
+    });
+
+    // ── Payment modal ──
+    const overlay = document.getElementById('paymentOverlay');
+    const cancelBtn = document.getElementById('cancelPayment');
+    const pmtForm = document.getElementById('paymentForm');
+
+    if (overlay) {
+        if (cancelBtn) cancelBtn.addEventListener('click', function () {
+            overlay.classList.remove('open');
+            const sel = document.querySelector('.inv-status-form [name=status]');
+            if (sel) sel.value = '{{ $invoice->status }}';
+        });
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) {
+                overlay.classList.remove('open');
+                const sel = document.querySelector('.inv-status-form [name=status]');
+                if (sel) sel.value = '{{ $invoice->status }}';
+            }
+        });
+        if (pmtForm) {
+            pmtForm.addEventListener('submit', function () {
+                const btn = document.getElementById('submitPayment');
+                if (btn) { btn.disabled = true; btn.textContent = 'Posting…'; }
+                updateJournalRow('invoice_payment', 'pending', 'Journal pending');
+                overlay.classList.remove('open');
+            });
+        }
     }
 
     // Status update form — update badge in place
@@ -595,6 +700,14 @@
             e.preventDefault();
             const btn = statusForm.querySelector('[type=submit]');
             const newStatus = statusForm.querySelector('[name=status]').value;
+
+            if ((newStatus === 'paid' || newStatus === 'partially_paid') && overlay) {
+                overlay.classList.add('open');
+                const inp = document.getElementById('paymentAmount');
+                if (inp) inp.focus();
+                return;
+            }
+
             if (btn) { btn.disabled = true; btn.textContent = 'Updating…'; }
             try {
                 const fd = new FormData(statusForm);

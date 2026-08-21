@@ -1,5 +1,5 @@
 import { getBearerToken } from "../lib/graphql.js";
-const API_BASE = "http://localhost:8000/api";
+import { API_BASE } from "../lib/api.js";
 async function apiPost(path, body) {
     const token = getBearerToken();
     if (!token)

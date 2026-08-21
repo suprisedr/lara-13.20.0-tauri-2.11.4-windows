@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -51,7 +51,7 @@
             color: #fff;
         }
 
-        .mgmt-btn.primary:hover { background: #333; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
 
         /* ── Filter bar ──────────────────────────────────────────── */
         .stmt-filter-bar {
@@ -68,12 +68,12 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: #7c3aed;
+            color: #005bf0;
             margin-bottom: 0.35rem;
         }
 
         .stmt-filter-bar input[type='date'] {
-            border: 1px solid rgba(94, 23, 235, 0.2);
+            border: 1px solid rgba(0, 91, 240, 0.2);
             border-radius: 0;
             padding: 0.45rem 0.65rem;
             font-size: 0.85rem;
@@ -81,14 +81,14 @@
 
         .stmt-filter-bar input[type='date']:focus {
             outline: none;
-            border-color: #7c3aed;
+            border-color: #005bf0;
         }
 
         /* ── Statement document (PDF-style) ─────────────────────── */
         .cust-doc {
             background: #fff;
-            border: 1px solid #ddd;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            border: 1px solid #d3e2f5;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
             color: #000;
             font-size: 0.78rem;
             line-height: 1.45;
@@ -151,7 +151,7 @@
         .summary-table .lbl {
             display: block;
             font-weight: 700;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 0.15rem;
@@ -186,7 +186,7 @@
         table.cust-items-table tbody td {
             padding: 0.55rem 0;
             font-size: 0.78rem;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: top;
         }
 
@@ -198,7 +198,7 @@
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
 
-        table.cust-items-table tbody tr:hover td { background: #fafafa; }
+        table.cust-items-table tbody tr:hover td { background: #f7fbfd; }
 
         table.cust-items-table tfoot td {
             padding-top: 0.65rem;
@@ -224,7 +224,7 @@
         .empty-row {
             padding: 1rem 0;
             text-align: center;
-            color: #999;
+            color: #6f869b;
             font-size: 0.78rem;
         }
 
@@ -272,7 +272,7 @@
                         <input type="date" id="end_date" name="end_date" value="{{ $endDate }}">
                     </div>
                     <div class="field">
-                        <button type="submit" style="background:#5e17eb;color:#fff;border:none;border-radius:0;padding:0.5rem 1.1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">
+                        <button type="submit" style="background:#005bf0;color:#fff;border:none;border-radius:0;padding:0.5rem 1.1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">
                             Update
                         </button>
                     </div>

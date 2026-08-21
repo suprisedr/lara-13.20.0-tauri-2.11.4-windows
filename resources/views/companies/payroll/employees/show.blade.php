@@ -22,12 +22,12 @@
             font-weight: 700;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: #8b7aad;
+            color: #6f869b;
             margin-bottom: 1pt;
         }
 
         .emp-detail-item .val {
-            color: #23282d;
+            color: #191919;
             font-weight: 600;
         }
 
@@ -39,7 +39,7 @@
         }
 
         .emp-summary-chip {
-            border: 0.5pt solid #c4b5fd;
+            border: 0.5pt solid #9ec1f5;
             padding: 4pt 6pt;
         }
 
@@ -48,14 +48,14 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.07em;
-            color: #8b7aad;
+            color: #6f869b;
             margin-bottom: 1pt;
         }
 
         .emp-summary-chip .val {
             font-size: 8pt;
             font-weight: 800;
-            color: #23282d;
+            color: #191919;
         }
 
         @media (max-width: 640px) {
@@ -101,13 +101,13 @@
                                 </div>
                             </div>
                             <div class="afs-letterhead-meta afs-right">
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;margin-bottom:3pt;">{{ $employee->employee_number }}</div>
+                                <div style="font-size:9pt;font-weight:800;color:#1a345b;margin-bottom:3pt;">{{ $employee->employee_number }}</div>
                                 <div style="margin-bottom:2pt;">
                                     <span class="reg-status {{ $employee->is_active ? '' : 'disposed' }}">
                                         {{ $employee->is_active ? 'Active' : 'Inactive' }}
                                     </span>
                                 </div>
-                                <div style="font-size:6.5pt;color:#6b5b8a;">
+                                <div style="font-size:6.5pt;color:#5a7186;">
                                     {{ $company->registered_name }}
                                 </div>
                             </div>
@@ -254,7 +254,7 @@
                                         <td class="amt">{{ number_format($payslip->net_pay, 2) }}</td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="7" style="text-align:center;color:#8b7aad;padding:12pt;">No payslips yet for this employee.</td></tr>
+                                    <tr><td colspan="7" style="text-align:center;color:#6f869b;padding:12pt;">No payslips yet for this employee.</td></tr>
                                 @endforelse
                             </tbody>
                         </table>

@@ -34,3 +34,5 @@ Thumbs.db
 .phpunit.result.cache
 .rr.yaml.lock
 src-tauri/resources/
+/data.ms
+/storage/fonts

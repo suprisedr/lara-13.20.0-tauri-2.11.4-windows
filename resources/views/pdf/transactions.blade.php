@@ -7,8 +7,13 @@
     <title>Transactions &mdash; {{ $company->registered_name }}</title>
     @include('pdf._report-header-styles')
     <style>
+        /* Page geometry from CGL-YE25 sectPr: 28800 x 16200 twips
+           landscape = 508mm x 285.75mm. dompdf ignores @page margins,
+           so the inset lives on .page-frame below. The controller
+           also sets this explicitly via setPaper([0,0,1440,810]). */
         @page {
-            margin: 15mm;
+            size: 508mm 285.75mm;
+            margin: 0;
         }
 
         * {
@@ -18,16 +23,16 @@
         }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #23282d;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #191919;
             background: #fff;
-            line-height: 1.4;
+            line-height: 1.2857;
         }
 
         .page-frame {
             border: none;
-            padding: 8mm;
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         table {
@@ -36,16 +41,16 @@
         }
 
         thead th {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 3pt 4pt;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 1.5px solid #4c1d95;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
             text-align: left;
-            color: #4c1d95;
-            background: #ede9fe;
+            color: #ffffff;
+            background: #005bf0;
         }
 
         thead th.right {
@@ -53,30 +58,31 @@
         }
 
         tbody tr {
-            border-bottom: 0.4px solid #ddd6fe;
+            border-bottom: 0.4px solid #d3e2f5;
         }
 
         tbody td {
             padding: 2pt 4pt;
-            font-size: 7pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
             vertical-align: top;
         }
 
         td.right {
             text-align: right;
-            font-family: DejaVu Sans Mono, monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
         }
 
         td.muted {
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         tr.tx-header td {
-            background: #4c1d95;
+            background: #1a345b;
             color: #fff;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
             padding: 3pt 4pt;
         }
@@ -87,8 +93,8 @@
 
         tr.line-row td {
             padding: 1.5pt 4pt;
-            font-size: 6.5pt;
-            background: #f5f3ff;
+            font-size: 10.5pt;
+            background: #f4fafc;
         }
 
         tr.line-row td:first-child {
@@ -101,60 +107,61 @@
 
         tr.tx-source td {
             padding: 2pt 4pt 3pt 12px;
-            font-size: 6pt;
-            color: #6b5b8a;
-            background: #f8fbfe;
-            font-family: DejaVu Sans Mono, monospace;
+            font-size: 10.5pt;
+            color: #5a7186;
+            background: #f7fbfd;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             white-space: pre-wrap;
             word-break: break-word;
-            border-bottom: 0.5px solid #ddd6fe;
+            border-bottom: 0.5px solid #d3e2f5;
         }
 
         tr.tx-source td span.src-label {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-weight: bold;
-            font-size: 5pt;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #8b7aad;
+            font-size: 7pt;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #6f869b;
             display: block;
             margin-bottom: 1px;
         }
 
         tfoot tr.grand-total td {
             padding: 4pt 4pt;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 2px solid #4c1d95;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 0.5pt solid #000000;
+            border-bottom: 0.5pt solid #000000;
         }
 
         .badge {
             display: inline-block;
-            font-size: 5.5pt;
+            font-size: 7pt;
             font-weight: bold;
             padding: 1px 3px;
             border-radius: 2px;
         }
 
         .badge-posted {
-            background: #ede9fe;
-            color: #4c1d95;
+            background: #eaf8fb;
+            color: #1a345b;
         }
 
         .badge-draft {
-            background: #f5f3ff;
-            color: #7c3aed;
+            background: #f4fafc;
+            color: #005bf0;
         }
 
         .footer {
             margin-top: 14px;
             padding-top: 5px;
-            border-top: 1px solid #c4b5fd;
-            font-size: 6pt;
-            color: #8b7aad;
+            border-top: 1px solid #9ec1f5;
+            font-size: 7pt;
+            color: #6f869b;
             text-align: center;
         }
     </style>
@@ -203,9 +210,9 @@
                         <td>{{ $tx->transaction_date->format('d M Y') }}</td>
                         <td class="muted">{{ $tx->reference ?? '—' }}</td>
                         <td colspan="2">{{ $tx->description }}</td>
-                        <td colspan="2" style="color:#c4b5fd;font-size:6pt;">{{ $tx->notes ?? '' }}</td>
-                        <td class="right">{{ number_format($txDebits, 2) }}</td>
-                        <td class="right">{{ number_format($txCredits, 2) }}</td>
+                        <td colspan="2" style="color:#9ec1f5;font-size: 7pt;">{{ $tx->notes ?? '' }}</td>
+                        <td class="right">{{ number_format($txDebits, 2, '.', ' ') }}</td>
+                        <td class="right">{{ number_format($txCredits, 2, '.', ' ') }}</td>
                     </tr>
                     @if ($tx->source_document)
                         <tr class="tx-source">
@@ -218,9 +225,9 @@
                             <td class="muted">{{ $line->account->account_code }} {{ $line->account->account_name }}
                             </td>
                             <td class="muted">{{ \Illuminate\Support\Str::limit($line->description ?? '', 35) }}</td>
-                            <td class="right">{{ $line->type === 'debit' ? number_format($line->amount, 2) : '' }}
+                            <td class="right">{{ $line->type === 'debit' ? number_format($line->amount, 2, '.', ' ') : '' }}
                             </td>
-                            <td class="right">{{ $line->type === 'credit' ? number_format($line->amount, 2) : '' }}
+                            <td class="right">{{ $line->type === 'credit' ? number_format($line->amount, 2, '.', ' ') : '' }}
                             </td>
                         </tr>
                     @endforeach
@@ -232,8 +239,8 @@
             <tfoot>
                 <tr class="grand-total">
                     <td colspan="6" style="text-align:right;padding-right:8px;">Totals</td>
-                    <td class="right">{{ number_format($totalDebits, 2) }}</td>
-                    <td class="right">{{ number_format($totalCredits, 2) }}</td>
+                    <td class="right">{{ number_format($totalDebits, 2, '.', ' ') }}</td>
+                    <td class="right">{{ number_format($totalCredits, 2, '.', ' ') }}</td>
                 </tr>
             </tfoot>
         </table>
@@ -243,6 +250,7 @@
         </div>
 
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

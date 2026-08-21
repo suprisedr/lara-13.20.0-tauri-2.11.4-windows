@@ -7,11 +7,11 @@
 <style>
     .auth-page {
         min-height:100vh; display:flex; align-items:center; justify-content:center;
-        background:#f7f5ff;
+        background:#f7fbfd;
     }
 
     .auth-card {
-        width:100%; max-width:400px; background:#fff; border:1px solid #e5e7eb;
+        width:100%; max-width:400px; background:#fff; border:1px solid #d3e2f5;
         padding:2.5rem 2.25rem; margin:2rem 1rem;
     }
 
@@ -19,34 +19,34 @@
         display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem;
     }
     .auth-brand-mark {
-        width:32px; height:32px; background:#5e17eb; display:flex;
+        width:32px; height:32px; background:#005bf0; display:flex;
         align-items:center; justify-content:center;
     }
     .auth-brand-mark svg { color:#fff; }
     .auth-brand-name {
-        font-size:1rem; font-weight:800; color:#0a0a0a; letter-spacing:-0.02em;
+        font-size:1rem; font-weight:800; color:#191919; letter-spacing:-0.02em;
     }
 
     .auth-card h1 {
-        font-size:1.35rem; font-weight:800; color:#0a0a0a;
+        font-size:1.35rem; font-weight:800; color:#191919;
         margin:0 0 0.2rem; letter-spacing:-0.015em;
     }
     .auth-card .auth-sub {
-        font-size:0.82rem; color:#6b7280; margin:0 0 1.5rem;
+        font-size:0.82rem; color:#5a7186; margin:0 0 1.5rem;
     }
 
     .auth-label {
-        display:block; font-size:0.6rem; font-weight:700;
+        display:block; font-size:0.7rem; font-weight:700;
         letter-spacing:0.07em; text-transform:uppercase;
-        color:#555; margin-bottom:0.22rem;
+        color:#5a7186; margin-bottom:0.22rem;
     }
     .auth-input {
         display:block; width:100%; padding:0.45rem 0.65rem;
         font-size:0.85rem; font-family:inherit; color:#000;
-        background:#fff; border:1px solid #ccc; outline:none;
+        background:#fff; border:1px solid #d3e2f5; outline:none;
         transition:border-color 0.15s; box-sizing:border-box;
     }
-    .auth-input:focus { border-color:#5e17eb; }
+    .auth-input:focus { border-color:#005bf0; }
     .auth-input.error { border-color:#dc2626; background:#fff5f5; }
     .auth-error { font-size:0.72rem; color:#dc2626; margin:0.2rem 0 0; }
 
@@ -56,14 +56,14 @@
         font-size:0.85rem; font-weight:700; font-family:inherit;
         border:none; cursor:pointer; transition:background 0.15s;
     }
-    .auth-btn:hover { background:#333; }
+    .auth-btn:hover { background:#1a345b; }
 
     .auth-password-wrap { position:relative; }
     .auth-password-wrap .auth-input { padding-right:2.5rem; }
     .auth-password-toggle {
         position:absolute; top:0; right:0; height:100%; width:2.5rem;
         display:flex; align-items:center; justify-content:center;
-        background:none; border:none; cursor:pointer; color:#9ca3af;
+        background:none; border:none; cursor:pointer; color:#6f869b;
         transition:color 0.15s;
     }
     .auth-password-toggle:hover { color:#000; }
@@ -74,11 +74,11 @@
         font-size:0.78rem; color:#15803d; margin-bottom:1rem;
     }
 
-    .auth-link { color:#5e17eb; font-weight:700; text-decoration:none; font-size:0.78rem; }
+    .auth-link { color:#005bf0; font-weight:700; text-decoration:none; font-size:0.78rem; }
     .auth-link:hover { text-decoration:underline; }
 
     .auth-footer {
-        margin:1.25rem 0 0; font-size:0.82rem; color:#6b7280; text-align:center;
+        margin:1.25rem 0 0; font-size:0.82rem; color:#5a7186; text-align:center;
     }
 </style>
 @endpush
@@ -136,7 +136,7 @@
 
             <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.25rem;">
                 <input id="remember_me" type="checkbox" name="remember" style="accent-color:#000;width:0.9rem;height:0.9rem;cursor:pointer;">
-                <label for="remember_me" style="font-size:0.8rem;color:#555;cursor:pointer;">Keep me logged in</label>
+                <label for="remember_me" style="font-size:0.8rem;color:#5a7186;cursor:pointer;">Keep me logged in</label>
             </div>
 
             <button type="submit" class="auth-btn">Log in</button>

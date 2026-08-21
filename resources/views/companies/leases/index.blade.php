@@ -23,14 +23,14 @@
                 @endif
 
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:7pt;color:#6b5b8a;">
+                    <span style="font-size:7pt;color:#5a7186;">
                         {{ $leases->count() }} lease{{ $leases->count() !== 1 ? 's' : '' }}
                     </span>
                     <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
                         <form method="GET" action="{{ route('companies.leases.index', $company) }}" style="display:flex;align-items:center;gap:0.5rem;">
-                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#6b5b8a;">As at</label>
+                            <label style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#5a7186;">As at</label>
                             <input type="date" name="as_of" value="{{ $asOf }}" onchange="this.form.submit()"
-                                style="border:1px solid #c4b5fd;padding:0.32rem 0.5rem;font-size:7pt;font-family:inherit;">
+                                style="border:1px solid #9ec1f5;padding:0.32rem 0.5rem;font-size:7pt;font-family:inherit;">
                         </form>
                         <button type="button" class="reg-btn primary" onclick="document.getElementById('panel-add-lease').classList.toggle('open');document.getElementById('panel-add-lease').scrollIntoView({behavior:'smooth',block:'nearest'})">
                             + Add Lease
@@ -41,14 +41,14 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Leases</div>
-                        <p style="font-size:7pt;color:#6b5b8a;margin:0.2rem 0 0.75rem;">
+                        <p style="font-size:7pt;color:#5a7186;margin:0.2rem 0 0.75rem;">
                             IFRS 16 lease register — lessee (ROU asset + liability) and lessor (finance or operating) leases.
                         </p>
 
                         <hr class="reg-divider">
 
                         @if ($leases->isEmpty())
-                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No leases yet. Add your first lease below.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:7pt;">No leases yet. Add your first lease below.</p>
                         @else
                             @php
                                 $totalRou = 0.0; $totalDep = 0.0; $totalNbv = 0.0; $totalLiab = 0.0; $totalNetInv = 0.0;
@@ -111,7 +111,7 @@
                                                         {{ $lease->name }}
                                                     </a>
                                                     @if ($lease->counterparty)
-                                                        <div style="font-size:6.5pt;color:#8b7aad;">{{ $lease->counterparty }}</div>
+                                                        <div style="font-size:6.5pt;color:#6f869b;">{{ $lease->counterparty }}</div>
                                                     @endif
                                                 </td>
                                                 <td><span class="role-chip {{ $roleChip }}">{{ $roleLabel }}</span></td>
@@ -126,7 +126,7 @@
                                                 </td>
                                                 <td style="text-align:right;">
                                                     <div class="reg-row-actions">
-                                                        <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
+                                                        <button type="button" class="reg-row-dots">&#x22EE;</button>
                                                         <div class="reg-row-menu">
                                                             <a href="{{ route('companies.leases.show', [$company, $lease]) }}">View</a>
                                                             <form method="POST"
@@ -268,11 +268,11 @@
                                         </div>
                                         <div class="af-field" x-show="role === 'lessee'" style="display:flex;align-items:center;gap:0.5rem;padding-top:1.1rem;" x-cloak>
                                             <input type="checkbox" name="is_short_term" value="1" id="st-check" style="width:auto;margin:0;">
-                                            <label for="st-check" style="margin:0;font-size:6.5pt;font-weight:600;text-transform:none;letter-spacing:0;color:#4c1d95;cursor:pointer;">Short-term (&le; 12 months)</label>
+                                            <label for="st-check" style="margin:0;font-size:6.5pt;font-weight:600;text-transform:none;letter-spacing:0;color:#1a345b;cursor:pointer;">Short-term (&le; 12 months)</label>
                                         </div>
                                         <div class="af-field" x-show="role === 'lessee'" style="display:flex;align-items:center;gap:0.5rem;padding-top:1.1rem;" x-cloak>
                                             <input type="checkbox" name="is_low_value" value="1" id="lv-check" style="width:auto;margin:0;">
-                                            <label for="lv-check" style="margin:0;font-size:6.5pt;font-weight:600;text-transform:none;letter-spacing:0;color:#4c1d95;cursor:pointer;">Low-value asset</label>
+                                            <label for="lv-check" style="margin:0;font-size:6.5pt;font-weight:600;text-transform:none;letter-spacing:0;color:#1a345b;cursor:pointer;">Low-value asset</label>
                                         </div>
                                     </div>
                                     <div class="af-row">
@@ -294,6 +294,8 @@
     </div>
 
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    @include('companies._row-actions')
+
     <script>
         @if ($errors->any())
             document.getElementById('panel-add-lease').classList.add('open');
@@ -311,16 +313,5 @@
             };
         }
 
-        function toggleMenu(btn) {
-            var menu = btn.nextElementSibling;
-            var wasOpen = menu.classList.contains('open');
-            document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            if (!wasOpen) menu.classList.add('open');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.reg-row-actions')) {
-                document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            }
-        });
     </script>
 @endsection

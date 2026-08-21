@@ -7,26 +7,26 @@
     @include('companies._styles')
     <style>
         /* ── Document shell ───────────────── */
-        .cust-doc { background: #fff; border: 1px solid #c4b5fd; font-size: 7pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; line-height: 1.45; margin-bottom: 12pt; }
+        .cust-doc { background: #fff; border: 1px solid #9ec1f5; font-size: 7pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; line-height: 1.45; margin-bottom: 12pt; }
         .cust-doc-body { padding: 14pt 16pt; }
 
         /* ── Section dividers ─────────────── */
-        .section-header { border-top: 1.5pt solid #4c1d95; margin: 12pt 0 6pt; padding-top: 3pt; display: flex; justify-content: space-between; align-items: baseline; }
+        .section-header { border-top: 1.5pt solid #1a345b; margin: 12pt 0 6pt; padding-top: 3pt; display: flex; justify-content: space-between; align-items: baseline; }
         .section-header:first-child { margin-top: 0; }
-        .section-header-title { font-size: 5.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #4c1d95; }
-        .section-header-sub { font-size: 5.5pt; color: #8b7aad; }
+        .section-header-title { font-size: 10.5pt; font-weight: 800; text-transform: none; letter-spacing: 0; color: #1a345b; }
+        .section-header-sub { font-size: 7pt; color: #6f869b; }
 
         /* ── Field grid ───────────────────── */
         .af-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(140pt, 1fr)); gap: 7pt 12pt; }
-        .af-field-label { font-size: 5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #8b7aad; margin: 0 0 1.5pt; }
-        .af-field-value { font-size: 7pt; font-weight: 600; color: #4c1d95; margin: 0; line-height: 1.4; }
-        .af-na { color: #c4b5fd; font-style: italic; font-weight: 400; }
+        .af-field-label { font-size: 10pt; font-weight: 700; text-transform: none; letter-spacing: 0; color: #6f869b; margin: 0 0 1.5pt; }
+        .af-field-value { font-size: 7pt; font-weight: 600; color: #1a345b; margin: 0; line-height: 1.4; }
+        .af-na { color: #9ec1f5; font-style: italic; font-weight: 400; }
 
         /* ── Management bar ───────────────── */
         .inv-mgmt-bar { display: flex; align-items: center; justify-content: space-between; gap: 8pt; flex-wrap: wrap; margin-bottom: 10pt; }
-        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #c4b5fd; color: #4c1d95; font-size: 6pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3pt 7pt; text-decoration: none; cursor: pointer; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; transition: background 0.15s, color 0.15s; }
-        .mgmt-btn:hover { background: #f5f3ff; }
-        .mgmt-btn.primary { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+        .mgmt-btn { display: inline-flex; align-items: center; gap: 3pt; background: #fff; border: 1px solid #9ec1f5; color: #1a345b; font-size: 10pt; font-weight: 700; text-transform: none; letter-spacing: 0; padding: 3pt 7pt; text-decoration: none; cursor: pointer; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; transition: background 0.15s, color 0.15s; }
+        .mgmt-btn:hover { background: #f4fafc; }
+        .mgmt-btn.primary { background: #005bf0; color: #fff; border-color: #005bf0; }
         .mgmt-btn.primary:hover { background: #005f9e; }
         .mgmt-btn.warn { border-color: #b91c1c; color: #b91c1c; }
         .mgmt-btn.warn:hover { background: #b91c1c; color: #fff; }
@@ -35,40 +35,40 @@
         .qa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130pt, 1fr)); gap: 6pt; }
         .qa-card {
             display: flex; align-items: center; gap: 6pt;
-            padding: 7pt 8pt; border: 1px solid #c4b5fd;
+            padding: 7pt 8pt; border: 1px solid #9ec1f5;
             background: #fff; text-decoration: none;
             transition: border-color 0.15s, background 0.15s;
         }
-        .qa-card:hover { border-color: #7c3aed; background: #f5f3ff; }
+        .qa-card:hover { border-color: #005bf0; background: #f4fafc; }
         .qa-icon {
             width: 26pt; height: 26pt; flex-shrink: 0;
-            background: #f5f3ff; color: #7c3aed;
+            background: #f4fafc; color: #005bf0;
             display: flex; align-items: center; justify-content: center;
         }
-        .qa-label { font-size: 7pt; font-weight: 700; color: #4c1d95; margin: 0; line-height: 1.2; }
-        .qa-sub { font-size: 5.5pt; color: #8b7aad; margin: 1pt 0 0; }
+        .qa-label { font-size: 7pt; font-weight: 700; color: #1a345b; margin: 0; line-height: 1.2; }
+        .qa-sub { font-size: 7pt; color: #6f869b; margin: 1pt 0 0; }
 
         /* ── Status pills ─────────────────── */
-        .sp { display: inline-flex; align-items: center; gap: 2pt; font-size: 5pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 1pt 4pt; }
+        .sp { display: inline-flex; align-items: center; gap: 2pt; font-size: 7pt; font-weight: 700; letter-spacing: 0; text-transform: none; padding: 1pt 4pt; }
         .sp-ok { background: #ecfdf5; color: #047857; }
-        .sp-no { background: #f5f3ff; color: #8b7aad; }
+        .sp-no { background: #f4fafc; color: #6f869b; }
 
         /* ── Edit form inputs ─────────────── */
         .ef-input, .ef-select {
             width: 100%; box-sizing: border-box;
-            border: 1px solid #c4b5fd; padding: 4pt 6pt;
-            font-size: 7pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif; color: #4c1d95;
+            border: 1px solid #9ec1f5; padding: 4pt 6pt;
+            font-size: 7pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; color: #1a345b;
             background: #fff; outline: none; transition: border-color 0.15s;
             appearance: none;
         }
-        .ef-input:focus, .ef-select:focus { border-color: #7c3aed; }
-        .ef-label { display: block; font-size: 5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #8b7aad; margin-bottom: 2pt; }
+        .ef-input:focus, .ef-select:focus { border-color: #005bf0; }
+        .ef-label { display: block; font-size: 10pt; font-weight: 700; text-transform: none; letter-spacing: 0; color: #6f869b; margin-bottom: 2pt; }
         .ef-field { margin-bottom: 0; }
 
         /* Logo upload */
         .logo-upload-area { display: flex; align-items: center; gap: 8pt; flex-wrap: wrap; }
-        .logo-preview { width: 54pt; height: 54pt; object-fit: contain; border: 1px solid #c4b5fd; background: #f5f3ff; padding: 3pt; }
-        .logo-placeholder { width: 54pt; height: 54pt; border: 1px dashed #c4b5fd; background: #f5f3ff; display: flex; align-items: center; justify-content: center; color: #c4b5fd; font-size: 5pt; font-weight: 700; text-align: center; line-height: 1.3; }
+        .logo-preview { width: 54pt; height: 54pt; object-fit: contain; border: 1px solid #9ec1f5; background: #f4fafc; padding: 3pt; }
+        .logo-placeholder { width: 54pt; height: 54pt; border: 1px dashed #9ec1f5; background: #f4fafc; display: flex; align-items: center; justify-content: center; color: #9ec1f5; font-size: 10pt; font-weight: 700; text-align: center; line-height: 1.3; }
     </style>
 @endpush
 
@@ -83,14 +83,14 @@
         <main class="co-main">
 
             @if (session('success'))
-                <div style="display:flex;align-items:center;gap:4pt;background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                <div style="display:flex;align-items:center;gap:4pt;background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">
                     <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                     {{ session('success') }}
                 </div>
             @endif
 
             @if ($errors->any())
-                <div style="background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                <div style="background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:5pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">
                     @foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach
                 </div>
             @endif
@@ -150,8 +150,8 @@
                     <div id="view-mode">
                         <div class="inv-mgmt-bar" style="margin-bottom:8pt;">
                             <div>
-                                <div style="font-size:5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8b7aad;margin-bottom:1.5pt;">Business Profile</div>
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;">Company Details</div>
+                                <div style="font-size:7pt;font-weight:700;letter-spacing:0;text-transform:none;color:#6f869b;margin-bottom:1.5pt;">Business Profile</div>
+                                <div style="font-size:10pt;font-weight:800;color:#1a345b;">Company Details</div>
                             </div>
                             <button type="button" class="mgmt-btn" onclick="enterEditMode()">
                                 <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -278,8 +278,8 @@
                     <div id="edit-mode" style="display:none;">
                         <div class="inv-mgmt-bar" style="margin-bottom:8pt;">
                             <div>
-                                <div style="font-size:5pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8b7aad;margin-bottom:1.5pt;">Business Profile</div>
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;">Edit Company Details</div>
+                                <div style="font-size:7pt;font-weight:700;letter-spacing:0;text-transform:none;color:#6f869b;margin-bottom:1.5pt;">Business Profile</div>
+                                <div style="font-size:10pt;font-weight:800;color:#1a345b;">Edit Company Details</div>
                             </div>
                             <button type="button" class="mgmt-btn" onclick="exitEditMode()">Cancel</button>
                         </div>
@@ -300,10 +300,10 @@
                                 </div>
                                 <div>
                                     <label class="ef-label">Upload new logo</label>
-                                    <input type="file" name="logo" id="logo-file-input" accept="image/jpeg,image/png,image/webp,image/svg+xml" onchange="previewLogo(this)" style="font-size:7pt;color:#6b5b8a;">
-                                    <p style="font-size:5.5pt;color:#8b7aad;margin:2pt 0 0;">JPG, PNG, WebP or SVG · max 2 MB</p>
+                                    <input type="file" name="logo" id="logo-file-input" accept="image/jpeg,image/png,image/webp,image/svg+xml" onchange="previewLogo(this)" style="font-size:7pt;color:#5a7186;">
+                                    <p style="font-size:7pt;color:#6f869b;margin:2pt 0 0;">JPG, PNG, WebP or SVG · max 2 MB</p>
                                     @if ($company->logo_path)
-                                        <button type="button" id="remove-logo-btn" onclick="removeLogo()" style="margin-top:3pt;font-size:6pt;font-weight:700;color:#b91c1c;background:none;border:none;cursor:pointer;padding:0;">Remove current logo</button>
+                                        <button type="button" id="remove-logo-btn" onclick="removeLogo()" style="margin-top:3pt;font-size:7pt;font-weight:700;color:#b91c1c;background:none;border:none;cursor:pointer;padding:0;">Remove current logo</button>
                                     @endif
                                 </div>
                             </div>
@@ -377,7 +377,7 @@
                                 <div class="ef-field"><label class="ef-label" for="f-branch">Branch Code</label><input class="ef-input" id="f-branch" name="bank_branch_code" type="text" value="{{ old('bank_branch_code', $company->bank_branch_code) }}" placeholder="e.g. 470010"></div>
                             </div>
 
-                            <div style="border-top:1.5pt solid #4c1d95;padding-top:8pt;display:flex;align-items:center;justify-content:space-between;gap:8pt;flex-wrap:wrap;">
+                            <div style="border-top:1.5pt solid #1a345b;padding-top:8pt;display:flex;align-items:center;justify-content:space-between;gap:8pt;flex-wrap:wrap;">
                                 <button type="button" class="mgmt-btn" onclick="exitEditMode()">Cancel</button>
                                 <button type="submit" class="mgmt-btn primary">Save Changes</button>
                             </div>

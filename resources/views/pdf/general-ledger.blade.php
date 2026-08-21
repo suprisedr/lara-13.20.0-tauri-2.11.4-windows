@@ -7,8 +7,13 @@
     <title>General Ledger &mdash; {{ $company->registered_name }}</title>
     @include('pdf._report-header-styles')
     <style>
+        /* Page geometry from CGL-YE25 sectPr: 28800 x 16200 twips
+           landscape = 508mm x 285.75mm. dompdf ignores @page margins,
+           so the inset lives on .page-frame below. The controller
+           also sets this explicitly via setPaper([0,0,1440,810]). */
         @page {
-            margin: 15mm;
+            size: 508mm 285.75mm;
+            margin: 0;
         }
 
         * {
@@ -18,24 +23,24 @@
         }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #23282d;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #191919;
             background: #fff;
             line-height: 1.5;
         }
 
         .page-frame {
             border: none;
-            padding: 8mm;
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         .footer {
             margin-top: 20px;
             padding-top: 10px;
-            border-top: 1px solid #c4b5fd;
-            font-size: 6pt;
-            color: #8b7aad;
+            border-top: 1px solid #9ec1f5;
+            font-size: 7pt;
+            color: #6f869b;
             text-align: center;
         }
 
@@ -44,32 +49,33 @@
         }
 
         .account-head {
-            background: #ede9fe;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 1px solid #c4b5fd;
+            background: #eaf8fb;
+            border-top: 0.5pt solid #000000;
+            border-bottom: 1px solid #9ec1f5;
             padding: 4pt 6pt;
         }
 
         .account-code {
-            font-family: DejaVu Sans Mono, monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .account-name {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            letter-spacing: 0.01em;
+            letter-spacing: 0;
             margin-left: 8px;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .account-type {
-            font-size: 6.5pt;
-            color: #7c3aed;
+            font-size: 10pt;
+            color: #005bf0;
             float: right;
-            text-transform: uppercase;
+            text-transform: none;
         }
 
         .account-table {
@@ -78,54 +84,55 @@
         }
 
         .account-table thead th {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             padding: 3pt 4pt;
-            border-top: 1px solid #4c1d95;
-            border-bottom: 1px solid #a78bfa;
-            background: #f5f3ff;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
+            background: #005bf0;
             font-weight: bold;
-            color: #4c1d95;
+            color: #ffffff;
         }
 
         .account-table tbody td {
             padding: 2pt 4pt;
-            font-size: 7pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
         }
 
         .account-table td.right {
-            font-size: 7pt;
+            font-size: 10.5pt;
             text-align: right;
-            font-family: DejaVu Sans Mono, monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
         }
 
         .account-table td.dim {
-            color: #c4b5fd;
+            color: #9ec1f5;
         }
 
         tr.ob-row td,
         tr.cb-row td {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            background: #f5f3ff;
-            color: #7c3aed;
+            background: #f4fafc;
+            color: #005bf0;
         }
 
         tr.ob-row td {
-            border-top: 1px solid #c4b5fd;
+            border-top: 1px solid #9ec1f5;
         }
 
         tr.cb-row td {
-            border-top: 1px solid #a78bfa;
-            border-bottom: 2px solid #4c1d95;
+            border-top: 1px solid #2674f2;
+            border-bottom: 0.5pt solid #000000;
         }
 
         .no-tx {
             font-style: italic;
-            color: #aaa;
+            color: #6f869b;
             padding: 3pt 4pt;
-            font-size: 6pt;
+            font-size: 7pt;
         }
     </style>
 </head>
@@ -186,7 +193,7 @@
                         <tr class="ob-row">
                             <td colspan="5">Opening Balance</td>
                             <td class="right">
-                                {{ number_format($entry->opening_balance / $rounding, $roundingDecimals) }}</td>
+                                {{ number_format($entry->opening_balance / $rounding, $roundingDecimals, '.', ' ') }}</td>
                         </tr>
                         @forelse ($entry->lines as $line)
                             <tr>
@@ -194,13 +201,13 @@
                                 <td>{{ $line->reference ?? '&mdash;' }}</td>
                                 <td>{{ $line->description ?? '&mdash;' }}</td>
                                 <td class="{{ $line->debit ? 'right' : 'right dim' }}">
-                                    {{ $line->debit ? number_format($line->debit / $rounding, $roundingDecimals) : '&mdash;' }}
+                                    {{ $line->debit ? number_format($line->debit / $rounding, $roundingDecimals, '.', ' ') : '&mdash;' }}
                                 </td>
                                 <td class="{{ $line->credit ? 'right' : 'right dim' }}">
-                                    {{ $line->credit ? number_format($line->credit / $rounding, $roundingDecimals) : '&mdash;' }}
+                                    {{ $line->credit ? number_format($line->credit / $rounding, $roundingDecimals, '.', ' ') : '&mdash;' }}
                                 </td>
                                 <td class="right">
-                                    {{ number_format($line->running_balance / $rounding, $roundingDecimals) }}</td>
+                                    {{ number_format($line->running_balance / $rounding, $roundingDecimals, '.', ' ') }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -210,17 +217,17 @@
                         <tr class="cb-row">
                             <td colspan="3">
                                 Closing Balance &mdash;
-                                Debits: {{ number_format($entry->period_debits / $rounding, $roundingDecimals) }} /
-                                Credits: {{ number_format($entry->period_credits / $rounding, $roundingDecimals) }}
+                                Debits: {{ number_format($entry->period_debits / $rounding, $roundingDecimals, '.', ' ') }} /
+                                Credits: {{ number_format($entry->period_credits / $rounding, $roundingDecimals, '.', ' ') }}
                             </td>
                             <td colspan="3" class="right">
-                                {{ number_format($entry->closing_balance / $rounding, $roundingDecimals) }}</td>
+                                {{ number_format($entry->closing_balance / $rounding, $roundingDecimals, '.', ' ') }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         @empty
-            <p style="font-style:italic;color:#aaa;padding:12px 0;">No accounts with activity in the selected period.
+            <p style="font-style:italic;color:#6f869b;padding:12px 0;">No accounts with activity in the selected period.
             </p>
         @endforelse
 
@@ -230,6 +237,7 @@
         </div>
 
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

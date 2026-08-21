@@ -18,6 +18,7 @@ class LeasePostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postCommencementWithAi(Lease $lease, User $user): void
@@ -434,6 +435,12 @@ class LeasePostingService
 
         $prompt = "Posting type: {$kind}\n\n{$details}{$extraStr}\nChart of accounts:\n{$list}\n\nPick the IFRS 16-appropriate accounts for this lease posting.";
 
-        return (new LeasePostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('lease_posting', 'lease', $lease->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new LeasePostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('lease_posting', 'lease', $lease->id, $prompt, json_encode($response));
+
+        return $response;
     }
 }

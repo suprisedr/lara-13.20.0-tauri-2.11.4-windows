@@ -7,8 +7,13 @@
     <title>Trial Balance &mdash; {{ $company->registered_name }}</title>
     @include('pdf._report-header-styles')
     <style>
+        /* Page geometry from CGL-YE25 sectPr: 28800 x 16200 twips
+           landscape = 508mm x 285.75mm. dompdf ignores @page margins,
+           so the inset lives on .page-frame below. The controller
+           also sets this explicitly via setPaper([0,0,1440,810]). */
         @page {
-            margin: 15mm;
+            size: 508mm 285.75mm;
+            margin: 0;
         }
 
         * {
@@ -18,16 +23,16 @@
         }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #23282d;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #191919;
             background: #fff;
-            line-height: 1.4;
+            line-height: 1.2857;
         }
 
         .page-frame {
             border: none;
-            padding: 8mm;
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         table {
@@ -36,16 +41,16 @@
         }
 
         thead th {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 3pt 4pt;
-            color: #4c1d95;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 1.5px solid #4c1d95;
+            color: #ffffff;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
             text-align: left;
-            background: #ede9fe;
+            background: #005bf0;
         }
 
         thead th.right {
@@ -53,83 +58,85 @@
         }
 
         tbody tr {
-            border-bottom: 0.4px solid #ddd6fe;
+            border-bottom: 0.4px solid #d3e2f5;
         }
 
         tbody td {
             padding: 2pt 4pt;
-            font-size: 7pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
             vertical-align: middle;
         }
 
         td.right {
             text-align: right;
-            font-family: DejaVu Sans Mono, monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
         }
 
         td.code {
-            font-family: DejaVu Sans Mono, monospace;
-            font-size: 7pt;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            font-size: 10.5pt;
             white-space: nowrap;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         td.dim {
-            color: #c4b5fd;
+            color: #9ec1f5;
         }
 
         tr.group-header td {
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
             padding: 3pt 4pt;
-            color: #7c3aed;
-            border-top: 0.5px solid #ddd6fe;
-            background: #f5f3ff;
+            color: #005bf0;
+            border-top: 0.5px solid #d3e2f5;
+            background: #f4fafc;
         }
 
         tr.subtotal td {
             padding: 3pt 4pt;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 1px solid #a78bfa;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 1px solid #2674f2;
         }
 
         tr.section-total td {
             padding: 4pt 4pt;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #d8ecf9;
-            border-top: 1.5px solid #4c1d95;
+            color: #1a345b;
+            background: #d3e2f5;
+            border-top: 0.5pt solid #000000;
         }
 
         tfoot tr.grand-total td {
             padding: 4pt 4pt;
-            font-size: 7pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 2px solid #4c1d95;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 0.5pt solid #000000;
+            border-bottom: 0.5pt solid #000000;
         }
 
         .status-line {
-            font-size: 7pt;
+            font-size: 10pt;
             text-align: right;
             margin-bottom: 10px;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .footer {
             margin-top: 18px;
             padding-top: 6px;
-            border-top: 1px solid #c4b5fd;
-            font-size: 6pt;
-            color: #8b7aad;
+            border-top: 1px solid #9ec1f5;
+            font-size: 7pt;
+            color: #6f869b;
             text-align: center;
         }
     </style>
@@ -192,7 +199,7 @@
                 <strong>BALANCED &#10003;</strong>
             @else
                 <strong>OUT OF BALANCE &mdash; Difference:
-                    {{ $roundingLabel }}&nbsp;{{ number_format($difference / $rounding, $roundingDecimals) }}</strong>
+                    {{ $roundingLabel }}&nbsp;{{ number_format($difference / $rounding, $roundingDecimals, '.', ' ') }}</strong>
             @endif
             @if ($rounding > 1)
                 &nbsp;&nbsp;&bull;&nbsp;&nbsp;Amounts in {{ $roundingLabel }}
@@ -243,12 +250,12 @@
                             <tr>
                                 <td class="code">{{ $r['account']->account_code }}</td>
                                 <td>{{ $r['account']->account_name }}</td>
-                                <td style="font-size:5pt;color:#555;">
+                                <td style="font-size: 7pt;color:#5a7186;">
                                     {{ $typeLabels[$r['account']->account_type] ?? $r['account']->account_type }}</td>
                                 <td class="{{ $r['debit'] > 0 ? 'right' : 'right dim' }}">
-                                    {{ $r['debit'] > 0 ? number_format($r['debit'] / $rounding, $roundingDecimals) : '—' }}</td>
+                                    {{ $r['debit'] > 0 ? number_format($r['debit'] / $rounding, $roundingDecimals, '.', ' ') : '—' }}</td>
                                 <td class="{{ $r['credit'] > 0 ? 'right' : 'right dim' }}">
-                                    {{ $r['credit'] > 0 ? number_format($r['credit'] / $rounding, $roundingDecimals) : '—' }}
+                                    {{ $r['credit'] > 0 ? number_format($r['credit'] / $rounding, $roundingDecimals, '.', ' ') : '—' }}
                                 </td>
                             </tr>
                         @endforeach
@@ -258,8 +265,8 @@
             <tfoot>
                 <tr class="grand-total">
                     <td colspan="3">TOTAL</td>
-                    <td class="right">{{ number_format($totalDebit / $rounding, $roundingDecimals) }}</td>
-                    <td class="right">{{ number_format($totalCredit / $rounding, $roundingDecimals) }}</td>
+                    <td class="right">{{ number_format($totalDebit / $rounding, $roundingDecimals, '.', ' ') }}</td>
+                    <td class="right">{{ number_format($totalCredit / $rounding, $roundingDecimals, '.', ' ') }}</td>
                 </tr>
             </tfoot>
         </table>
@@ -270,6 +277,7 @@
         </div>
 
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

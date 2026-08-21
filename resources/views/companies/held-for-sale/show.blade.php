@@ -7,48 +7,48 @@
     @include('companies._styles')
     <style>
         .inv-mgmt-bar { display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem; }
-        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:0.78rem;color:#6b7280;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
+        .inv-mgmt-bar a,.inv-mgmt-bar .mgmt-back { font-size:0.78rem;color:#5a7186;text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:inherit; }
         .inv-mgmt-bar a:hover,.inv-mgmt-bar .mgmt-back:hover { color:#000; }
         .mgmt-btn { display:inline-flex;align-items:center;gap:0.4rem;background:#fff;border:1px solid #000;color:#000;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:0.4rem 0.85rem;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
         .mgmt-btn:hover { background:#000;color:#fff; }
         .mgmt-btn.primary { background:#000;color:#fff; }
-        .mgmt-btn.primary:hover { background:#333; }
+        .mgmt-btn.primary:hover { background:#1a345b; }
         .mgmt-btn.danger { border-color:#dc2626;color:#dc2626; }
         .mgmt-btn.danger:hover { background:#dc2626;color:#fff; }
-        .cust-doc { background:#fff;border:1px solid #ddd;font-family:'DejaVu Sans',Helvetica,Arial,sans-serif;color:#000;font-size:0.78rem;line-height:1.45; }
+        .cust-doc { background:#fff;border:1px solid #d3e2f5;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;color:#000;font-size:0.78rem;line-height:1.45; }
         .cust-doc-body { padding:2rem 2.25rem; }
         .cust-header-table { width:100%;border-collapse:collapse;margin-bottom:0.75rem; }
         .doc-title { font-size:1.3rem;font-weight:800;text-align:right;margin-bottom:0.25rem;letter-spacing:0.04em; }
         .doc-meta-line { text-align:right;font-size:0.78rem; }
-        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #854d0e;color:#854d0e;padding:0.08rem 0.5rem;font-size:0.62rem;letter-spacing:0.08em;margin-top:0.35rem; }
+        .status-box { display:inline-block;font-weight:700;text-transform:uppercase;border:1px solid #854d0e;color:#854d0e;padding:0.08rem 0.5rem;font-size:0.72rem;letter-spacing:0.08em;margin-top:0.35rem; }
         .status-box.sold { color:#065f46;border-color:#065f46; }
-        .status-box.reversed { color:#6b7280;border-color:#6b7280; }
+        .status-box.reversed { color:#5a7186;border-color:#5a7186; }
         .divider { border:none;border-top:2px solid #000;margin:1rem 0 1.25rem; }
         .summary-table { width:100%;border-collapse:collapse;margin-bottom:0.25rem; }
         .summary-table td { padding:0 1.25rem 0 0;font-size:0.78rem;vertical-align:top; }
-        .summary-table .lbl { display:block;font-weight:700;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.15rem; }
+        .summary-table .lbl { display:block;font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.15rem; }
         .summary-table .amt { font-size:0.95rem;font-weight:800; }
         .section-header { font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #000;padding-bottom:0.25rem;margin-bottom:0.5rem; }
         .info-section { margin-top:1.5rem; }
         .action-section { margin-top:1.5rem; }
-        .action-panel { border-bottom:1px solid #eee; }
+        .action-panel { border-bottom:1px solid #d3e2f5; }
         .action-panel-head { display:flex;align-items:center;justify-content:space-between;padding:0.65rem 0;cursor:pointer;user-select:none; }
         .action-panel-title { font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:0.5rem; }
         .action-panel-body { display:none;padding-bottom:1rem; }
         .action-panel.open .action-panel-body { display:block; }
-        .action-panel-chevron { font-size:0.65rem;color:#9ca3af;transition:transform 0.15s; }
+        .action-panel-chevron { font-size:0.65rem;color:#6f869b;transition:transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform:rotate(180deg); }
         .af-row { display:flex;flex-wrap:wrap;gap:0.5rem 0.75rem;align-items:flex-end;margin-bottom:0.65rem; }
         .af-field { flex:1;min-width:130px; }
         .af-field.wide { flex:2;min-width:200px; }
-        .af-field label { display:block;font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#555;margin-bottom:0.2rem; }
-        .af-field input,.af-field select,.af-field textarea { width:100%;border:1px solid #ccc;padding:0.32rem 0.5rem;font-size:0.78rem;font-family:inherit;color:#000;box-sizing:border-box;background:#fff; }
-        .af-field input:disabled { background:#f9f9f9;color:#999; }
+        .af-field label { display:block;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#5a7186;margin-bottom:0.2rem; }
+        .af-field input,.af-field select,.af-field textarea { width:100%;border:1px solid #d3e2f5;padding:0.32rem 0.5rem;font-size:0.78rem;font-family:inherit;color:#000;box-sizing:border-box;background:#fff; }
+        .af-field input:disabled { background:#f7fbfd;color:#6f869b; }
         .af-field input:focus,.af-field select:focus,.af-field textarea:focus { outline:none;border-color:#000; }
         .af-hint { font-size:0.65rem;color:#888;margin-bottom:0.5rem;line-height:1.4; }
-        .as-field label { display:block;font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#5e17eb;margin-bottom:0.2rem; }
-        .as-field input,.as-field select,.as-field textarea { width:100%;border:1px solid rgba(94,23,235,0.25);padding:0.28rem 0.45rem;font-size:0.74rem;color:#1b1b18;background:#fff;outline:none;transition:border-color 0.15s;box-sizing:border-box; }
-        .as-field input:focus,.as-field select:focus,.as-field textarea:focus { border-color:#5e17eb;box-shadow:0 0 0 3px rgba(94,23,235,0.08); }
+        .as-field label { display:block;font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#005bf0;margin-bottom:0.2rem; }
+        .as-field input,.as-field select,.as-field textarea { width:100%;border:1px solid rgba(0, 91, 240,0.25);padding:0.28rem 0.45rem;font-size:0.74rem;color:#191919;background:#fff;outline:none;transition:border-color 0.15s;box-sizing:border-box; }
+        .as-field input:focus,.as-field select:focus,.as-field textarea:focus { border-color:#005bf0;box-shadow:0 0 0 3px rgba(0, 91, 240,0.08); }
         @media (max-width:640px) {
             .cust-doc-body { padding:1.25rem 1rem; }
             .cust-header-table,.cust-header-table tr,.cust-header-table td { display:block;width:100%!important;text-align:left!important; }
@@ -106,7 +106,7 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.01em;">{{ $asset->name }}</div>
                                     @if ($asset->asset_tag)
-                                        <div style="font-size:0.78rem;color:#555;margin-top:0.2rem;">{{ $asset->asset_tag }}</div>
+                                        <div style="font-size:0.78rem;color:#5a7186;margin-top:0.2rem;">{{ $asset->asset_tag }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
@@ -141,7 +141,7 @@
                                         <div style="margin-top:0.35rem;"><span style="font-weight:700;">Buyer:</span> {{ $heldForSale->buyer_details }}</div>
                                     @endif
                                     @if ($heldForSale->notes)
-                                        <div style="margin-top:0.35rem;color:#555;font-style:italic;">{{ $heldForSale->notes }}</div>
+                                        <div style="margin-top:0.35rem;color:#5a7186;font-style:italic;">{{ $heldForSale->notes }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:50%;text-align:right;">
@@ -166,7 +166,7 @@
                                 @if ($heldForSale->fair_value_less_costs_to_sell !== null)
                                 <td>
                                     <span class="lbl">FVLCTS</span>
-                                    <span class="amt" style="color:#7c3aed;">R {{ number_format((float)$heldForSale->fair_value_less_costs_to_sell, 2) }}</span>
+                                    <span class="amt" style="color:#005bf0;">R {{ number_format((float)$heldForSale->fair_value_less_costs_to_sell, 2) }}</span>
                                 </td>
                                 @endif
                                 @if ((float)$heldForSale->impairment_on_reclassification > 0)
@@ -185,7 +185,7 @@
                         {{-- IFRS 5 info --}}
                         <div class="info-section">
                             <div class="section-header">IFRS 5 Requirements</div>
-                            <div style="font-size:0.72rem;color:#555;line-height:1.6;">
+                            <div style="font-size:0.72rem;color:#5a7186;line-height:1.6;">
                                 <p style="margin:0.25rem 0;">&#8226; Depreciation has <strong>ceased</strong> from the reclassification date.</p>
                                 <p style="margin:0.25rem 0;">&#8226; Measured at the <strong>lower</strong> of carrying amount and fair value less costs to sell.</p>
                                 <p style="margin:0.25rem 0;">&#8226; Presented <strong>separately</strong> as a current asset on the statement of financial position.</p>
@@ -331,9 +331,9 @@
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9999;align-items:center;justify-content:center;">
         <div style="background:#fff;width:100%;max-width:520px;padding:1.75rem 1.75rem 1.5rem;position:relative;max-height:90vh;overflow-y:auto;margin:1rem;">
             <button onclick="closeEditModal()"
-                style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;color:#aaa;cursor:pointer;">&times;</button>
-            <p style="font-size:0.62rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#854d0e;margin:0 0 0.25rem;">IFRS 5</p>
-            <h3 style="font-size:1rem;font-weight:800;color:#1b1b18;margin:0 0 1.25rem;">Edit Held-for-Sale Details</h3>
+                style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;color:#6f869b;cursor:pointer;">&times;</button>
+            <p style="font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#854d0e;margin:0 0 0.25rem;">IFRS 5</p>
+            <h3 style="font-size:1rem;font-weight:800;color:#191919;margin:0 0 1.25rem;">Edit Held-for-Sale Details</h3>
 
             <form method="POST" action="{{ route('companies.held-for-sale.update', [$company, $heldForSale]) }}">
                 @csrf
@@ -358,9 +358,9 @@
                 </div>
                 <div style="display:flex;gap:0.6rem;justify-content:flex-end;">
                     <button type="button" onclick="closeEditModal()"
-                        style="padding:0.38rem 1rem;border:1px solid #d1d5db;font-size:0.75rem;color:#555;background:#fff;cursor:pointer;font-weight:600;">Cancel</button>
+                        style="padding:0.38rem 1rem;border:1px solid #d3e2f5;font-size:0.75rem;color:#5a7186;background:#fff;cursor:pointer;font-weight:600;">Cancel</button>
                     <button type="submit"
-                        style="padding:0.38rem 1.1rem;background:#5e17eb;color:#fff;border:none;font-size:0.75rem;font-weight:700;cursor:pointer;">Save changes</button>
+                        style="padding:0.38rem 1.1rem;background:#005bf0;color:#fff;border:none;font-size:0.75rem;font-weight:700;cursor:pointer;">Save changes</button>
                 </div>
             </form>
         </div>

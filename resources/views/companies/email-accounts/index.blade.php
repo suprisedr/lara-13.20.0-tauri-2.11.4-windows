@@ -12,8 +12,8 @@
         }
         .ea-provider-icon.gmail   { background:#ea4335; }
         .ea-provider-icon.outlook { background:#0078d4; }
-        .ea-provider-icon.imap    { background:#6b7280; }
-        .ea-provider-icon.pop     { background:#8b5cf6; }
+        .ea-provider-icon.imap    { background:#5a7186; }
+        .ea-provider-icon.pop     { background:#2674f2; }
 
         .ea-status {
             display:inline-block; padding:1pt 4pt;
@@ -25,23 +25,23 @@
 
         .ea-error-text { color:#dc2626; font-size:5.5pt; display:block; margin-top:1pt; }
 
-        .ea-meta { font-size:6pt; color:#8b7aad; }
+        .ea-meta { font-size:6pt; color:#6f869b; }
 
         .ea-actions { display:flex; align-items:center; gap:0.25rem; }
 
         .list-search-wrap { position:relative; display:flex; align-items:center; gap:3pt; }
         .list-search-input {
-            height:16pt; border:1px solid #c4b5fd;
-            padding:0 12pt 0 5pt; font-size:6.5pt; font-family:Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color:#4c1d95; background:#fff; width:150pt; box-sizing:border-box;
+            height:16pt; border:1px solid #9ec1f5;
+            padding:0 12pt 0 5pt; font-size:6.5pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color:#1a345b; background:#fff; width:150pt; box-sizing:border-box;
         }
-        .list-search-input:focus { outline:none; border-color:#4c1d95; }
+        .list-search-input:focus { outline:none; border-color:#1a345b; }
         .list-search-clear {
             position:absolute; right:3pt; background:none; border:none;
-            cursor:pointer; font-size:9pt; color:#8b7aad; line-height:1; padding:0; display:none;
+            cursor:pointer; font-size:9pt; color:#6f869b; line-height:1; padding:0; display:none;
         }
-        .list-search-clear:hover { color:#4c1d95; }
-        .list-search-count { font-size:6pt; color:#6b5b8a; white-space:nowrap; }
+        .list-search-clear:hover { color:#1a345b; }
+        .list-search-count { font-size:6pt; color:#5a7186; white-space:nowrap; }
         mark.ls-hl { background:#fef08a; border-radius:2px; padding:0 1px; font-weight:inherit; }
     </style>
 @endpush
@@ -96,7 +96,7 @@
 
                         @if ($accounts->isEmpty())
                             <div class="reg-empty-state">
-                                <svg width="28" height="28" fill="none" stroke="#a78bfa" stroke-width="1.5"
+                                <svg width="28" height="28" fill="none" stroke="#2674f2" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
                                     style="display:block;margin:0 auto 0.75rem;">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -150,7 +150,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="reg-row-actions">
-                                                        <button class="reg-row-dots" onclick="toggleRowMenu(this)" title="Actions">&#x2026;</button>
+                                                        <button class="reg-row-dots" title="Actions">&#x2026;</button>
                                                         <div class="reg-row-menu">
                                                             <a href="{{ route('companies.email-accounts.emails', [$company, $account]) }}">Inbox</a>
                                                             <form method="POST" action="{{ route('companies.email-accounts.destroy', [$company, $account]) }}"
@@ -174,6 +174,8 @@
             </main>
         </div>
     </div>
+
+    @include('companies._row-actions')
 
     <script>
         function listSearch(inputEl, rowClass, clear) {
@@ -208,15 +210,5 @@
             document.getElementById('ls-count').textContent = q ? (matches + ' match' + (matches !== 1 ? 'es' : '')) : '';
         }
 
-        function toggleRowMenu(btn) {
-            const menu = btn.nextElementSibling;
-            document.querySelectorAll('.reg-row-menu.open').forEach(m => { if (m !== menu) m.classList.remove('open'); });
-            menu.classList.toggle('open');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.reg-row-actions')) {
-                document.querySelectorAll('.reg-row-menu.open').forEach(m => m.classList.remove('open'));
-            }
-        });
     </script>
 @endsection

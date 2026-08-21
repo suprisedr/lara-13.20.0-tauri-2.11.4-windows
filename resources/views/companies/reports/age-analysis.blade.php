@@ -11,16 +11,16 @@
         .co-card { margin-bottom: 1.5rem; }
         .co-card-head { padding: 0.875rem 1.25rem; }
 
-        .aa-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .aa-table { width: 100%; border-collapse: collapse; font-size: 10.5pt; }
 
         .aa-table thead th {
-            background: #1a1f2e;
+            background: #005bf0;
             border: none;
             padding: 0.6rem 1rem;
-            font-size: 0.68rem;
+            font-size: 10.5pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
             color: rgba(255,255,255,0.85);
             text-align: left;
             white-space: nowrap;
@@ -30,35 +30,37 @@
 
         .aa-table tbody td {
             padding: 0.6rem 1rem;
-            border-bottom: 1px solid #f0f2f5;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: top;
-            color: #1a1f2e;
+            color: #1a345b;
         }
 
         .aa-table tbody td.amt {
             text-align: right;
-            font-family: 'Courier New', monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
             white-space: nowrap;
         }
 
-        .aa-table tbody tr:hover td { background: #f8f9fb; }
+        .aa-table tbody tr:hover td { background: #f7fbfd; }
 
         .aa-table tfoot td {
             padding: 0.65rem 1rem;
-            border-top: 1.5px solid #1a1f2e;
+            border-top: 0.5pt solid #000000;
             font-weight: 800;
-            font-size: 0.82rem;
-            background: #e8eaed;
-            color: #1a1f2e;
+            font-size: 10.5pt;
+            background: #eaf8fb;
+            color: #1a345b;
         }
 
         .aa-table tfoot td.amt {
             text-align: right;
-            font-family: 'Courier New', monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
         }
 
         .aa-table a.row-link {
-            color: #5e17eb;
+            color: #005bf0;
             font-weight: 700;
             text-decoration: none;
         }
@@ -67,9 +69,9 @@
 
 
         .ifrs-note h3 {
-            font-size: 0.95rem;
+            font-size: 11.5pt;
             font-weight: 800;
-            color: #1b1b18;
+            color: #191919;
             margin: 0 0 0.5rem;
         }
 
@@ -112,7 +114,7 @@
                             <input type="date" id="as_of_date" name="as_of_date" value="{{ $asOfDate }}">
                         </div>
                         <div style="display:flex;align-items:flex-end;">
-                            <button type="submit" style="background:#5e17eb;color:#fff;border:none;border-radius:0;padding:0.45rem 1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">
+                            <button type="submit" style="background:#005bf0;color:#fff;border:none;border-radius:0;padding:0.45rem 1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">
                                 Update
                             </button>
                         </div>
@@ -120,7 +122,7 @@
 
                     @if ($analyses->isEmpty())
                         <div class="empty-state">
-                            <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No outstanding receivables</p>
+                            <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No outstanding receivables</p>
                             <p style="font-size:0.8rem;margin:0;">There are no open invoices (pending, partially paid or overdue) as at this date.</p>
                         </div>
                     @else
@@ -172,12 +174,12 @@
                 </div>
 
                 <div class="co-card" style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-                    <p style="margin:0;font-size:0.82rem;color:#555;">
+                    <p style="margin:0;font-size:0.82rem;color:#5a7186;">
                         For ECL provision matrix, loss allowance calculation, and IFRS 7 credit risk disclosure,
                         see the <strong>ECL Register</strong>.
                     </p>
                     <a href="{{ route('companies.ecl-register.index', $company) }}"
-                        style="white-space:nowrap;background:#5e17eb;color:#fff;border:none;padding:0.45rem 1rem;font-size:0.78rem;font-weight:700;text-decoration:none;display:inline-block;">
+                        style="white-space:nowrap;background:#005bf0;color:#fff;border:none;padding:0.45rem 1rem;font-size:0.78rem;font-weight:700;text-decoration:none;display:inline-block;">
                         Open ECL Register &rarr;
                     </a>
                 </div>

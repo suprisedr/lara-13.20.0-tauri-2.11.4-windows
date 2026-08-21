@@ -17,8 +17,8 @@
         table.coa thead th {
             padding: 4pt 5pt 5pt 5pt;
             font-weight: normal;
-            color: #6b5b8a;
-            border-bottom: 0.75pt solid #4c1d95;
+            color: #5a7186;
+            border-bottom: 0.75pt solid #1a345b;
             text-align: left;
             vertical-align: bottom;
         }
@@ -26,7 +26,7 @@
         table.coa thead th.num {
             text-align: right;
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         table.coa tr { page-break-inside: avoid; }
@@ -35,43 +35,43 @@
             padding: 10pt 5pt 3pt 5pt;
             font-weight: bold;
             font-size: 10.5pt;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         table.coa tr.coa-group td {
             padding: 3.5pt 5pt;
             font-weight: bold;
-            color: #4c1d95;
-            border-bottom: 0.4pt solid #ddd6fe;
+            color: #1a345b;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         table.coa tr.coa-item td {
             padding: 3.5pt 5pt;
-            border-bottom: 0.4pt solid #ddd6fe;
-            color: #23282d;
+            border-bottom: 0.4pt solid #d3e2f5;
+            color: #191919;
         }
 
         table.coa tr.coa-item td.name { padding-left: 18pt; }
 
         table.coa td.num  { text-align: right; white-space: nowrap; }
         table.coa td.code { white-space: nowrap; }
-        table.coa td.dim  { color: #8b7aad; }
+        table.coa td.dim  { color: #6f869b; }
 
         table.coa tr.coa-total td {
             padding: 4.5pt 5pt;
             font-weight: bold;
-            color: #4c1d95;
-            border-top: 0.75pt solid #4c1d95;
-            border-bottom: 0.75pt solid #4c1d95;
+            color: #1a345b;
+            border-top: 0.75pt solid #1a345b;
+            border-bottom: 0.75pt solid #1a345b;
         }
 
         table.coa tr.coa-grand td {
             padding: 5pt;
             font-weight: bold;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 0.75pt solid #4c1d95;
-            border-bottom: 1.5pt solid #4c1d95;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 0.75pt solid #1a345b;
+            border-bottom: 1.5pt solid #1a345b;
         }
 
         .coa-inactive { color: #b91c1c; }
@@ -139,12 +139,12 @@
                                         <span class="coa-inactive">Inactive</span>
                                     @endif
                                 </td>
-                                <td class="num">{{ number_format($account->balance, 2) }}</td>
+                                <td class="num">{{ number_format($account->balance, 2, '.', ' ') }}</td>
                             </tr>
                         @endforeach
                         <tr class="coa-total">
                             <td colspan="6" style="text-align:right;padding-right:8pt;">Total {{ $typeLabels[$type] }}</td>
-                            <td class="num">{{ number_format($sectionTotal, 2) }}</td>
+                            <td class="num">{{ number_format($sectionTotal, 2, '.', ' ') }}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -152,7 +152,7 @@
             <tfoot>
                 <tr class="coa-grand">
                     <td colspan="6" style="text-align:right;padding-right:8pt;">Grand Total</td>
-                    <td class="num">{{ number_format($grandTotal, 2) }}</td>
+                    <td class="num">{{ number_format($grandTotal, 2, '.', ' ') }}</td>
                 </tr>
             </tfoot>
         </table>
@@ -163,6 +163,7 @@
         </div>
 
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

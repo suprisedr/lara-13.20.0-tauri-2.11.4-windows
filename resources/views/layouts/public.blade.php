@@ -31,11 +31,7 @@
     <!-- ── Schema.org JSON-LD ───────────────────────────────────── -->
     @stack('schema')
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
-        rel="stylesheet">
+    <!-- System font stack (no external font loading needed) -->
 
     <!-- GSAP + ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -50,7 +46,7 @@
     <style>
         html, body {
             background-color: #fff;
-            font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         /* Desktop app — no web chrome needed */
@@ -73,8 +69,8 @@
     {{-- ── PDF download handler (Tauri desktop) ── --}}
     <div id="pdf-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:99998;align-items:center;justify-content:center;">
         <div style="background:#fff;padding:2rem 2.5rem;text-align:center;border:1px solid #000;max-width:360px;width:90%;">
-            <div id="pdf-spinner" style="display:inline-block;width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:#7c3aed;border-radius:50%;animation:pdfspin .7s linear infinite;margin-bottom:0.8rem;"></div>
-            <p id="pdf-status" style="font-size:0.82rem;font-weight:600;color:#1b1b18;margin:0;"></p>
+            <div id="pdf-spinner" style="display:inline-block;width:28px;height:28px;border:3px solid #d3e2f5;border-top-color:#005bf0;border-radius:50%;animation:pdfspin .7s linear infinite;margin-bottom:0.8rem;"></div>
+            <p id="pdf-status" style="font-size:0.82rem;font-weight:600;color:#191919;margin:0;"></p>
         </div>
     </div>
     <style>@keyframes pdfspin{to{transform:rotate(360deg)}}</style>
@@ -93,7 +89,7 @@
             status.textContent = msg;
             spinner.style.display = isError ? 'none' : 'inline-block';
             if (isError) status.style.color = '#dc2626';
-            else status.style.color = '#1b1b18';
+            else status.style.color = '#191919';
             overlay.style.display = 'flex';
         }
 
@@ -122,8 +118,11 @@
             return fallback;
         }
 
+        // Matches endpoints ending in pdf/export/download, whether the word is
+        // its own path segment (/invoices/12/pdf) or suffixed onto one
+        // (/payroll/irp5-bulk-pdf).
         function isDownloadLink(href) {
-            return href && (/\/pdf(\?|$|#)/.test(href) || /\/export(\?|$|#)/.test(href) || /\/download(\?|$|#)/.test(href));
+            return !!href && /[\/-](pdf|export|download)(\?|$|#)/.test(href);
         }
 
         async function fetchWithRetry(url) {
@@ -205,7 +204,7 @@
             if (form.method && form.method.toLowerCase() !== 'get') return;
 
             var action = form.getAttribute('action') || '';
-            if (!isPdfLink(action)) return;
+            if (!isDownloadLink(action)) return;
             if (form.hasAttribute('data-pdf-preview')) return;
 
             e.preventDefault();
@@ -227,13 +226,13 @@
         <div style="background:#fff;width:100%;max-width:420px;margin:1rem;position:relative;border:1px solid #000;">
             <div style="padding:1.5rem 1.75rem 0;">
                 <p id="confirm-modal-label"
-                    style="font-size:0.58rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#7c3aed;margin:0 0 0.3rem;"></p>
+                    style="font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#005bf0;margin:0 0 0.3rem;"></p>
                 <h3 id="confirm-modal-title"
-                    style="font-size:0.95rem;font-weight:800;color:#1b1b18;margin:0 0 0.6rem;"></h3>
+                    style="font-size:0.95rem;font-weight:800;color:#191919;margin:0 0 0.6rem;"></h3>
                 <p id="confirm-modal-body"
-                    style="font-size:0.78rem;color:#374151;margin:0 0 1.25rem;line-height:1.5;"></p>
+                    style="font-size:0.78rem;color:#191919;margin:0 0 1.25rem;line-height:1.5;"></p>
             </div>
-            <div style="display:flex;justify-content:flex-end;gap:0.6rem;padding:1rem 1.75rem;border-top:1px solid #e5e7eb;">
+            <div style="display:flex;justify-content:flex-end;gap:0.6rem;padding:1rem 1.75rem;border-top:1px solid #d3e2f5;">
                 <button id="confirm-modal-cancel"
                     style="background:#fff;border:1px solid #000;color:#000;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:0.45rem 1rem;cursor:pointer;font-family:inherit;">
                     Cancel

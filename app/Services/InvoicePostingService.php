@@ -9,6 +9,7 @@ use App\Enums\StockMovementAction;
 use App\Events\InvoiceCreated;
 use App\Events\InvoiceMarkedPaid;
 use App\Models\Company;
+use App\Models\CreditNote;
 use App\Models\Invoice;
 use App\Models\InventoryMovement;
 use App\Models\InvoicePayment;
@@ -23,6 +24,7 @@ class InvoicePostingService
         private TransactionService $transactions,
         private AccountVectorSearchService $accountSearch,
         private ChartOfAccountCodeResolver $codeResolver,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
 
@@ -72,20 +74,29 @@ class InvoicePostingService
                 $this->reverseStockMovements($invoice);
             }
 
-            $invoice->status = $targetStatus->value;
-            $invoice->save();
+            if ($targetStatus === InvoiceStatus::Paid) {
+                $invoice->save();
 
-            if ($isIssuing) {
-                $this->issueStockForInvoice($company, $invoice, $user);
-            }
+                if (! $invoice->posting_transaction_id) {
+                    app(RoadRunnerInvoicePostingDispatcher::class)->dispatchPosting($invoice);
+                }
 
-            if ($targetStatus->triggersAiPosting() && ! $invoice->posting_transaction_id) {
-                app(RoadRunnerInvoicePostingDispatcher::class)->dispatchPosting($invoice);
-            }
+                $postedTotal = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+                if (round($invoice->total() - $postedTotal, 2) > 0) {
+                    app(RoadRunnerInvoicePostingDispatcher::class)
+                        ->dispatchPayment($invoice->fresh('items', 'payments'), $user);
+                }
+            } else {
+                $invoice->status = $targetStatus->value;
+                $invoice->save();
 
-            if ($targetStatus === InvoiceStatus::Paid && ! $invoice->payments()->whereNotNull('transaction_id')->exists()) {
-                app(RoadRunnerInvoicePostingDispatcher::class)
-                    ->dispatchPayment($invoice->fresh('items', 'payments'), $user);
+                if ($isIssuing) {
+                    $this->issueStockForInvoice($company, $invoice, $user);
+                }
+
+                if ($targetStatus->triggersAiPosting() && ! $invoice->posting_transaction_id) {
+                    app(RoadRunnerInvoicePostingDispatcher::class)->dispatchPosting($invoice);
+                }
             }
 
             return $invoice;
@@ -140,8 +151,8 @@ class InvoicePostingService
                 'transaction_date' => $data['payment_date'],
                 'description' => 'Payment received for invoice ' . $invoice->invoice_number . ' — ' . $invoice->customer_name,
                 'reference' => $invoice->invoice_number,
-                'status' => 'posted',
-                'source_document' => 'invoice:' . $invoice->id,
+                'status' => 'draft',
+                'source_document' => $invoice->invoice_number,
                 'notes' => $data['notes'] ?? null,
                 'lines' => [
                     [
@@ -279,7 +290,18 @@ class InvoicePostingService
         Pick the accounts for posting this invoice.
         TEXT;
 
-        $response = (new InvoicePostingAgent)->prompt($prompt);
+        $related = CreditNote::where('invoice_id', $invoice->id)->pluck('id')
+            ->map(fn ($cnId) => [
+                'agent_type'  => 'credit_note_posting',
+                'entity_type' => 'credit_note',
+                'entity_id'   => $cnId,
+                'label'       => "Credit note #{$cnId} against this invoice",
+            ])->all();
+        $history = $this->agentHistory->recallWithRelated('invoice_posting', 'invoice', $invoice->id, $related);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new InvoicePostingAgent)->prompt($fullPrompt);
+        $this->agentHistory->remember('invoice_posting', 'invoice', $invoice->id, $prompt, json_encode($response));
 
         $validAccountIds = $accounts->pluck('id')->all();
 
@@ -378,7 +400,7 @@ class InvoicePostingService
                 'description' => 'Invoice ' . $invoice->invoice_number . ' — ' . $invoice->customer_name,
                 'reference' => $invoice->invoice_number,
                 'status' => 'draft',
-                'source_document' => 'invoice:' . $invoice->id,
+                'source_document' => $invoice->invoice_number,
                 'notes' => 'Posted by AI agent: ' . ($response['reasoning'] ?? ''),
                 'lines' => $lines,
             ]);
@@ -451,12 +473,19 @@ class InvoicePostingService
      * Called automatically when an invoice is marked Paid directly via the
      * status dropdown (as opposed to going through recordPayment()).
      */
-    public function postPaymentWithAi(Company $company, Invoice $invoice, User $user): void
+    public function postPaymentWithAi(Company $company, Invoice $invoice, User $user, ?float $amount = null): void
     {
-        $balanceDue = $invoice->balanceDue();
+        $postedPayments = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+        $balanceDue = round($invoice->total() - $postedPayments, 2);
 
         if ($balanceDue <= 0) {
             return;
+        }
+
+        $paymentAmount = $amount !== null ? round($amount, 2) : $balanceDue;
+
+        if ($paymentAmount <= 0 || $paymentAmount > $balanceDue) {
+            throw new \InvalidArgumentException("Payment amount must be between 0.01 and {$balanceDue}.");
         }
 
         if (! $invoice->posting_transaction_id) {
@@ -484,9 +513,11 @@ class InvoicePostingService
             ->implode("\n");
 
         $total = $invoice->total();
+        $paymentType = $paymentAmount < $balanceDue ? 'PARTIAL' : 'FULL';
         $prompt = <<<TEXT
-        Invoice {$invoice->invoice_number} for customer \"{$invoice->customer_name}\" has been marked as PAID.
-        Invoice total: {$total}. Outstanding balance to collect: {$balanceDue}.
+        Invoice {$invoice->invoice_number} for customer \"{$invoice->customer_name}\" — payment received.
+        Invoice total: {$total}. Outstanding balance: {$balanceDue}. Payment amount: {$paymentAmount}.
+        This is a {$paymentType} payment.
 
         Post the payment receipt journal entry. You must choose a bank_account_id (the
         bank or cash asset account to debit). The accounts-receivable account is already
@@ -497,7 +528,18 @@ class InvoicePostingService
         {$accountsList}
         TEXT;
 
-        $response = (new \App\Ai\Agents\InvoicePostingAgent)->prompt($prompt);
+        $related = CreditNote::where('invoice_id', $invoice->id)->pluck('id')
+            ->map(fn ($cnId) => [
+                'agent_type'  => 'credit_note_posting',
+                'entity_type' => 'credit_note',
+                'entity_id'   => $cnId,
+                'label'       => "Credit note #{$cnId} against this invoice",
+            ])->all();
+        $history = $this->agentHistory->recallWithRelated('invoice_posting', 'invoice', $invoice->id, $related);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new \App\Ai\Agents\InvoicePostingAgent)->prompt($fullPrompt);
+        $this->agentHistory->remember('invoice_posting', 'invoice', $invoice->id, $prompt, json_encode($response));
 
         $bankAccountId = $response['bank_account_id'] ?? null;
         $validIds = $accounts->pluck('id')->all();
@@ -511,29 +553,46 @@ class InvoicePostingService
         }
 
         if (! $bankAccountId) {
-            throw new \RuntimeException('The AI agent could not determine a bank account for the payment entry. Please use Record Payment instead.');
+            $bankAccount = $accounts->first(fn($a) =>
+                $a->account_type === 'assets' &&
+                (str_contains(strtolower($a->account_name), 'bank') ||
+                 str_contains(strtolower($a->account_name), 'cash'))
+            );
+            if (! $bankAccount) {
+                $bankAccount = ChartOfAccount::where('company_id', $company->id)
+                    ->where('account_type', 'assets')
+                    ->whereNotIn('id', fn($sub) => $sub->select('parent_id')->from('chart_of_accounts')->whereNotNull('parent_id'))
+                    ->where(fn($q) => $q->where('account_name', 'like', '%bank%')
+                        ->orWhere('account_name', 'like', '%cash%'))
+                    ->first();
+            }
+            $bankAccountId = $bankAccount?->id;
         }
 
-        DB::transaction(function () use ($company, $invoice, $user, $bankAccountId, $arLine, $balanceDue) {
+        if (! $bankAccountId) {
+            throw new \RuntimeException('Could not determine a bank account for the payment entry.');
+        }
+
+        DB::transaction(function () use ($company, $invoice, $user, $bankAccountId, $arLine, $paymentAmount, $response) {
             $transaction = $this->transactions->record($company, $user, [
                 'transaction_date' => now()->toDateString(),
                 'description'      => 'Payment received — Invoice ' . $invoice->invoice_number . ' — ' . $invoice->customer_name,
                 'reference'        => $invoice->invoice_number,
                 'status'           => 'draft',
-                'source_document'  => 'invoice:' . $invoice->id,
-                'notes'            => 'Draft posted by AI — review bank account selection before posting.',
+                'source_document'  => $invoice->invoice_number,
+                'notes'            => 'Posted by AI agent: ' . ($response['reasoning'] ?? 'payment receipt entry'),
                 'lines'            => [
                     [
                         'chart_of_account_id' => $bankAccountId,
                         'type'                => 'debit',
-                        'amount'              => $balanceDue,
+                        'amount'              => $paymentAmount,
                         'description'         => 'Payment received — ' . $invoice->invoice_number,
                     ],
                     [
                         'chart_of_account_id' => $arLine->chart_of_account_id,
                         'customer_id'         => $arLine->customer_id,
                         'type'                => 'credit',
-                        'amount'              => $balanceDue,
+                        'amount'              => $paymentAmount,
                         'description'         => 'Payment received — ' . $invoice->invoice_number,
                     ],
                 ],
@@ -544,12 +603,20 @@ class InvoicePostingService
                 'transaction_id' => $transaction->id,
                 'user_id'      => $user->id,
                 'payment_date' => now()->toDateString(),
-                'amount'       => $balanceDue,
+                'amount'       => $paymentAmount,
                 'method'       => null,
                 'notes'        => 'Auto-posted by AI agent.',
             ]);
 
             $invoice->payment_transaction_id = $transaction->id;
+
+            $remaining = $invoice->balanceDue();
+            if ($remaining <= 0) {
+                $invoice->status = InvoiceStatus::Paid->value;
+            } else {
+                $invoice->status = InvoiceStatus::PartiallyPaid->value;
+            }
+
             $invoice->save();
         });
     }

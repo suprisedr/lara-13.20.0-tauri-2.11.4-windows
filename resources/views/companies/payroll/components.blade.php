@@ -25,17 +25,17 @@
             gap: 0.3rem;
             font-size: 0.75rem;
             cursor: pointer;
-            color: #333;
+            color: #191919;
         }
 
         .status-box {
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 1px solid #4c1d95;
-            color: #4c1d95;
+            border: 1px solid #1a345b;
+            color: #1a345b;
             padding: 0.08rem 0.5rem;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             letter-spacing: 0.08em;
         }
 
@@ -94,7 +94,7 @@
                                 @php $group = $components->where('type', $type); @endphp
                                 @if ($group->isNotEmpty())
                                     <div class="reg-section-header">{{ $typeLabel }}</div>
-                                    <p style="font-size:6.5pt;color:#6b5b8a;margin:-2pt 0 4pt;">{{ $typeDesc }}</p>
+                                    <p style="font-size:6.5pt;color:#5a7186;margin:-2pt 0 4pt;">{{ $typeDesc }}</p>
                                     <table class="reg-table">
                                         <thead>
                                             <tr>
@@ -115,14 +115,14 @@
                                                         @if ($component->is_taxable)
                                                             <span style="color:#15803d;font-weight:700;font-size:6.5pt;">&#10003; Yes</span>
                                                         @else
-                                                            <span style="color:#8b7aad;font-size:6.5pt;">No</span>
+                                                            <span style="color:#6f869b;font-size:6.5pt;">No</span>
                                                         @endif
                                                     </td>
                                                     <td style="text-align:center;">
                                                         @if ($component->is_pensionable)
                                                             <span style="color:#15803d;font-weight:700;font-size:6.5pt;">&#10003; Yes</span>
                                                         @else
-                                                            <span style="color:#8b7aad;font-size:6.5pt;">No</span>
+                                                            <span style="color:#6f869b;font-size:6.5pt;">No</span>
                                                         @endif
                                                     </td>
                                                     <td style="text-align:center;">

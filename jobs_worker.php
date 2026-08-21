@@ -61,7 +61,29 @@ if (ob_get_level() > 0) {
 
 $consumer = new Consumer();
 
-while ($task = $consumer->waitTask()) {
+$headerErrors = 0;
+$maxHeaderErrors = 5;
+
+while (true) {
+    try {
+        $task = $consumer->waitTask();
+    } catch (\Spiral\Goridge\Exception\HeaderException $e) {
+        $headerErrors++;
+        Log::warning("jobs_worker: frame header error #{$headerErrors}: {$e->getMessage()}");
+        if ($headerErrors >= $maxHeaderErrors) {
+            Log::error("jobs_worker: too many header errors, exiting for RR to restart worker");
+            exit(1);
+        }
+        usleep(100_000);
+        continue;
+    }
+
+    if ($task === null) {
+        break;
+    }
+
+    $headerErrors = 0;
+
     try {
         $name    = $task->getName();
         $payload = json_decode($task->getPayload(), true);
@@ -97,8 +119,6 @@ while ($task = $consumer->waitTask()) {
         $task->complete();
     } catch (\Throwable $e) {
         if (isPgsqlError($e)) {
-            // pgvector unavailable — complete so the worker stays alive; records
-            // remain is_embedded=false for the next sync run.
             Log::warning("jobs_worker: pgvector unavailable, skipping {$task->getName()}");
             $task->complete();
         } else {
@@ -846,20 +866,18 @@ function handleInvoicePaymentPosting(array $payload, $app): void
     $invoiceId = $payload['invoiceId'];
     $companyId = $payload['companyId'];
     $userId    = $payload['userId'];
+    $amount    = isset($payload['amount']) ? (float) $payload['amount'] : null;
 
-    Log::info('jobs_worker: invoice payment posting starting', ['invoice_id' => $invoiceId]);
+    Log::info('jobs_worker: invoice payment posting starting', ['invoice_id' => $invoiceId, 'amount' => $amount]);
 
     $invoice = \App\Models\Invoice::with(['items', 'payments', 'postingTransaction.journalLines'])->find($invoiceId);
     if (! $invoice) {
         return;
     }
 
-    // Another path already posted a payment entry — skip.
-    if ($invoice->payments()->whereNotNull('transaction_id')->exists()) {
-        return;
-    }
-
-    if ($invoice->balanceDue() <= 0) {
+    // Skip if the invoice is already fully paid (no balance remaining).
+    $postedTotal = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+    if (round($invoice->total() - $postedTotal, 2) <= 0) {
         return;
     }
 
@@ -871,7 +889,7 @@ function handleInvoicePaymentPosting(array $payload, $app): void
         "AI is posting payment for invoice {$invoice->invoice_number}…");
 
     try {
-        $service->postPaymentWithAi($company, $invoice, $user);
+        $service->postPaymentWithAi($company, $invoice, $user, $amount);
 
         broadcastStatus($companyId, 'invoice_payment', $invoiceId, 'posted',
             "Payment for invoice {$invoice->invoice_number} posted successfully");

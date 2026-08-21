@@ -10,7 +10,7 @@
             display: flex;
             justify-content: space-between;
             padding: 2pt 0;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
             font-size: 7pt;
         }
 
@@ -57,8 +57,8 @@
                                 </div>
                             </div>
                             <div class="afs-letterhead-meta afs-right">
-                                <div style="font-size:9pt;font-weight:800;color:#4c1d95;margin-bottom:3pt;">{{ $company->registered_name }}</div>
-                                <div style="font-size:6.5pt;color:#6b5b8a;">
+                                <div style="font-size:9pt;font-weight:800;color:#1a345b;margin-bottom:3pt;">{{ $company->registered_name }}</div>
+                                <div style="font-size:6.5pt;color:#5a7186;">
                                     {{ $payslips->count() }} employee{{ $payslips->count() !== 1 ? 's' : '' }}
                                 </div>
                             </div>
@@ -91,10 +91,10 @@
                         <div class="recon-line" style="font-weight:700;"><span>SDL @ 1%</span><strong>R {{ number_format($run->total_sdl, 2) }}</strong></div>
 
                         {{-- Grand total --}}
-                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;padding:6pt 8pt;margin:8pt 0;">
+                        <div style="background:#f4fafc;border:1px solid #d3e2f5;padding:6pt 8pt;margin:8pt 0;">
                             <div style="display:flex;justify-content:space-between;padding:2pt 0;font-size:7pt;font-weight:800;">
                                 <span>Total Amount Payable to SARS (PAYE + UIF + SDL)</span>
-                                <span style="color:#4c1d95;">
+                                <span style="color:#1a345b;">
                                     R {{ number_format(
                                         (float)$run->total_paye
                                         + (float)$run->total_uif_employee
@@ -126,7 +126,7 @@
                                 <tbody>
                                     @foreach ($payslips as $payslip)
                                         <tr>
-                                            <td style="font-family:'DejaVu Sans Mono',monospace;color:#4c1d95;font-weight:700;">{{ $payslip->employee->employee_number }}</td>
+                                            <td style="font-family:'DejaVu Sans Mono',monospace;color:#1a345b;font-weight:700;">{{ $payslip->employee->employee_number }}</td>
                                             <td style="font-weight:700;">{{ $payslip->employee->full_name }}</td>
                                             <td class="dim" style="font-family:'DejaVu Sans Mono',monospace;">{{ $payslip->employee->tax_reference_number ?? '---' }}</td>
                                             <td class="amt">R {{ number_format($payslip->gross_earnings, 2) }}</td>
@@ -152,7 +152,7 @@
                             </table>
                         </div>
 
-                        <p style="font-size:6pt;color:#8b7aad;margin-top:4pt;">
+                        <p style="font-size:6pt;color:#6f869b;margin-top:4pt;">
                             * This EMP201 summary is generated from payroll records. Verify against SARS eFiling before submission.
                             Tax rates apply to the 2025/2026 tax year. UIF capped at R17,712/month per the Unemployment Insurance Contributions Act.
                             SDL rate 1% as per the Skills Development Levies Act.

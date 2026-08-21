@@ -69,7 +69,7 @@
                                                     @elseif ($run->employee_type === 'hourly')
                                                         <span class="reg-status" style="color:#854d0e;border-color:#854d0e;background:#fef9c3;">Hourly</span>
                                                     @else
-                                                        <span style="font-size:6pt;color:#8b7aad;">—</span>
+                                                        <span style="font-size:6pt;color:#6f869b;">—</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">R&nbsp;{{ number_format($run->total_gross_earnings, 2) }}</td>
@@ -108,17 +108,5 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.reg-row-dots')) {
-                e.stopPropagation();
-                var menu = e.target.closest('.reg-row-actions').querySelector('.reg-row-menu');
-                var open = menu.classList.contains('open');
-                document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-                if (!open) menu.classList.add('open');
-                return;
-            }
-            document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-        });
-    </script>
+    @include('companies._row-actions')
 @endsection

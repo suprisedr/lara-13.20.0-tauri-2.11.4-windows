@@ -8,17 +8,17 @@
     <style>
         .cn-form { max-width:920px; }
         .cn-section { margin-bottom:1.75rem; }
-        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#005bf0; margin:0 0 0.75rem; }
         .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
-        .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+        .cn-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
         .cn-field input, .cn-field select, .cn-field textarea {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            width:100%; border:1px solid #d3e2f5; padding:0.35rem 0.55rem;
             font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
         }
-        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#5e17eb; }
+        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#005bf0; }
         .cn-field textarea { resize:vertical; min-height:70px; }
         .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; }
-        .btn-submit:hover { background:#333; }
+        .btn-submit:hover { background:#1a345b; }
         .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
     </style>
 @endpush
@@ -87,7 +87,7 @@
 
                     <div style="display:flex;gap:1rem;align-items:center;">
                         <button type="submit" class="btn-submit">Create Supplier</button>
-                        <a href="{{ route('companies.suppliers.index', $company) }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                        <a href="{{ route('companies.suppliers.index', $company) }}" style="font-size:0.78rem;color:#5a7186;text-decoration:none;">Cancel</a>
                     </div>
                 </form>
 

@@ -1,3 +1,6 @@
+@php
+    $roundingLabel = match ($rounding ?? 1) { 1000 => "R'000", 1000000 => "R'm", default => 'R' };
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +20,9 @@
                 for the period {{ \Carbon\Carbon::parse($startDate)->format('d F Y') }} to
                 {{ \Carbon\Carbon::parse($endDate)->format('d F Y') }}
             </div>
+            <div class="afs-doc-currency">
+                Presented in South African Rand{!! (!empty($roundingLabel) && $roundingLabel !== 'R') ? ' &mdash; figures in ' . e($roundingLabel) : '' !!}
+            </div>
         </div>
 
         @include('companies.reports._partials.soce')
@@ -26,6 +32,7 @@
             Generated {{ now()->format('d F Y') }}
         </div>
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

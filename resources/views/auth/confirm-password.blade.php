@@ -7,25 +7,25 @@
 <style>
     .auth-page {
         min-height:100vh; display:flex; align-items:center; justify-content:center;
-        background:#f7f5ff;
+        background:#f7fbfd;
     }
     .auth-card {
-        width:100%; max-width:400px; background:#fff; border:1px solid #e5e7eb;
+        width:100%; max-width:400px; background:#fff; border:1px solid #d3e2f5;
         padding:2.5rem 2.25rem; margin:2rem 1rem;
     }
     .auth-brand { display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; }
-    .auth-brand-mark { width:32px; height:32px; background:#5e17eb; display:flex; align-items:center; justify-content:center; }
+    .auth-brand-mark { width:32px; height:32px; background:#005bf0; display:flex; align-items:center; justify-content:center; }
     .auth-brand-mark svg { color:#fff; }
-    .auth-brand-name { font-size:1rem; font-weight:800; color:#0a0a0a; letter-spacing:-0.02em; }
-    .auth-card h1 { font-size:1.35rem; font-weight:800; color:#0a0a0a; margin:0 0 0.2rem; letter-spacing:-0.015em; }
-    .auth-card .auth-sub { font-size:0.82rem; color:#6b7280; margin:0 0 1.5rem; line-height:1.5; }
-    .auth-label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
-    .auth-input { display:block; width:100%; padding:0.45rem 0.65rem; font-size:0.85rem; font-family:inherit; color:#000; background:#fff; border:1px solid #ccc; outline:none; transition:border-color 0.15s; box-sizing:border-box; }
-    .auth-input:focus { border-color:#5e17eb; }
+    .auth-brand-name { font-size:1rem; font-weight:800; color:#191919; letter-spacing:-0.02em; }
+    .auth-card h1 { font-size:1.35rem; font-weight:800; color:#191919; margin:0 0 0.2rem; letter-spacing:-0.015em; }
+    .auth-card .auth-sub { font-size:0.82rem; color:#5a7186; margin:0 0 1.5rem; line-height:1.5; }
+    .auth-label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
+    .auth-input { display:block; width:100%; padding:0.45rem 0.65rem; font-size:0.85rem; font-family:inherit; color:#000; background:#fff; border:1px solid #d3e2f5; outline:none; transition:border-color 0.15s; box-sizing:border-box; }
+    .auth-input:focus { border-color:#005bf0; }
     .auth-input.error { border-color:#dc2626; background:#fff5f5; }
     .auth-error { font-size:0.72rem; color:#dc2626; margin:0.2rem 0 0; }
     .auth-btn { display:flex; align-items:center; justify-content:center; width:100%; padding:0.6rem 1.25rem; background:#000; color:#fff; font-size:0.85rem; font-weight:700; font-family:inherit; border:none; cursor:pointer; transition:background 0.15s; }
-    .auth-btn:hover { background:#333; }
+    .auth-btn:hover { background:#1a345b; }
 </style>
 @endpush
 
