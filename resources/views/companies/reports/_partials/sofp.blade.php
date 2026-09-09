@@ -324,7 +324,21 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
         <tr class="afs-section-sub">
             <td class="afs-name">Equity</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
-        @php $rows = $afsRows($equityAccounts, $compare, $rounding, $roundingDecimals); @endphp
+        @php
+            $rows = $afsRows($equityAccounts, $compare, $rounding, $roundingDecimals);
+            // Undistributed P&L + register-driven adjustments rolled into equity
+            // by buildBalanceSheet so the SoFP balances. Emit as a synthetic line
+            // so the shown equity rows sum to Total Equity.
+            $curEarnings   = (float) ($currentEarnings ?? 0);
+            $priorEarnings = (float) ($currentEarningsPrior ?? 0);
+            if (abs($curEarnings) >= 0.01 || ($compare && abs($priorEarnings) >= 0.01)) {
+                $rows[] = [
+                    'name'  => 'Retained income for the period',
+                    'bal'   => $curEarnings,
+                    'prior' => $priorEarnings,
+                ];
+            }
+        @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
                 <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>

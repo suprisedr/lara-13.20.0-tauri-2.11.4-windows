@@ -389,7 +389,18 @@ class AfsStatementModelService
         $rows[] = $this->sectionRow('section', 'Equity and Liabilities');
 
         $rows[] = $this->sectionRow('section-sub', 'Equity');
-        $rows = array_merge($rows, $this->emitBalanceRows($this->balanceRows($d['equityAccounts']), $noteRefs));
+        $eqRows = $this->balanceRows($d['equityAccounts']);
+        $curEarnings = (float) ($d['currentEarnings'] ?? 0);
+        $priorEarnings = (float) ($d['currentEarningsPrior'] ?? 0);
+        if (abs($curEarnings) >= 0.01 || ($this->compare && abs($priorEarnings) >= 0.01)) {
+            $eqRows[] = [
+                'name' => 'Retained income for the period',
+                'bal' => $curEarnings,
+                'prior' => $priorEarnings,
+                'note_slug' => null,
+            ];
+        }
+        $rows = array_merge($rows, $this->emitBalanceRows($eqRows, $noteRefs));
         $rows[] = $this->row('subtotal', 'Total Equity',
             [$this->fmt($d['totalEquity']), $this->fmt($d['totalEquityPrior'] ?? 0)]);
 

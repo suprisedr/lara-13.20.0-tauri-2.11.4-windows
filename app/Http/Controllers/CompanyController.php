@@ -3339,7 +3339,14 @@ class CompanyController extends Controller
         $totalCurrentLiabilities = $currentLiabilities->sum('groupBalance');
         $totalNonCurrentLiabilities = $nonCurrentLiabilities->sum('groupBalance');
         $totalLiabilities = $totalCurrentLiabilities + $totalNonCurrentLiabilities;
-        $totalEquity = $equityAccounts->sum('groupBalance');
+
+        // Income/expense accounts aren't closed to retained earnings until a
+        // year-end journal is posted, so their balance is stranded on the P&L.
+        // Roll the undistributed net income into equity here so the SoFP balances
+        // (the same correction buildEquityMovement applies for the SOCE).
+        $currentEarnings = $this->cumulativeNetIncome($company, $asOfDate);
+        $equityGl = $equityAccounts->sum('groupBalance');
+        $totalEquity = $equityGl + $currentEarnings;
 
         // --- PPE from the fixed asset register ---
         // The Property, Plant & Equipment line is sourced from the asset register's
@@ -3446,6 +3453,23 @@ class CompanyController extends Controller
 
         $totalAssets = $totalCurrentAssets + $totalNonCurrentAssets;
 
+        // Each register override above swapped a ledger balance for a register
+        // carrying amount on the asset or liability side. The offsetting entry
+        // (depreciation, amortisation, fair-value change, interest accretion,
+        // COGS) belongs on the P&L but hasn't been posted to the ledger, so it
+        // never made it into cumulativeNetIncome. Recognise the reconciling
+        // amount here as part of undistributed earnings so A = L + E holds:
+        //   ΔE = Δassets_from_swaps − Δliabilities_from_swaps
+        $registerEquityAdj = ($registerCarrying - $ppeGlBalance)
+            + ($intangibleRegisterCarrying - $intangibleGlBalance)
+            + ($inventoryRegisterCarrying - $inventoryGlBalance)
+            + ($ipRegisterCarrying - $ipGlBalance)
+            + ($baRegisterCarrying - $baGlBalance)
+            + ($rouRegisterCarrying - $rouGlBalance)
+            - ($leaseLiabRegisterCarrying - $leaseLiabGlBalance);
+        $currentEarnings += $registerEquityAdj;
+        $totalEquity = $equityGl + $currentEarnings;
+
         return compact(
             'currentAssets',
             'nonCurrentAssets',
@@ -3459,6 +3483,7 @@ class CompanyController extends Controller
             'totalNonCurrentLiabilities',
             'totalLiabilities',
             'totalEquity',
+            'currentEarnings',
             'ppeCarrying',
             'ppeLinkedAccountIds',
             'intangibleCarrying',
@@ -3518,6 +3543,7 @@ class CompanyController extends Controller
             'totalNonCurrentLiabilitiesPrior' => $prior['totalNonCurrentLiabilities'],
             'totalLiabilitiesPrior' => $prior['totalLiabilities'],
             'totalEquityPrior' => $prior['totalEquity'],
+            'currentEarningsPrior' => $prior['currentEarnings'] ?? 0.0,
             'ppeCarryingPrior' => $prior['ppeCarrying'],
             'intangibleCarryingPrior' => $prior['intangibleCarrying'],
             'inventoryCarryingPrior' => $prior['inventoryCarrying'],
