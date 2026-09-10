@@ -183,11 +183,20 @@ fn kill_stale_pids() {
     let path = pid_file_path();
     if let Ok(contents) = fs::read_to_string(&path) {
         for line in contents.lines() {
-            if let Ok(pid) = line.trim().parse::<i32>() {
+            if let Ok(pid) = line.trim().parse::<u32>() {
                 if pid > 0 {
+                    #[cfg(unix)]
                     unsafe {
-                        libc::kill(-pid, libc::SIGTERM);
-                        libc::kill(pid, libc::SIGTERM);
+                        libc::kill(-(pid as i32), libc::SIGTERM);
+                        libc::kill(pid as i32, libc::SIGTERM);
+                    }
+                    #[cfg(not(unix))]
+                    {
+                        let _ = std::process::Command::new("taskkill")
+                            .args(["/F", "/T", "/PID", &pid.to_string()])
+                            .stdout(std::process::Stdio::null())
+                            .stderr(std::process::Stdio::null())
+                            .status();
                     }
                 }
             }
