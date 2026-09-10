@@ -156,6 +156,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/actions', [CompanyActionController::class, 'store']);
     Route::patch('/actions/{action}', [CompanyActionController::class, 'update']);
+    Route::delete('/actions/{action}', [CompanyActionController::class, 'destroy']);
 
     Route::delete('/auth/token', [AuthTokenController::class, 'revoke']);
 });

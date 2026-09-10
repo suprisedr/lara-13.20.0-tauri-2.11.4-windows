@@ -84,4 +84,15 @@ class CompanyActionController extends Controller
             ],
         ]);
     }
+
+    public function destroy(Request $request, CompanyAction $action): JsonResponse
+    {
+        $company = $action->company;
+
+        abort_unless($company->user_id === $request->user()->id, 403);
+
+        $action->delete();
+
+        return response()->json(['message' => 'Action deleted.']);
+    }
 }

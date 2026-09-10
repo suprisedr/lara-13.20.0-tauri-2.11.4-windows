@@ -66,10 +66,25 @@ export const tools = [
             required: ["id"],
         },
     },
+    {
+        name: "delete_action",
+        description: "Permanently delete an action item. Use this only when the action was created in error or is no longer relevant. " +
+            "Prefer resolving actions (update_action with resolved: true) over deleting them for audit trail purposes. " +
+            "Requires prior login.",
+        inputSchema: {
+            type: "object",
+            properties: {
+                id: { type: "number", description: "The action ID to delete." },
+            },
+            required: ["id"],
+        },
+    },
 ];
 export async function handle(name, args) {
     if (name === "update_action")
         return handleUpdateAction(args);
+    if (name === "delete_action")
+        return handleDeleteAction(args);
     if (name !== "create_action")
         return null;
     const { company_id, title, body, priority, related_type, related_id } = args;
@@ -132,6 +147,34 @@ async function handleUpdateAction(args) {
         content: [{
                 type: "text",
                 text: JSON.stringify({ success: true, action: result.data }, null, 2),
+            }],
+    };
+}
+async function handleDeleteAction(args) {
+    const { id } = args;
+    if (!id) {
+        return {
+            content: [{ type: "text", text: "delete_action requires an action id." }],
+            isError: true,
+        };
+    }
+    const token = getBearerToken();
+    if (!token)
+        throw new Error("Not authenticated. Please run the login tool first.");
+    const response = await fetch(`${API_BASE}/actions/${id}`, {
+        method: "DELETE",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const result = await response.json();
+    if (!response.ok)
+        throw new Error(result.message ?? `HTTP ${response.status}`);
+    return {
+        content: [{
+                type: "text",
+                text: JSON.stringify({ success: true, message: `Action ${id} deleted.` }, null, 2),
             }],
     };
 }

@@ -6,8 +6,8 @@ export const tools = [
         inputSchema: {
             type: "object",
             properties: {
-                email: { type: "string", description: "User email address", default: "dsnnkosi@gmail.com" },
-                password: { type: "string", description: "User password", default: "12345678" },
+                email: { type: "string", description: "User email address", default: "hlogi@nkonyanaaccountants.co.za" },
+                password: { type: "string", description: "User password", default: "Hlogi@1993" },
                 device_name: { type: "string", description: "Device / client identifier", default: "mcp-client" },
             },
             required: [],
@@ -21,8 +21,8 @@ export const tools = [
 ];
 export async function handle(name, args) {
     if (name === "login") {
-        const email = args.email ?? "dsnnkosi@gmail.com";
-        const password = args.password ?? "12345678";
+        const email = args.email ?? "hlogi@nkonyanaaccountants.co.za";
+        const password = args.password ?? "Hlogi@1993";
         const device_name = args.device_name ?? "mcp-client";
         const result = await login(email, password, device_name);
         return {
