@@ -24,7 +24,7 @@
 
         .co-table thead th {
             padding: 0.3rem 0.7rem;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
         }
 
         .co-table td {
@@ -36,7 +36,7 @@
         /* Dense section header rows */
         .co-table tr.is-section-label-lg td {
             padding: 0.22rem 0.7rem;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
         }
 
         /* Compact filter row (mirrors the reports views) */
@@ -46,7 +46,7 @@
             gap: 0.75rem;
             flex-wrap: wrap;
             background: #fff;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #f4fafc;
             border-radius: 0;
             padding: 0.75rem 1rem;
             margin-bottom: 1rem;
@@ -56,19 +56,19 @@
             display: block;
             font-size: 0.68rem;
             font-weight: 700;
-            color: #374151;
+            color: #191919;
             text-transform: uppercase;
             letter-spacing: 0.06em;
             margin-bottom: 0.2rem;
         }
 
         .ob-filter select {
-            border: 1.5px solid #e5e7eb;
+            border: 1.5px solid #d3e2f5;
             border-radius: 0;
             padding: 0.35rem 0.6rem;
             font-size: 0.8rem;
             font-family: inherit;
-            color: #1b1b18;
+            color: #191919;
             background: #fff;
             min-width: 230px;
         }
@@ -88,23 +88,23 @@
         }
 
         .btn-xs-primary {
-            background: #5e17eb;
+            background: #005bf0;
             color: #fff;
             border: none;
         }
 
         .btn-xs-primary:hover {
-            background: #4a10c4;
+            background: #0047c4;
         }
 
         .btn-xs-ghost {
-            background: #ede9fe;
-            color: #6d28d9;
-            border: 1px solid #c4b5fd;
+            background: #eaf8fb;
+            color: #005bf0;
+            border: 1px solid #9ec1f5;
         }
 
         .btn-xs-ghost:hover {
-            background: #ddd6fe;
+            background: #d3e2f5;
         }
 
         .ob-input {
@@ -113,17 +113,17 @@
             font-family: monospace;
             font-size: 0.73rem;
             padding: 0.1rem 0.35rem;
-            border: 1px solid rgba(94, 23, 235, 0.25);
+            border: 1px solid rgba(0, 91, 240, 0.25);
             border-radius: 0;
-            color: #1b1b18;
-            background: #faf5ff;
+            color: #191919;
+            background: #f4fafc;
             outline: none;
             transition: border-color 0.15s, box-shadow 0.15s;
         }
 
         .ob-input:focus {
-            border-color: #5e17eb;
-            box-shadow: 0 0 0 2px rgba(94, 23, 235, 0.12);
+            border-color: #005bf0;
+            box-shadow: 0 0 0 2px rgba(0, 91, 240, 0.12);
         }
     </style>
 @endpush
@@ -185,7 +185,7 @@
                             </div>
                             <div style="display:flex;align-items:center;gap:0.6rem;flex-shrink:0;">
                                 <a href="{{ route('companies.chart-of-accounts', $company) }}" class="btn-xs"
-                                    style="color:#888;border:1px solid #e5e7eb;background:#fff;">Cancel</a>
+                                    style="color:#888;border:1px solid #d3e2f5;background:#fff;">Cancel</a>
                                 <button type="submit" class="btn-xs btn-xs-primary">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -228,12 +228,12 @@
                                             </tr>
                                             @foreach ($accounts[$type] as $account)
                                                 <tr>
-                                                    <td style="font-family:monospace;font-weight:700;color:#5e17eb;white-space:nowrap;">
+                                                    <td style="font-family:monospace;font-weight:700;color:#005bf0;white-space:nowrap;">
                                                         {{ $account->account_code }}</td>
                                                     <td style="{{ $account->is_parent ? 'font-weight:700;' : 'padding-left:1.4rem;' }}">
                                                         {{ $account->account_name }}
                                                         @if ($account->is_parent)
-                                                            <span class="muted" style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.05em;">Group</span>
+                                                            <span class="muted" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;">Group</span>
                                                         @endif
                                                     </td>
                                                     <td class="muted hide-mobile">
@@ -253,7 +253,7 @@
                                                     </td>
                                                     <td style="text-align:right;">
                                                         @php $cb = (float) $account->period_closing; @endphp
-                                                        <span style="font-family:monospace;font-size:0.73rem;color:{{ $cb < 0 ? '#b91c1c' : ($cb == 0 ? '#ccc' : '#1b1b18') }};">
+                                                        <span style="font-family:monospace;font-size:0.73rem;color:{{ $cb < 0 ? '#b91c1c' : ($cb == 0 ? '#6f869b' : '#191919') }};">
                                                             {{ $cb != 0 ? number_format(abs($cb), 2) . ($cb < 0 ? ' Cr' : '') : '—' }}
                                                         </span>
                                                     </td>

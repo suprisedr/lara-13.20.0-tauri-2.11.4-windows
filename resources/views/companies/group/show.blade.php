@@ -11,7 +11,7 @@
             gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
         }
         .inv-mgmt-bar a, .inv-mgmt-bar .mgmt-back {
-            font-size: 0.78rem; color: #6b7280; text-decoration: none;
+            font-size: 0.78rem; color: #5a7186; text-decoration: none;
             display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.15s;
             background: none; border: none; cursor: pointer; font-family: inherit;
         }
@@ -25,12 +25,12 @@
         }
         .mgmt-btn:hover { background: #000; color: #fff; }
         .mgmt-btn.primary { background: #000; color: #fff; }
-        .mgmt-btn.primary:hover { background: #333; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
         .mgmt-btn.danger { border-color: #dc2626; color: #dc2626; }
         .mgmt-btn.danger:hover { background: #dc2626; color: #fff; }
         .cust-doc {
-            background: #fff; border: 1px solid #ddd;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            background: #fff; border: 1px solid #d3e2f5;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
             color: #000; font-size: 0.78rem; line-height: 1.45; margin-bottom: 1.5rem;
         }
         .cust-doc-body { padding: 2rem 2.25rem; }
@@ -39,15 +39,15 @@
         .doc-meta-line { text-align: right; font-size: 0.78rem; }
         .status-box {
             display: inline-block; font-weight: 700; text-transform: uppercase;
-            border: 1px solid #000; padding: 0.08rem 0.5rem; font-size: 0.62rem;
+            border: 1px solid #000; padding: 0.08rem 0.5rem; font-size: 0.72rem;
             letter-spacing: 0.08em; margin-top: 0.35rem;
         }
         .status-box.disposed { color: #dc2626; border-color: #dc2626; }
         .divider { border: none; border-top: 2px solid #000; margin: 1rem 0 1.25rem; }
-        .divider.light { border-top: 1px solid #ddd; margin: 1.25rem 0; }
+        .divider.light { border-top: 1px solid #d3e2f5; margin: 1.25rem 0; }
         .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 0.25rem; }
         .summary-table td { padding: 0 1.25rem 0 0; font-size: 0.78rem; vertical-align: top; }
-        .summary-table .lbl { display: block; font-weight: 700; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
+        .summary-table .lbl { display: block; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
         .summary-table .amt { font-size: 0.95rem; font-weight: 800; }
         .section-header {
             font-weight: 700; font-size: 0.85rem; text-transform: uppercase;
@@ -62,13 +62,13 @@
         }
         table.cust-items-table thead td.amt { text-align: right; }
         table.cust-items-table tbody td {
-            padding: 0.55rem 0; font-size: 0.78rem; border-bottom: 1px solid #ddd; vertical-align: middle;
+            padding: 0.55rem 0; font-size: 0.78rem; border-bottom: 1px solid #d3e2f5; vertical-align: middle;
         }
         table.cust-items-table tbody td.amt { text-align: right; font-family: 'Courier New', monospace; white-space: nowrap; }
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
-        table.cust-items-table tbody tr:hover td { background: #fafafa; }
+        table.cust-items-table tbody tr:hover td { background: #f7fbfd; }
         .ev-chip {
-            display: inline-block; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.05em;
+            display: inline-block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
             text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 2px; white-space: nowrap;
         }
         .ev-chip.acquisition { background: #dcfce7; color: #15803d; }
@@ -76,7 +76,7 @@
         .ev-chip.decrease { background: #fef3c7; color: #92400e; }
         .ev-chip.disposal { background: #fee2e2; color: #dc2626; }
         .action-section { margin-top: 1.5rem; }
-        .action-panel { border-bottom: 1px solid #eee; }
+        .action-panel { border-bottom: 1px solid #d3e2f5; }
         .action-panel-head {
             display: flex; align-items: center; justify-content: space-between;
             padding: 0.65rem 0; cursor: pointer; user-select: none;
@@ -84,14 +84,14 @@
         .action-panel-title { font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
         .action-panel-body { display: none; padding-bottom: 1rem; }
         .action-panel.open .action-panel-body { display: block; }
-        .action-panel-chevron { font-size: 0.65rem; color: #9ca3af; transition: transform 0.15s; }
+        .action-panel-chevron { font-size: 0.65rem; color: #6f869b; transition: transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform: rotate(180deg); }
         .af-row { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: flex-end; margin-bottom: 0.65rem; }
         .af-field { flex: 1; min-width: 130px; }
         .af-field.wide { flex: 2; min-width: 200px; }
         .af-field.full { flex-basis: 100%; }
-        .af-field label { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #555; margin-bottom: 0.2rem; }
-        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #ccc; padding: 0.32rem 0.5rem; font-size: 0.78rem; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; }
+        .af-field label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #5a7186; margin-bottom: 0.2rem; }
+        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #d3e2f5; padding: 0.32rem 0.5rem; font-size: 0.78rem; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; }
         .af-field input:focus, .af-field select:focus, .af-field textarea:focus { outline: none; border-color: #000; }
         .af-hint { font-size: 0.65rem; color: #888; margin-bottom: 0.5rem; line-height: 1.4; }
         .del-btn {
@@ -140,7 +140,7 @@
                         'subsidiary'   => ['bg' => '#dcfce7', 'fg' => '#15803d'],
                         'associate'    => ['bg' => '#dbeafe', 'fg' => '#1d4ed8'],
                         'joint_venture'=> ['bg' => '#fef3c7', 'fg' => '#92400e'],
-                        'investment'   => ['bg' => '#f3f4f6', 'fg' => '#374151'],
+                        'investment'   => ['bg' => '#f4fafc', 'fg' => '#191919'],
                     ];
                     $rc = $relColors[$relType] ?? $relColors['investment'];
                 @endphp
@@ -168,14 +168,14 @@
                                 <td style="vertical-align:top;width:55%;">
                                     <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.01em;">{{ $subsidiary->registered_name }}</div>
                                     @if ($subsidiary->trading_name && $subsidiary->trading_name !== $subsidiary->registered_name)
-                                        <div style="font-size:0.78rem;color:#555;margin-top:0.2rem;">t/a {{ $subsidiary->trading_name }}</div>
+                                        <div style="font-size:0.78rem;color:#5a7186;margin-top:0.2rem;">t/a {{ $subsidiary->trading_name }}</div>
                                     @endif
                                 </td>
                                 <td style="vertical-align:top;width:45%;">
                                     <div class="doc-title">{{ strtoupper($relInfo['label']) }} PROFILE</div>
                                     <div class="doc-meta-line">
-                                        <span style="font-size:0.62rem;font-weight:700;padding:0.1rem 0.4rem;background:{{ $rc['bg'] }};color:{{ $rc['fg'] }};letter-spacing:0.04em;">{{ $relInfo['label'] }}</span>
-                                        <span style="color:#555;margin-left:0.3rem;">{{ $relInfo['standard'] }} — {{ $relInfo['method'] }}</span>
+                                        <span style="font-size:0.72rem;font-weight:700;padding:0.1rem 0.4rem;background:{{ $rc['bg'] }};color:{{ $rc['fg'] }};letter-spacing:0.04em;">{{ $relInfo['label'] }}</span>
+                                        <span style="color:#5a7186;margin-left:0.3rem;">{{ $relInfo['standard'] }} — {{ $relInfo['method'] }}</span>
                                     </div>
                                     <div class="doc-meta-line">Type: <strong>{{ $subsidiary->company_type_label }}</strong></div>
                                     <div class="doc-meta-line">Holding: <strong>{{ $own ? rtrim(rtrim(number_format($own, 2), '0'), '.') . '%' : '—' }}</strong></div>
@@ -250,7 +250,7 @@
                         <div class="info-section">
                             <div class="section-header">Ownership Event History</div>
                             @if ($events->isEmpty())
-                                <p style="color:#999;font-size:0.78rem;font-style:italic;padding:0.75rem 0;">No ownership events recorded yet.</p>
+                                <p style="color:#6f869b;font-size:0.78rem;font-style:italic;padding:0.75rem 0;">No ownership events recorded yet.</p>
                             @else
                                 <table class="cust-items-table">
                                     <thead>
@@ -276,7 +276,7 @@
                                                 <td>{{ rtrim(rtrim(number_format((float) $event->ownership_after, 2), '0'), '.') }}%</td>
                                                 <td class="amt">{{ number_format((float) ($event->consideration ?? 0), 2) }}</td>
                                                 <td class="amt">{{ $event->equity_at_event ? number_format((float) $event->equity_at_event, 2) : '—' }}</td>
-                                                <td style="font-size:0.72rem;color:#555;">{{ $event->notes ?? '—' }}</td>
+                                                <td style="font-size:0.72rem;color:#5a7186;">{{ $event->notes ?? '—' }}</td>
                                                 <td style="text-align:right;">
                                                     <form method="POST"
                                                         action="{{ route('companies.group.ownership-events.destroy', [$company, $event]) }}"
@@ -296,7 +296,7 @@
                         <div class="info-section">
                             <div class="section-header">Intragroup Eliminations</div>
                             @if ($eliminations->isEmpty())
-                                <p style="color:#999;font-size:0.78rem;font-style:italic;padding:0.75rem 0;">No elimination journals recorded.</p>
+                                <p style="color:#6f869b;font-size:0.78rem;font-style:italic;padding:0.75rem 0;">No elimination journals recorded.</p>
                             @else
                                 <table class="cust-items-table">
                                     <thead>
@@ -504,7 +504,7 @@
                             <div class="action-panel" id="panel-eliminate">
                                 <div class="action-panel-head" onclick="togglePanel('eliminate')">
                                     <div class="action-panel-title">
-                                        <span style="color:#7c3aed;">⇄</span> Record Elimination Journal
+                                        <span style="color:#005bf0;">⇄</span> Record Elimination Journal
                                     </div>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>
@@ -532,7 +532,7 @@
                                         </div>
 
                                         <div style="margin-top:0.75rem;">
-                                            <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;margin-bottom:0.4rem;">Journal Lines</div>
+                                            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;margin-bottom:0.4rem;">Journal Lines</div>
                                             <template x-for="(line, idx) in lines" :key="idx">
                                                 <div class="af-row">
                                                     <div class="af-field">
@@ -557,7 +557,7 @@
                                                     </div>
                                                 </div>
                                             </template>
-                                            <button type="button" @click="lines.push({})" style="font-size:0.72rem;font-weight:700;border:1px dashed #ccc;background:none;padding:0.35rem 0.75rem;cursor:pointer;font-family:inherit;margin-top:0.25rem;">+ Add Line</button>
+                                            <button type="button" @click="lines.push({})" style="font-size:0.72rem;font-weight:700;border:1px dashed #d3e2f5;background:none;padding:0.35rem 0.75rem;cursor:pointer;font-family:inherit;margin-top:0.25rem;">+ Add Line</button>
                                         </div>
 
                                         <div style="display:flex;justify-content:flex-end;margin-top:0.75rem;">
@@ -571,7 +571,7 @@
                             <div class="action-panel" id="panel-edit">
                                 <div class="action-panel-head" onclick="togglePanel('edit')">
                                     <div class="action-panel-title">
-                                        <span style="color:#555;">✎</span> Edit Subsidiary Details
+                                        <span style="color:#5a7186;">✎</span> Edit Subsidiary Details
                                     </div>
                                     <span class="action-panel-chevron">▼</span>
                                 </div>

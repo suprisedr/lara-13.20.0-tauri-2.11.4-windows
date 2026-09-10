@@ -8,7 +8,7 @@
         @page { margin: 0; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7.5pt;
             color: #000;
             background: #fff;
@@ -23,10 +23,10 @@
         .meta-value { font-size:7pt; }
         .section-label {
             font-size:6pt; font-weight:bold; letter-spacing:0.08em; text-transform:uppercase;
-            color:#5e17eb; margin-bottom:3px;
+            color:#005bf0; margin-bottom:3px;
         }
         .divider { border:none; border-top:2pt solid #000; margin:12px 0 14px; }
-        .thin-divider { border:none; border-top:1pt solid #ccc; margin:10px 0; }
+        .thin-divider { border:none; border-top:1pt solid #d3e2f5; margin:10px 0; }
 
         table.items { width:100%; border-collapse:collapse; margin-bottom:14px; }
         table.items thead td {
@@ -34,21 +34,21 @@
             border-bottom:1.5pt solid #000; padding-bottom:4px;
         }
         table.items tbody td {
-            padding:4px 0; font-size:7.5pt; border-bottom:0.75pt solid #ddd; vertical-align:top;
+            padding:4px 0; font-size:7.5pt; border-bottom:0.75pt solid #d3e2f5; vertical-align:top;
         }
         table.items tbody tr:last-child td { border-bottom:none; }
         td.num { text-align:right; }
 
         .sig-section { margin-top:40px; }
         .sig-row { width:100%; border-collapse:collapse; }
-        .sig-row td { width:45%; padding-top:3px; font-size:7pt; color:#555; }
+        .sig-row td { width:45%; padding-top:3px; font-size:7pt; color:#5a7186; }
         .sig-row td.gap { width:10%; }
         .sig-line { border-top:1.5pt solid #000; padding-top:4px; }
 
         .footer-wrap { position:fixed; bottom:18px; left:58px; right:58px; }
-        .footer-bar { border-top:0.75pt solid #ccc; padding-top:6px; }
+        .footer-bar { border-top:0.75pt solid #d3e2f5; padding-top:6px; }
         .footer-bar table { width:100%; border-collapse:collapse; }
-        .footer-bar td { font-size:6.5pt; color:#555; }
+        .footer-bar td { font-size:6.5pt; color:#5a7186; }
         .footer-bar td.right { text-align:right; }
     </style>
 </head>
@@ -153,11 +153,11 @@
         <tbody>
             @foreach ($deliveryNote->items as $i => $item)
                 <tr>
-                    <td style="color:#aaa;">{{ $i + 1 }}</td>
+                    <td style="color:#6f869b;">{{ $i + 1 }}</td>
                     <td>{{ $item->description }}</td>
-                    <td style="color:#666;font-size:6.5pt;">{{ $item->inventoryItem?->sku ?? '—' }}</td>
+                    <td style="color:#5a7186;font-size:6.5pt;">{{ $item->inventoryItem?->sku ?? '—' }}</td>
                     <td class="num">{{ rtrim(rtrim(number_format((float)$item->quantity, 2), '0'), '.') }}</td>
-                    <td style="color:#666;">{{ $item->unit ?? '—' }}</td>
+                    <td style="color:#5a7186;">{{ $item->unit ?? '—' }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -167,7 +167,7 @@
     @if ($deliveryNote->notes)
         <hr class="thin-divider">
         <div class="section-label">Notes</div>
-        <div style="font-size:7pt;color:#333;white-space:pre-line;">{{ $deliveryNote->notes }}</div>
+        <div style="font-size:7pt;color:#191919;white-space:pre-line;">{{ $deliveryNote->notes }}</div>
     @endif
 
     {{-- Signature section --}}
@@ -197,5 +197,6 @@
         </div>
     </div>
 
+    @include('pdf._attribution', ['attrLeft' => '15mm', 'attrWidth' => '180mm'])
 </body>
 </html>

@@ -16,12 +16,12 @@
         .cfs-table { width: 100%; border-collapse: collapse; }
         .cfs-table td { padding: 0.4rem 0.75rem; font-size: 0.85rem; }
         .cfs-table td.amt { text-align: right; font-family: monospace; white-space: nowrap; }
-        .cfs-section td { font-size: 0.62rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: #5e17eb; padding-top: 0.9rem; }
-        .cfs-total td { font-weight: 800; border-top: 1.5px solid #1b1b18; border-bottom: 1px solid #1b1b18; }
-        .cfs-grand td { font-weight: 900; border-top: 2px solid #5e17eb; border-bottom: 3px double #5e17eb; }
+        .cfs-section td { font-size: 0.72rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: #005bf0; padding-top: 0.9rem; }
+        .cfs-total td { font-weight: 800; border-top: 1.5px solid #191919; border-bottom: 1px solid #191919; }
+        .cfs-grand td { font-weight: 900; border-top: 2px solid #005bf0; border-bottom: 3px double #005bf0; }
         .ws-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
-        .ws-table th, .ws-table td { padding: 0.4rem 0.6rem; font-size: 0.76rem; border-bottom: 1px solid #f3f4f6; }
-        .ws-table th { text-align: right; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; }
+        .ws-table th, .ws-table td { padding: 0.4rem 0.6rem; font-size: 0.76rem; border-bottom: 1px solid #f4fafc; }
+        .ws-table th { text-align: right; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6f869b; }
         .ws-table th:first-child, .ws-table td:first-child { text-align: left; }
         .ws-table td.amt { text-align: right; font-family: monospace; white-space: nowrap; }
     </style>
@@ -104,7 +104,7 @@
                             <tbody>
                                 @foreach ($worksheet as $row)
                                     <tr>
-                                        <td>{{ $row['company']->registered_name }} @if($row['is_parent'])<span style="font-size:0.6rem;color:#7c3aed;font-weight:800;">(PARENT)</span>@endif</td>
+                                        <td>{{ $row['company']->registered_name }} @if($row['is_parent'])<span style="font-size:0.7rem;color:#005bf0;font-weight:800;">(PARENT)</span>@endif</td>
                                         <td class="amt">{{ $fmt($row['non_current_assets']) }}</td>
                                         <td class="amt">{{ $fmt($row['current_assets']) }}</td>
                                         <td class="amt">{{ $fmt($row['non_current_liabilities']) }}</td>
@@ -112,7 +112,7 @@
                                         <td class="amt">{{ $fmt($row['equity']) }}</td>
                                     </tr>
                                 @endforeach
-                                <tr style="font-weight:800;border-top:1.5px solid #ddd;">
+                                <tr style="font-weight:800;border-top:1.5px solid #d3e2f5;">
                                     <td>Combined</td>
                                     <td class="amt">{{ $fmt($worksheet->sum('non_current_assets')) }}</td>
                                     <td class="amt">{{ $fmt($worksheet->sum('current_assets')) }}</td>
@@ -124,7 +124,7 @@
                         </table>
 
                         @if (!empty($subDetails))
-                            <h3 style="font-size:0.78rem;font-weight:800;margin:1.25rem 0 0.4rem;color:#374151;">Goodwill &amp; non-controlling interest</h3>
+                            <h3 style="font-size:0.78rem;font-weight:800;margin:1.25rem 0 0.4rem;color:#191919;">Goodwill &amp; non-controlling interest</h3>
                             <table class="ws-table">
                                 <thead>
                                     <tr>
@@ -151,7 +151,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p style="font-size:0.72rem;color:#9ca3af;margin:0.6rem 0 0;">
+                            <p style="font-size:0.72rem;color:#6f869b;margin:0.6rem 0 0;">
                                 Goodwill is measured at the date control was obtained and frozen thereafter (IFRS 3, partial-goodwill method).
                                 NCI = (1 − holding %) × subsidiary equity at the reporting date.
                                 The ownership reserve is the cumulative effect of buying/selling interest while retaining control
@@ -159,10 +159,10 @@
                             </p>
                         @endif
 
-                        <p style="font-size:0.72rem;color:#9ca3af;margin:0.8rem 0 0;">
+                        <p style="font-size:0.72rem;color:#6f869b;margin:0.8rem 0 0;">
                             Parent's investment in subsidiaries eliminated: {{ $fmt($eliminatedInvestment) }}.
                             Intragroup eliminations are managed under
-                            <a href="{{ route('companies.group.eliminations', $company) }}" style="color:#5e17eb;">Eliminations</a>.
+                            <a href="{{ route('companies.group.eliminations', $company) }}" style="color:#005bf0;">Eliminations</a>.
                         </p>
                     </div>
                 </div>

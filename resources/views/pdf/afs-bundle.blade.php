@@ -6,9 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Annual Financial Statements — {{ $company->registered_name }}</title>
     <style>
+        /* Page geometry from CGL-YE25 sectPr:
+           28800 x 16200 twips landscape = 508mm x 285.75mm,
+           margins 1500/1500/1095/1500 twips. */
         @page {
-            margin: 16mm 18mm 18mm 18mm;
-            size: A4 potrait;
+            size: 508mm 285.75mm;
+            margin: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         * {
@@ -24,10 +27,10 @@
         }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 6pt;
-            color: #23282d;
-            line-height: 1.4;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;      /* w:sz 21 */
+            color: #191919;
+            line-height: 1.2857;    /* w:line 270 exact on 10.5pt */
             background: #fff;
         }
 
@@ -50,7 +53,7 @@
             text-align: center;
             font-size: 8.5pt;
             color: #777;
-            border-top: 0.5pt solid #ddd;
+            border-top: 0.5pt solid #d3e2f5;
             padding-top: 4pt;
         }
 
@@ -65,7 +68,9 @@
 
         .section {
             page-break-after: always;
-            padding: 8mm 6mm;
+            /* One sheet per section — carries the document's own
+               margins, since dompdf ignores @page margin. */
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
             margin: 0;
             overflow: hidden;
         }
@@ -76,9 +81,9 @@
 
         /* ── Section running header (company + period strip) ── */
         .stmt-page-header {
-            font-size: 6pt;
-            color: #555;
-            border-bottom: 0.75pt solid #c4b5fd;
+            font-size: 10pt;
+            color: #1a345b;
+            border-bottom: 0.375pt solid #1a345b;
             padding-bottom: 5pt;
             margin-bottom: 16pt;
             line-height: 1.5;
@@ -86,10 +91,10 @@
 
         /* ── Statement title ── */
         h1.afs-title {
-            font-size: 12pt;
+            font-size: 25pt;        /* w:sz 50 */
             font-weight: bold;
             margin: 0 0 4pt 0;
-            color: #4c1d95;
+            color: #1a345b;
             letter-spacing: 0;
             text-transform: none;
             border-bottom: none;
@@ -97,23 +102,23 @@
 
         hr.stmt-rule {
             border: none;
-            border-top: 0.75pt solid #c4b5fd;
+            border-top: 0.75pt solid #9ec1f5;
             margin: 0 0 10pt 0;
         }
 
         h2.afs-sub {
-            font-size: 10.5pt;
+            font-size: 13pt;        /* w:sz 26 */
             font-weight: bold;
-            margin: 8pt 0 3pt 0;
-            color: #4c1d95;
+            margin: 13.5pt 0 3pt 0;
+            color: #005bf0;
             text-transform: none;
         }
 
         p.afs-para {
-            margin: 0 0 7pt 0;
-            text-align: justify;
-            font-size: 8pt;
-            line-height: 1.4;
+            margin: 0 0 6.75pt 0;
+            text-align: left;
+            font-size: 10.5pt;      /* w:sz 21 */
+            line-height: 1.2857;
             orphans: 2;
             widows: 2;
         }
@@ -138,12 +143,12 @@
         table.info td {
             padding: 5pt 8pt;
             vertical-align: top;
-            border-bottom: 0.5pt solid #eaf3fa;
+            border-bottom: 0.5pt solid #eaf8fb;
         }
 
         table.info td.label {
             width: 40%;
-            color: #333;
+            color: #191919;
             font-weight: 500;
         }
 
@@ -155,7 +160,7 @@
 
         table.index td {
             padding: 6pt 5pt;
-            border-bottom: 0.5pt dotted #c4b5fd;
+            border-bottom: 0.5pt dotted #9ec1f5;
             vertical-align: middle;
         }
 
@@ -170,100 +175,125 @@
             width: 100%;
             margin: 5pt 0;
             border-collapse: collapse;
-            font-size: 6pt;
+            font-size: 10.5pt;
         }
-
-        table.fig th {
-            font-weight: normal;
-            border-bottom: 0.75pt solid #4c1d95;
-            padding: 4pt 4pt 5pt 0;
-            text-align: left;
-            vertical-align: bottom;
-            background: #fff;
-            color: #6b5b8a;
-        }
-
-        table.fig th.amt {
-            text-align: right;
-            width: 18%;
-            font-weight: bold;
-            color: #4c1d95;
-            padding-right: 3pt;
-        }
-
-        table.fig th.note {
-            text-align: center;
-            width: 9%;
-        }
-
+        /* ── Bundle statement tables ──────────────────────────
+           table.fig carries the same treatment as .afs-table so the
+           bundle's Comprehensive Income and Changes in Equity match
+           the Cash Flow and Financial Position statements, which use
+           the shared partials. Measured from the source document:
+             - header is NOT a full band; only the current-year cell
+               is filled #005BF0 with white text and a blue rule
+             - the current-year column carries a continuous #EAF8FB
+               tint and bold figures on every row
+             - every rule is 0.5pt solid #000000; none are doubled
+           .fig-matrix switches the column treatment off for Changes
+           in Equity, whose third column is an arbitrary equity
+           component rather than a year. */
+        table.fig th,
         table.fig td {
-            padding: 3.5pt 4pt;
-            vertical-align: middle;
-            line-height: 1.35;
+            border: none;
+            vertical-align: bottom;
+            padding: 0 3.75pt 0 0;
+            line-height: 1.2857;
         }
 
-        table.fig td.amt {
+        table.fig thead th {
+            font-size: 10.5pt;
+            font-weight: normal;
+            font-style: normal;
+            color: #000000;
+            background: #fff;
+            text-align: right;
+            vertical-align: bottom;
+            border-bottom: 0.5pt solid #000000;
+        }
+        table.fig thead th:first-child { text-align: left; }
+        table.fig thead th.note { text-align: left; width: 6.54%; }
+        table.fig thead th.amt  { text-align: right; width: 14.94%;
+                                  font-weight: normal; color: #000000; }
+
+        table.fig thead th:nth-child(3) {
+            background: #005bf0;
+            color: #ffffff;
+            border-bottom-color: #005bf0;
+            padding-right: 4.5pt;
+        }
+
+        table.fig tbody td { color: #000000; }
+
+        table.fig tbody td:nth-child(3) {
+            background: #eaf8fb;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 4.5pt;
+        }
+
+        table.fig tbody td.amt,
+        table.fig tbody td.amt-neg {
             text-align: right;
             white-space: nowrap;
-            padding-right: 3pt;
+            font-variant-numeric: tabular-nums;
         }
 
-        table.fig td.amt-neg {
-            text-align: right;
-            white-space: nowrap;
-            padding-right: 3pt;
-            color: #b91c1c;
+        /* Emphasis labels — sections, subtotals and totals alike */
+        table.fig tr.section td:first-child,
+        table.fig tr.subtot  td:first-child,
+        table.fig tr.grand   td:first-child {
+            font-weight: bold;
+            color: #005bf0;
+        }
+        table.fig tr.section td { padding-top: 8pt; }
+
+        /* Hairline closing a group or a total — never doubled */
+        table.fig tr.subtot td,
+        table.fig tr.grand  td {
+            border-bottom: 0.5pt solid #000000;
         }
 
-        table.fig td.note {
-            text-align: center;
-            width: 9%;
-            color: #555;
+        /* ── Matrix override (Changes in Equity) ─────────────────
+           Declared after the column rules and without :not(), which
+           dompdf does not reliably support. Its third column is an
+           equity component, not a year, so the band is switched off
+           and emphasis is carried by bold figures instead. */
+        table.fig.fig-matrix thead th:nth-child(3) {
+            background: #fff;
+            color: #000000;
+            border-bottom-color: #000000;
+            padding-right: 3.75pt;
         }
+        table.fig.fig-matrix tbody td:nth-child(3) {
+            background: transparent;
+            font-weight: normal;
+            padding-right: 3.75pt;
+        }
+        table.fig.fig-matrix tr.subtot td,
+        table.fig.fig-matrix tr.grand td { font-weight: bold; }
+
+        table.fig tbody tr:first-child td { padding-top: 13.5pt; }
+
+
+
+
+
+
+
 
         /* Regular data row */
-        table.fig tr.line td {
-            border-bottom: 0.4pt solid #ddd6fe;
-        }
 
         /* Last line before a subtotal */
-        table.fig tr.line-last td {
-            border-bottom: 0.6pt solid #a78bfa;
-        }
 
         /* Subtotal row */
-        table.fig tr.subtot td {
-            font-weight: bold;
-            color: #4c1d95;
-            border-bottom: 0.75pt solid #4c1d95;
-            padding: 4pt 4pt;
-        }
 
         /* Grand total */
-        table.fig tr.grand td {
-            font-weight: bold;
-            color: #4c1d95;
-            border-top: 0.75pt solid #4c1d95;
-            border-bottom: 1.5pt solid #4c1d95;
-            background: #ede9fe;
-            padding: 5pt 4pt;
-            text-transform: none;
-        }
 
         /* Section/group heading row */
-        table.fig tr.head td {
-            font-weight: bold;
-            font-size: 10pt;
-            padding: 8pt 0 3pt 0;
-            background: #fff;
-            color: #4c1d95;
-        }
 
         /* Sub-group heading */
         table.fig tr.subhead td {
             font-weight: bold;
             padding: 4pt 0 3pt 8pt;
-            color: #7c3aed;
+            color: #005bf0;
             background: #fff;
         }
 
@@ -279,32 +309,32 @@
             font-weight: bold;
             text-transform: none;
             letter-spacing: 0.2pt;
-            color: #4c1d95;
+            color: #1a345b;
             margin-bottom: 6pt;
         }
 
         .cover .c-reg {
             font-size: 10.5pt;
-            color: #555;
+            color: #5a7186;
             margin-bottom: 30pt;
         }
 
         .cover .c-title {
             font-size: 17pt;
             font-weight: bold;
-            color: #7c3aed;
+            color: #005bf0;
             margin-bottom: 10pt;
         }
 
         .cover .c-period {
             font-size: 12pt;
-            color: #333;
+            color: #191919;
         }
 
         /* ── Signature space ── */
         .sign-space {
             height: 50pt;
-            border-bottom: 1pt solid #4c1d95;
+            border-bottom: 1pt solid #1a345b;
             width: 200pt;
             margin: 20pt 0 4pt 0;
         }
@@ -323,7 +353,7 @@
         }
 
         .afs-table td.afs-note {
-            color: #23282d;
+            color: #191919;
         }
 
         /* ── Accounting policies: Clicks-style multi-column spread ── */
@@ -345,17 +375,17 @@
         }
 
         .policy-title {
-            font-size: 11.5pt;
+            font-size: 13pt;        /* w:sz 26 */
             font-weight: bold;
-            color: #7c3aed;
+            color: #005bf0;
             margin: 0 0 5pt 0;
             line-height: 1.3;
         }
 
         .policy-heading {
-            font-size: 9.5pt;
+            font-size: 11.5pt;      /* w:sz 23 */
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 8pt 0 3pt 0;
             line-height: 1.35;
         }
@@ -366,10 +396,10 @@
         }
 
         p.policy-para {
-            font-size: 8pt;
-            line-height: 1.45;
+            font-size: 10.5pt;
+            line-height: 1.2857;
             text-align: left;
-            color: #23282d;
+            color: #191919;
             margin: 0 0 6pt 0;
             orphans: 2;
             widows: 2;
@@ -377,9 +407,8 @@
 
         .afs-continued {
             font-weight: normal;
-            font-style: italic;
-            font-size: 8pt;
-            color: #6b5b8a;
+            font-size: 10.5pt;
+            color: #1a345b;
         }
 
         /* ── Two-up spread: two logical pages per potrait sheet ── */
@@ -407,7 +436,7 @@
         .note-item {
             margin-bottom: 10pt;
             padding-bottom: 8pt;
-            border-bottom: 0.5pt solid #ddd6fe;
+            border-bottom: 0.5pt solid #d3e2f5;
             page-break-inside: avoid;
         }
 
@@ -423,16 +452,16 @@
 
         .note-heading {
             font-weight: bold;
-            font-size: 10.5pt;
+            font-size: 13pt;        /* w:sz 26 */
             margin-bottom: 5pt;
-            color: #4c1d95;
+            color: #005bf0;
         }
 
         .note-body {
-            font-size: 8pt;
-            line-height: 1.45;
-            text-align: justify;
-            color: #262626;
+            font-size: 10.5pt;
+            line-height: 1.2857;
+            text-align: left;
+            color: #191919;
             orphans: 2;
             widows: 2;
         }
@@ -447,20 +476,33 @@
 
         /* Better formatting for content */
         .afs-footer {
-            margin-top: 14pt;
-            padding-top: 8pt;
-            border-top: 0.5pt solid #ddd;
-            font-size: 8pt;
-            color: #666;
-            text-align: center;
+            margin-top: 13.5pt;
+            padding-top: 4pt;
+            border-top: 0.375pt solid #1a345b;
+            font-size: 10pt;
+            color: #1a345b;
+            text-align: left;
         }
 
-        /* Prevent tables splitting mid-row */
-        table.fig,
-        .afs-table {
-            table-layout: auto;
-            width: 100%;
+        /* Prevent tables splitting mid-row.
+           .afs-table is deliberately NOT reset here: it must keep
+           the measured 214.31mm / fixed layout from _afs-styles,
+           which is what lets two statements sit side by side on
+           the landscape sheet, as they do in the source document
+           (e.g. its page 47 carries three company statements). */
+        table.fig {
+            table-layout: fixed;
+            width: 214.31mm;
         }
+        table.fig.fig-matrix {
+            table-layout: auto;
+            width: auto;
+        }
+        /* Sized from the source SOCE grid: label 8400 tw = 148mm,
+           amount columns ~2200 tw = 38.8mm, so a 4-column matrix
+           neither cramps nor spreads across the sheet. */
+        table.fig.fig-matrix thead th:first-child { width: 148mm; }
+        table.fig.fig-matrix thead th.amt { width: 38.8mm; }
 
         tr { page-break-inside: avoid; }
 
@@ -1271,7 +1313,7 @@
                 $hasOtherPrior   = ($retainedOtherPrior   != 0 || $shareOtherPrior   != 0);
                 $hasOtherCurrent = ($retainedOtherCurrent != 0 || $shareOtherCurrent != 0);
             @endphp
-            <table class="fig">
+            <table class="fig fig-matrix">
                 <thead>
                     <tr>
                         <th>Figures in Rand</th>
@@ -1427,28 +1469,28 @@
 
                                         @php $nf = $noteFigures[$note->id] ?? null; @endphp
                         @if ($nf && $nf['has'] && ! $note->isPpe() && ! $note->isIntangible() && ! $note->isInventory())
-                            <table style="width:100%;border-collapse:collapse;font-size:6pt;margin-top:8pt;">
+                            <table style="width:100%;border-collapse:collapse;font-size:10.5pt;margin-top:8pt;">
                                 <thead>
                                     <tr>
-                                        <th style="text-align:left;padding:3pt 4pt;border-bottom:0.75pt solid #333;"></th>
-                                        <th style="text-align:right;padding:3pt 4pt;border-bottom:0.75pt solid #333;white-space:nowrap;">{{ $curYear }}</th>
-                                        <th style="text-align:right;padding:3pt 4pt;border-bottom:0.75pt solid #333;white-space:nowrap;">{{ $priorYear }}</th>
+                                        <th style="text-align:left;padding:3pt 4pt;border-bottom:0.75pt solid #1a345b;"></th>
+                                        <th style="text-align:right;padding:3pt 4pt;border-bottom:0.75pt solid #1a345b;white-space:nowrap;">{{ $curYear }}</th>
+                                        <th style="text-align:right;padding:3pt 4pt;border-bottom:0.75pt solid #1a345b;white-space:nowrap;">{{ $priorYear }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($nf['rows'] as $row)
                                         @if (abs($row['current']) >= 0.01 || abs($row['prior']) >= 0.01)
                                         <tr>
-                                            <td style="padding:2.5pt 4pt;border-bottom:0.4pt dashed #e0e0e0;">{{ $row['label'] }}</td>
-                                            <td style="text-align:right;padding:2.5pt 4pt;border-bottom:0.4pt dashed #e0e0e0;white-space:nowrap;{{ $row['current'] < 0 ? 'color:#b91c1c;' : '' }}">{{ $row['current'] != 0 ? number_format(abs($row['current']), 2) : '—' }}</td>
-                                            <td style="text-align:right;padding:2.5pt 4pt;border-bottom:0.4pt dashed #e0e0e0;white-space:nowrap;{{ $row['prior'] < 0 ? 'color:#b91c1c;' : '' }}">{{ $row['prior'] != 0 ? number_format(abs($row['prior']), 2) : '—' }}</td>
+                                            <td style="padding:2.5pt 4pt;border-bottom:0.4pt dashed #d3e2f5;">{{ $row['label'] }}</td>
+                                            <td style="text-align:right;padding:2.5pt 4pt;border-bottom:0.4pt dashed #d3e2f5;white-space:nowrap;{{ $row['current'] < 0 ? 'color:#b91c1c;' : '' }}">{{ $row['current'] != 0 ? number_format(abs($row['current']), 2) : '—' }}</td>
+                                            <td style="text-align:right;padding:2.5pt 4pt;border-bottom:0.4pt dashed #d3e2f5;white-space:nowrap;{{ $row['prior'] < 0 ? 'color:#b91c1c;' : '' }}">{{ $row['prior'] != 0 ? number_format(abs($row['prior']), 2) : '—' }}</td>
                                         </tr>
                                         @endif
                                     @endforeach
                                     <tr>
-                                        <td style="padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #333;border-bottom:1.5pt double #333;">Total</td>
-                                        <td style="text-align:right;padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #333;border-bottom:1.5pt double #333;white-space:nowrap;{{ $nf['total_current'] < 0 ? 'color:#b91c1c;' : '' }}">{{ number_format(abs($nf['total_current']), 2) }}</td>
-                                        <td style="text-align:right;padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #333;border-bottom:1.5pt double #333;white-space:nowrap;{{ $nf['total_prior'] < 0 ? 'color:#b91c1c;' : '' }}">{{ number_format(abs($nf['total_prior']), 2) }}</td>
+                                        <td style="padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #1a345b;border-bottom:1.5pt double #1a345b;">Total</td>
+                                        <td style="text-align:right;padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #1a345b;border-bottom:1.5pt double #1a345b;white-space:nowrap;{{ $nf['total_current'] < 0 ? 'color:#b91c1c;' : '' }}">{{ number_format(abs($nf['total_current']), 2) }}</td>
+                                        <td style="text-align:right;padding:3pt 4pt;font-weight:bold;border-top:0.75pt solid #1a345b;border-bottom:1.5pt double #1a345b;white-space:nowrap;{{ $nf['total_prior'] < 0 ? 'color:#b91c1c;' : '' }}">{{ number_format(abs($nf['total_prior']), 2) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1605,6 +1647,7 @@
 
     </div>
 
+    @include('pdf._attribution')
 </body>
 
 </html>

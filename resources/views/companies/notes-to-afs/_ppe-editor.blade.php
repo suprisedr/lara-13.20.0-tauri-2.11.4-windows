@@ -74,18 +74,18 @@
             <h2 class="ppe-section-title" style="margin:0;font-size:0.8rem;">Movement schedule</h2>
             <form method="GET" action="{{ route('companies.notes-to-afs.show', [$company, $note]) }}"
                 style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-left:auto;">
-                <label style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">From</label>
+                <label style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">From</label>
                 <input type="date" name="start_date" value="{{ $startDate }}"
-                    style="border:1px solid #ccc;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
-                <label style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#555;">To</label>
+                    style="border:1px solid #d3e2f5;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
+                <label style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5a7186;">To</label>
                 <input type="date" name="end_date" value="{{ $endDate }}"
-                    style="border:1px solid #ccc;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
+                    style="border:1px solid #d3e2f5;border-radius:0;padding:0.25rem 0.5rem;font-size:0.72rem;font-family:inherit;color:#000;" />
                 <button type="submit" class="mgmt-btn primary sm">Apply</button>
             </form>
         </div>
 
         @if (empty($movements))
-            <p style="font-size:0.78rem;color:#9ca3af;padding:0.35rem 0;">
+            <p style="font-size:0.78rem;color:#6f869b;padding:0.35rem 0;">
                 No PPE classes defined yet — add a class below to start.
             </p>
         @else
@@ -93,13 +93,13 @@
                 <table class="ppe-schedule" style="width:100%;border-collapse:collapse;font-size:0.72rem;">
                     <thead>
                         <tr>
-                            <th style="text-align:left;padding:0.3rem 0.5rem;border-bottom:1.5px solid #000;background:#fafafa;min-width:200px;"></th>
+                            <th style="text-align:left;padding:0.3rem 0.5rem;border-bottom:1.5px solid #000;background:#f7fbfd;min-width:200px;"></th>
                             @foreach ($movements as $m)
-                                <th style="text-align:right;padding:0.3rem 0.5rem;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #000;background:#fafafa;white-space:nowrap;">
+                                <th style="text-align:right;padding:0.3rem 0.5rem;font-size:0.68rem;font-weight:700;color:#5a7186;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #000;background:#f7fbfd;white-space:nowrap;">
                                     {{ $m['class']->name }}
                                 </th>
                             @endforeach
-                            <th style="text-align:right;padding:0.3rem 0.5rem;font-size:0.58rem;font-weight:700;color:#000;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #000;background:#f5f5f5;white-space:nowrap;">Total</th>
+                            <th style="text-align:right;padding:0.3rem 0.5rem;font-size:0.68rem;font-weight:700;color:#000;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #000;background:#f4fafc;white-space:nowrap;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,7 +112,7 @@
 
                             <tr>
                                 <td colspan="{{ count($movements) + 2 }}"
-                                    style="padding:0.5rem 0.5rem 0.15rem;font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#000;border-top:{{ $loop->first ? 'none' : '1.5px solid #000' }};">
+                                    style="padding:0.5rem 0.5rem 0.15rem;font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:#000;border-top:{{ $loop->first ? 'none' : '0.5pt solid #000000' }};">
                                     {{ $sectionLabel }}
                                 </td>
                             </tr>
@@ -121,13 +121,13 @@
                                 @php
                                     $isClosing = str_ends_with($key, '_closing');
                                     $isMinus   = in_array($key, ['cost_disposals','ad_disposals','impairment_reversal','rev_surplus_loss']);
-                                    $rowBg     = $isCarrying ? '#f5f5f5' : ($isClosing ? '#fafafa' : '');
+                                    $rowBg     = $isCarrying ? '#f4fafc' : ($isClosing ? '#f7fbfd' : '');
                                     $rowWeight = ($isClosing || $isCarrying) ? '700' : '400';
                                     $valColor  = '#000';
-                                    $rowBorder = ($isClosing && !$isCarrying) ? '1.5px solid #000' : '1px solid #ddd';
+                                    $rowBorder = ($isClosing && !$isCarrying) ? '0.5pt solid #000000' : '0.5pt solid #d3e2f5';
                                 @endphp
                                 <tr style="{{ $rowBg ? 'background:'.$rowBg.';' : '' }}">
-                                    <td style="padding:0.28rem 0.5rem 0.28rem 1rem;color:{{ ($isClosing || $isCarrying) ? '#000' : '#555' }};font-weight:{{ $rowWeight }};border-bottom:{{ $rowBorder }};white-space:nowrap;">
+                                    <td style="padding:0.28rem 0.5rem 0.28rem 1rem;color:{{ ($isClosing || $isCarrying) ? '#000' : '#5a7186' }};font-weight:{{ $rowWeight }};border-bottom:{{ $rowBorder }};white-space:nowrap;">
                                         {{ $isMinus ? '(' : '' }}{{ $rowLabel }}{{ $isMinus ? ')' : '' }}
                                     </td>
                                     @foreach ($movements as $m)
@@ -137,7 +137,7 @@
                                         </td>
                                     @endforeach
                                     @php $tv = $totals[$key] ?? 0.0; @endphp
-                                    <td style="text-align:right;padding:0.28rem 0.5rem;font-family:'Courier New',monospace;font-weight:700;color:{{ $valColor }};background:{{ $isCarrying ? '#f0f0f0' : ($isClosing ? '#f5f5f5' : 'transparent') }};border-bottom:{{ $rowBorder }};white-space:nowrap;">
+                                    <td style="text-align:right;padding:0.28rem 0.5rem;font-family:'Courier New',monospace;font-weight:700;color:{{ $valColor }};background:{{ $isCarrying ? '#f4fafc' : ($isClosing ? '#f4fafc' : 'transparent') }};border-bottom:{{ $rowBorder }};white-space:nowrap;">
                                         {{ $isMinus ? ($tv != 0 ? '('.$fmt($tv).')' : '—') : $sign($tv) }}
                                     </td>
                                 </tr>
@@ -147,7 +147,7 @@
                 </table>
             </div>
 
-            <p style="margin:0.6rem 0 0;font-size:0.6rem;color:#888;">
+            <p style="margin:0.6rem 0 0;font-size:0.7rem;color:#888;">
                 Built from the asset register. Brackets&nbsp;( ) denote deductions.
                 Sections appear once activity exists for them on the register.
             </p>
@@ -161,7 +161,7 @@
     <div class="notes-card ppe-classes-card" style="padding:0.55rem 0.85rem;">
         <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.35rem;">
             <h2 class="ppe-section-title" style="margin:0;font-size:0.72rem;flex-shrink:0;">PPE classes</h2>
-            <span style="font-size:0.58rem;color:#9ca3af;">Link accounts on the schedule above.</span>
+            <span style="font-size:0.68rem;color:#6f869b;">Link accounts on the schedule above.</span>
         </div>
 
         @foreach ($ppeClasses as $class)
@@ -196,12 +196,12 @@
         @endforeach
 
         @if ($ppeClasses->isEmpty())
-            <p style="color:#9ca3af;font-size:0.65rem;margin:0 0 0.35rem;">No classes yet.</p>
+            <p style="color:#6f869b;font-size:0.65rem;margin:0 0 0.35rem;">No classes yet.</p>
         @endif
 
         {{-- Add new class — same compact row layout --}}
         <form method="POST" action="{{ route('companies.notes-to-afs.ppe.classes.store', $company) }}"
-            class="ppe-class-form ppe-class-row" style="margin-top:0.35rem;padding-top:0.35rem;border-top:1px dashed #ccc;">
+            class="ppe-class-form ppe-class-row" style="margin-top:0.35rem;padding-top:0.35rem;border-top:1px dashed #d3e2f5;">
             @csrf
             <input type="text" name="name" required maxlength="120" placeholder="New class (e.g. Motor vehicles)"
                 class="ppe-cls-input" style="flex:1;min-width:80px;" />
@@ -230,7 +230,7 @@
             flex: 1;
         }
         .ppe-classes-card .ppe-cls-input {
-            border: 1px solid #ccc;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.18rem 0.35rem;
             font-size: 0.66rem;
@@ -267,7 +267,7 @@
             border-color: #000;
         }
         .ppe-classes-card .ppe-cls-add:hover {
-            background: #333;
+            background: #1a345b;
         }
         .ppe-classes-card .ppe-cls-del {
             color: #dc2626;
@@ -284,7 +284,7 @@
         <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
             <div>
                 <h2 class="ppe-section-title" style="margin:0 0 0.15rem;font-size:0.8rem;">Asset register</h2>
-                <p style="margin:0;font-size:0.65rem;color:#9ca3af;">Manage assets, post acquisitions, depreciation, revaluations and impairments from the asset register.</p>
+                <p style="margin:0;font-size:0.65rem;color:#6f869b;">Manage assets, post acquisitions, depreciation, revaluations and impairments from the asset register.</p>
             </div>
             <a href="{{ route('companies.assets.index', $company) }}" class="mgmt-btn">
                 Open Asset Register &rarr;

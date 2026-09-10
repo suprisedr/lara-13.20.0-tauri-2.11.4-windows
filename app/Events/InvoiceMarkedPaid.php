@@ -14,6 +14,7 @@ class InvoiceMarkedPaid
     public function __construct(
         public readonly Invoice $invoice,
         public readonly User $user,
+        public readonly ?float $amount = null,
     ) {
     }
 }

@@ -9,74 +9,74 @@
         /* ── Channel header ── */
         .af-header {
             display:flex; align-items:center; justify-content:space-between;
-            padding:8pt 10pt; border-bottom:1pt solid #c4b5fd;
+            padding:8pt 10pt; border-bottom:1pt solid #9ec1f5;
             gap:6pt; flex-wrap:wrap;
         }
         .af-header-left { display:flex; align-items:center; gap:5pt; }
-        .af-header-icon { font-size:9pt; color:#4c1d95; line-height:1; }
+        .af-header-icon { font-size:10pt; color:#1a345b; line-height:1; }
         .af-header-title {
-            font-weight:700; font-size:7.5pt; text-transform:uppercase;
-            letter-spacing:0.07em; color:#4c1d95;
+            font-weight:700; font-size:7.5pt; text-transform: none;
+            letter-spacing: 0; color:#1a345b;
         }
         .af-header-count {
             display:inline-flex; align-items:center; justify-content:center;
-            background:#4c1d95; color:#fff;
-            font-size:5.5pt; font-weight:700; letter-spacing:0.05em;
+            background:#1a345b; color:#fff;
+            font-size: 10pt; font-weight:700; letter-spacing:0.05em;
             min-width:10pt; height:10pt; padding:0 3pt; border-radius:0;
         }
         .af-header-right { display:flex; align-items:center; gap:4pt; flex-wrap:wrap; }
 
         .af-filter {
-            font-size:6pt; padding:0 5pt;
-            border:1px solid #c4b5fd; border-radius:0;
-            background:#fff; color:#4c1d95; font-family:inherit; cursor:pointer;
-            height:16pt; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+            font-size: 10pt; padding:0 5pt;
+            border:1px solid #9ec1f5; border-radius:0;
+            background:#fff; color:#1a345b; font-family:inherit; cursor:pointer;
+            height:16pt; text-transform: none; letter-spacing: 0; font-weight:700;
         }
-        .af-filter:focus { outline:none; border-color:#4c1d95; }
+        .af-filter:focus { outline:none; border-color:#1a345b; }
         .af-search-wrap { position:relative; display:flex; align-items:center; }
         .af-search-input {
-            height:16pt; border:1px solid #c4b5fd; border-radius:0;
-            padding:0 12pt 0 5pt; font-size:6.5pt; font-family:inherit;
-            color:#4c1d95; background:#fff; width:140pt; box-sizing:border-box;
+            height:16pt; border:1px solid #9ec1f5; border-radius:0;
+            padding:0 12pt 0 5pt; font-size: 10.5pt; font-family:inherit;
+            color:#1a345b; background:#fff; width:140pt; box-sizing:border-box;
         }
-        .af-search-input:focus { outline:none; border-color:#4c1d95; }
+        .af-search-input:focus { outline:none; border-color:#1a345b; }
         .af-search-clear {
             position:absolute; right:3pt; background:none; border:none;
-            cursor:pointer; font-size:8pt; color:#8b7aad; line-height:1; padding:0;
+            cursor:pointer; font-size:8pt; color:#6f869b; line-height:1; padding:0;
             display:none;
         }
-        .af-search-clear:hover { color:#4c1d95; }
+        .af-search-clear:hover { color:#1a345b; }
         .af-search-count {
-            font-size:5.5pt; color:#6b5b8a; white-space:nowrap;
+            font-size: 10pt; color:#5a7186; white-space:nowrap;
         }
         .af-row mark.af-hl { background:#fef08a; border-radius:2px; padding:0 1px; font-weight:inherit; }
 
         .af-tabs { display:flex; }
         .af-tab {
-            padding:0 7pt; font-size:5.5pt; font-weight:700;
-            letter-spacing:0.08em; text-transform:uppercase;
-            color:#4c1d95; background:#fff; border:1px solid #4c1d95;
+            padding:0 7pt; font-size: 10pt; font-weight:700;
+            letter-spacing: 0; text-transform: none;
+            color:#1a345b; background:#fff; border: 0.5pt solid #000000;
             cursor:pointer; transition:background 0.15s, color 0.15s;
             height:16pt; font-family:inherit;
         }
         .af-tab + .af-tab { border-left:none; }
-        .af-tab.active { background:#4c1d95; color:#fff; }
-        .af-tab:hover:not(.active) { background:#f5f3ff; }
+        .af-tab.active { background:#1a345b; color:#fff; }
+        .af-tab:hover:not(.active) { background:#f4fafc; }
 
         /* ── Feed area ── */
         .af-feed { max-height:60vh; overflow-y:auto; }
         .af-feed::-webkit-scrollbar { width:4px; }
         .af-feed::-webkit-scrollbar-track { background:transparent; }
-        .af-feed::-webkit-scrollbar-thumb { background:#c4b5fd; }
+        .af-feed::-webkit-scrollbar-thumb { background:#9ec1f5; }
 
         .af-divider {
             display:flex; align-items:center; gap:6pt;
             padding:5pt 10pt 2pt;
-            color:#6b5b8a; font-size:5.5pt; font-weight:700;
-            letter-spacing:0.09em; text-transform:uppercase;
+            color:#5a7186; font-size: 10pt; font-weight:700;
+            letter-spacing: 0; text-transform: none;
         }
         .af-divider::before, .af-divider::after {
-            content:''; flex:1; height:1px; background:#c4b5fd;
+            content:''; flex:1; height:1px; background:#9ec1f5;
         }
 
         /* ── Compact row ── */
@@ -86,59 +86,59 @@
             cursor:pointer; position:relative;
             transition:background 0.1s;
             border-left:3px solid transparent;
-            border-bottom:0.4pt solid #ddd6fe;
+            border-bottom:0.4pt solid #d3e2f5;
         }
         .af-row:last-child { border-bottom:none; }
-        .af-row:hover { background:#faf5ff; }
+        .af-row:hover { background:#f4fafc; }
         .af-row.prio-high   { border-left-color:#b91c1c; }
         .af-row.prio-medium { border-left-color:#b45309; }
-        .af-row.prio-low    { border-left-color:#8b7aad; }
+        .af-row.prio-low    { border-left-color:#6f869b; }
         .af-row.is-resolved { opacity:0.5; border-left-color:#15803d; }
         .af-row.is-resolved .af-row-title {
-            text-decoration:line-through; color:#8b7aad;
+            text-decoration:line-through; color:#6f869b;
         }
 
         .af-src {
             flex-shrink:0; width:12pt; height:12pt;
             display:flex; align-items:center; justify-content:center;
-            font-size:5pt; font-weight:700; letter-spacing:0.05em;
-            background:#fff; border:1px solid #4c1d95;
+            font-size: 10pt; font-weight:700; letter-spacing:0.05em;
+            background:#fff; border: 0.5pt solid #000000;
         }
-        .af-src.src-manual { color:#4c1d95; border-color:#4c1d95; }
+        .af-src.src-manual { color:#1a345b; border-color:#1a345b; }
         .af-src.src-ai     { color:#92400e; border-color:#92400e; }
         .af-src.src-system { color:#1d4ed8; border-color:#1d4ed8; }
 
         .af-row-title {
             flex:1; min-width:0;
-            font-size:7pt; font-weight:600; color:#4c1d95;
+            font-size:7pt; font-weight:600; color:#1a345b;
             white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3;
         }
 
         .af-row-badges { display:flex; align-items:center; gap:2pt; flex-shrink:0; }
 
         .af-badge {
-            font-size:5pt; font-weight:700;
+            font-size: 7pt; font-weight:700;
             padding:1pt 4pt; border-radius:0;
-            border:1px solid #4c1d95; background:#fff;
-            text-transform:uppercase; letter-spacing:0.08em;
+            border: 0.5pt solid #000000; background:#fff;
+            text-transform: none; letter-spacing: 0;
         }
         .badge-high   { color:#b91c1c; border-color:#b91c1c; }
         .badge-medium { color:#b45309; border-color:#b45309; }
-        .badge-low    { color:#6b5b8a; border-color:#8b7aad; }
+        .badge-low    { color:#5a7186; border-color:#6f869b; }
         .badge-ai     { color:#92400e; border-color:#92400e; }
         .badge-system { color:#1d4ed8; border-color:#1d4ed8; }
 
         .af-row-time {
-            flex-shrink:0; font-size:6pt; color:#8b7aad;
+            flex-shrink:0; font-size: 10.5pt; color:#6f869b;
             min-width:28pt; text-align:right;
-            font-family:'Courier New',monospace;
+            font-family: inherit; font-variant-numeric: tabular-nums;
         }
 
         .af-row-actions {
             position:absolute; right:8pt; display:none;
             align-items:center; gap:2pt;
-            background:#fff; border:1px solid #4c1d95;
-            box-shadow:0 2px 6px rgba(22,53,92,0.12);
+            background:#fff; border: 0.5pt solid #000000;
+            box-shadow:0 2px 6px rgba(26, 52, 91,0.12);
             padding:2pt 3pt; border-radius:0;
         }
         .af-row:hover .af-row-actions { display:flex; }
@@ -146,12 +146,12 @@
         .af-row-btn {
             background:none; border:none; cursor:pointer;
             padding:2pt 4pt; font-family:inherit;
-            font-size:5.5pt; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#6b5b8a;
+            font-size: 10.5pt; font-weight:700; letter-spacing: 0;
+            text-transform: none; color:#5a7186;
             transition:background 0.1s, color 0.1s;
             white-space:nowrap;
         }
-        .af-row-btn:hover { background:#f5f3ff; color:#4c1d95; }
+        .af-row-btn:hover { background:#f4fafc; color:#1a345b; }
         .af-row-btn.btn-resolve { color:#15803d; }
         .af-row-btn.btn-resolve:hover { background:#15803d; color:#fff; }
         .af-row-btn.btn-reopen { color:#1d4ed8; }
@@ -163,64 +163,64 @@
         .af-detail {
             display:none;
             margin:0 10pt 0 30pt;
-            border-left:2px solid #4c1d95;
+            border-left:2px solid #1a345b;
             padding:5pt 0 6pt 8pt;
-            border-bottom:0.4pt solid #ddd6fe;
-            background:#faf5ff;
+            border-bottom:0.4pt solid #d3e2f5;
+            background:#f4fafc;
         }
         .af-detail.open { display:block; }
 
         .af-detail-body {
-            font-size:7pt; color:#23282d; line-height:1.55; margin:0 0 4pt;
+            font-size:7pt; color:#191919; line-height:1.55; margin:0 0 4pt;
         }
         .af-detail-footer {
             display:flex; align-items:center; flex-wrap:wrap; gap:4pt;
         }
         .af-detail-ref {
             display:inline-flex; align-items:center; gap:3pt;
-            font-size:5.5pt; font-weight:700; color:#4c1d95;
-            background:#fff; border:1px solid #4c1d95;
+            font-size: 10pt; font-weight:700; color:#1a345b;
+            background:#fff; border: 0.5pt solid #000000;
             padding:1pt 4pt;
-            text-transform:uppercase; letter-spacing:0.07em;
+            text-transform: none; letter-spacing: 0;
         }
-        .af-detail-meta { font-size:6pt; color:#8b7aad; }
+        .af-detail-meta { font-size: 10pt; color:#6f869b; }
         .af-detail-sep {
             width:3px; height:3px; border-radius:50%;
-            background:#c4b5fd; flex-shrink:0;
+            background:#9ec1f5; flex-shrink:0;
         }
 
         /* ── Pagination ── */
         .af-pagination {
             display:flex; align-items:center; justify-content:center;
-            gap:3pt; padding:7pt 10pt; border-top:1pt solid #c4b5fd;
+            gap:3pt; padding:7pt 10pt; border-top:1pt solid #9ec1f5;
         }
         .af-pagination a, .af-pagination span {
             display:inline-flex; align-items:center; justify-content:center;
             min-width:15pt; height:15pt;
-            font-size:6.5pt; font-weight:700;
-            text-decoration:none; color:#6b5b8a;
-            border:1px solid #c4b5fd; background:#fff;
+            font-size: 10pt; font-weight:700;
+            text-decoration:none; color:#5a7186;
+            border:1px solid #9ec1f5; background:#fff;
             padding:0 4pt; border-radius:0; font-family:inherit;
         }
-        .af-pagination a:hover { border-color:#4c1d95; color:#4c1d95; }
-        .af-pagination span.current { background:#4c1d95; color:#fff; border-color:#4c1d95; }
+        .af-pagination a:hover { border-color:#1a345b; color:#1a345b; }
+        .af-pagination span.current { background:#1a345b; color:#fff; border-color:#1a345b; }
 
         /* ── Compose bar ── */
-        .af-compose { padding:7pt 10pt; border-top:1pt solid #c4b5fd; }
+        .af-compose { padding:7pt 10pt; border-top:1pt solid #9ec1f5; }
 
         .af-compose-trigger {
             display:flex; align-items:center; gap:4pt;
-            border:1px dashed #8b7aad; padding:4pt 7pt;
-            cursor:text; color:#6b5b8a; font-size:6.5pt;
-            background:#faf5ff; user-select:none; font-weight:700;
-            text-transform:uppercase; letter-spacing:0.06em;
+            border:1px dashed #6f869b; padding:4pt 7pt;
+            cursor:text; color:#5a7186; font-size: 10pt;
+            background:#f4fafc; user-select:none; font-weight:700;
+            text-transform: none; letter-spacing: 0;
             transition:border-color 0.15s, background 0.15s, color 0.15s;
         }
-        .af-compose-trigger:hover { border-color:#4c1d95; color:#4c1d95; background:#fff; }
+        .af-compose-trigger:hover { border-color:#1a345b; color:#1a345b; background:#fff; }
 
         .af-compose-form {
             display:none; flex-direction:column; gap:4pt;
-            border:1px solid #4c1d95; padding:7pt; background:#faf5ff;
+            border: 0.5pt solid #000000; padding:7pt; background:#f4fafc;
         }
         .af-compose-form.open { display:flex; }
 
@@ -230,49 +230,49 @@
 
         .af-compose-input, .af-compose-select, .af-compose-textarea {
             font-size:7pt; padding:3pt 5pt;
-            border:1px solid #c4b5fd; border-radius:0;
-            color:#4c1d95; font-family:inherit; background:#fff; box-sizing:border-box;
+            border:1px solid #9ec1f5; border-radius:0;
+            color:#1a345b; font-family:inherit; background:#fff; box-sizing:border-box;
         }
         .af-compose-input:focus,
         .af-compose-select:focus,
-        .af-compose-textarea:focus { outline:none; border-color:#4c1d95; }
+        .af-compose-textarea:focus { outline:none; border-color:#1a345b; }
 
         .af-compose-input  { height:16pt; }
-        .af-compose-select { height:16pt; cursor:pointer; text-transform:uppercase; font-weight:700; letter-spacing:0.05em; font-size:6pt; }
+        .af-compose-select { height:16pt; cursor:pointer; text-transform:none; font-weight:700; letter-spacing:0.05em; font-size: 10pt; }
         .af-compose-textarea { resize:vertical; min-height:20pt; line-height:1.45; }
 
         .af-compose-footer {
             display:flex; align-items:center; justify-content:space-between;
             gap:6pt; flex-wrap:wrap;
         }
-        .af-compose-hint { font-size:5.5pt; color:#8b7aad; letter-spacing:0.04em; }
+        .af-compose-hint { font-size: 7pt; color:#6f869b; letter-spacing:0.04em; }
         .af-compose-btns { display:flex; gap:4pt; }
 
         .af-btn-cancel {
             background:none; border:none; padding:0; cursor:pointer;
-            font-family:inherit; font-size:6pt; font-weight:700;
-            color:#6b5b8a; text-decoration:underline;
-            text-transform:uppercase; letter-spacing:0.06em;
+            font-family:inherit; font-size: 10pt; font-weight:700;
+            color:#5a7186; text-decoration:underline;
+            text-transform: none; letter-spacing: 0;
         }
-        .af-btn-cancel:hover { color:#4c1d95; }
+        .af-btn-cancel:hover { color:#1a345b; }
 
         .af-kbd {
-            background:#fff; border:1px solid #c4b5fd; border-radius:0;
-            padding:0 2pt; font-size:5.5pt; font-family:'Courier New',monospace;
-            color:#6b5b8a;
+            background:#fff; border:1px solid #9ec1f5; border-radius:0;
+            padding:0 2pt; font-size: 10pt; font-family: inherit; font-variant-numeric: tabular-nums;
+            color:#5a7186;
         }
 
         /* ── Empty state ── */
         .af-empty {
             display:flex; flex-direction:column; align-items:center; justify-content:center;
-            color:#8b7aad; gap:4pt; padding:24pt 8pt;
+            color:#6f869b; gap:4pt; padding:24pt 8pt;
         }
-        .af-empty-icon { font-size:16pt; color:#c4b5fd; line-height:1; }
+        .af-empty-icon { font-size:16pt; color:#9ec1f5; line-height:1; }
         .af-empty-title {
-            font-size:7.5pt; font-weight:700; color:#4c1d95;
-            text-transform:uppercase; letter-spacing:0.07em;
+            font-size:7.5pt; font-weight:700; color:#1a345b;
+            text-transform: none; letter-spacing: 0;
         }
-        .af-empty-sub { font-size:6.5pt; }
+        .af-empty-sub { font-size: 7pt; }
     </style>
 @endpush
 
@@ -333,11 +333,11 @@
                                     Export
                                     <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                                 </button>
-                                <div id="export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
+                                <div id="export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #d3e2f5;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
                                     @foreach ([['xlsx', 'Excel (.xlsx)'], ['csv', 'CSV (.csv)'], ['pdf', 'PDF (.pdf)']] as [$fmt, $label])
                                         <a href="{{ route('companies.actions.export', [$company, 'tab' => request('tab', 'open'), 'format' => $fmt]) }}"
-                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
-                                            <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:10pt;font-weight:600;color:#191919;text-decoration:none;border-bottom:1px solid #f4fafc;">
+                                            <svg width="12" height="12" fill="none" stroke="#005bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                             {{ $label }}
                                         </a>
                                     @endforeach
@@ -453,7 +453,7 @@
                     {{-- Compose --}}
                     <div class="af-compose">
                         <div class="af-compose-trigger" id="compose-trigger" onclick="openCompose()">
-                            <span style="font-size:8pt;color:#8b7aad;font-weight:400;line-height:1;">＋</span>
+                            <span style="font-size:8pt;color:#6f869b;font-weight:400;line-height:1;">＋</span>
                             Add an action…
                         </div>
                         <form class="af-compose-form" id="compose-form" onsubmit="return submitAction(event)">

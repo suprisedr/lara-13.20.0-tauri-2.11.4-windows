@@ -52,7 +52,7 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Inventory Categories</div>
-                        <p style="font-size:7pt;color:#6b5b8a;margin:0.2rem 0 0.75rem;">IAS 2 inventory classification. Items are grouped by type for disclosure and valuation.</p>
+                        <p style="font-size:7pt;color:#5a7186;margin:0.2rem 0 0.75rem;">IAS 2 inventory classification. Items are grouped by type for disclosure and valuation.</p>
 
                         <hr class="reg-divider">
 
@@ -85,7 +85,7 @@
                                             $uncl = $grouped->get('unclassified');
                                         @endphp
                                         <tr>
-                                            <td style="font-weight:700;color:#8b7aad;">Unclassified</td>
+                                            <td style="font-weight:700;color:#6f869b;">Unclassified</td>
                                             <td class="amt">{{ $uncl->count() }}</td>
                                             <td class="amt">{{ number_format($uncl->sum('quantity_on_hand'), 2) }}</td>
                                             <td class="amt">{{ number_format($uncl->sum(fn($i) => $i->stockValue()), 2) }}</td>
@@ -102,11 +102,11 @@
                                 </tfoot>
                             </table>
                         @else
-                            <p style="color:#8b7aad;font-size:7pt;font-style:italic;margin-bottom:1rem;">No inventory items yet.</p>
+                            <p style="color:#6f869b;font-size:7pt;font-style:italic;margin-bottom:1rem;">No inventory items yet.</p>
                         @endif
 
                         @if ($serviceItems->isNotEmpty())
-                            <div style="margin-top:0.5rem;font-size:7pt;color:#6b5b8a;">
+                            <div style="margin-top:0.5rem;font-size:7pt;color:#5a7186;">
                                 + <strong>{{ $serviceItems->count() }}</strong> service item{{ $serviceItems->count() !== 1 ? 's' : '' }} (no stock tracked)
                             </div>
                         @endif
@@ -115,7 +115,7 @@
 
                 {{-- ── Inventory Register ──────────────────────────── --}}
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:7pt;color:#6b5b8a;">
+                    <span style="font-size:7pt;color:#5a7186;">
                         {{ $stockItems->count() }} inventory item{{ $stockItems->count() !== 1 ? 's' : '' }}, {{ $serviceItems->count() }} service{{ $serviceItems->count() !== 1 ? 's' : '' }}
                     </span>
                     <div style="display:flex;align-items:center;gap:0.65rem;flex-wrap:wrap;">
@@ -135,7 +135,7 @@
                         <hr class="reg-divider">
 
                         @if ($stockItems->isEmpty())
-                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No inventory items yet. Add your first item below.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:7pt;">No inventory items yet. Add your first item below.</p>
                         @else
                             @php
                                 $totalStockValue = 0.0;
@@ -177,9 +177,9 @@
                                                 <td class="dim" style="font-size:6.5pt;">{{ $item->sku ?? '—' }}</td>
                                                 <td>
                                                     @if ($item->inventory_type)
-                                                        <span class="type-badge" style="font-size:6pt;font-weight:700;padding:0.1rem 0.4rem;border:1px solid #c4b5fd;background:#faf5ff;color:#6b5b8a;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">{{ $typeLabels[$item->inventory_type->value] ?? $item->inventory_type->value }}</span>
+                                                        <span class="type-badge" style="font-size:6pt;font-weight:700;padding:0.1rem 0.4rem;border:1px solid #9ec1f5;background:#f4fafc;color:#5a7186;text-transform:uppercase;letter-spacing:0.04em;display:inline-block;">{{ $typeLabels[$item->inventory_type->value] ?? $item->inventory_type->value }}</span>
                                                     @else
-                                                        <span style="color:#8b7aad;font-size:6.5pt;">—</span>
+                                                        <span style="color:#6f869b;font-size:6.5pt;">—</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">{{ number_format((float)$item->quantity_on_hand, 2) }}</td>
@@ -194,7 +194,7 @@
                                                 </td>
                                                 <td style="text-align:right;">
                                                     <div class="reg-row-actions" style="display:flex;align-items:center;gap:0.5rem;justify-content:flex-end;">
-                                                        <button type="button" style="background:none;border:none;font-size:6.5pt;color:#4c1d95;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0;"
+                                                        <button type="button" style="background:none;border:none;font-size:6.5pt;color:#1a345b;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0;"
                                                             onclick="openEditPanel({{ $item->id }}, {{ json_encode([
                                                                 'name' => $item->name,
                                                                 'sku' => $item->sku ?? '',
@@ -327,8 +327,8 @@
                         <div class="add-panel open" id="panel-edit-item" style="display:none;">
                             <div class="add-panel-body" style="display:block;">
                                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5pt;">
-                                    <span style="font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#4c1d95;">Edit Item</span>
-                                    <button type="button" onclick="closeEditPanel()" style="background:none;border:none;font-size:9pt;color:#8b7aad;cursor:pointer;">&times;</button>
+                                    <span style="font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#1a345b;">Edit Item</span>
+                                    <button type="button" onclick="closeEditPanel()" style="background:none;border:none;font-size:9pt;color:#6f869b;cursor:pointer;">&times;</button>
                                 </div>
                                 <form id="edit-form" method="POST">
                                     @csrf
@@ -396,7 +396,7 @@
                                         </div>
                                         <div style="display:flex;align-items:center;gap:4pt;padding-bottom:3pt;">
                                             <input type="checkbox" id="ef-is_active" name="is_active" value="1" style="width:auto;margin:0;">
-                                            <label for="ef-is_active" style="font-size:6.5pt;color:#4c1d95;text-transform:none;letter-spacing:0;margin:0;cursor:pointer;">Active</label>
+                                            <label for="ef-is_active" style="font-size:6.5pt;color:#1a345b;text-transform:none;letter-spacing:0;margin:0;cursor:pointer;">Active</label>
                                         </div>
                                     </div>
                                     <div class="af-submit">
@@ -413,12 +413,12 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Service Items</div>
-                        <p style="font-size:7pt;color:#6b5b8a;margin:0.2rem 0 0.75rem;">Services, labour, and non-stock items used for invoicing. No stock or IAS 2 tracking.</p>
+                        <p style="font-size:7pt;color:#5a7186;margin:0.2rem 0 0.75rem;">Services, labour, and non-stock items used for invoicing. No stock or IAS 2 tracking.</p>
 
                         <hr class="reg-divider">
 
                         @if ($serviceItems->isEmpty())
-                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No service items yet.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:7pt;">No service items yet.</p>
                         @else
                             <div style="overflow-x:auto;">
                                 <table class="reg-table">
@@ -450,7 +450,7 @@
                                                 </td>
                                                 <td style="text-align:right;">
                                                     <div class="reg-row-actions" style="display:flex;align-items:center;gap:0.5rem;justify-content:flex-end;">
-                                                        <button type="button" style="background:none;border:none;font-size:6.5pt;color:#4c1d95;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0;"
+                                                        <button type="button" style="background:none;border:none;font-size:6.5pt;color:#1a345b;text-decoration:underline;cursor:pointer;font-family:inherit;padding:0;"
                                                             onclick="openEditPanel({{ $svc->id }}, {{ json_encode([
                                                                 'name' => $svc->name,
                                                                 'sku' => $svc->sku ?? '',

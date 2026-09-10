@@ -11,7 +11,7 @@
             font-size: 7pt;
             font-weight: 600;
             margin-bottom: 10pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
         .cn-alert.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; }
 
@@ -84,7 +84,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             padding: 0 0 6pt;
             margin: 0 0 8pt;
         }
@@ -97,12 +97,12 @@
         .cn-letterhead-company {
             font-size: 9pt;
             font-weight: 800;
-            color: #4c1d95;
+            color: #1a345b;
             letter-spacing: 0.01em;
         }
         .cn-letterhead-meta {
             font-size: 6.5pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin-top: 2pt;
             line-height: 1.6;
         }
@@ -113,33 +113,33 @@
             font-size: 9pt;
             font-weight: 800;
             letter-spacing: 0.02em;
-            color: #4c1d95;
+            color: #1a345b;
             margin-bottom: 2pt;
         }
         .cn-doc-meta {
             font-size: 6.5pt;
-            color: #6b5b8a;
+            color: #5a7186;
             line-height: 1.7;
         }
-        .cn-doc-meta strong { color: #4c1d95; }
+        .cn-doc-meta strong { color: #1a345b; }
 
         .cn-customer-block {
             font-size: 7pt;
             line-height: 1.7;
         }
-        .cn-customer-block strong { color: #23282d; }
-        .cn-customer-block .dim { color: #8b7aad; }
+        .cn-customer-block strong { color: #191919; }
+        .cn-customer-block .dim { color: #6f869b; }
 
         .cn-notes-box {
             font-size: 7pt;
-            color: #23282d;
+            color: #191919;
             white-space: pre-line;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 5pt 6pt;
-            background: #f5f3ff;
+            background: #f4fafc;
         }
 
-        .cn-sku { font-size: 5.5pt; color: #8b7aad; }
+        .cn-sku { font-size: 5.5pt; color: #6f869b; }
     </style>
 @endpush
 

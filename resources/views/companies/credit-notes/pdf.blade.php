@@ -7,16 +7,16 @@
     <style>
         @page { margin:0; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:DejaVu Sans, sans-serif; font-size:7.5pt; color:#000; background:#fff; line-height:1.35; padding:48px 58px 100px 58px; }
+        body { font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif; font-size:7.5pt; color:#000; background:#fff; line-height:1.35; padding:48px 58px 100px 58px; }
         .company-name-fallback { font-size:14pt; font-weight:bold; }
         .company-logo { max-width:240px; max-height:80px; }
         .doc-title { font-size:16pt; font-weight:bold; text-align:right; margin-bottom:3px; color:#dc2626; }
         .meta-label { font-weight:bold; display:inline-block; width:90px; font-size:7pt; }
-        .section-label { font-size:6pt; font-weight:bold; letter-spacing:0.08em; text-transform:uppercase; color:#5e17eb; margin-bottom:3px; }
+        .section-label { font-size:6pt; font-weight:bold; letter-spacing:0.08em; text-transform:uppercase; color:#005bf0; margin-bottom:3px; }
         .divider { border:none; border-top:2pt solid #000; margin:12px 0 14px; }
         table.items { width:100%; border-collapse:collapse; margin-bottom:14px; }
         table.items thead td { font-size:6.5pt; font-weight:bold; letter-spacing:0.05em; text-transform:uppercase; border-bottom:1.5pt solid #000; padding-bottom:4px; }
-        table.items tbody td { padding:4px 0; font-size:7.5pt; border-bottom:0.75pt solid #ddd; vertical-align:top; }
+        table.items tbody td { padding:4px 0; font-size:7.5pt; border-bottom:0.75pt solid #d3e2f5; vertical-align:top; }
         table.items tbody tr:last-child td { border-bottom:none; }
         td.r { text-align:right; }
         .totals { width:190px; border-collapse:collapse; margin-left:auto; margin-top:6px; }
@@ -24,9 +24,9 @@
         .totals td.r { text-align:right; }
         .totals tr.total td { font-weight:bold; border-top:1.5pt solid #000; padding-top:4px; }
         .footer-wrap { position:fixed; bottom:18px; left:58px; right:58px; }
-        .footer-bar { border-top:0.75pt solid #ccc; padding-top:6px; }
+        .footer-bar { border-top:0.75pt solid #d3e2f5; padding-top:6px; }
         .footer-bar table { width:100%; border-collapse:collapse; }
-        .footer-bar td { font-size:6.5pt; color:#555; }
+        .footer-bar td { font-size:6.5pt; color:#5a7186; }
         .footer-bar td.r { text-align:right; }
         .notice-bar { background:#fff0f0; border:1pt solid #fecaca; padding:5px 8px; font-size:7pt; color:#b91c1c; margin-bottom:10px; }
     </style>
@@ -53,7 +53,7 @@
                 @else
                     <div class="company-name-fallback">{{ $company->registered_name }}</div>
                 @endif
-                <div style="font-size:7pt;color:#555;margin-top:6px;line-height:1.6;">
+                <div style="font-size:7pt;color:#5a7186;margin-top:6px;line-height:1.6;">
                     @if ($company->address_line_1)<div>{{ $company->address_line_1 }}</div>@endif
                     @if ($company->address_line_2)<div>{{ $company->address_line_2 }}</div>@endif
                     @if ($company->city)<div>{{ $company->city }}@if ($company->postal_code), {{ $company->postal_code }}@endif</div>@endif
@@ -111,7 +111,7 @@
                     $itemTax = $item->tax_rate !== null ? $base * ((float)$item->tax_rate / 100) : 0;
                 @endphp
                 <tr>
-                    <td>{{ $item->description }}@if ($item->inventoryItem?->sku)<div style="font-size:6pt;color:#aaa;">SKU: {{ $item->inventoryItem->sku }}</div>@endif</td>
+                    <td>{{ $item->description }}@if ($item->inventoryItem?->sku)<div style="font-size:6pt;color:#6f869b;">SKU: {{ $item->inventoryItem->sku }}</div>@endif</td>
                     <td class="r">{{ rtrim(rtrim(number_format((float)$item->quantity, 2), '0'), '.') }}</td>
                     <td class="r">{{ number_format((float)$item->unit_price, 2) }}</td>
                     <td class="r">{{ $item->tax_rate !== null ? number_format((float)$item->tax_rate, 2) . '%' : '—' }}</td>
@@ -132,7 +132,7 @@
     @if ($creditNote->notes)
         <div style="margin-top:12px;">
             <div class="section-label">Notes</div>
-            <div style="font-size:7pt;color:#333;white-space:pre-line;">{{ $creditNote->notes }}</div>
+            <div style="font-size:7pt;color:#191919;white-space:pre-line;">{{ $creditNote->notes }}</div>
         </div>
     @endif
 
@@ -147,5 +147,6 @@
         </div>
     </div>
 
+    @include('pdf._attribution', ['attrLeft' => '15mm', 'attrWidth' => '180mm'])
 </body>
 </html>

@@ -6,7 +6,7 @@
 @push('styles')
     @include('companies._styles')
     <style>
-        .cust-doc { background:#fff;border:1px solid #ddd;font-family:'DejaVu Sans',Helvetica,Arial,sans-serif;color:#000;font-size:0.78rem;line-height:1.45;margin-bottom:1.5rem; }
+        .cust-doc { background:#fff;border:1px solid #d3e2f5;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;color:#000;font-size:0.78rem;line-height:1.45;margin-bottom:1.5rem; }
         .cust-doc-body { padding:2rem 2.25rem; }
         .doc-title { font-size:1.3rem;font-weight:800;letter-spacing:0.04em;margin-bottom:0.25rem; }
         .divider { border:none;border-top:2px solid #000;margin:1rem 0 1.25rem; }
@@ -14,10 +14,10 @@
         table.cust-items-table { width:100%;border-collapse:collapse; }
         table.cust-items-table thead td { font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.04em;border-bottom:1.5px solid #000;padding-bottom:0.45rem; }
         table.cust-items-table thead td.amt { text-align:right; }
-        table.cust-items-table tbody td { padding:0.55rem 0;font-size:0.78rem;border-bottom:1px solid #ddd;vertical-align:middle; }
+        table.cust-items-table tbody td { padding:0.55rem 0;font-size:0.78rem;border-bottom:1px solid #d3e2f5;vertical-align:middle; }
         table.cust-items-table tbody td.amt { text-align:right;font-family:'Courier New',monospace;white-space:nowrap; }
         table.cust-items-table tbody tr:last-child td { border-bottom:none; }
-        table.cust-items-table tbody tr:hover td { background:#fafafa; }
+        table.cust-items-table tbody tr:hover td { background:#f7fbfd; }
         table.cust-items-table tfoot td { padding:0.55rem 0;font-size:0.78rem;font-weight:800;border-top:1.5px solid #000; }
         table.cust-items-table tfoot td.amt { text-align:right;font-family:'Courier New',monospace; }
         .row-link { color:#000;font-weight:700;text-decoration:none;border-bottom:1px solid #000; }
@@ -25,10 +25,10 @@
         .mgmt-btn { display:inline-flex;align-items:center;gap:0.4rem;background:#fff;border:1px solid #000;color:#000;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:0.4rem 0.85rem;text-decoration:none;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s; }
         .mgmt-btn:hover { background:#000;color:#fff; }
         .ecl-summary { display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem; }
-        .ecl-metric { border:1px solid #ddd;padding:1rem; }
-        .ecl-metric-label { font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#666;margin-bottom:0.25rem; }
+        .ecl-metric { border:1px solid #d3e2f5;padding:1rem; }
+        .ecl-metric-label { font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5a7186;margin-bottom:0.25rem; }
         .ecl-metric-value { font-size:1.25rem;font-weight:800;font-family:'Courier New',monospace;color:#000; }
-        .rate-chip { display:inline-block;font-size:0.62rem;font-weight:700;color:#555;border:1px solid #ddd;padding:0.1rem 0.4rem;margin-left:0.4rem; }
+        .rate-chip { display:inline-block;font-size:0.72rem;font-weight:700;color:#5a7186;border:1px solid #d3e2f5;padding:0.1rem 0.4rem;margin-left:0.4rem; }
         @media (max-width:640px) {
             .cust-doc-body { padding:1.25rem 1rem; }
             .ecl-summary { grid-template-columns:repeat(2,1fr); }
@@ -49,7 +49,7 @@
                     <div class="cust-doc-body">
 
                         <div class="doc-title">Expected Credit Loss &mdash; Provision Matrix</div>
-                        <div style="font-size:0.72rem;color:#666;margin-bottom:0.25rem;">
+                        <div style="font-size:0.72rem;color:#5a7186;margin-bottom:0.25rem;">
                             As at {{ \Carbon\Carbon::parse($date)->format('d F Y') }}
                             &middot; IFRS 9 simplified approach
                         </div>
@@ -81,7 +81,7 @@
                             Debtors Age Analysis with ECL
                         </div>
 
-                        <div style="font-size:0.7rem;color:#666;margin-bottom:0.75rem;">
+                        <div style="font-size:0.7rem;color:#5a7186;margin-bottom:0.75rem;">
                             Rates applied:
                             Current {{ number_format($rates->current_rate * 100, 2) }}%
                             &middot; 31&ndash;60d {{ number_format($rates->days_31_60_rate * 100, 2) }}%

@@ -1,9 +1,9 @@
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { getBearerToken } from "../lib/graphql.js";
+import { API_BASE } from "../lib/api.js";
 
 type ToolResult = { content: Array<{ type: "text"; text: string }>; isError?: boolean };
 
-const API_BASE = "http://localhost:8000/api";
 
 async function apiPost(path: string, body: Record<string, unknown>): Promise<unknown> {
   const token = getBearerToken();

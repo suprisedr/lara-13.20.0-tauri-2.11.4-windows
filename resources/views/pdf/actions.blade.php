@@ -7,8 +7,13 @@
     <title>Actions &mdash; {{ $company->registered_name }}</title>
     @include('pdf._report-header-styles')
     <style>
+        /* Page geometry from CGL-YE25 sectPr: 28800 x 16200 twips
+           landscape = 508mm x 285.75mm. dompdf ignores @page margins,
+           so the inset lives on .page-frame below. The controller
+           also sets this explicitly via setPaper([0,0,1440,810]). */
         @page {
-            margin: 15mm;
+            size: 508mm 285.75mm;
+            margin: 0;
         }
 
         * {
@@ -18,16 +23,16 @@
         }
 
         body {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            font-size: 7pt;
-            color: #23282d;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size: 10.5pt;
+            color: #191919;
             background: #fff;
-            line-height: 1.4;
+            line-height: 1.2857;
         }
 
         .page-frame {
             border: none;
-            padding: 8mm;
+            padding: 26.46mm 26.46mm 19.32mm 26.46mm;
         }
 
         table {
@@ -36,41 +41,41 @@
         }
 
         thead th {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 3pt 4pt;
-            border-top: 1.5px solid #4c1d95;
-            border-bottom: 1.5px solid #4c1d95;
+            border-top: none;
+            border-bottom: 0.5pt solid #000000;
             text-align: left;
-            color: #4c1d95;
-            background: #ede9fe;
+            color: #ffffff;
+            background: #005bf0;
         }
 
         tbody tr {
-            border-bottom: 0.4px solid #ddd6fe;
+            border-bottom: 0.4px solid #d3e2f5;
         }
 
         tbody td {
             padding: 3pt 4pt;
-            font-size: 6.5pt;
-            color: #23282d;
+            font-size: 10.5pt;
+            color: #191919;
             vertical-align: top;
         }
 
         td.muted {
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         .badge {
             display: inline-block;
-            font-size: 5.5pt;
+            font-size: 7pt;
             font-weight: bold;
             padding: 1px 4px;
             border-radius: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
         .badge-open {
@@ -94,16 +99,16 @@
         }
 
         .badge-low {
-            background: #f3f4f6;
-            color: #6b7280;
+            background: #f4fafc;
+            color: #5a7186;
         }
 
         .footer {
             margin-top: 14px;
             padding-top: 5px;
-            border-top: 1px solid #c4b5fd;
-            font-size: 6pt;
-            color: #8b7aad;
+            border-top: 1px solid #9ec1f5;
+            font-size: 7pt;
+            color: #6f869b;
             text-align: center;
         }
     </style>
@@ -151,7 +156,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" style="text-align:center;color:#8b7aad;padding:10pt;">No actions found.</td>
+                        <td colspan="7" style="text-align:center;color:#6f869b;padding:10pt;">No actions found.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -162,6 +167,7 @@
         </div>
 
     </div>
+    @include('pdf._attribution')
 </body>
 
 </html>

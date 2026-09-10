@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -51,13 +51,13 @@
             color: #fff;
         }
 
-        .mgmt-btn.primary:hover { background: #333; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
 
         /* ── Profile document (PDF-style) ───────────────────────── */
         .cust-doc {
             background: #fff;
-            border: 1px solid #ddd;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            border: 1px solid #d3e2f5;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
             color: #000;
             font-size: 0.78rem;
             line-height: 1.45;
@@ -121,12 +121,12 @@
             text-transform: uppercase;
             border: 1px solid #000;
             padding: 0.08rem 0.5rem;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             letter-spacing: 0.08em;
             margin-top: 0.35rem;
         }
 
-        .status-box.inactive { color: #999; border-color: #999; }
+        .status-box.inactive { color: #6f869b; border-color: #bfbfbf; }
 
         .divider {
             border: none;
@@ -135,7 +135,7 @@
         }
 
         .divider.light {
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #d3e2f5;
             margin: 1.25rem 0;
         }
 
@@ -155,7 +155,7 @@
         .summary-table .lbl {
             display: block;
             font-weight: 700;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 0.15rem;
@@ -205,7 +205,7 @@
         table.cust-items-table tbody td {
             padding: 0.55rem 0;
             font-size: 0.78rem;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: top;
         }
 
@@ -217,12 +217,12 @@
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
 
-        table.cust-items-table tbody tr:hover td { background: #fafafa; }
+        table.cust-items-table tbody tr:hover td { background: #f7fbfd; }
 
         .empty-row {
             padding: 1rem 0;
             text-align: center;
-            color: #999;
+            color: #6f869b;
             font-size: 0.78rem;
         }
 

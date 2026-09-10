@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -26,19 +26,19 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:hover { color: #5e17eb; }
+        .inv-mgmt-bar a:hover { color: #005bf0; }
 
         /* ── Quotation document ─────────────────────────────────── */
         .invoice-doc {
             background: #fff;
-            border: 1px solid #ede9fe;
+            border: 1px solid #eaf8fb;
             border-radius: 0;
             overflow: hidden;
         }
 
         .invoice-doc-accent {
             height: 5px;
-            background: linear-gradient(90deg, #5e17eb 0%, #7c3aed 100%);
+            background: linear-gradient(90deg, #005bf0 0%, #005bf0 100%);
         }
 
         .invoice-doc-body {
@@ -53,7 +53,7 @@
             gap: 2rem;
             margin-bottom: 2.25rem;
             padding-bottom: 2rem;
-            border-bottom: 1px solid #ede9fe;
+            border-bottom: 1px solid #eaf8fb;
             flex-wrap: wrap;
         }
 
@@ -68,7 +68,7 @@
             height: 72px;
             object-fit: contain;
             border-radius: 0;
-            border: 1px solid #f3f0ff;
+            border: 1px solid #f4fafc;
             flex-shrink: 0;
         }
 
@@ -76,7 +76,7 @@
             width: 72px;
             height: 72px;
             border-radius: 0;
-            background: linear-gradient(135deg, #5e17eb, #7c3aed);
+            background: linear-gradient(135deg, #005bf0, #005bf0);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,14 +90,14 @@
         .invoice-company-block h1 {
             font-size: 1.15rem;
             font-weight: 900;
-            color: #1b1b18;
+            color: #191919;
             margin: 0 0 0.3rem;
             letter-spacing: -0.01em;
         }
 
         .invoice-company-block p {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             margin: 0 0 0.18rem;
             line-height: 1.5;
         }
@@ -118,22 +118,22 @@
         }
 
         .inv-field-inline label {
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #9ca3af;
+            color: #6f869b;
             white-space: nowrap;
         }
 
         .inv-field-inline input,
         .inv-field-inline select {
-            border: 1px solid #ddd6fe;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.35rem 0.6rem;
             font-size: 0.82rem;
-            color: #1b1b18;
-            background: #faf9ff;
+            color: #191919;
+            background: #f7fbfd;
             outline: none;
             transition: border-color 0.15s, box-shadow 0.15s;
             text-align: right;
@@ -141,14 +141,14 @@
 
         .inv-field-inline input:focus,
         .inv-field-inline select:focus {
-            border-color: #5e17eb;
-            box-shadow: 0 0 0 3px rgba(94,23,235,0.08);
+            border-color: #005bf0;
+            box-shadow: 0 0 0 3px rgba(0, 91, 240,0.08);
         }
 
         .inv-number-input {
             font-size: 1.1rem !important;
             font-weight: 800 !important;
-            color: #5e17eb !important;
+            color: #005bf0 !important;
             width: 160px;
             letter-spacing: -0.01em;
         }
@@ -162,24 +162,24 @@
         }
 
         .invoice-party-label {
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #7c3aed;
+            color: #005bf0;
             margin: 0 0 0.75rem;
         }
 
         .invoice-party-name {
             font-size: 0.92rem;
             font-weight: 700;
-            color: #1b1b18;
+            color: #191919;
             margin: 0 0 0.2rem;
         }
 
         .invoice-party-detail {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             margin: 0 0 0.15rem;
             line-height: 1.55;
         }
@@ -187,11 +187,11 @@
         /* ── Form fields ────────────────────────────────────────── */
         .inv-field label {
             display: block;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #9ca3af;
+            color: #6f869b;
             margin-bottom: 0.25rem;
         }
 
@@ -201,12 +201,12 @@
         .inv-field select,
         .inv-field textarea {
             width: 100%;
-            border: 1px solid #ddd6fe;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.42rem 0.7rem;
             font-size: 0.855rem;
-            color: #1b1b18;
-            background: #faf9ff;
+            color: #191919;
+            background: #f7fbfd;
             outline: none;
             transition: border-color 0.15s, box-shadow 0.15s;
             box-sizing: border-box;
@@ -215,8 +215,8 @@
         .inv-field input:focus,
         .inv-field select:focus,
         .inv-field textarea:focus {
-            border-color: #5e17eb;
-            box-shadow: 0 0 0 3px rgba(94,23,235,0.08);
+            border-color: #005bf0;
+            box-shadow: 0 0 0 3px rgba(0, 91, 240,0.08);
             background: #fff;
         }
 
@@ -229,7 +229,7 @@
         /* ── Line items table ───────────────────────────────────── */
         .inv-table-wrap {
             margin-bottom: 1rem;
-            border: 1px solid #ede9fe;
+            border: 1px solid #eaf8fb;
             border-radius: 0;
             overflow: hidden;
         }
@@ -242,25 +242,25 @@
 
         .inv-table thead th {
             padding: 0.6rem 0.75rem;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #7c3aed;
-            background: #faf5ff;
-            border-bottom: 2px solid #ede9fe;
+            color: #005bf0;
+            background: #f4fafc;
+            border-bottom: 2px solid #eaf8fb;
             text-align: left;
             white-space: nowrap;
         }
 
         .inv-table thead th.r { text-align: right; }
 
-        .inv-table tbody tr { border-bottom: 1px solid #f5f3ff; }
+        .inv-table tbody tr { border-bottom: 1px solid #f4fafc; }
         .inv-table tbody tr:last-child { border-bottom: none; }
 
         .inv-table td {
             padding: 0.5rem 0.75rem;
-            color: #1b1b18;
+            color: #191919;
             vertical-align: middle;
         }
 
@@ -268,19 +268,19 @@
             text-align: right;
             font-family: 'Courier New', monospace;
             font-size: 0.78rem;
-            color: #374151;
+            color: #191919;
             white-space: nowrap;
         }
 
         .inv-table td input,
         .inv-table td select {
             width: 100%;
-            border: 1px solid #ddd6fe;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.32rem 0.5rem;
             font-size: 0.8rem;
-            color: #1b1b18;
-            background: #faf9ff;
+            color: #191919;
+            background: #f7fbfd;
             outline: none;
             transition: border-color 0.15s;
             box-sizing: border-box;
@@ -288,7 +288,7 @@
 
         .inv-table td input:focus,
         .inv-table td select:focus {
-            border-color: #5e17eb;
+            border-color: #005bf0;
             background: #fff;
         }
 
@@ -301,16 +301,16 @@
             gap: 0.4rem;
             font-size: 0.78rem;
             font-weight: 700;
-            color: #5e17eb;
+            color: #005bf0;
             background: none;
-            border: 1px dashed rgba(94,23,235,0.35);
+            border: 1px dashed rgba(0, 91, 240,0.35);
             border-radius: 0;
             padding: 0.4rem 0.9rem;
             cursor: pointer;
             transition: background 0.15s, border-color 0.15s;
         }
 
-        .btn-add-line:hover { background: #faf5ff; border-color: #5e17eb; }
+        .btn-add-line:hover { background: #f4fafc; border-color: #005bf0; }
 
         .btn-remove-line {
             display: inline-flex;
@@ -320,8 +320,8 @@
             height: 22px;
             border-radius: 50%;
             background: none;
-            border: 1px solid #e5e7eb;
-            color: #aaa;
+            border: 1px solid #d3e2f5;
+            color: #6f869b;
             cursor: pointer;
             font-size: 0.85rem;
             line-height: 1;
@@ -345,38 +345,38 @@
             gap: 3rem;
             padding: 0.45rem 0;
             font-size: 0.855rem;
-            border-bottom: 1px solid #f3f0ff;
+            border-bottom: 1px solid #f4fafc;
         }
 
         .inv-total-line:last-child { border-bottom: none; }
-        .inv-total-line .lbl { color: #6b7280; }
-        .inv-total-line .amt { font-family: 'Courier New', monospace; color: #1b1b18; }
+        .inv-total-line .lbl { color: #5a7186; }
+        .inv-total-line .amt { font-family: 'Courier New', monospace; color: #191919; }
 
         .inv-total-line.grand {
-            border-top: 2px solid #5e17eb;
-            border-bottom: 2px solid #5e17eb;
+            border-top: 2px solid #005bf0;
+            border-bottom: 2px solid #005bf0;
             margin-top: 0.35rem;
             padding: 0.7rem 0;
             font-size: 1.05rem;
             font-weight: 800;
         }
 
-        .inv-total-line.grand .lbl { color: #1b1b18; }
-        .inv-total-line.grand .amt { color: #5e17eb; }
+        .inv-total-line.grand .lbl { color: #191919; }
+        .inv-total-line.grand .amt { color: #005bf0; }
 
         /* ── Notes ──────────────────────────────────────────────── */
         .invoice-notes-label {
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #7c3aed;
+            color: #005bf0;
             margin-bottom: 0.5rem;
         }
 
         /* ── Document footer (actions) ──────────────────────────── */
         .invoice-doc-footer {
-            border-top: 1px solid #f3f0ff;
+            border-top: 1px solid #f4fafc;
             padding-top: 1.25rem;
             display: flex;
             justify-content: space-between;
@@ -387,7 +387,7 @@
 
         .invoice-doc-footer-info {
             font-size: 0.72rem;
-            color: #9ca3af;
+            color: #6f869b;
         }
 
         .inv-action-btn {
@@ -405,19 +405,19 @@
 
         .inv-action-cancel {
             background: #fff;
-            border: 1px solid #d1d5db;
-            color: #6b7280;
+            border: 1px solid #d3e2f5;
+            color: #5a7186;
         }
 
-        .inv-action-cancel:hover { background: #f9fafb; color: #374151; }
+        .inv-action-cancel:hover { background: #f7fbfd; color: #191919; }
 
         .inv-action-submit {
-            background: #5e17eb;
+            background: #005bf0;
             border: 1px solid transparent;
             color: #fff;
         }
 
-        .inv-action-submit:hover { background: #4a10c4; }
+        .inv-action-submit:hover { background: #0047c4; }
 
         @media (max-width: 640px) {
             .invoice-doc-body { padding: 1.5rem 1.25rem; }
@@ -650,11 +650,11 @@
 
                             {{-- Notes --}}
                             <div style="margin-bottom:1.75rem;">
-                                <p class="invoice-notes-label">Notes / Terms <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9ca3af;">(optional)</span></p>
+                                <p class="invoice-notes-label">Notes / Terms <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#6f869b;">(optional)</span></p>
                                 <textarea name="notes" id="notes" rows="3"
-                                    style="width:100%;border:1px solid #ddd6fe;border-radius:0;padding:0.6rem 0.75rem;font-size:0.82rem;color:#4b5563;line-height:1.65;background:#faf9ff;outline:none;resize:vertical;box-sizing:border-box;transition:border-color 0.15s,box-shadow 0.15s;"
-                                    onfocus="this.style.borderColor='#5e17eb';this.style.boxShadow='0 0 0 3px rgba(94,23,235,0.08)';this.style.background='#fff'"
-                                    onblur="this.style.borderColor='#ddd6fe';this.style.boxShadow='none';this.style.background='#faf9ff'">{{ old('notes', $quotation->notes) }}</textarea>
+                                    style="width:100%;border:1px solid #d3e2f5;border-radius:0;padding:0.6rem 0.75rem;font-size:0.82rem;color:#4b5563;line-height:1.65;background:#f7fbfd;outline:none;resize:vertical;box-sizing:border-box;transition:border-color 0.15s,box-shadow 0.15s;"
+                                    onfocus="this.style.borderColor='#005bf0';this.style.boxShadow='0 0 0 3px rgba(0, 91, 240,0.08)';this.style.background='#fff'"
+                                    onblur="this.style.borderColor='#d3e2f5';this.style.boxShadow='none';this.style.background='#f7fbfd'">{{ old('notes', $quotation->notes) }}</textarea>
                             </div>
 
                             {{-- Document footer / actions --}}
@@ -727,7 +727,7 @@
                         ${buildOptions(invId)}
                     </select>
                 </td>
-                <td id="desc-${idx}" style="font-size:0.78rem;color:#6b7280;">${desc}</td>
+                <td id="desc-${idx}" style="font-size:0.78rem;color:#5a7186;">${desc}</td>
                 <td>
                     <input type="number" name="items[${idx}][quantity]" value="${qty}"
                            min="0.01" step="0.01" oninput="recalc()" required>

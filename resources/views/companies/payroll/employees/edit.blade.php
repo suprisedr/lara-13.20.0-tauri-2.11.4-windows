@@ -17,7 +17,7 @@
 
         .inv-mgmt-bar a:not(.reg-btn) {
             font-size: 0.78rem;
-            color: #6b7280;
+            color: #5a7186;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -25,26 +25,26 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:not(.reg-btn):hover { color: #4c1d95; }
+        .inv-mgmt-bar a:not(.reg-btn):hover { color: #1a345b; }
 
         .divider {
             border: none;
-            border-top: 1.5px solid #4c1d95;
+            border-top: 1.5px solid #1a345b;
             margin: 1rem 0 1.25rem;
         }
 
         .divider.light {
-            border-top: 1px solid #ddd6fe;
+            border-top: 1px solid #d3e2f5;
             margin: 1.25rem 0;
         }
 
         .section-header {
             font-weight: 800;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #4c1d95;
-            border-bottom: 1.5px solid #4c1d95;
+            color: #1a345b;
+            border-bottom: 1.5px solid #1a345b;
             padding-bottom: 0.25rem;
             margin: 1.25rem 0 0.75rem;
         }
@@ -53,7 +53,7 @@
 
         .section-note {
             font-size: 0.73rem;
-            color: #6b5b8a;
+            color: #5a7186;
             margin: -0.5rem 0 0.75rem;
         }
 
@@ -71,50 +71,50 @@
 
         .af-field label {
             display: block;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: #6b5b8a;
+            color: #5a7186;
             margin-bottom: 0.2rem;
         }
 
         .af-field input,
         .af-field select {
             width: 100%;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 0.38rem 0.55rem;
             font-size: 0.82rem;
             font-family: inherit;
-            color: #4c1d95;
+            color: #1a345b;
             box-sizing: border-box;
             background: #fff;
         }
 
         .af-field input:focus,
-        .af-field select:focus { outline: none; border-color: #4c1d95; }
+        .af-field select:focus { outline: none; border-color: #1a345b; }
 
-        .af-field input:disabled { background: #f9f9f9; color: #999; }
+        .af-field input:disabled { background: #f7fbfd; color: #6f869b; }
 
         .comp-row {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 0.5rem 0;
-            border-bottom: 1px solid #ddd6fe;
+            border-bottom: 1px solid #d3e2f5;
         }
 
         .comp-row:last-child { border-bottom: none; }
 
         .comp-badge {
             display: inline-block;
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 0.05rem 0.4rem;
-            color: #4c1d95;
+            color: #1a345b;
             margin-left: 0.4rem;
         }
 
@@ -150,8 +150,8 @@
 
                     <div class="reg-doc">
                         <div class="reg-doc-body">
-                            <h3 style="font-size:0.85rem;font-weight:800;color:#1b1b18;margin:0 0 0.25rem;">Edit Employee</h3>
-                            <p style="font-size:0.78rem;color:#6b5b8a;margin:0.2rem 0 0.75rem;">{{ $employee->employee_number }}</p>
+                            <h3 style="font-size:0.85rem;font-weight:800;color:#191919;margin:0 0 0.25rem;">Edit Employee</h3>
+                            <p style="font-size:0.78rem;color:#5a7186;margin:0.2rem 0 0.75rem;">{{ $employee->employee_number }}</p>
                             <hr class="divider">
 
                             {{-- Personal Details --}}

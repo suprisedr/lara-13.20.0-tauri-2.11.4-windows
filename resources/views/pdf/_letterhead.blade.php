@@ -1,5 +1,29 @@
-{{-- Shared AFS PDF letterhead. Expects $company. --}}
+{{-- Shared AFS PDF letterhead. Expects $company.
+
+     Detail set matches pdf/_report-header.blade.php — the treatment
+     used by the trial-balance report: logo, company name, entity
+     type, full postal address on the left; registration, income tax
+     and VAT numbers plus the financial year end on the right.
+
+     Typography follows the AFS document rather than the A4 report
+     header: 13pt bold navy name, 10pt navy meta. --}}
 @php
+    $monthNames = [1=>'January',2=>'February',3=>'March',4=>'April',5=>'May',6=>'June',
+                   7=>'July',8=>'August',9=>'September',10=>'October',11=>'November',12=>'December'];
+    $fyeMonth = $company->financial_year_end_month ?? null;
+    $fyeLabel = $fyeMonth && isset($monthNames[$fyeMonth])
+        ? 'Financial year ending ' . $monthNames[$fyeMonth]
+        : null;
+
+    $addressParts = array_filter([
+        $company->address_line_1 ?? null,
+        $company->address_line_2 ?? null,
+        $company->city ?? null,
+        $company->province ?? null,
+        $company->postal_code ?? null,
+    ]);
+    $addressLine = !empty($addressParts) ? implode(', ', $addressParts) : null;
+
     $lhLogoData = null;
     if ($company->logo_path) {
         $lhLogoPath = storage_path('app/public/' . $company->logo_path);
@@ -18,23 +42,25 @@
     @endif
     <div class="lh-left">
         <div class="company-name">{{ $company->registered_name }}</div>
-        <div class="company-meta">
-            {{ $company->company_type_label ?? '' }}
-            @if ($company->registration_number)
-                &nbsp;&nbsp;Registration number: {{ $company->registration_number }}
-            @endif
-            @if ($company->income_tax_number)
-                &nbsp;&nbsp;Income tax number: {{ $company->income_tax_number }}
-            @endif
-        </div>
-        @if ($company->address_line_1 || $company->city)
-            <div class="company-meta">
-                {{ implode(', ', array_filter([$company->address_line_1, $company->city])) }}
-            </div>
+        @if ($company->company_type_label)
+            <div class="company-sub">{{ $company->company_type_label }}</div>
+        @endif
+        @if ($addressLine)
+            <div class="company-meta">{{ $addressLine }}</div>
         @endif
     </div>
     <div class="lh-right">
-        <div class="company-meta">Date: {{ now()->format('d F Y') }}</div>
-        <div class="company-meta">Prepared by: {{ auth()->user()?->name ?? $company->registered_name }}</div>
+        @if ($company->registration_number)
+            <div class="company-meta"><strong>Registration No.:</strong> {{ $company->registration_number }}</div>
+        @endif
+        @if ($company->income_tax_number)
+            <div class="company-meta"><strong>Income Tax No.:</strong> {{ $company->income_tax_number }}</div>
+        @endif
+        @if ($company->vat_number)
+            <div class="company-meta"><strong>VAT No.:</strong> {{ $company->vat_number }}</div>
+        @endif
+        @if ($fyeLabel)
+            <div class="company-meta">{{ $fyeLabel }}</div>
+        @endif
     </div>
 </div>

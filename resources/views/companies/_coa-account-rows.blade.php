@@ -33,26 +33,26 @@
 
     // Render a COA balance cell, with a link + badge when the balance is abnormal.
     $coaBalCell = function (float $bal, int $accountId, string $accountType) use ($company, $abnormalTip) {
-        $color = $bal < 0 ? '#b91c1c' : ($bal == 0 ? '#c4b5fd' : '#4c1d95');
+        $color = $bal < 0 ? '#b91c1c' : ($bal == 0 ? '#9ec1f5' : '#1a345b');
         $text  = $bal != 0 ? 'R ' . number_format(abs($bal), 2) . ($bal < 0 ? ' Cr' : '') : '—';
         if ($bal < 0) {
             $url     = route('companies.transactions', [$company, 'account_id' => $accountId]);
             $tip     = e($abnormalTip($accountType));
-            $badge   = '<span style="display:inline-block;margin-left:4px;font-size:5pt;font-weight:700;font-family:Helvetica,Arial,\'DejaVu Sans\',sans-serif;letter-spacing:0.03em;background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5;padding:0 3px;vertical-align:middle;">ABNORMAL</span>';
-            return "<td style=\"text-align:right;font-family:\'DejaVu Sans Mono\',monospace;font-size:6.5pt;color:{$color};white-space:nowrap;\"><a href=\"{$url}\" title=\"{$tip}\" style=\"color:inherit;text-decoration:none;\">{$text}</a>{$badge}</td>";
+            $badge   = '<span style="display:inline-block;margin-left:4px;font-size:7pt;font-weight:700;font-family:\'Century Gothic\',\'URW Gothic\',\'Avant Garde\',Futura,\'Avenir Next\',Avenir,\'Trebuchet MS\',Helvetica,Arial,\'DejaVu Sans\',sans-serif;letter-spacing:0.03em;background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5;padding:0 3px;vertical-align:middle;">ABNORMAL</span>';
+            return "<td style=\"text-align:right;font-variant-numeric:tabular-nums;font-size:10.5pt;color:{$color};white-space:nowrap;\"><a href=\"{$url}\" title=\"{$tip}\" style=\"color:inherit;text-decoration:none;\">{$text}</a>{$badge}</td>";
         }
-        return "<td style=\"text-align:right;font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;color:{$color};white-space:nowrap;\">{$text}</td>";
+        return "<td style=\"text-align:right;font-variant-numeric:tabular-nums;font-size:10.5pt;color:{$color};white-space:nowrap;\">{$text}</td>";
     };
 @endphp
 
 @if ($hasChildren)
     {{-- Parent (group) account row --}}
     <tr class="is-group-header coa-header coa-collapsed coa-searchable" data-coa-id="{{ $groupId }}" data-coa-parents="{{ implode(' ', $ancestorIds) }}" data-search="{{ strtolower($account->account_code . ' ' . $account->account_name . ' ' . ($account->category ?? '') . ' ' . ($account->description ?? '')) }}">
-        <td style="font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;color:#7c3aed;white-space:nowrap;font-weight:700;">
+        <td style="font-variant-numeric:tabular-nums;font-size:10.5pt;color:#005bf0;white-space:nowrap;font-weight:700;">
             {{ $account->account_code }}
         </td>
-        <td style="font-size:6pt;color:#8b7aad;">{{ $account->category ?? '' }}</td>
-        <td style="font-weight:700;font-size:7pt;color:#4c1d95;">
+        <td style="font-size:10.5pt;color:#6f869b;">{{ $account->category ?? '' }}</td>
+        <td style="font-weight:700;font-size:10.5pt;color:#1a345b;">
             {!! $coaToggle !!}<a class="coa-account-link" href="{{ route('companies.transactions', [$company, 'account_id' => $account->id]) }}" title="View transactions for {{ $account->account_name }}">{{ $account->account_name }}</a>
             <span class="coa-role-badge coa-role-group">Group</span>
             <button type="button" class="coa-add-child-btn" onclick="{{ $addChildJs }}">
@@ -61,7 +61,7 @@
             @include('companies._coa-row-actions', ['acct' => $account])
         </td>
         <td class="hide-mobile"
-            style="font-size:6pt;color:#8b7aad;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+            style="font-size:7pt;color:#6f869b;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
             {{ $account->description ?? '—' }}
         </td>
         {!! $coaBalCell((float) $childSum, $account->id, $account->account_type) !!}
@@ -73,11 +73,11 @@
             $itemBal = (float) ($item->balance ?? $item->opening_balance);
         @endphp
         <tr class="is-item-row coa-searchable" data-coa-parents="{{ implode(' ', array_merge($ancestorIds, [$groupId])) }}" data-search="{{ strtolower($item->account_code . ' ' . $item->account_name . ' ' . ($item->category ?? '') . ' ' . ($item->description ?? '')) }}">
-            <td style="font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;color:#6b5b8a;white-space:nowrap;">
+            <td style="font-variant-numeric:tabular-nums;font-size:10.5pt;color:#5a7186;white-space:nowrap;">
                 {{ $item->account_code }}
             </td>
-            <td style="font-size:6pt;color:#8b7aad;">{{ $item->category ?? '' }}</td>
-            <td style="font-size:7pt;color:#4c1d95;">
+            <td style="font-size:10.5pt;color:#6f869b;">{{ $item->category ?? '' }}</td>
+            <td style="font-size:10.5pt;color:#1a345b;">
                 {!! $coaFileIcon !!}<a class="coa-account-link" href="{{ route('companies.transactions', [$company, 'account_id' => $item->id]) }}" title="View transactions for {{ $item->account_name }}">{{ $item->account_name }}</a>
                 @include('companies._coa-row-actions', ['acct' => $item])
                 <label class="coa-sep-toggle {{ $item->show_separately ? 'is-on' : '' }}"
@@ -153,7 +153,7 @@
                 @endif
             </td>
             <td class="hide-mobile"
-                style="font-size:6pt;color:#8b7aad;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                style="font-size:7pt;color:#6f869b;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
                 {{ $item->description ?? '—' }}
             </td>
             {!! $coaBalCell($itemBal, $item->id, $item->account_type) !!}
@@ -164,17 +164,17 @@
     <tr class="is-group-subtotal" data-coa-parents="{{ implode(' ', $ancestorIds) }}">
         <td></td>
         <td></td>
-        <td colspan="2" style="color:#4c1d95;font-size:7pt;">Total {{ $account->account_name }}</td>
+        <td colspan="2" style="color:#1a345b;font-size:10.5pt;">Total {{ $account->account_name }}</td>
         {!! $coaBalCell((float) $childSum, $account->id, $account->account_type) !!}
     </tr>
 @else
     {{-- Standalone account (no children) — can still receive children --}}
     <tr class="coa-searchable" data-coa-parents="{{ implode(' ', $ancestorIds) }}" data-search="{{ strtolower($account->account_code . ' ' . $account->account_name . ' ' . ($account->category ?? '') . ' ' . ($account->description ?? '')) }}">
-        <td style="font-family:'DejaVu Sans Mono',monospace;font-size:6.5pt;font-weight:700;color:#7c3aed;white-space:nowrap;">
+        <td style="font-variant-numeric:tabular-nums;font-size:10.5pt;font-weight:700;color:#005bf0;white-space:nowrap;">
             {{ $account->account_code }}
         </td>
-        <td style="font-size:6pt;color:#8b7aad;">{{ $account->category ?? '' }}</td>
-        <td style="font-weight:600;font-size:7pt;color:#4c1d95;">
+        <td style="font-size:10.5pt;color:#6f869b;">{{ $account->category ?? '' }}</td>
+        <td style="font-weight:600;font-size:10.5pt;color:#1a345b;">
             {!! $coaFileIcon !!}<a class="coa-account-link" href="{{ route('companies.transactions', [$company, 'account_id' => $account->id]) }}" title="View transactions for {{ $account->account_name }}">{{ $account->account_name }}</a>
             <button type="button" class="coa-add-child-btn" onclick="{{ $addChildJs }}">
                 + Child
@@ -246,7 +246,7 @@
             @endif
         </td>
         <td class="hide-mobile"
-            style="font-size:6pt;color:#8b7aad;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+            style="font-size:7pt;color:#6f869b;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
             {{ $account->description ?? '—' }}
         </td>
         {!! $coaBalCell($displayBal, $account->id, $account->account_type) !!}

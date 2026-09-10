@@ -38,7 +38,7 @@
                 <div class="reg-doc">
                     <div class="reg-doc-body">
                         <div class="reg-doc-title">Intangible Classes</div>
-                        <p style="font-size:7pt;color:#6b5b8a;margin:2pt 0 6pt;">Group intangibles (software, patents, trademarks, goodwill, licences) into classes. IAS 38.107 indefinite-life classes are not amortised — they are impairment-tested annually.</p>
+                        <p style="font-size:7pt;color:#5a7186;margin:2pt 0 6pt;">Group intangibles (software, patents, trademarks, goodwill, licences) into classes. IAS 38.107 indefinite-life classes are not amortised — they are impairment-tested annually.</p>
 
                         <hr class="reg-divider">
 
@@ -67,18 +67,18 @@
                                             <td>{{ \App\Models\IntangibleAsset::METHODS[$class->amortisation_method] ?? ($class->amortisation_method ?: '—') }}</td>
                                             <td>
                                                 @if (($class->accounting_policy ?? 'cost') === 'revaluation')
-                                                    <span style="font-size:6pt;font-weight:700;color:#7c3aed;background:#f5f3ff;padding:0.1rem 0.4rem;border:1px solid #ddd6fe;">Revaluation</span>
+                                                    <span style="font-size:6pt;font-weight:700;color:#005bf0;background:#f4fafc;padding:0.1rem 0.4rem;border:1px solid #d3e2f5;">Revaluation</span>
                                                 @else
-                                                    <span style="font-size:6pt;color:#6b5b8a;">Cost</span>
+                                                    <span style="font-size:6pt;color:#5a7186;">Cost</span>
                                                 @endif
                                             </td>
                                             <td style="text-align:right;font-family:monospace;">
                                                 {{ $class->useful_life_years !== null ? rtrim(rtrim(number_format((float)$class->useful_life_years, 2), '0'), '.') : '—' }}
                                             </td>
-                                            <td style="text-align:right;color:#6b5b8a;">{{ $assetCount }}</td>
+                                            <td style="text-align:right;color:#5a7186;">{{ $assetCount }}</td>
                                             <td style="text-align:right;">
                                                 <div class="reg-row-actions">
-                                                    <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
+                                                    <button type="button" class="reg-row-dots">&#x22EE;</button>
                                                     <div class="reg-row-menu">
                                                         <form method="POST"
                                                             action="{{ route('companies.intangibles.classes.destroy', [$company, $class]) }}"
@@ -95,7 +95,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <p style="color:#8b7aad;font-size:7pt;font-style:italic;margin-bottom:8pt;">No intangible classes yet.</p>
+                            <p style="color:#6f869b;font-size:7pt;font-style:italic;margin-bottom:8pt;">No intangible classes yet.</p>
                         @endif
 
                         <div class="add-panel" id="panel-add-class">
@@ -153,7 +153,7 @@
 
                 {{-- ── Intangible Register ──────────────────────────── --}}
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:7pt;color:#6b5b8a;">
+                    <span style="font-size:7pt;color:#5a7186;">
                         {{ $assets->count() }} intangible{{ $assets->count() !== 1 ? 's' : '' }}
                     </span>
                     <button type="button" class="reg-btn primary" onclick="document.getElementById('panel-add-asset').classList.toggle('open');document.getElementById('panel-add-asset').scrollIntoView({behavior:'smooth',block:'nearest'})">
@@ -170,7 +170,7 @@
                         <hr class="reg-divider">
 
                         @if ($assets->isEmpty())
-                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No intangible assets yet. Add your first one below.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:7pt;">No intangible assets yet. Add your first one below.</p>
                         @else
                             @php
                                 $totalCost = 0.0; $totalAmort = 0.0; $totalImp = 0.0; $totalNbv = 0.0;
@@ -232,7 +232,7 @@
                                                 </td>
                                                 <td style="text-align:right;">
                                                     <div class="reg-row-actions">
-                                                        <button type="button" class="reg-row-dots" onclick="toggleMenu(this)">&#x22EE;</button>
+                                                        <button type="button" class="reg-row-dots">&#x22EE;</button>
                                                         <div class="reg-row-menu">
                                                             <a href="{{ route('companies.intangibles.show', [$company, $asset]) }}">View</a>
                                                             <form method="POST"
@@ -360,21 +360,11 @@
         </div>
     </div>
 
+    @include('companies._row-actions')
+
     <script>
         @if ($errors->any())
             document.getElementById('panel-add-asset').classList.add('open');
         @endif
-
-        function toggleMenu(btn) {
-            var menu = btn.nextElementSibling;
-            var wasOpen = menu.classList.contains('open');
-            document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            if (!wasOpen) menu.classList.add('open');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.reg-row-actions')) {
-                document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-            }
-        });
     </script>
 @endsection

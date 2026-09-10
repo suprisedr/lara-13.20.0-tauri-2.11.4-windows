@@ -18,7 +18,7 @@
 
         .inv-mgmt-bar a {
             font-size: 7pt;
-            color: #8b7aad;
+            color: #6f869b;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -26,15 +26,15 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:hover { color: #4c1d95; }
+        .inv-mgmt-bar a:hover { color: #1a345b; }
 
         .mgmt-btn {
             display: inline-flex;
             align-items: center;
             gap: 3pt;
             background: #fff;
-            border: 1px solid #c4b5fd;
-            color: #4c1d95;
+            border: 1px solid #9ec1f5;
+            color: #1a345b;
             font-size: 6pt;
             font-weight: 700;
             text-transform: uppercase;
@@ -44,12 +44,12 @@
             transition: background 0.15s, color 0.15s;
         }
 
-        .mgmt-btn:hover { background: #f5f3ff; }
+        .mgmt-btn:hover { background: #f4fafc; }
 
         .mgmt-btn.primary {
-            background: #7c3aed;
+            background: #005bf0;
             color: #fff;
-            border-color: #7c3aed;
+            border-color: #005bf0;
         }
 
         .mgmt-btn.primary:hover { background: #005f9e; }
@@ -57,9 +57,9 @@
         /* ── Profile document (PDF-style) ───────────────────────── */
         .cust-doc {
             background: #fff;
-            border: 1px solid #c4b5fd;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
+            border: 1px solid #9ec1f5;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
             font-size: 7pt;
             line-height: 1.45;
         }
@@ -79,14 +79,14 @@
             font-size: 11pt;
             font-weight: 800;
             letter-spacing: -0.01em;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .cust-address-block {
             text-align: right;
             font-size: 7pt;
             line-height: 1.55;
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         .cust-meta-table {
@@ -99,12 +99,12 @@
             font-size: 7pt;
             display: inline-block;
             width: 80pt;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .meta-value {
             font-size: 7pt;
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         .doc-title {
@@ -113,37 +113,37 @@
             text-align: right;
             margin-bottom: 2pt;
             letter-spacing: 0.04em;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .doc-meta-line {
             text-align: right;
             font-size: 7pt;
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         .status-box {
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 1px solid #4c1d95;
+            border: 1px solid #1a345b;
             padding: 1pt 4pt;
             font-size: 5pt;
             letter-spacing: 0.08em;
             margin-top: 3pt;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
-        .status-box.inactive { color: #8b7aad; border-color: #c4b5fd; }
+        .status-box.inactive { color: #6f869b; border-color: #9ec1f5; }
 
         .divider {
             border: none;
-            border-top: 1.5pt solid #4c1d95;
+            border-top: 1.5pt solid #1a345b;
             margin: 8pt 0 10pt 0;
         }
 
         .divider.light {
-            border-top: 0.4pt solid #ddd6fe;
+            border-top: 0.4pt solid #d3e2f5;
             margin: 10pt 0;
         }
 
@@ -167,14 +167,14 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 1.5pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         .summary-table .amt {
             font-size: 8pt;
             font-weight: 800;
             font-family: "DejaVu Sans Mono", monospace;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         /* ── Section headers ─────────────────────────────────────── */
@@ -183,10 +183,10 @@
             font-size: 7pt;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             padding-bottom: 2pt;
             margin-bottom: 4pt;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .info-section {
@@ -205,9 +205,9 @@
             font-size: 5.5pt;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             padding-bottom: 4pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         table.cust-items-table thead td.amt { text-align: right; }
@@ -215,9 +215,9 @@
         table.cust-items-table tbody td {
             padding: 5pt 0;
             font-size: 7pt;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
             vertical-align: top;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         table.cust-items-table tbody td.amt {
@@ -229,21 +229,21 @@
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
 
-        table.cust-items-table tbody tr:hover td { background: #f5f3ff; }
+        table.cust-items-table tbody tr:hover td { background: #f4fafc; }
 
         table.cust-items-table a.row-link {
-            color: #4c1d95;
+            color: #1a345b;
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 0.4pt solid #c4b5fd;
+            border-bottom: 0.4pt solid #9ec1f5;
         }
 
-        table.cust-items-table a.row-link:hover { border-bottom-color: #7c3aed; color: #7c3aed; }
+        table.cust-items-table a.row-link:hover { border-bottom-color: #005bf0; color: #005bf0; }
 
         .empty-row {
             padding: 8pt 0;
             text-align: center;
-            color: #8b7aad;
+            color: #6f869b;
             font-size: 7pt;
         }
 
@@ -274,7 +274,7 @@
 
                 @if (session('success'))
                     <div
-                        style="background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:6pt 10pt;font-size:7pt;font-weight:600;margin-bottom:12pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                        style="background:#dcfce7;border:1px solid #bbf7d0;color:#15803d;padding:6pt 10pt;font-size:7pt;font-weight:600;margin-bottom:12pt;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">
                         {{ session('success') }}
                     </div>
                 @endif

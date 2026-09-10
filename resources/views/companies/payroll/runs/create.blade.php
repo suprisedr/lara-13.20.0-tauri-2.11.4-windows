@@ -9,22 +9,22 @@
         .run-type-card { flex:1; min-width:140pt; cursor:pointer; }
         .run-type-inner {
             padding:7pt 8pt;
-            border:0.5pt solid #c4b5fd;
+            border:0.5pt solid #9ec1f5;
             background:#fff;
             transition:all 0.15s;
         }
-        .run-type-inner.selected { border-color:#4c1d95; background:#f5f3ff; }
+        .run-type-inner.selected { border-color:#1a345b; background:#f4fafc; }
         .run-type-label {
             font-size:5.5pt;
             font-weight:700;
             text-transform:uppercase;
             letter-spacing:0.07em;
-            color:#6b5b8a;
+            color:#5a7186;
             margin-bottom:2pt;
         }
-        .run-type-label.selected { color:#4c1d95; }
-        .run-type-count { font-size:8pt; font-weight:800; color:#23282d; }
-        .run-type-desc { font-size:6.5pt; color:#8b7aad; margin-top:1pt; }
+        .run-type-label.selected { color:#1a345b; }
+        .run-type-count { font-size:8pt; font-weight:800; color:#191919; }
+        .run-type-desc { font-size:6.5pt; color:#6f869b; margin-top:1pt; }
     </style>
 @endpush
 
@@ -77,7 +77,7 @@
 
                             {{-- Run Type --}}
                             <div class="reg-section-header" style="margin-top:8pt;">Run Type</div>
-                            <p style="font-size:6.5pt;color:#8b7aad;margin:0 0 6pt;">
+                            <p style="font-size:6.5pt;color:#6f869b;margin:0 0 6pt;">
                                 Salary and hourly runs are processed separately. Hourly runs require hours to be entered on the worksheet before calculation.
                             </p>
                             <div style="display:flex;gap:6pt;flex-wrap:wrap;margin-bottom:2pt;">
@@ -101,7 +101,7 @@
 
                             {{-- Pay Frequency --}}
                             <div class="reg-section-header" style="margin-top:8pt;">Pay Frequency</div>
-                            <p style="font-size:6.5pt;color:#8b7aad;margin:0 0 6pt;">
+                            <p style="font-size:6.5pt;color:#6f869b;margin:0 0 6pt;">
                                 Only employees matching this frequency will be included in the run.
                                 <span style="font-weight:700;" x-text="getCount() + ' employee' + (getCount() !== 1 ? 's' : '') + ' match'"></span>
                             </p>
@@ -149,7 +149,7 @@
                             </div>
 
                             {{-- Submit --}}
-                            <div style="border-top:0.5pt solid #4c1d95;margin-top:10pt;padding-top:6pt;display:flex;gap:4pt;align-items:center;">
+                            <div style="border-top:0.5pt solid #1a345b;margin-top:10pt;padding-top:6pt;display:flex;gap:4pt;align-items:center;">
                                 <button class="reg-btn primary" type="submit">
                                     <span x-text="runType === 'hourly' ? 'Create Run → Enter Hours' : 'Calculate &amp; Create Run'">Calculate &amp; Create Run</span>
                                 </button>

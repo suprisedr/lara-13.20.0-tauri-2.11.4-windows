@@ -201,6 +201,23 @@ fn kill_stale_pids() {
                 }
             }
         }
+        // Give stale processes time to exit before we move on and try
+        // to bind the same ports. Without this, a crash-restart race
+        // leaves zombie workers that corrupt RoadRunner's pipe relay.
+        std::thread::sleep(std::time::Duration::from_secs(1));
+
+        // Force-kill anything that ignored SIGTERM (e.g. stuck workers)
+        #[cfg(unix)]
+        for line in contents.lines() {
+            if let Ok(pid) = line.trim().parse::<i32>() {
+                if pid > 0 {
+                    unsafe {
+                        libc::kill(-pid, libc::SIGKILL);
+                        libc::kill(pid, libc::SIGKILL);
+                    }
+                }
+            }
+        }
         println!("[cleanup] Cleaned up stale processes from previous run");
     }
     let _ = fs::remove_file(&path);
@@ -221,12 +238,28 @@ fn clear_pid_file() {
 
 #[cfg(unix)]
 fn kill_process_tree(child: &mut std::process::Child) {
+    kill_process_tree_with_timeout(child, std::time::Duration::from_millis(500));
+}
+
+#[cfg(unix)]
+fn kill_process_tree_with_timeout(child: &mut std::process::Child, grace: std::time::Duration) {
     let pid = child.id() as i32;
     unsafe {
         libc::kill(-pid, libc::SIGTERM);
     }
-    std::thread::sleep(std::time::Duration::from_millis(200));
+    let start = std::time::Instant::now();
+    loop {
+        match child.try_wait() {
+            Ok(Some(_)) => return,
+            _ => {}
+        }
+        if start.elapsed() >= grace {
+            break;
+        }
+        std::thread::sleep(std::time::Duration::from_millis(50));
+    }
     let _ = child.kill();
+    let _ = child.wait();
 }
 
 #[cfg(not(unix))]
@@ -875,6 +908,25 @@ fn shutdown_all_services(state: &AppState) {
     }
 
     let mut processes = state.process_services.lock().unwrap();
+
+    // Shut down RoadRunner first with a longer grace period so it can
+    // drain its gRPC, jobs, and temporal workers cleanly. An abrupt kill
+    // leaves workers mid-frame, causing "Incorrect header size" errors
+    // on the next launch.
+    let rr_index = processes.iter().position(|s| s.name == "RoadRunner");
+    if let Some(idx) = rr_index {
+        let mut rr = processes.remove(idx);
+        println!(
+            "[shutdown] Stopping RoadRunner (pid {}) with 3s grace period...",
+            rr.child.id()
+        );
+        #[cfg(unix)]
+        kill_process_tree_with_timeout(&mut rr.child, std::time::Duration::from_secs(3));
+        #[cfg(not(unix))]
+        { let _ = rr.child.kill(); }
+        println!("[shutdown] RoadRunner stopped");
+    }
+
     while let Some(mut service) = processes.pop() {
         println!(
             "[shutdown] Stopping {} (process, pid {})...",
@@ -884,13 +936,63 @@ fn shutdown_all_services(state: &AppState) {
         kill_process_tree(&mut service.child);
     }
 
+    cleanup_orphaned_rr_workers();
     clear_pid_file();
     println!("[shutdown] All services stopped");
 }
 
+#[cfg(unix)]
+fn cleanup_orphaned_rr_workers() {
+    use std::process::Command;
+    let patterns = &[
+        "grpc_worker\\.php",
+        "jobs_worker\\.php",
+        "temporal_worker\\.php",
+        "rr.*serve.*\\.rr\\.yaml",
+    ];
+    let pattern = patterns.join("|");
+    let Ok(output) = Command::new("pgrep").args(&["-f", &pattern]).output() else { return };
+    let pids: Vec<i32> = String::from_utf8_lossy(&output.stdout)
+        .lines()
+        .filter_map(|l| l.trim().parse().ok())
+        .collect();
+
+    if pids.is_empty() { return; }
+
+    for &pid in &pids {
+        unsafe { libc::kill(pid, libc::SIGTERM); }
+    }
+    println!("[cleanup] Sent SIGTERM to {} orphaned RR worker(s)", pids.len());
+
+    std::thread::sleep(std::time::Duration::from_secs(1));
+
+    // Force-kill survivors
+    for &pid in &pids {
+        unsafe { libc::kill(pid, libc::SIGKILL); }
+    }
+
+    // Also kill by port — catches RR processes spawned outside our PID tracking
+    for port in &[9001u16, 6001] {
+        if let Ok(lsof) = Command::new("lsof").args(&["-ti", &format!(":{}", port)]).output() {
+            for line in String::from_utf8_lossy(&lsof.stdout).lines() {
+                if let Ok(pid) = line.trim().parse::<i32>() {
+                    unsafe {
+                        libc::kill(pid, libc::SIGKILL);
+                    }
+                    println!("[cleanup] Killed stale process on port {} (pid {})", port, pid);
+                }
+            }
+        }
+    }
+}
+
+#[cfg(not(unix))]
+fn cleanup_orphaned_rr_workers() {}
+
 fn main() {
     eprintln!("[main] entered main()");
     kill_stale_pids();
+    cleanup_orphaned_rr_workers();
     eprintln!("[main] kill_stale_pids done, building app");
 
     tauri::Builder::default()
@@ -961,9 +1063,17 @@ fn main() {
             Ok(())
         })
         .on_window_event(|window, event| {
-            if let tauri::WindowEvent::Destroyed = event {
-                let state = window.state::<AppState>();
-                shutdown_all_services(state.inner());
+            match event {
+                tauri::WindowEvent::CloseRequested { .. } => {
+                    println!("[shutdown] Window close requested — shutting down services…");
+                    let state = window.state::<AppState>();
+                    shutdown_all_services(state.inner());
+                }
+                tauri::WindowEvent::Destroyed => {
+                    let state = window.state::<AppState>();
+                    shutdown_all_services(state.inner());
+                }
+                _ => {}
             }
         })
         .run(tauri::generate_context!())

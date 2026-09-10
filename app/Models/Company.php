@@ -465,6 +465,46 @@ class Company extends Model
         return $this->hasMany(Lease::class);
     }
 
+    public function provisions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Provision::class);
+    }
+
+    public function provisionClasses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProvisionClass::class);
+    }
+
+    public function relatedParties(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(RelatedParty::class);
+    }
+
+    public function borrowingCostCapitalisations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BorrowingCostCapitalisation::class);
+    }
+
+    public function revenueContracts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(RevenueContract::class);
+    }
+
+    public function governmentGrants(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(GovernmentGrant::class);
+    }
+
+    public function shareBasedPaymentArrangements(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ShareBasedPaymentArrangement::class);
+    }
+
+    public function deferredTaxItems(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(DeferredTaxItem::class);
+    }
+
     public function employees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Employee::class);

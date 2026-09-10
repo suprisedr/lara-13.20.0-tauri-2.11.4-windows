@@ -23,7 +23,7 @@
                 @endif
 
                 <div class="reg-mgmt-bar">
-                    <span style="font-size:6.5pt;color:#6b5b8a;">
+                    <span style="font-size:6.5pt;color:#5a7186;">
                         {{ $items->where('status', 'held_for_sale')->count() }} asset{{ $items->where('status', 'held_for_sale')->count() !== 1 ? 's' : '' }} held for sale
                     </span>
                 </div>
@@ -71,13 +71,13 @@
                                                 <td class="dim">{{ $hfs->asset->ppeClass?->name ?? "\u{2014}" }}</td>
                                                 <td class="dim" style="white-space:nowrap;">{{ $hfs->reclassification_date->format('d M Y') }}</td>
                                                 <td class="amt">{{ number_format((float)$hfs->carrying_amount_at_reclassification, 2) }}</td>
-                                                <td class="amt" style="color:#7c3aed;">{{ $hfs->fair_value_less_costs_to_sell !== null ? number_format((float)$hfs->fair_value_less_costs_to_sell, 2) : "\u{2014}" }}</td>
+                                                <td class="amt" style="color:#005bf0;">{{ $hfs->fair_value_less_costs_to_sell !== null ? number_format((float)$hfs->fair_value_less_costs_to_sell, 2) : "\u{2014}" }}</td>
                                                 <td class="amt" style="color:#92400e;">{{ (float)$hfs->impairment_on_reclassification > 0 ? number_format((float)$hfs->impairment_on_reclassification, 2) : "\u{2014}" }}</td>
                                                 <td style="text-align:center;">
                                                     @if ($hfs->status === 'sold')
                                                         <span class="reg-status" style="color:#065f46;border-color:#065f46;">Sold</span>
                                                     @elseif ($hfs->status === 'reversed')
-                                                        <span class="reg-status" style="color:#8b7aad;border-color:#8b7aad;">Reversed</span>
+                                                        <span class="reg-status" style="color:#6f869b;border-color:#6f869b;">Reversed</span>
                                                     @else
                                                         <span class="reg-status hfs">HFS</span>
                                                     @endif

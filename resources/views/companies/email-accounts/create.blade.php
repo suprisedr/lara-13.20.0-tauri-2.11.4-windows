@@ -8,24 +8,24 @@
     <style>
         .cn-form { max-width:920px; }
         .cn-section { margin-bottom:1.75rem; }
-        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#005bf0; margin:0 0 0.75rem; }
         .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
-        .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+        .cn-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
         .cn-field input, .cn-field select {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            width:100%; border:1px solid #d3e2f5; padding:0.35rem 0.55rem;
             font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
         }
-        .cn-field input:focus, .cn-field select:focus { outline:none; border-color:#5e17eb; }
-        .cn-field .field-hint { font-size:0.68rem; color:#9ca3af; margin-top:0.15rem; }
+        .cn-field input:focus, .cn-field select:focus { outline:none; border-color:#005bf0; }
+        .cn-field .field-hint { font-size:0.68rem; color:#6f869b; margin-top:0.15rem; }
         .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; display:inline-flex; align-items:center; gap:0.4rem; }
-        .btn-submit:hover { background:#333; }
+        .btn-submit:hover { background:#1a345b; }
         .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
 
         .ea-provider-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem; }
         @media (max-width:640px) { .ea-provider-grid { grid-template-columns:1fr; } }
 
         .ea-provider-card {
-            border:1px solid #ccc; padding:0.6rem 0.85rem; cursor:pointer;
+            border:1px solid #d3e2f5; padding:0.6rem 0.85rem; cursor:pointer;
             display:flex; align-items:center; gap:0.65rem;
             text-decoration:none; background:#fff; transition:border-color 0.15s;
         }
@@ -34,11 +34,11 @@
         .ea-provider-card .ea-ptext { flex:1; min-width:0; }
         .ea-provider-card h3 { font-size:0.78rem; font-weight:700; color:#000; margin:0 0 0.05rem; }
         .ea-provider-card .ea-pdesc { font-size:0.65rem; color:#888; margin:0; line-height:1.3; }
-        .ea-provider-card .ea-parrow { color:#ccc; flex-shrink:0; transition:color 0.15s, transform 0.15s; }
+        .ea-provider-card .ea-parrow { color:#6f869b; flex-shrink:0; transition:color 0.15s, transform 0.15s; }
         .ea-provider-card:hover .ea-parrow { color:#000; transform:translateX(2px); }
 
         .ea-imap-toggle {
-            border:1px solid #ccc; padding:0.6rem 0.85rem; cursor:pointer;
+            border:1px solid #d3e2f5; padding:0.6rem 0.85rem; cursor:pointer;
             display:flex; align-items:center; gap:0.65rem;
             background:#fff; user-select:none; transition:border-color 0.15s;
         }
@@ -46,18 +46,18 @@
         .ea-imap-toggle .ea-ptext { flex:1; min-width:0; }
         .ea-imap-toggle h3 { font-size:0.78rem; font-weight:700; color:#000; margin:0 0 0.05rem; }
         .ea-imap-toggle .ea-pdesc { font-size:0.65rem; color:#888; margin:0; }
-        .ea-imap-toggle .ea-chevron { color:#ccc; flex-shrink:0; transition:transform 0.2s, color 0.15s; }
+        .ea-imap-toggle .ea-chevron { color:#6f869b; flex-shrink:0; transition:transform 0.2s, color 0.15s; }
         .ea-imap-toggle.open .ea-chevron { transform:rotate(180deg); color:#000; }
 
-        .ea-imap-body { display:none; border:1px solid #ccc; border-top:none; padding:1rem 1.25rem; background:#fafafa; }
+        .ea-imap-body { display:none; border:1px solid #d3e2f5; border-top:none; padding:1rem 1.25rem; background:#f7fbfd; }
         .ea-imap-body.visible { display:block; }
 
         .ea-info-callout {
             display:flex; align-items:flex-start; gap:0.5rem;
-            padding:0.5rem 0.75rem; background:#f9f9f9; border:1px solid #ddd; margin-bottom:1.25rem;
+            padding:0.5rem 0.75rem; background:#f7fbfd; border:1px solid #d3e2f5; margin-bottom:1.25rem;
         }
         .ea-info-callout svg { flex-shrink:0; margin-top:0.05rem; }
-        .ea-info-callout p { font-size:0.74rem; color:#555; margin:0; line-height:1.45; }
+        .ea-info-callout p { font-size:0.74rem; color:#5a7186; margin:0; line-height:1.45; }
 
         @keyframes spin { to { transform:rotate(360deg); } }
     </style>
@@ -91,7 +91,7 @@
                     @endif
 
                     <div class="ea-info-callout">
-                        <svg width="14" height="14" fill="none" stroke="#555" stroke-width="1.75" viewBox="0 0 24 24">
+                        <svg width="14" height="14" fill="none" stroke="#5a7186" stroke-width="1.75" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
                         </svg>
                         <p>Connect a mailbox to automatically import supplier emails. Incoming senders are matched to existing suppliers &mdash; new senders create a pending supplier profile for your review.</p>
@@ -132,12 +132,12 @@
 
                         <div class="ea-imap-toggle" id="imap-toggle" role="button" tabindex="0" aria-expanded="false">
                             <svg class="ea-plogo" viewBox="0 0 48 48" fill="none">
-                                <rect x="4" y="6" width="40" height="16" rx="3" fill="#eee" stroke="#555" stroke-width="2"/>
-                                <rect x="4" y="26" width="40" height="16" rx="3" fill="#eee" stroke="#555" stroke-width="2"/>
-                                <circle cx="12" cy="14" r="2.5" fill="#555"/>
-                                <circle cx="12" cy="34" r="2.5" fill="#555"/>
-                                <line x1="19" y1="14" x2="36" y2="14" stroke="#555" stroke-width="2" stroke-linecap="round"/>
-                                <line x1="19" y1="34" x2="36" y2="34" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+                                <rect x="4" y="6" width="40" height="16" rx="3" fill="#eaf8fb" stroke="#5a7186" stroke-width="2"/>
+                                <rect x="4" y="26" width="40" height="16" rx="3" fill="#eaf8fb" stroke="#5a7186" stroke-width="2"/>
+                                <circle cx="12" cy="14" r="2.5" fill="#5a7186"/>
+                                <circle cx="12" cy="34" r="2.5" fill="#5a7186"/>
+                                <line x1="19" y1="14" x2="36" y2="14" stroke="#5a7186" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="19" y1="34" x2="36" y2="34" stroke="#5a7186" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                             <div class="ea-ptext">
                                 <h3>IMAP / POP</h3>
@@ -208,7 +208,7 @@
                                         </svg>
                                         Test &amp; Connect
                                     </button>
-                                    <a href="{{ route('companies.email-accounts.index', $company) }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                                    <a href="{{ route('companies.email-accounts.index', $company) }}" style="font-size:0.78rem;color:#5a7186;text-decoration:none;">Cancel</a>
                                 </div>
                             </form>
                         </div>

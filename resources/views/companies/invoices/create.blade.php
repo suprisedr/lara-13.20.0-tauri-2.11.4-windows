@@ -8,39 +8,39 @@
     <style>
         .cn-form { max-width:920px; }
         .cn-section { margin-bottom:1.75rem; }
-        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#005bf0; margin:0 0 0.75rem; }
         .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
         .cn-grid.three { grid-template-columns:1fr 1fr 1fr; }
-        .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+        .cn-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
         .cn-field input, .cn-field select, .cn-field textarea {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            width:100%; border:1px solid #d3e2f5; padding:0.35rem 0.55rem;
             font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
         }
-        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#5e17eb; }
+        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#005bf0; }
         .cn-field textarea { resize:vertical; min-height:70px; }
 
         .cust-search-wrap { position:relative; }
         .cust-search-dropdown {
             display:none; position:absolute; left:0; right:0; top:100%;
-            background:#fff; border:1px solid #ddd6fe; border-top:none; z-index:50;
-            max-height:240px; overflow-y:auto; box-shadow:0 4px 12px rgba(94,23,235,0.10);
+            background:#fff; border:1px solid #d3e2f5; border-top:none; z-index:50;
+            max-height:240px; overflow-y:auto; box-shadow:0 4px 12px rgba(0, 91, 240,0.10);
         }
-        .cust-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f3f0ff; }
-        .cust-hit:hover { background:#faf5ff; }
+        .cust-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f4fafc; }
+        .cust-hit:hover { background:#f4fafc; }
 
         .items-table { width:100%; border-collapse:collapse; margin-bottom:0.75rem; }
-        .items-table th { font-size:0.6rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#555; padding:0 0 0.4rem; border-bottom:1.5px solid #000; text-align:left; }
+        .items-table th { font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#5a7186; padding:0 0 0.4rem; border-bottom:1.5px solid #000; text-align:left; }
         .items-table th.r { text-align:right; }
-        .items-table td { padding:0.4rem 0.3rem; border-bottom:1px solid #e5e7eb; vertical-align:middle; }
+        .items-table td { padding:0.4rem 0.3rem; border-bottom:1px solid #d3e2f5; vertical-align:middle; }
         .items-table td.r { text-align:right; }
-        .items-table input, .items-table select { width:100%; border:1px solid #ccc; padding:0.28rem 0.45rem; font-size:0.78rem; font-family:inherit; background:#fff; box-sizing:border-box; }
-        .items-table input:focus, .items-table select:focus { outline:none; border-color:#5e17eb; }
+        .items-table input, .items-table select { width:100%; border:1px solid #d3e2f5; padding:0.28rem 0.45rem; font-size:0.78rem; font-family:inherit; background:#fff; box-sizing:border-box; }
+        .items-table input:focus, .items-table select:focus { outline:none; border-color:#005bf0; }
         .items-table input[type="number"] { text-align:right; }
         .btn-remove-row { background:none; border:none; cursor:pointer; color:#dc2626; font-size:1rem; padding:0.1rem 0.3rem; line-height:1; }
-        .btn-add-row { background:none; border:1px dashed #ccc; padding:0.4rem 0.8rem; font-size:0.72rem; font-weight:600; cursor:pointer; color:#555; transition:border-color 0.15s; }
-        .btn-add-row:hover { border-color:#5e17eb; color:#5e17eb; }
+        .btn-add-row { background:none; border:1px dashed #d3e2f5; padding:0.4rem 0.8rem; font-size:0.72rem; font-weight:600; cursor:pointer; color:#5a7186; transition:border-color 0.15s; }
+        .btn-add-row:hover { border-color:#005bf0; color:#005bf0; }
         .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; }
-        .btn-submit:hover { background:#333; }
+        .btn-submit:hover { background:#1a345b; }
         .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
 
         .line-total { font-size:0.78rem; font-weight:600; text-align:right; font-variant-numeric:tabular-nums; }
@@ -52,19 +52,19 @@
         .item-search-wrap { position:relative; }
         .item-search-dropdown {
             display:none; position:absolute; left:0; right:0; top:100%;
-            background:#fff; border:1px solid #ddd6fe; border-top:none; z-index:50;
-            max-height:220px; overflow-y:auto; box-shadow:0 4px 12px rgba(94,23,235,0.10);
+            background:#fff; border:1px solid #d3e2f5; border-top:none; z-index:50;
+            max-height:220px; overflow-y:auto; box-shadow:0 4px 12px rgba(0, 91, 240,0.10);
             min-width:260px;
         }
-        .item-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f3f0ff; }
-        .item-hit:hover { background:#faf5ff; }
+        .item-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f4fafc; }
+        .item-hit:hover { background:#f4fafc; }
 
         .payment-grid { display:flex; flex-wrap:wrap; gap:1.25rem 2.5rem; padding:0.75rem 0; }
-        .payment-grid .pay-label { font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin:0 0 0.15rem; }
+        .payment-grid .pay-label { font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin:0 0 0.15rem; }
         .payment-grid .pay-value { font-size:0.82rem; font-weight:600; color:#000; margin:0; }
         .payment-grid .pay-mono { font-family:'Courier New',monospace; }
 
-        .stock-hint { font-size:0.62rem; color:#6b7280; margin-top:1px; }
+        .stock-hint { font-size:0.72rem; color:#5a7186; margin-top:1px; }
     </style>
 @endpush
 
@@ -221,7 +221,7 @@
                                 @endif
                                 <div>
                                     <p class="pay-label">Reference</p>
-                                    <p class="pay-value pay-mono" id="payment-ref" style="color:#5e17eb;">{{ old('invoice_number', $nextNumber) }}</p>
+                                    <p class="pay-value pay-mono" id="payment-ref" style="color:#005bf0;">{{ old('invoice_number', $nextNumber) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -230,12 +230,12 @@
                     {{-- Notes --}}
                     <div class="cn-section">
                         <p class="cn-section-title">Notes / Terms</p>
-                        <textarea name="notes" id="notes" rows="3" style="width:100%;max-width:600px;border:1px solid #ccc;padding:0.4rem 0.6rem;font-size:0.8rem;font-family:inherit;">{{ old('notes') }}</textarea>
+                        <textarea name="notes" id="notes" rows="3" style="width:100%;max-width:600px;border:1px solid #d3e2f5;padding:0.4rem 0.6rem;font-size:0.8rem;font-family:inherit;">{{ old('notes') }}</textarea>
                     </div>
 
                     <div style="display:flex;gap:1rem;align-items:center;">
                         <button type="submit" class="btn-submit">Create Invoice</button>
-                        <a href="{{ route('companies.invoices.index', $company) }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                        <a href="{{ route('companies.invoices.index', $company) }}" style="font-size:0.78rem;color:#5a7186;text-decoration:none;">Cancel</a>
                     </div>
                 </form>
 
@@ -274,10 +274,10 @@
                 dropdown.innerHTML = hits.map(h => `
                     <div class="cust-hit" data-id="${h.id}" data-name="${escHtml(h.name)}"
                          data-email="${escHtml(h.email ?? '')}" data-address="${escHtml(h.address ?? '')}">
-                        <div style="font-weight:700;color:#1b1b18;">${escHtml(h.name)}</div>
-                        ${h.email ? `<div style="font-size:0.72rem;color:#6b7280;">${escHtml(h.email)}</div>` : ''}
+                        <div style="font-weight:700;color:#191919;">${escHtml(h.name)}</div>
+                        ${h.email ? `<div style="font-size:0.72rem;color:#5a7186;">${escHtml(h.email)}</div>` : ''}
                     </div>`).join('') +
-                    `<div style="padding:0.4rem 0.85rem;font-size:0.7rem;color:#9ca3af;background:#f9fafb;"><em>or continue typing to add manually</em></div>`;
+                    `<div style="padding:0.4rem 0.85rem;font-size:0.7rem;color:#6f869b;background:#f7fbfd;"><em>or continue typing to add manually</em></div>`;
                 dropdown.style.display = 'block';
                 dropdown.querySelectorAll('.cust-hit').forEach(el => {
                     el.addEventListener('mousedown', e => {
@@ -342,8 +342,8 @@
                          data-id="${h.id}" data-name="${escHtml(h.name)}" data-desc="${escHtml(h.description ?? '')}"
                          data-price="${h.unit_price}" data-tax="${h.tax_rate ?? ''}"
                          data-service="${h.is_service ? '1' : '0'}" data-qty="${h.quantity_on_hand ?? 0}">
-                        <div style="font-weight:700;color:#1b1b18;">${escHtml(h.name)}${h.sku ? ` <span style="font-weight:400;color:#9ca3af;font-size:0.7rem;">${escHtml(h.sku)}</span>` : ''}</div>
-                        <div style="font-size:0.72rem;color:#6b7280;display:flex;gap:1rem;">
+                        <div style="font-weight:700;color:#191919;">${escHtml(h.name)}${h.sku ? ` <span style="font-weight:400;color:#6f869b;font-size:0.7rem;">${escHtml(h.sku)}</span>` : ''}</div>
+                        <div style="font-size:0.72rem;color:#5a7186;display:flex;gap:1rem;">
                             <span>${fmt(h.unit_price)}</span>
                             ${!h.is_service ? `<span>${h.quantity_on_hand} in stock</span>` : '<span>Service</span>'}
                         </div>
@@ -391,7 +391,7 @@
                         <div class="item-search-dropdown" id="item-dd-${idx}"></div>
                     </div>
                 </td>
-                <td id="desc-${idx}" style="font-size:0.78rem;color:#6b7280;">—</td>
+                <td id="desc-${idx}" style="font-size:0.78rem;color:#5a7186;">—</td>
                 <td>
                     <input type="number" name="items[${idx}][quantity]" id="qty-${idx}" value="${qty}"
                            min="0.01" step="0.01" oninput="recalc()" required>

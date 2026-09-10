@@ -8,35 +8,35 @@
     <style>
         /* ── COA document overrides ───────────────────────────────── */
         .doc-title {
-            font-size: 9pt;
+            font-size: 10pt;
             font-weight: 800;
             text-align: right;
             letter-spacing: 0.04em;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
-        .doc-meta-line { text-align: right; font-size: 7pt; color: #6b5b8a; }
+        .doc-meta-line { text-align: right; font-size: 7pt; color: #5a7186; }
 
         .divider {
             border: none;
-            border-top: 1.5pt solid #4c1d95;
+            border-top: 1.5pt solid #1a345b;
             margin: 6pt 0 8pt;
         }
 
         .divider.light {
-            border-top: 0.5pt solid #ddd6fe;
+            border-top: 0.5pt solid #d3e2f5;
             margin: 8pt 0;
         }
 
         .section-header {
             font-weight: 700;
             font-size: 7.5pt;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border-bottom: 1.5pt solid #4c1d95;
+            text-transform: none;
+            letter-spacing: 0;
+            border-bottom: 1.5pt solid #1a345b;
             padding-bottom: 2pt;
             margin-bottom: 4pt;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         /* ── Date filter bar inside doc ─────────────────────────── */
@@ -50,43 +50,43 @@
 
         .coa-filter-bar label {
             display: block;
-            font-size: 5.5pt;
+            font-size: 10pt;
             font-weight: 700;
-            letter-spacing: 0.07em;
-            text-transform: uppercase;
-            color: #6b5b8a;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #5a7186;
             margin-bottom: 2pt;
         }
 
         .coa-filter-bar input[type="date"] {
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 2pt 4pt;
             font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
         }
 
         .coa-filter-bar input[type="date"]:focus {
-            border-color: #4c1d95;
+            border-color: #1a345b;
             outline: none;
         }
 
         .coa-filter-bar button[type="submit"] {
-            border: 1px solid #4c1d95;
-            background: #4c1d95;
+            border: 0.5pt solid #000000;
+            background: #1a345b;
             color: #fff;
-            font-size: 6.5pt;
+            font-size: 10pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 3pt 8pt;
             cursor: pointer;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .coa-filter-bar a.reset-link {
-            font-size: 6.5pt;
-            color: #8b7aad;
+            font-size: 10pt;
+            color: #6f869b;
             text-decoration: none;
             align-self: flex-end;
             padding-bottom: 3pt;
@@ -94,14 +94,14 @@
 
         .coa-period-badge {
             margin-left: 3pt;
-            background: #f5f3ff;
-            color: #4c1d95;
-            font-size: 5.5pt;
+            background: #f4fafc;
+            color: #1a345b;
+            font-size: 7pt;
             font-weight: 700;
             padding: 1pt 3pt;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border: 1px solid #c4b5fd;
+            text-transform: none;
+            letter-spacing: 0;
+            border: 1px solid #9ec1f5;
         }
 
         /* ── Summary row ────────────────────────────────────────── */
@@ -120,17 +120,17 @@
         .summary-table .lbl {
             display: block;
             font-weight: 700;
-            font-size: 5.5pt;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-size: 10pt;
+            text-transform: none;
+            letter-spacing: 0;
             margin-bottom: 1pt;
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         .summary-table .amt {
-            font-size: 9pt;
+            font-size: 10pt;
             font-weight: 800;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         /* ── COA table ──────────────────────────────────────────── */
@@ -142,57 +142,57 @@
 
         #coa-table thead td {
             font-weight: 700;
-            font-size: 5.5pt;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border-bottom: 1.5pt solid #4c1d95;
+            font-size: 10.5pt;
+            text-transform: none;
+            letter-spacing: 0;
+            border-bottom: 1.5pt solid #1a345b;
             padding-bottom: 3pt;
             padding-top: 0;
-            color: #4c1d95;
-            background: #f5f3ff;
+            color: #1a345b;
+            background: #f4fafc;
         }
 
         #coa-table thead td.num { text-align: right; }
 
         #coa-table tbody td {
             padding: 3pt 0;
-            border-bottom: 1px solid #ddd6fe;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: middle;
         }
 
         #coa-table tbody tr:last-child td { border-bottom: none; }
-        #coa-table tbody tr:hover td { background: #faf5ff; }
+        #coa-table tbody tr:hover td { background: #f4fafc; }
 
         /* Section headers (Assets / Liabilities / Equity ...) */
         #coa-table .is-section-label-lg td {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: 800;
-            color: #4c1d95;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
+            color: #1a345b;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 8pt 0 2pt;
-            border-bottom: 2px solid #4c1d95;
+            border-bottom: 0.5pt solid #000000;
         }
 
         #coa-table .is-subsection-header td {
-            font-size: 5.5pt;
+            font-size: 10.5pt;
             font-weight: 700;
-            color: #7c3aed;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: #005bf0;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 4pt 0 2pt;
             border-bottom: none;
         }
 
-        #coa-table .is-group-header td { font-weight: 700; color: #4c1d95; }
+        #coa-table .is-group-header td { font-weight: 700; color: #1a345b; }
 
         #coa-table .is-group-subtotal td {
-            font-size: 6.5pt;
+            font-size: 10.5pt;
             font-weight: 700;
-            color: #4c1d95;
-            border-top: 1.5pt solid #4c1d95;
-            border-bottom: 1.5pt solid #4c1d95;
-            background: #ede9fe;
+            color: #1a345b;
+            border-top: 1.5pt solid #1a345b;
+            border-bottom: 1.5pt solid #1a345b;
+            background: #eaf8fb;
         }
 
         #coa-table .is-item-row td { padding-left: 8pt; }
@@ -200,19 +200,19 @@
 
         /* Code column */
         .coa-code {
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 6.5pt;
-            color: #6b5b8a;
+            font-family: inherit; font-variant-numeric: tabular-nums;
+            font-size: 10pt;
+            color: #5a7186;
             white-space: nowrap;
             width: 70px;
         }
 
-        .coa-code.parent { color: #4c1d95; font-weight: 700; }
+        .coa-code.parent { color: #1a345b; font-weight: 700; }
 
         /* Category column */
         .coa-cat {
-            font-size: 6.5pt;
-            color: #8b7aad;
+            font-size: 10pt;
+            color: #6f869b;
             white-space: nowrap;
             width: 110px;
             overflow: hidden;
@@ -222,7 +222,7 @@
         /* Balance column */
         .num {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit; font-variant-numeric: tabular-nums;
             white-space: nowrap;
             width: 130px;
         }
@@ -230,16 +230,16 @@
         /* Role badge */
         .coa-role-badge {
             display: inline-block;
-            font-size: 5.5pt;
+            font-size: 7pt;
             font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             padding: 1pt 3pt;
             vertical-align: middle;
             margin-left: 3pt;
-            border: 1px solid #c4b5fd;
-            background: #f5f3ff;
-            color: #7c3aed;
+            border: 1px solid #9ec1f5;
+            background: #f4fafc;
+            color: #005bf0;
         }
 
         /* Add-child button */
@@ -247,34 +247,34 @@
             display: inline-flex;
             align-items: center;
             gap: 2pt;
-            font-size: 5.5pt;
+            font-size: 10pt;
             font-weight: 700;
-            color: #6b5b8a;
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            color: #5a7186;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 1pt 3pt;
             cursor: pointer;
             text-decoration: none;
             vertical-align: middle;
             margin-left: 4pt;
             line-height: 1.4;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
-        .coa-add-child-btn:hover { background: #ede9fe; }
+        .coa-add-child-btn:hover { background: #eaf8fb; }
 
         /* Sep / OCI / IAS toggles */
         .coa-sep-toggle {
             display: inline-flex;
             align-items: center;
             gap: 2pt;
-            font-size: 5.5pt;
+            font-size: 10pt;
             font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: #8b7aad;
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #6f869b;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 1pt 3pt;
             cursor: pointer;
             vertical-align: middle;
@@ -283,23 +283,23 @@
 
         .coa-sep-toggle input[type="checkbox"] {
             width: 11px; height: 11px; margin: 0;
-            accent-color: #4c1d95; cursor: pointer;
+            accent-color: #1a345b; cursor: pointer;
         }
 
-        .coa-sep-toggle.is-on { color: #4c1d95; background: #ede9fe; border-color: #c4b5fd; }
+        .coa-sep-toggle.is-on { color: #1a345b; background: #eaf8fb; border-color: #9ec1f5; }
 
         /* Rename / delete inline buttons */
         .coa-rename-btn {
-            background: none; border: none; color: #c4b5fd;
-            cursor: pointer; font-size: 6.5pt; padding: 0 2pt;
+            background: none; border: none; color: #9ec1f5;
+            cursor: pointer; font-size: 10pt; padding: 0 2pt;
             vertical-align: middle; line-height: 1; transition: color 0.15s;
         }
 
-        .coa-rename-btn:hover { color: #4c1d95; }
+        .coa-rename-btn:hover { color: #1a345b; }
 
         /* Account link */
         .coa-account-link { color: inherit; text-decoration: none; }
-        .coa-account-link:hover { text-decoration: underline; color: #7c3aed; }
+        .coa-account-link:hover { text-decoration: underline; color: #005bf0; }
 
         /* File / folder icons */
         .coa-toggle {
@@ -307,20 +307,20 @@
             cursor: pointer; margin-right: 3pt; vertical-align: middle;
         }
 
-        .coa-chevron { flex-shrink: 0; transition: transform 0.15s ease; color: #8b7aad; }
+        .coa-chevron { flex-shrink: 0; transition: transform 0.15s ease; color: #6f869b; }
         tr.coa-collapsed .coa-chevron { transform: rotate(-90deg); }
 
-        .coa-icon-folder { flex-shrink: 0; color: #6b5b8a; }
+        .coa-icon-folder { flex-shrink: 0; color: #5a7186; }
         .coa-icon-file {
             display: inline-block; flex-shrink: 0; float: left;
-            color: #c4b5fd; margin-right: 3pt; margin-top: 1pt;
+            color: #9ec1f5; margin-right: 3pt; margin-top: 1pt;
         }
 
         /* Collapsed total */
         .coa-collapsed-total {
             display: none;
-            font-family: "DejaVu Sans Mono", monospace;
-            font-size: 6.5pt; color: #8b7aad;
+            font-family: inherit; font-variant-numeric: tabular-nums;
+            font-size: 10pt; color: #6f869b;
             margin-left: 4pt; font-weight: 400;
         }
 
@@ -337,66 +337,66 @@
 
         .coa-modal {
             background: #fff;
-            border-top: 3pt solid #4c1d95;
-            border-left: 1px solid #c4b5fd;
-            border-right: 1px solid #c4b5fd;
-            border-bottom: 1px solid #c4b5fd;
+            border-top: 3pt solid #1a345b;
+            border-left: 1px solid #9ec1f5;
+            border-right: 1px solid #9ec1f5;
+            border-bottom: 1px solid #9ec1f5;
             width: 100%; max-width: 480px;
             margin: 8pt; overflow: hidden;
         }
 
         .coa-modal-head {
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             padding: 8pt 12pt;
             display: flex; align-items: flex-start;
             justify-content: space-between; gap: 8pt;
         }
 
         .coa-modal-head-label {
-            font-size: 5.5pt; font-weight: 800;
-            letter-spacing: 0.12em; text-transform: uppercase;
-            color: #7c3aed; margin: 0 0 2pt;
+            font-size: 10pt; font-weight: 800;
+            letter-spacing: 0; text-transform: none;
+            color: #005bf0; margin: 0 0 2pt;
         }
 
         .coa-modal-head h3 {
-            font-size: 9pt; font-weight: 800;
-            color: #4c1d95; margin: 0;
+            font-size: 10pt; font-weight: 800;
+            color: #1a345b; margin: 0;
         }
 
         .coa-modal-close {
-            background: none; border: none; color: #c4b5fd;
-            font-size: 11pt; line-height: 1;
+            background: none; border: none; color: #9ec1f5;
+            font-size: 11.5pt; line-height: 1;
             cursor: pointer; flex-shrink: 0;
         }
 
-        .coa-modal-close:hover { color: #4c1d95; }
+        .coa-modal-close:hover { color: #1a345b; }
 
         .coa-modal-body { padding: 10pt 12pt; }
 
         .coa-field { margin-bottom: 8pt; }
 
         .coa-field > label {
-            display: block; font-size: 5.5pt; font-weight: 700;
-            color: #6b5b8a; margin-bottom: 2pt;
-            text-transform: uppercase; letter-spacing: 0.07em;
+            display: block; font-size: 10pt; font-weight: 700;
+            color: #5a7186; margin-bottom: 2pt;
+            text-transform: none; letter-spacing: 0;
         }
 
         .coa-field input:not([type="checkbox"]),
         .coa-field select,
         .coa-field textarea {
             width: 100%; box-sizing: border-box;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 2pt 4pt;
-            font-size: 7pt; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95; outline: none;
+            font-size: 7pt; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b; outline: none;
             transition: border-color 0.15s;
         }
 
         .coa-field input:not([type="checkbox"]):focus,
         .coa-field select:focus,
         .coa-field textarea:focus {
-            border-color: #4c1d95;
-            box-shadow: 0 0 0 3px rgba(22,53,92,0.08);
+            border-color: #1a345b;
+            box-shadow: 0 0 0 3px rgba(26, 52, 91,0.08);
         }
 
         .coa-field textarea { resize: vertical; min-height: 54pt; }
@@ -406,34 +406,34 @@
         }
 
         .coa-checkbox-row input[type="checkbox"] {
-            width: 15px; height: 15px; accent-color: #4c1d95; cursor: pointer;
+            width: 15px; height: 15px; accent-color: #1a345b; cursor: pointer;
         }
 
         .coa-checkbox-row label {
-            font-size: 7pt; font-weight: 600; color: #6b5b8a;
+            font-size: 7pt; font-weight: 600; color: #5a7186;
             cursor: pointer; text-transform: none; letter-spacing: 0;
         }
 
         .coa-modal-footer {
             padding: 6pt 12pt;
-            border-top: 1px solid #ddd6fe;
+            border-top: 1px solid #d3e2f5;
             display: flex; gap: 4pt; justify-content: flex-end;
         }
 
         .coa-btn-cancel {
-            background: #fff; border: 1px solid #4c1d95; color: #4c1d95;
-            padding: 3pt 8pt; font-size: 6.5pt; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.06em;
-            cursor: pointer; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            background: #fff; border: 0.5pt solid #000000; color: #1a345b;
+            padding: 3pt 8pt; font-size: 10pt; font-weight: 700;
+            text-transform: none; letter-spacing: 0;
+            cursor: pointer; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
-        .coa-btn-cancel:hover { background: #f5f3ff; }
+        .coa-btn-cancel:hover { background: #f4fafc; }
 
         .coa-btn-submit {
-            background: #4c1d95; border: 1px solid #4c1d95; color: #fff;
-            padding: 3pt 8pt; font-size: 6.5pt; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.06em;
-            cursor: pointer; font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            background: #1a345b; border: 0.5pt solid #000000; color: #fff;
+            padding: 3pt 8pt; font-size: 10pt; font-weight: 700;
+            text-transform: none; letter-spacing: 0;
+            cursor: pointer; font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .coa-btn-submit:hover { background: #0d2847; }
@@ -455,7 +455,7 @@
             <main class="co-main">
 
                 @if (session('success'))
-                    <div style="background:#ede9fe;border:1px solid #c4b5fd;color:#4c1d95;padding:4pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;">
+                    <div style="background:#eaf8fb;border:1px solid #9ec1f5;color:#1a345b;padding:4pt 8pt;font-size:7pt;font-weight:600;margin-bottom:10pt;">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -483,12 +483,12 @@
                                 <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                             </button>
                             <div id="export-menu"
-                                style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
+                                style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #d3e2f5;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
                                 @php $exportParams = array_filter(['start_date' => $startDate, 'end_date' => $endDate]); @endphp
                                 @foreach (['csv' => 'CSV (.csv)', 'xlsx' => 'Excel (.xlsx)', 'ods' => 'Spreadsheet (.ods)', 'pdf' => 'PDF (.pdf)'] as $fmt => $label)
                                     <a href="{{ route('companies.chart-of-accounts.export', $company) . '?' . http_build_query(array_merge($exportParams, ['format' => $fmt])) }}"
-                                        style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
-                                        <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:10pt;font-weight:600;color:#191919;text-decoration:none;border-bottom:1px solid #f4fafc;">
+                                        <svg width="12" height="12" fill="none" stroke="#005bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                         {{ $label }}
                                     </a>
                                 @endforeach
@@ -505,8 +505,8 @@
                         <table style="width:100%;border-collapse:collapse;margin-bottom:6pt;">
                             <tr>
                                 <td style="vertical-align:top;width:55%;">
-                                    <div style="font-size:11pt;font-weight:800;letter-spacing:-0.01em;color:#4c1d95;">{{ $company->registered_name }}</div>
-                                    <div style="font-size:7pt;color:#6b5b8a;margin-top:2pt;">
+                                    <div style="font-size:11.5pt;font-weight:800;letter-spacing:-0.01em;color:#1a345b;">{{ $company->registered_name }}</div>
+                                    <div style="font-size:7pt;color:#5a7186;margin-top:2pt;">
                                         {{ $company->company_type_label }}
                                         @if ($company->industry) &middot; {{ \App\Models\Company::industries()[$company->industry] ?? $company->industry }} @endif
                                         @if ($company->city) &middot; {{ $company->city }} @endif
@@ -522,7 +522,7 @@
                                         @endif
                                     </div>
                                     <div class="doc-meta-line" style="margin-top:2pt;">
-                                        <span style="display:inline-block;border:1px solid #4c1d95;padding:1pt 4pt;font-size:5.5pt;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4c1d95;">
+                                        <span style="display:inline-block;border:1px solid #1a345b;padding:1pt 4pt;font-size:7pt;font-weight:700;letter-spacing:0;text-transform:none;color:#1a345b;">
                                             {{ $chartOfAccounts->sum(fn($g) => $g->count()) }} Accounts
                                         </span>
                                     </div>
@@ -548,14 +548,14 @@
                             @endif
                             <div style="position:relative;margin-left:auto;display:flex;align-items:center;gap:3pt;">
                                 <input type="text" id="coa-search-input" placeholder="Search accounts…" autocomplete="off"
-                                    style="height:14pt;border:1px solid #c4b5fd;padding:0 4pt;font-size:6pt;font-family:Helvetica, Arial, sans-serif;width:150pt;box-sizing:border-box;border-radius:0;color:#4c1d95;"
+                                    style="height:14pt;border:1px solid #9ec1f5;padding:0 4pt;font-size:7pt;font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;width:150pt;box-sizing:border-box;border-radius:0;color:#1a345b;"
                                     oninput="coaLiveFilter(this.value)">
                                 <button type="button" id="coa-search-clear" onclick="coaLiveFilter('');document.getElementById('coa-search-input').value='';"
-                                    style="display:none;background:none;border:none;cursor:pointer;font-size:7pt;color:#6b5b8a;padding:0 2pt;line-height:1;"
+                                    style="display:none;background:none;border:none;cursor:pointer;font-size:7pt;color:#5a7186;padding:0 2pt;line-height:1;"
                                     title="Clear search">&times;</button>
-                                <span id="coa-match-count" style="font-size:5.5pt;color:#8b7aad;white-space:nowrap;"></span>
+                                <span id="coa-match-count" style="font-size:7pt;color:#6f869b;white-space:nowrap;"></span>
                             </div>
-                            <span style="font-size:6.5pt;color:#8b7aad;align-self:flex-end;padding-bottom:3pt;">
+                            <span style="font-size:7pt;color:#6f869b;align-self:flex-end;padding-bottom:3pt;">
                                 @if ($startDate)
                                     Period activity
                                     <span class="coa-period-badge">Period</span>
@@ -566,13 +566,13 @@
                         </form>
 
                         @if ($chartOfAccounts->isEmpty())
-                            <div style="text-align:center;padding:20pt 8pt;color:#8b7aad;">
-                                <svg width="36" height="36" fill="none" stroke="#c4b5fd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="display:block;margin:0 auto 6pt;">
+                            <div style="text-align:center;padding:20pt 8pt;color:#6f869b;">
+                                <svg width="36" height="36" fill="none" stroke="#9ec1f5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="display:block;margin:0 auto 6pt;">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                                     <polyline points="14 2 14 8 20 8"/>
                                 </svg>
-                                <p style="font-weight:700;color:#6b5b8a;margin:0 0 2pt;">Chart of accounts is being generated</p>
-                                <p style="font-size:7pt;margin:0;color:#8b7aad;">The AI agent is building your accounts in the background. Check back shortly.</p>
+                                <p style="font-weight:700;color:#5a7186;margin:0 0 2pt;">Chart of accounts is being generated</p>
+                                <p style="font-size:7pt;margin:0;color:#6f869b;">The AI agent is building your accounts in the background. Check back shortly.</p>
                             </div>
                         @else
                             @php
@@ -762,7 +762,7 @@
                             <option value="finance">Finance costs</option>
                             <option value="tax">Income tax</option>
                         </select>
-                        <small style="display:block;margin-top:2pt;color:#8b7aad;font-size:6.5pt;">
+                        <small style="display:block;margin-top:2pt;color:#6f869b;font-size:7pt;">
                             Determines where this account appears in the income statement.
                         </small>
                     </div>
@@ -777,7 +777,7 @@
                     <div class="coa-field">
                         <div class="coa-checkbox-row">
                             <input type="checkbox" id="pa-is-contra" name="is_contra" value="1">
-                            <label for="pa-is-contra">Contra account <span style="color:#8b7aad;font-weight:400;">(opposite normal balance)</span></label>
+                            <label for="pa-is-contra">Contra account <span style="color:#6f869b;font-weight:400;">(opposite normal balance)</span></label>
                         </div>
                     </div>
                 </div>
@@ -798,7 +798,7 @@
                 <div>
                     <p class="coa-modal-head-label">Chart of Accounts</p>
                     <h3>Add Child Account</h3>
-                    <p id="child-modal-subtitle" style="font-size:6.5pt;color:#8b7aad;margin:2pt 0 0;">Under <strong id="child-parent-name"></strong></p>
+                    <p id="child-modal-subtitle" style="font-size:7pt;color:#6f869b;margin:2pt 0 0;">Under <strong id="child-parent-name"></strong></p>
                 </div>
                 <button class="coa-modal-close"
                     onclick="document.getElementById('modal-add-child').classList.remove('is-open')">&times;</button>
@@ -825,7 +825,7 @@
                     <div class="coa-field">
                         <div class="coa-checkbox-row">
                             <input type="checkbox" id="ch-is-contra" name="is_contra" value="1">
-                            <label for="ch-is-contra">Contra account <span style="color:#8b7aad;font-weight:400;">(opposite normal balance)</span></label>
+                            <label for="ch-is-contra">Contra account <span style="color:#6f869b;font-weight:400;">(opposite normal balance)</span></label>
                         </div>
                     </div>
                 </div>
@@ -861,10 +861,10 @@
                     <div class="coa-field">
                         <label style="display:flex;align-items:flex-start;gap:4pt;cursor:pointer;font-weight:500;text-transform:none;letter-spacing:0;">
                             <input id="rename-is-contra" name="is_contra" type="checkbox" value="1"
-                                style="margin-top:2pt;flex-shrink:0;accent-color:#4c1d95;width:14px;height:14px;">
-                            <span style="font-size:7pt;font-weight:600;color:#6b5b8a;">
+                                style="margin-top:2pt;flex-shrink:0;accent-color:#1a345b;width:14px;height:14px;">
+                            <span style="font-size:7pt;font-weight:600;color:#5a7186;">
                                 Contra account
-                                <span style="display:block;font-size:6.5pt;color:#8b7aad;font-weight:400;margin-top:1pt;">
+                                <span style="display:block;font-size:7pt;color:#6f869b;font-weight:400;margin-top:1pt;">
                                     Carries an opposite normal balance (e.g. accumulated depreciation). Excluded from financial statements, appears on trial balance only.
                                 </span>
                             </span>

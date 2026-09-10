@@ -78,7 +78,7 @@ $afsRows = function ($accounts, $compare, $rounding, $roundingDecimals, $suppres
 };
 
 $fmt = function ($v) use ($rounding, $roundingDecimals) {
-    return $v != 0 ? number_format(abs($v) / $rounding, $roundingDecimals) : '—';
+    return $v != 0 ? number_format(abs($v) / $rounding, $roundingDecimals, '.', ' ') : '—';
 };
 
 $amtClass = fn($v) => $v == 0 ? 'afs-amount afs-dim' : ($v < 0 ? 'afs-amount afs-abnormal' : 'afs-amount');
@@ -130,7 +130,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
     $url = route('companies.notes-to-afs.show', [$company, $slug]);
     return '<a href="' .
         $url .
-        '" style="color:#5e17eb;text-decoration:none;font-weight:600;" title="See note ' .
+        '" style="color:#005bf0;text-decoration:none;font-weight:600;" title="See note ' .
         $ref['n'] .
         '">' .
         $ref['n'] .
@@ -140,12 +140,15 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
 <table class="afs-table">
     <thead>
+        {{-- Header follows the source document: the label cell is
+             empty, and each year sits above its rounding label on a
+             second line. Only the current-year cell is filled. --}}
         <tr>
-            <th class="afs-col-label">Figures in {{ $roundingLabel }}</th>
-            <th class="afs-col-note">Note(s)</th>
-            <th class="afs-col-amount">{{ $currentYearLabel }}</th>
+            <th class="afs-col-label"></th>
+            <th class="afs-col-note">Notes</th>
+            <th class="afs-col-amount">{{ $currentYearLabel }}<br>{{ $roundingLabel }}</th>
             @if ($compare)
-                <th class="afs-col-amount">{{ $priorYearLabel }}</th>
+                <th class="afs-col-amount">{{ $priorYearLabel }}<br>{{ $roundingLabel }}</th>
             @endif
         </tr>
     </thead>
@@ -153,12 +156,12 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
         {{-- ════ ASSETS ════ --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Assets</td>
+            <td class="afs-name">Assets</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
 
         {{-- Non-Current Assets (presented first per IFRS for SMEs) --}}
         <tr class="afs-section-sub">
-            <td colspan="{{ $cols }}">Non-Current Assets</td>
+            <td class="afs-name">Non-Current Assets</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php
             // PPE class lines: one net carrying-value row per class instead of showing
@@ -236,7 +239,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
         @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $row['name'] }}</td>
+                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>
                 <td class="afs-note">{!! $noteCell($row['note_slug'] ?? $noteForName($row['name'])) !!}</td>
                 {!! $traceLink($row['bal'], $row) !!}
                 @if ($compare)
@@ -245,7 +248,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">None</td>
+                <td class="afs-name afs-empty">None</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-subtotal">
@@ -259,7 +262,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
         {{-- Current Assets --}}
         <tr class="afs-section-sub">
-            <td colspan="{{ $cols }}">Current Assets</td>
+            <td class="afs-name">Current Assets</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php
             // Inventory from the inventory register (IAS 2) — same pattern as PPE/intangibles.
@@ -282,7 +285,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
         @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $row['name'] }}</td>
+                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>
                 <td class="afs-note">{!! $noteCell($noteForName($row['name'])) !!}</td>
                 {!! $traceLink($row['bal'], $row) !!}
                 @if ($compare)
@@ -291,7 +294,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">None</td>
+                <td class="afs-name afs-empty">None</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-subtotal">
@@ -314,17 +317,31 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
         {{-- ════ EQUITY AND LIABILITIES ════ --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Equity and Liabilities</td>
+            <td class="afs-name">Equity and Liabilities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
 
         {{-- Equity --}}
         <tr class="afs-section-sub">
-            <td colspan="{{ $cols }}">Equity</td>
+            <td class="afs-name">Equity</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
-        @php $rows = $afsRows($equityAccounts, $compare, $rounding, $roundingDecimals); @endphp
+        @php
+            $rows = $afsRows($equityAccounts, $compare, $rounding, $roundingDecimals);
+            // Undistributed P&L + register-driven adjustments rolled into equity
+            // by buildBalanceSheet so the SoFP balances. Emit as a synthetic line
+            // so the shown equity rows sum to Total Equity.
+            $curEarnings   = (float) ($currentEarnings ?? 0);
+            $priorEarnings = (float) ($currentEarningsPrior ?? 0);
+            if (abs($curEarnings) >= 0.01 || ($compare && abs($priorEarnings) >= 0.01)) {
+                $rows[] = [
+                    'name'  => 'Retained income for the period',
+                    'bal'   => $curEarnings,
+                    'prior' => $priorEarnings,
+                ];
+            }
+        @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $row['name'] }}</td>
+                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>
                 <td class="afs-note">{!! $noteCell($noteForName($row['name'])) !!}</td>
                 {!! $traceLink($row['bal'], $row) !!}
                 @if ($compare)
@@ -333,7 +350,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">None</td>
+                <td class="afs-name afs-empty">None</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-subtotal">
@@ -347,7 +364,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
         {{-- Non-Current Liabilities --}}
         <tr class="afs-section-sub">
-            <td colspan="{{ $cols }}">Non-Current Liabilities</td>
+            <td class="afs-name">Non-Current Liabilities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php
             $leaseLiabLinkedAccountIds = $leaseLiabLinkedAccountIds ?? [];
@@ -367,7 +384,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
         @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $row['name'] }}</td>
+                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>
                 <td class="afs-note">{!! $noteCell($noteForName($row['name'])) !!}</td>
                 {!! $traceLink($row['bal'], $row) !!}
                 @if ($compare)
@@ -376,7 +393,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">None</td>
+                <td class="afs-name afs-empty">None</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-subtotal">
@@ -390,12 +407,12 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
 
         {{-- Current Liabilities --}}
         <tr class="afs-section-sub">
-            <td colspan="{{ $cols }}">Current Liabilities</td>
+            <td class="afs-name">Current Liabilities</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php $rows = $afsRows($currentLiabilities, $compare, $rounding, $roundingDecimals); @endphp
         @forelse ($rows as $i => $row)
             <tr class="afs-item-row {{ $i === count($rows) - 1 ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $row['name'] }}</td>
+                <td class="afs-name"@if($row['is_separate_child'] ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $row['name'] }}</td>
                 <td class="afs-note">{!! $noteCell($noteForName($row['name'])) !!}</td>
                 {!! $traceLink($row['bal'], $row) !!}
                 @if ($compare)
@@ -404,7 +421,7 @@ $noteCell = function ($slug) use ($noteRefs, $company) {
             </tr>
         @empty
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">None</td>
+                <td class="afs-name afs-empty">None</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endforelse
         <tr class="afs-subtotal">

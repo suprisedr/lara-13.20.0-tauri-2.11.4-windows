@@ -7,7 +7,7 @@
     @include('companies._styles')
     <style>
         /* Status badge variants for delivery notes */
-        .reg-status.draft      { color: #6b7280; border-color: #6b7280; }
+        .reg-status.draft      { color: #5a7186; border-color: #5a7186; }
         .reg-status.dispatched { color: #92400e; border-color: #92400e; }
         .reg-status.delivered  { color: #15803d; border-color: #15803d; }
         .reg-status.cancelled  { color: #dc2626; border-color: #dc2626; }
@@ -31,20 +31,20 @@
         .sig-row { display: flex; gap: 20pt; margin-top: 16pt; }
         .sig-block {
             flex: 1;
-            border-top: 1pt solid #c4b5fd;
+            border-top: 1pt solid #9ec1f5;
             padding-top: 3pt;
             font-size: 6.5pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         /* Notes box */
         .reg-notes-box {
             font-size: 7pt;
-            color: #23282d;
+            color: #191919;
             white-space: pre-line;
-            border: 0.5pt solid #c4b5fd;
+            border: 0.5pt solid #9ec1f5;
             padding: 4pt 6pt;
-            background: #f5f3ff;
+            background: #f4fafc;
         }
     </style>
 @endpush
@@ -126,13 +126,13 @@
                             <div style="text-align:right;">
                                 <div class="reg-doc-title">DELIVERY NOTE</div>
                                 <div class="afs-letterhead-meta afs-right">
-                                    <div><strong style="color:#4c1d95;">DN No:</strong> {{ $deliveryNote->delivery_note_number }}</div>
-                                    <div><strong style="color:#4c1d95;">Date:</strong> {{ $deliveryNote->delivery_date->format('d M Y') }}</div>
+                                    <div><strong style="color:#1a345b;">DN No:</strong> {{ $deliveryNote->delivery_note_number }}</div>
+                                    <div><strong style="color:#1a345b;">Date:</strong> {{ $deliveryNote->delivery_date->format('d M Y') }}</div>
                                     @if ($deliveryNote->expected_delivery_date)
-                                        <div><strong style="color:#4c1d95;">Expected:</strong> {{ $deliveryNote->expected_delivery_date->format('d M Y') }}</div>
+                                        <div><strong style="color:#1a345b;">Expected:</strong> {{ $deliveryNote->expected_delivery_date->format('d M Y') }}</div>
                                     @endif
                                     @if ($deliveryNote->invoice)
-                                        <div><strong style="color:#4c1d95;">Invoice:</strong> {{ $deliveryNote->invoice->invoice_number }}</div>
+                                        <div><strong style="color:#1a345b;">Invoice:</strong> {{ $deliveryNote->invoice->invoice_number }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -145,20 +145,20 @@
                             <div>
                                 <p class="reg-section-header">Deliver To</p>
                                 <div style="font-size:7pt;line-height:1.6;">
-                                    <strong style="color:#4c1d95;">{{ $deliveryNote->customer_name }}</strong><br>
-                                    @if ($deliveryNote->customer_email)<div style="color:#6b5b8a;">{{ $deliveryNote->customer_email }}</div>@endif
+                                    <strong style="color:#1a345b;">{{ $deliveryNote->customer_name }}</strong><br>
+                                    @if ($deliveryNote->customer_email)<div style="color:#5a7186;">{{ $deliveryNote->customer_email }}</div>@endif
                                     @if ($deliveryNote->delivery_address)
-                                        <div style="white-space:pre-line;color:#6b5b8a;">{{ $deliveryNote->delivery_address }}</div>
+                                        <div style="white-space:pre-line;color:#5a7186;">{{ $deliveryNote->delivery_address }}</div>
                                     @endif
                                 </div>
                             </div>
                             @if ($deliveryNote->dispatched_by || $deliveryNote->vehicle_registration || $deliveryNote->tracking_reference)
                                 <div>
                                     <p class="reg-section-header">Dispatch Info</p>
-                                    <div style="font-size:7pt;line-height:1.6;color:#6b5b8a;">
-                                        @if ($deliveryNote->dispatched_by)<div><strong style="color:#4c1d95;">Dispatched By:</strong> {{ $deliveryNote->dispatched_by }}</div>@endif
-                                        @if ($deliveryNote->vehicle_registration)<div><strong style="color:#4c1d95;">Vehicle:</strong> {{ $deliveryNote->vehicle_registration }}</div>@endif
-                                        @if ($deliveryNote->tracking_reference)<div><strong style="color:#4c1d95;">Tracking:</strong> {{ $deliveryNote->tracking_reference }}</div>@endif
+                                    <div style="font-size:7pt;line-height:1.6;color:#5a7186;">
+                                        @if ($deliveryNote->dispatched_by)<div><strong style="color:#1a345b;">Dispatched By:</strong> {{ $deliveryNote->dispatched_by }}</div>@endif
+                                        @if ($deliveryNote->vehicle_registration)<div><strong style="color:#1a345b;">Vehicle:</strong> {{ $deliveryNote->vehicle_registration }}</div>@endif
+                                        @if ($deliveryNote->tracking_reference)<div><strong style="color:#1a345b;">Tracking:</strong> {{ $deliveryNote->tracking_reference }}</div>@endif
                                     </div>
                                 </div>
                             @endif

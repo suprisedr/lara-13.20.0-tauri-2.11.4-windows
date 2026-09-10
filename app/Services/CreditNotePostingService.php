@@ -14,6 +14,7 @@ class CreditNotePostingService
     public function __construct(
         private readonly TransactionService        $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService        $agentHistory = new AgentHistoryService,
     ) {}
 
     public function post(Company $company, User $user, CreditNote $creditNote): void
@@ -50,6 +51,7 @@ class CreditNotePostingService
             'VAT output tax liability',
             'inventory stock asset',
             'cost of sales cost of goods sold',
+            'accounts payable creditor refund payable liability',
         ], 12);
 
         $list = $accounts
@@ -60,6 +62,30 @@ class CreditNotePostingService
             $type = ($item->inventoryItem?->is_service ?? true) ? 'service' : 'physical';
             return "  - {$item->description} | qty={$item->quantity} | unit_price={$item->unit_price} | type={$type} | return_to_stock=" . ($item->return_to_stock ? 'yes' : 'no');
         })->implode("\n");
+
+        $invoicePaymentContext = '';
+        if ($creditNote->invoice_id) {
+            $invoice = $creditNote->invoice;
+            if ($invoice) {
+                $invoicePaid = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+                $invoiceTotal = $invoice->total();
+                $arBalance = round($invoiceTotal - $invoicePaid, 2);
+                $invoicePaymentContext = "\n        Original invoice: {$invoice->invoice_number} (total: {$invoiceTotal})"
+                    ."\n        Invoice status: {$invoice->status}"
+                    ."\n        Amount already collected from customer: {$invoicePaid}"
+                    ."\n        Trade Debtors balance for this invoice: {$arBalance}";
+
+                if ($arBalance <= 0) {
+                    $invoicePaymentContext .= "\n\n        IMPORTANT: The customer has already paid the full invoice amount."
+                        ."\n        Trade Debtors balance is zero — do NOT credit Trade Debtors."
+                        ."\n        Credit Accounts Payable or Refund Payable instead, since the company now owes the customer a refund.";
+                } elseif ($arBalance < $total) {
+                    $partialRefund = round($total - $arBalance, 2);
+                    $invoicePaymentContext .= "\n\n        IMPORTANT: The credit note ({$total}) exceeds the remaining Trade Debtors balance ({$arBalance})."
+                        ."\n        Credit Trade Debtors only up to {$arBalance}, and credit Accounts Payable / Refund Payable for the excess {$partialRefund}.";
+                }
+            }
+        }
 
         $prompt = <<<TEXT
         Posting type: credit_note
@@ -74,7 +100,7 @@ class CreditNotePostingService
         VAT:                  {$tax}
         Total credit:         {$total}
         Has physical returns: {$hasPhysicalReturns}
-        Total COGS to reverse: {$totalCogs}
+        Total COGS to reverse: {$totalCogs}{$invoicePaymentContext}
 
         Line items:
         {$itemLines}
@@ -85,28 +111,86 @@ class CreditNotePostingService
         Select accounts for the credit note journal entry. Only return inventory/CoS accounts if physical goods are returned to stock.
         TEXT;
 
-        $response = (new CreditNotePostingAgent)->prompt($prompt)->toArray();
+        $related = [];
+        if ($creditNote->invoice_id) {
+            $related[] = [
+                'agent_type'  => 'invoice_posting',
+                'entity_type' => 'invoice',
+                'entity_id'   => $creditNote->invoice_id,
+                'label'       => "Original invoice #{$creditNote->invoice_id}",
+            ];
+        }
+        $history = $this->agentHistory->recallWithRelated('credit_note_posting', 'credit_note', $creditNote->id, $related);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new CreditNotePostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('credit_note_posting', 'credit_note', $creditNote->id, $prompt, json_encode($response));
 
         $revenueId   = $response['revenue_account_id'] ?? null;
         $arId        = $response['ar_account_id']      ?? null;
         $vatId       = $response['vat_account_id']     ?? null;
         $inventoryId = $response['inventory_account_id'] ?? null;
         $cosId       = $response['cos_account_id']     ?? null;
+        $apId        = $response['ap_account_id']      ?? null;
 
-        if (!$revenueId || !$arId) {
+        $arBalance = null;
+        if ($creditNote->invoice_id && $creditNote->invoice) {
+            $invoice = $creditNote->invoice;
+            $invoicePaid = (float) $invoice->payments()->whereNotNull('transaction_id')->sum('amount');
+            $arBalance = round($invoice->total() - $invoicePaid, 2);
+        }
+
+        if (!$apId) {
+            $apAccount = $accounts->first(fn(ChartOfAccount $a) =>
+                $a->account_type === 'liabilities' && !$a->is_group &&
+                (str_contains(strtolower($a->account_name), 'payable') ||
+                 str_contains(strtolower($a->account_name), 'creditor') ||
+                 str_contains(strtolower($a->account_name), 'refund'))
+            );
+            if (!$apAccount) {
+                $apAccount = ChartOfAccount::where('company_id', $company->id)
+                    ->where('account_type', 'liabilities')
+                    ->whereNotIn('id', fn($sub) => $sub->select('parent_id')->from('chart_of_accounts')->whereNotNull('parent_id'))
+                    ->where(fn($q) => $q->where('account_name', 'like', '%payable%')
+                        ->orWhere('account_name', 'like', '%creditor%')
+                        ->orWhere('account_name', 'like', '%refund%'))
+                    ->first();
+            }
+            if ($apAccount) {
+                $apId = $apAccount->id;
+            }
+        }
+
+        $invoiceFullyPaid = $arBalance !== null && $arBalance <= 0;
+
+        if (!$revenueId || (!$arId && !$invoiceFullyPaid)) {
             \Illuminate\Support\Facades\Log::warning('CreditNotePostingService: agent did not return required accounts', $response);
             return;
         }
 
+        if ($invoiceFullyPaid && !$apId) {
+            \Illuminate\Support\Facades\Log::warning('CreditNotePostingService: invoice fully paid but no AP account found', $response);
+            return;
+        }
+
         // Build journal lines
-        // Dr Revenue (reverse), Dr VAT (reverse), Cr AR
+        // Dr Revenue (reverse), Dr VAT (reverse), Cr AR or AP
         $lines = [];
 
         $lines[] = ['chart_of_account_id' => $revenueId, 'type' => 'debit',  'amount' => $subtotal, 'description' => 'Revenue reversal — ' . $creditNote->credit_note_number];
         if ($tax > 0 && $vatId) {
             $lines[] = ['chart_of_account_id' => $vatId, 'type' => 'debit', 'amount' => $tax, 'description' => 'VAT reversal — ' . $creditNote->credit_note_number];
         }
-        $lines[] = ['chart_of_account_id' => $arId, 'type' => 'credit', 'amount' => $total, 'description' => 'AR reduction — ' . $creditNote->credit_note_number];
+
+        if ($arBalance !== null && $arBalance <= 0 && $apId) {
+            $lines[] = ['chart_of_account_id' => $apId, 'type' => 'credit', 'amount' => $total, 'description' => 'Refund payable — ' . $creditNote->credit_note_number];
+        } elseif ($arBalance !== null && $arBalance > 0 && $arBalance < $total && $apId) {
+            $lines[] = ['chart_of_account_id' => $arId, 'type' => 'credit', 'amount' => $arBalance, 'description' => 'AR reduction — ' . $creditNote->credit_note_number];
+            $excess = round($total - $arBalance, 2);
+            $lines[] = ['chart_of_account_id' => $apId, 'type' => 'credit', 'amount' => $excess, 'description' => 'Refund payable — ' . $creditNote->credit_note_number];
+        } else {
+            $lines[] = ['chart_of_account_id' => $arId, 'type' => 'credit', 'amount' => $total, 'description' => 'AR reduction — ' . $creditNote->credit_note_number];
+        }
 
         // Dr Inventory / Cr CoS for physical returns
         if ($hasPhysicalReturns && $totalCogs > 0 && $inventoryId && $cosId) {

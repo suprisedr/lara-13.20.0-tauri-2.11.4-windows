@@ -14,7 +14,10 @@ use RuntimeException;
 
 class InventoryPostingService
 {
-    public function __construct(private readonly TransactionService $transactions) {}
+    public function __construct(
+        private readonly TransactionService $transactions,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
+    ) {}
 
     public function postMovementWithAi(InventoryMovement $movement, User $user): void
     {
@@ -185,6 +188,12 @@ class InventoryPostingService
 
         $prompt = "Movement type: {$action}\n\n{$details}\nChart of accounts:\n{$list}\n\nPick the IAS 2-appropriate accounts for this inventory movement posting.";
 
-        return (new InventoryPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('inventory_posting', 'inventory_item', $item->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new InventoryPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('inventory_posting', 'inventory_item', $item->id, $prompt, json_encode($response));
+
+        return $response;
     }
 }

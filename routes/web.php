@@ -253,6 +253,91 @@ Route::middleware(['auth', 'verified'])->prefix('companies')->name('companies.')
     Route::post('/{company}/ecl-register/rates', [\App\Http\Controllers\EclRegisterController::class, 'updateRates'])->name('ecl-register.rates');
     Route::post('/{company}/ecl-register/post', [\App\Http\Controllers\EclRegisterController::class, 'postProvision'])->name('ecl-register.post');
 
+    // Provisions (IAS 37)
+    Route::get('/{company}/provisions', [\App\Http\Controllers\ProvisionController::class, 'index'])->name('provisions.index');
+    Route::post('/{company}/provisions/classes', [\App\Http\Controllers\ProvisionController::class, 'storeClass'])->name('provisions.classes.store');
+    Route::delete('/{company}/provisions/classes/{provisionClass}', [\App\Http\Controllers\ProvisionController::class, 'destroyClass'])->name('provisions.classes.destroy');
+    Route::post('/{company}/provisions', [\App\Http\Controllers\ProvisionController::class, 'store'])->name('provisions.store');
+    Route::get('/{company}/provisions/{provision}', [\App\Http\Controllers\ProvisionController::class, 'show'])->name('provisions.show');
+    Route::patch('/{company}/provisions/{provision}', [\App\Http\Controllers\ProvisionController::class, 'update'])->name('provisions.update');
+    Route::delete('/{company}/provisions/{provision}', [\App\Http\Controllers\ProvisionController::class, 'destroy'])->name('provisions.destroy');
+    Route::post('/{company}/provisions/{provision}/remeasure', [\App\Http\Controllers\ProvisionController::class, 'remeasure'])->name('provisions.remeasure');
+    Route::post('/{company}/provisions/{provision}/unwind', [\App\Http\Controllers\ProvisionController::class, 'unwind'])->name('provisions.unwind');
+    Route::post('/{company}/provisions/{provision}/utilise', [\App\Http\Controllers\ProvisionController::class, 'utilise'])->name('provisions.utilise');
+    Route::post('/{company}/provisions/{provision}/reverse', [\App\Http\Controllers\ProvisionController::class, 'reverse'])->name('provisions.reverse');
+    Route::get('/{company}/provisions/{provision}/history', [\App\Http\Controllers\ProvisionController::class, 'history'])->name('provisions.history');
+    Route::post('/{company}/provisions/{provision}/events/{event}/retry-posting', [\App\Http\Controllers\ProvisionController::class, 'retryPosting'])->name('provisions.events.retry-posting');
+
+    // Related Parties (IAS 24)
+    Route::get('/{company}/related-parties', [\App\Http\Controllers\RelatedPartyController::class, 'index'])->name('related-parties.index');
+    Route::post('/{company}/related-parties', [\App\Http\Controllers\RelatedPartyController::class, 'store'])->name('related-parties.store');
+    Route::get('/{company}/related-parties/{relatedParty}', [\App\Http\Controllers\RelatedPartyController::class, 'show'])->name('related-parties.show');
+    Route::patch('/{company}/related-parties/{relatedParty}', [\App\Http\Controllers\RelatedPartyController::class, 'update'])->name('related-parties.update');
+    Route::delete('/{company}/related-parties/{relatedParty}', [\App\Http\Controllers\RelatedPartyController::class, 'destroy'])->name('related-parties.destroy');
+    Route::post('/{company}/related-parties/{relatedParty}/transactions', [\App\Http\Controllers\RelatedPartyController::class, 'storeTransaction'])->name('related-parties.transactions.store');
+    Route::delete('/{company}/related-parties/{relatedParty}/transactions/{transaction}', [\App\Http\Controllers\RelatedPartyController::class, 'destroyTransaction'])->name('related-parties.transactions.destroy');
+
+    // Borrowing Costs (IAS 23)
+    Route::get('/{company}/borrowing-costs', [\App\Http\Controllers\BorrowingCostController::class, 'index'])->name('borrowing-costs.index');
+    Route::post('/{company}/borrowing-costs', [\App\Http\Controllers\BorrowingCostController::class, 'store'])->name('borrowing-costs.store');
+    Route::get('/{company}/borrowing-costs/{borrowingCostCapitalisation}', [\App\Http\Controllers\BorrowingCostController::class, 'show'])->name('borrowing-costs.show');
+    Route::patch('/{company}/borrowing-costs/{borrowingCostCapitalisation}', [\App\Http\Controllers\BorrowingCostController::class, 'update'])->name('borrowing-costs.update');
+    Route::delete('/{company}/borrowing-costs/{borrowingCostCapitalisation}', [\App\Http\Controllers\BorrowingCostController::class, 'destroy'])->name('borrowing-costs.destroy');
+    Route::post('/{company}/borrowing-costs/{borrowingCostCapitalisation}/capitalise', [\App\Http\Controllers\BorrowingCostController::class, 'capitalise'])->name('borrowing-costs.capitalise');
+    Route::post('/{company}/borrowing-costs/{borrowingCostCapitalisation}/suspend', [\App\Http\Controllers\BorrowingCostController::class, 'suspend'])->name('borrowing-costs.suspend');
+    Route::post('/{company}/borrowing-costs/{borrowingCostCapitalisation}/complete', [\App\Http\Controllers\BorrowingCostController::class, 'complete'])->name('borrowing-costs.complete');
+    Route::get('/{company}/borrowing-costs/{borrowingCostCapitalisation}/history', [\App\Http\Controllers\BorrowingCostController::class, 'history'])->name('borrowing-costs.history');
+    Route::post('/{company}/borrowing-costs/{borrowingCostCapitalisation}/events/{event}/retry-posting', [\App\Http\Controllers\BorrowingCostController::class, 'retryPosting'])->name('borrowing-costs.events.retry-posting');
+
+    // Revenue Contracts (IFRS 15)
+    Route::get('/{company}/revenue-contracts', [\App\Http\Controllers\RevenueContractController::class, 'index'])->name('revenue-contracts.index');
+    Route::post('/{company}/revenue-contracts', [\App\Http\Controllers\RevenueContractController::class, 'store'])->name('revenue-contracts.store');
+    Route::get('/{company}/revenue-contracts/{revenueContract}', [\App\Http\Controllers\RevenueContractController::class, 'show'])->name('revenue-contracts.show');
+    Route::patch('/{company}/revenue-contracts/{revenueContract}', [\App\Http\Controllers\RevenueContractController::class, 'update'])->name('revenue-contracts.update');
+    Route::delete('/{company}/revenue-contracts/{revenueContract}', [\App\Http\Controllers\RevenueContractController::class, 'destroy'])->name('revenue-contracts.destroy');
+    Route::post('/{company}/revenue-contracts/{revenueContract}/obligations', [\App\Http\Controllers\RevenueContractController::class, 'storeObligation'])->name('revenue-contracts.obligations.store');
+    Route::delete('/{company}/revenue-contracts/{revenueContract}/obligations/{obligation}', [\App\Http\Controllers\RevenueContractController::class, 'destroyObligation'])->name('revenue-contracts.obligations.destroy');
+    Route::post('/{company}/revenue-contracts/{revenueContract}/recognise-revenue', [\App\Http\Controllers\RevenueContractController::class, 'recogniseRevenue'])->name('revenue-contracts.recognise-revenue');
+    Route::post('/{company}/revenue-contracts/{revenueContract}/advance-receipt', [\App\Http\Controllers\RevenueContractController::class, 'advanceReceipt'])->name('revenue-contracts.advance-receipt');
+    Route::post('/{company}/revenue-contracts/{revenueContract}/release-liability', [\App\Http\Controllers\RevenueContractController::class, 'releaseLiability'])->name('revenue-contracts.release-liability');
+    Route::get('/{company}/revenue-contracts/{revenueContract}/history', [\App\Http\Controllers\RevenueContractController::class, 'history'])->name('revenue-contracts.history');
+    Route::post('/{company}/revenue-contracts/{revenueContract}/events/{event}/retry-posting', [\App\Http\Controllers\RevenueContractController::class, 'retryPosting'])->name('revenue-contracts.events.retry-posting');
+
+    // Government Grants (IAS 20)
+    Route::get('/{company}/government-grants', [\App\Http\Controllers\GovernmentGrantController::class, 'index'])->name('government-grants.index');
+    Route::post('/{company}/government-grants', [\App\Http\Controllers\GovernmentGrantController::class, 'store'])->name('government-grants.store');
+    Route::get('/{company}/government-grants/{governmentGrant}', [\App\Http\Controllers\GovernmentGrantController::class, 'show'])->name('government-grants.show');
+    Route::patch('/{company}/government-grants/{governmentGrant}', [\App\Http\Controllers\GovernmentGrantController::class, 'update'])->name('government-grants.update');
+    Route::delete('/{company}/government-grants/{governmentGrant}', [\App\Http\Controllers\GovernmentGrantController::class, 'destroy'])->name('government-grants.destroy');
+    Route::post('/{company}/government-grants/{governmentGrant}/recognise', [\App\Http\Controllers\GovernmentGrantController::class, 'recognise'])->name('government-grants.recognise');
+    Route::post('/{company}/government-grants/{governmentGrant}/amortise', [\App\Http\Controllers\GovernmentGrantController::class, 'amortise'])->name('government-grants.amortise');
+    Route::post('/{company}/government-grants/{governmentGrant}/refund', [\App\Http\Controllers\GovernmentGrantController::class, 'refund'])->name('government-grants.refund');
+    Route::get('/{company}/government-grants/{governmentGrant}/history', [\App\Http\Controllers\GovernmentGrantController::class, 'history'])->name('government-grants.history');
+    Route::post('/{company}/government-grants/{governmentGrant}/events/{event}/retry-posting', [\App\Http\Controllers\GovernmentGrantController::class, 'retryPosting'])->name('government-grants.events.retry-posting');
+
+    // Share-Based Payments (IFRS 2)
+    Route::get('/{company}/share-based-payments', [\App\Http\Controllers\ShareBasedPaymentController::class, 'index'])->name('share-based-payments.index');
+    Route::post('/{company}/share-based-payments', [\App\Http\Controllers\ShareBasedPaymentController::class, 'store'])->name('share-based-payments.store');
+    Route::get('/{company}/share-based-payments/{shareBasedPaymentArrangement}', [\App\Http\Controllers\ShareBasedPaymentController::class, 'show'])->name('share-based-payments.show');
+    Route::patch('/{company}/share-based-payments/{shareBasedPaymentArrangement}', [\App\Http\Controllers\ShareBasedPaymentController::class, 'update'])->name('share-based-payments.update');
+    Route::delete('/{company}/share-based-payments/{shareBasedPaymentArrangement}', [\App\Http\Controllers\ShareBasedPaymentController::class, 'destroy'])->name('share-based-payments.destroy');
+    Route::post('/{company}/share-based-payments/{shareBasedPaymentArrangement}/vesting-expense', [\App\Http\Controllers\ShareBasedPaymentController::class, 'vestingExpense'])->name('share-based-payments.vesting-expense');
+    Route::post('/{company}/share-based-payments/{shareBasedPaymentArrangement}/exercise', [\App\Http\Controllers\ShareBasedPaymentController::class, 'exercise'])->name('share-based-payments.exercise');
+    Route::post('/{company}/share-based-payments/{shareBasedPaymentArrangement}/forfeit', [\App\Http\Controllers\ShareBasedPaymentController::class, 'forfeit'])->name('share-based-payments.forfeit');
+    Route::get('/{company}/share-based-payments/{shareBasedPaymentArrangement}/history', [\App\Http\Controllers\ShareBasedPaymentController::class, 'history'])->name('share-based-payments.history');
+    Route::post('/{company}/share-based-payments/{shareBasedPaymentArrangement}/events/{event}/retry-posting', [\App\Http\Controllers\ShareBasedPaymentController::class, 'retryPosting'])->name('share-based-payments.events.retry-posting');
+
+    // Deferred Tax (IAS 12)
+    Route::get('/{company}/deferred-tax', [\App\Http\Controllers\DeferredTaxController::class, 'index'])->name('deferred-tax.index');
+    Route::post('/{company}/deferred-tax', [\App\Http\Controllers\DeferredTaxController::class, 'store'])->name('deferred-tax.store');
+    Route::get('/{company}/deferred-tax/{deferredTaxItem}', [\App\Http\Controllers\DeferredTaxController::class, 'show'])->name('deferred-tax.show');
+    Route::patch('/{company}/deferred-tax/{deferredTaxItem}', [\App\Http\Controllers\DeferredTaxController::class, 'update'])->name('deferred-tax.update');
+    Route::delete('/{company}/deferred-tax/{deferredTaxItem}', [\App\Http\Controllers\DeferredTaxController::class, 'destroy'])->name('deferred-tax.destroy');
+    Route::post('/{company}/deferred-tax/{deferredTaxItem}/remeasure', [\App\Http\Controllers\DeferredTaxController::class, 'remeasure'])->name('deferred-tax.remeasure');
+    Route::post('/{company}/deferred-tax/{deferredTaxItem}/reverse', [\App\Http\Controllers\DeferredTaxController::class, 'reverse'])->name('deferred-tax.reverse');
+    Route::get('/{company}/deferred-tax/{deferredTaxItem}/history', [\App\Http\Controllers\DeferredTaxController::class, 'history'])->name('deferred-tax.history');
+    Route::post('/{company}/deferred-tax/{deferredTaxItem}/events/{event}/retry-posting', [\App\Http\Controllers\DeferredTaxController::class, 'retryPosting'])->name('deferred-tax.events.retry-posting');
+
     // Notes to Annual Financial Statements
     Route::prefix('/{company}/notes-to-afs')->name('notes-to-afs.')->scopeBindings()->group(function () {
         Route::get('/', [\App\Http\Controllers\FinancialStatementNotesController::class, 'index'])->name('index');

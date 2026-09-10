@@ -74,19 +74,19 @@
     $profitForYearPrior = $profitBeforeTaxPrior - $taxTotalPrior;
 
     $fmt = function ($v) use ($rounding, $roundingDecimals) {
-        return $v != 0 ? number_format(abs($v) / $rounding, $roundingDecimals) : '—';
+        return $v != 0 ? number_format(abs($v) / $rounding, $roundingDecimals, '.', ' ') : '—';
     };
     // Render with parentheses for negative figures
     $fmtSigned = function ($v) use ($rounding, $roundingDecimals) {
         if ($v == 0) {
             return '—';
         }
-        $n = number_format(abs($v) / $rounding, $roundingDecimals);
+        $n = number_format(abs($v) / $rounding, $roundingDecimals, '.', ' ');
         return $v < 0 ? "({$n})" : $n;
     };
     // Expense figures are always shown in parentheses (they reduce profit).
     $fmtParen = function ($v) use ($rounding, $roundingDecimals) {
-        return $v != 0 ? '(' . number_format(abs($v) / $rounding, $roundingDecimals) . ')' : '—';
+        return $v != 0 ? '(' . number_format(abs($v) / $rounding, $roundingDecimals, '.', ' ') . ')' : '—';
     };
 
     $amtClass = fn($v) => $v == 0 ? 'afs-amount afs-dim' : ($v < 0 ? 'afs-amount afs-abnormal' : 'afs-amount');
@@ -113,7 +113,7 @@
         $url = route('companies.notes-to-afs.show', [$company, $slug]);
         return '<a href="' .
             $url .
-            '" style="color:#5e17eb;text-decoration:none;font-weight:600;" title="See note ' .
+            '" style="color:#005bf0;text-decoration:none;font-weight:600;" title="See note ' .
             $ref['n'] .
             '">' .
             $ref['n'] .
@@ -123,12 +123,15 @@
 
 <table class="afs-table">
     <thead>
+        {{-- Header follows the source document: the label cell is
+             empty, and each year sits above its rounding label on a
+             second line. Only the current-year cell is filled. --}}
         <tr>
-            <th class="afs-col-label">Figures in {{ $roundingLabel }}</th>
-            <th class="afs-col-note">Note(s)</th>
-            <th class="afs-col-amount">{{ $currentYearLabel }}</th>
+            <th class="afs-col-label"></th>
+            <th class="afs-col-note">Notes</th>
+            <th class="afs-col-amount">{{ $currentYearLabel }}<br>{{ $roundingLabel }}</th>
             @if ($compare)
-                <th class="afs-col-amount">{{ $priorYearLabel }}</th>
+                <th class="afs-col-amount">{{ $priorYearLabel }}<br>{{ $roundingLabel }}</th>
             @endif
         </tr>
     </thead>
@@ -136,12 +139,12 @@
 
         {{-- Revenue --}}
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Revenue</td>
+            <td class="afs-name">Revenue</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php $revenueVisible = $revenueAccounts->filter(fn($a) => abs($a->net_amount) >= 0.01 || ($compare && abs($a->prior_net_amount ?? 0) >= 0.01)); @endphp
         @forelse ($revenueVisible as $i => $account)
             <tr class="afs-item-row {{ $loop->last ? 'afs-item-last' : '' }}">
-                <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $account->account_name }}</td>
+                <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $account->account_name }}</td>
                 <td class="afs-note"></td>
                 {!! $acctLink($account->net_amount, $account->id, $account->account_name, $fmt) !!}
                 @if ($compare)
@@ -170,12 +173,12 @@
         {{-- Cost of sales --}}
         @if ($costOfSales->isNotEmpty())
             <tr class="afs-section-main">
-                <td colspan="{{ $cols }}">Cost of sales</td>
+                <td class="afs-name">Cost of sales</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
             @php $cosVisible = $costOfSales->filter(fn($a) => abs($a->net_amount) >= 0.01 || ($compare && abs($a->prior_net_amount ?? 0) >= 0.01)); @endphp
             @foreach ($cosVisible as $i => $account)
                 <tr class="afs-item-row {{ $loop->last ? 'afs-item-last' : '' }}">
-                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $account->account_name }}</td>
+                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $account->account_name }}</td>
                     <td class="afs-note"></td>
                     {!! $acctLink($account->net_amount, $account->id, $account->account_name, $fmtParen) !!}
                     @if ($compare)
@@ -206,12 +209,12 @@
         {{-- Other income --}}
         @if ($otherIncome->isNotEmpty())
             <tr class="afs-section-main">
-                <td colspan="{{ $cols }}">Other income</td>
+                <td class="afs-name">Other income</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
             @php $oiVisible = $otherIncome->filter(fn($a) => abs($a->net_amount) >= 0.01 || ($compare && abs($a->prior_net_amount ?? 0) >= 0.01)); @endphp
             @foreach ($oiVisible as $i => $account)
                 <tr class="afs-item-row {{ $loop->last ? 'afs-item-last' : '' }}">
-                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $account->account_name }}</td>
+                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $account->account_name }}</td>
                     <td class="afs-note"></td>
                     {!! $acctLink($account->net_amount, $account->id, $account->account_name, $fmt) !!}
                     @if ($compare)
@@ -232,12 +235,12 @@
         {{-- Operating expenses --}}
         @if ($opExpenses->isNotEmpty())
             <tr class="afs-section-main">
-                <td colspan="{{ $cols }}">Operating expenses</td>
+                <td class="afs-name">Operating expenses</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
             @php $opVisible = $opExpenses->filter(fn($a) => abs($a->net_amount) >= 0.01 || ($compare && abs($a->prior_net_amount ?? 0) >= 0.01)); @endphp
             @foreach ($opVisible as $i => $account)
                 <tr class="afs-item-row {{ $loop->last ? 'afs-item-last' : '' }}">
-                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $account->account_name }}</td>
+                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $account->account_name }}</td>
                     <td class="afs-note"></td>
                     {!! $acctLink($account->net_amount, $account->id, $account->account_name, $fmtParen) !!}
                     @if ($compare)
@@ -268,12 +271,12 @@
         {{-- Finance costs --}}
         @if ($financeCosts->isNotEmpty())
             <tr class="afs-section-main">
-                <td colspan="{{ $cols }}">Finance costs</td>
+                <td class="afs-name">Finance costs</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
             @php $finVisible = $financeCosts->filter(fn($a) => abs($a->net_amount) >= 0.01 || ($compare && abs($a->prior_net_amount ?? 0) >= 0.01)); @endphp
             @foreach ($finVisible as $i => $account)
                 <tr class="afs-item-row {{ $loop->last ? 'afs-item-last' : '' }}">
-                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#555;"@endif>{{ $account->account_name }}</td>
+                    <td class="afs-name"@if($account->is_separate_child ?? false) style="padding-left:1.75rem;color:#5a7186;"@endif>{{ $account->account_name }}</td>
                     <td class="afs-note"></td>
                     {!! $acctLink($account->net_amount, $account->id, $account->account_name, $fmtParen) !!}
                     @if ($compare)
@@ -332,7 +335,7 @@
             $totalComprehensivePrior = $profitForYearPrior + $ociTotalPrior;
         @endphp
         <tr class="afs-section-main">
-            <td colspan="{{ $cols }}">Other comprehensive income</td>
+            <td class="afs-name">Other comprehensive income</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
         </tr>
         @php $ociVisible = $ociList->filter(fn($a) => abs($a->oci_net) >= 0.01 || ($compare && abs($a->oci_net_prior ?? 0) >= 0.01)); @endphp
         @if ($ociVisible->isNotEmpty())
@@ -348,7 +351,7 @@
             @endforeach
         @else
             <tr class="afs-item-row afs-item-last">
-                <td colspan="{{ $cols }}" class="afs-empty">Items that will not be reclassified to profit or loss — nil</td>
+                <td class="afs-name afs-empty">Items that will not be reclassified to profit or loss — nil</td><td class="afs-note"></td><td class="afs-amount"></td>@if ($compare)<td class="afs-amount"></td>@endif
             </tr>
         @endif
         <tr class="afs-subtotal">

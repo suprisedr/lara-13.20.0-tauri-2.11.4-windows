@@ -8,44 +8,44 @@
     <style>
         .cfm-section-head {
             font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #5e17eb; background: #f5f3fb;
-            padding: 0.45rem 1.25rem; border-top: 1px solid #e5e7eb;
-            border-bottom: 1px solid #e5e7eb;
+            letter-spacing: 0.08em; color: #005bf0; background: #f4fafc;
+            padding: 0.45rem 1.25rem; border-top: 1px solid #d3e2f5;
+            border-bottom: 1px solid #d3e2f5;
         }
         .cfm-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
         .cfm-table th {
             text-align: left; font-size: 0.66rem; font-weight: 700;
-            letter-spacing: 0.06em; text-transform: uppercase; color: #6b7280;
-            padding: 0.45rem 1.25rem; border-bottom: 1.5px solid #e5e7eb;
+            letter-spacing: 0.06em; text-transform: uppercase; color: #5a7186;
+            padding: 0.45rem 1.25rem; border-bottom: 1.5px solid #d3e2f5;
         }
         .cfm-table th.num { text-align: right; }
-        .cfm-table td { padding: 0.35rem 1.25rem; border-bottom: 0.5px solid #f0eee6; vertical-align: middle; }
-        .cfm-label { color: #1b1b18; }
+        .cfm-table td { padding: 0.35rem 1.25rem; border-bottom: 0.5px solid #f4fafc; vertical-align: middle; }
+        .cfm-label { color: #191919; }
         .cfm-input {
-            font-family: inherit; font-size: 0.82rem; border: 1.5px solid #e5e7eb;
+            font-family: inherit; font-size: 0.82rem; border: 1.5px solid #d3e2f5;
             border-radius: 0; padding: 0.25rem 0.5rem; width: 100%;
             text-align: right; background: #fff; box-sizing: border-box;
         }
-        .cfm-input:focus { outline: none; border-color: #5e17eb; }
+        .cfm-input:focus { outline: none; border-color: #005bf0; }
         .cfm-name-input {
-            font-family: inherit; font-size: 0.82rem; border: 1.5px solid #e5e7eb;
+            font-family: inherit; font-size: 0.82rem; border: 1.5px solid #d3e2f5;
             border-radius: 0; padding: 0.25rem 0.5rem; width: 100%;
             background: #fff; box-sizing: border-box;
         }
-        .cfm-name-input:focus { outline: none; border-color: #5e17eb; }
+        .cfm-name-input:focus { outline: none; border-color: #005bf0; }
         .cfm-remove {
-            background: none; border: none; color: #d1d5db; cursor: pointer;
+            background: none; border: none; color: #d3e2f5; cursor: pointer;
             font-size: 1rem; line-height: 1; padding: 0.15rem 0.3rem; border-radius: 0;
         }
         .cfm-remove:hover { color: #ef4444; }
         .cfm-add-btn {
             display: inline-flex; align-items: center; gap: 0.3rem;
-            font-size: 0.75rem; font-weight: 700; color: #5e17eb;
-            background: none; border: 1.5px dashed #c4b5fd; border-radius: 0;
+            font-size: 0.75rem; font-weight: 700; color: #005bf0;
+            background: none; border: 1.5px dashed #9ec1f5; border-radius: 0;
             padding: 0.3rem 0.75rem; cursor: pointer; font-family: inherit;
             margin: 0.5rem 1.25rem;
         }
-        .cfm-add-btn:hover { background: #f5f3fb; }
+        .cfm-add-btn:hover { background: #f4fafc; }
     </style>
 @endpush
 
@@ -64,17 +64,17 @@
             <div class="co-card">
                 <div class="co-card-head">
                     <div>
-                        <h2 style="font-size:1.05rem;font-weight:800;color:#1b1b18;margin:0;">
+                        <h2 style="font-size:1.05rem;font-weight:800;color:#191919;margin:0;">
                             Edit Cash Flow Statement
                         </h2>
                         @if ($hasPrior)
-                            <p style="font-size:0.78rem;color:#6b7280;margin:0.2rem 0 0;">
+                            <p style="font-size:0.78rem;color:#5a7186;margin:0.2rem 0 0;">
                                 No prior-year data found for {{ $priYear }} — enter it below alongside {{ $curYear }}.
                             </p>
                         @endif
                     </div>
                     <a href="{{ route('companies.reports.cash-flow', [$company, 'start_date' => $startDate, 'end_date' => $endDate]) }}"
-                        style="display:inline-flex;align-items:center;gap:0.35rem;background:#eee;color:#1b1b18;border-radius:0;padding:0.4rem 0.85rem;font-size:0.74rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                        style="display:inline-flex;align-items:center;gap:0.35rem;background:#f4fafc;color:#191919;border-radius:0;padding:0.4rem 0.85rem;font-size:0.74rem;font-weight:700;text-decoration:none;white-space:nowrap;">
                         &larr; View Statement
                     </a>
                 </div>
@@ -171,28 +171,28 @@
                         </tbody>
                     </table>
                     @if (! empty($registerInvestingSuggestions))
-                        <div style="padding:0.35rem 1.25rem;font-size:0.7rem;color:#6b7280;background:#f9fafb;border-top:1px dashed #e5e7eb;">
-                            <strong style="color:#5e17eb;">Register-derived lines</strong> — click to add to the statement
+                        <div style="padding:0.35rem 1.25rem;font-size:0.7rem;color:#5a7186;background:#f7fbfd;border-top:1px dashed #d3e2f5;">
+                            <strong style="color:#005bf0;">Register-derived lines</strong> — click to add to the statement
                         </div>
-                        <table class="cfm-table" style="background:#faf9ff;">
+                        <table class="cfm-table" style="background:#f7fbfd;">
                             <tbody>
                                 @foreach ($registerInvestingSuggestions as $s)
                                     <tr class="cfm-suggestion" style="cursor:pointer;opacity:0.75;"
                                         onclick="addPrefilledLine('investing', 'investing-body', '{{ addslashes($s['name']) }}', {{ $s['cur'] }}, {{ $s['pri'] }}); this.remove();"
                                         title="Click to add this line">
-                                        <td class="cfm-label" style="width:{{ $labelCol }};color:#5e17eb;">
-                                            <span style="font-size:0.7rem;background:#ede9fe;color:#5e17eb;padding:0.1rem 0.35rem;margin-right:0.35rem;font-weight:700;">AUTO</span>
+                                        <td class="cfm-label" style="width:{{ $labelCol }};color:#005bf0;">
+                                            <span style="font-size:0.7rem;background:#eaf8fb;color:#005bf0;padding:0.1rem 0.35rem;margin-right:0.35rem;font-weight:700;">AUTO</span>
                                             {{ $s['name'] }}
                                         </td>
-                                        <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#555;">
+                                        <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#5a7186;">
                                             {{ number_format($s['cur'], 2) }}
                                         </td>
                                         @if ($hasPrior)
-                                            <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#555;">
+                                            <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#5a7186;">
                                                 {{ number_format($s['pri'], 2) }}
                                             </td>
                                         @endif
-                                        <td style="width:4%;text-align:center;font-size:1rem;color:#5e17eb;">+</td>
+                                        <td style="width:4%;text-align:center;font-size:1rem;color:#005bf0;">+</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -248,28 +248,28 @@
                         </tbody>
                     </table>
                     @if (! empty($registerFinancingSuggestions))
-                        <div style="padding:0.35rem 1.25rem;font-size:0.7rem;color:#6b7280;background:#f9fafb;border-top:1px dashed #e5e7eb;">
-                            <strong style="color:#5e17eb;">Register-derived lines</strong> — click to add to the statement
+                        <div style="padding:0.35rem 1.25rem;font-size:0.7rem;color:#5a7186;background:#f7fbfd;border-top:1px dashed #d3e2f5;">
+                            <strong style="color:#005bf0;">Register-derived lines</strong> — click to add to the statement
                         </div>
-                        <table class="cfm-table" style="background:#faf9ff;">
+                        <table class="cfm-table" style="background:#f7fbfd;">
                             <tbody>
                                 @foreach ($registerFinancingSuggestions as $s)
                                     <tr class="cfm-suggestion" style="cursor:pointer;opacity:0.75;"
                                         onclick="addPrefilledLine('financing', 'financing-body', '{{ addslashes($s['name']) }}', {{ $s['cur'] }}, {{ $s['pri'] }}); this.remove();"
                                         title="Click to add this line">
-                                        <td class="cfm-label" style="width:{{ $labelCol }};color:#5e17eb;">
-                                            <span style="font-size:0.7rem;background:#ede9fe;color:#5e17eb;padding:0.1rem 0.35rem;margin-right:0.35rem;font-weight:700;">AUTO</span>
+                                        <td class="cfm-label" style="width:{{ $labelCol }};color:#005bf0;">
+                                            <span style="font-size:0.7rem;background:#eaf8fb;color:#005bf0;padding:0.1rem 0.35rem;margin-right:0.35rem;font-weight:700;">AUTO</span>
                                             {{ $s['name'] }}
                                         </td>
-                                        <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#555;">
+                                        <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#5a7186;">
                                             {{ number_format($s['cur'], 2) }}
                                         </td>
                                         @if ($hasPrior)
-                                            <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#555;">
+                                            <td style="width:{{ $amtCol }};text-align:right;font-family:inherit;font-size:0.82rem;color:#5a7186;">
                                                 {{ number_format($s['pri'], 2) }}
                                             </td>
                                         @endif
-                                        <td style="width:4%;text-align:center;font-size:1rem;color:#5e17eb;">+</td>
+                                        <td style="width:4%;text-align:center;font-size:1rem;color:#005bf0;">+</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -282,7 +282,7 @@
 
                     <div style="padding:1rem 1.25rem 0;position:sticky;bottom:0;background:#fff;padding-top:0.6rem;">
                         <button type="submit"
-                            style="background:#5e17eb;color:#fff;border:none;border-radius:0;padding:0.5rem 1.4rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;">
+                            style="background:#005bf0;color:#fff;border:none;border-radius:0;padding:0.5rem 1.4rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;">
                             Save Statement
                         </button>
                     </div>

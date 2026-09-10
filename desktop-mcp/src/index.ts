@@ -16,6 +16,16 @@ import * as actions from "./tools/actions.js";
 import * as investmentProperties from "./tools/investment-properties.js";
 import * as heldForSale from "./tools/held-for-sale.js";
 import * as biologicalAssets from "./tools/biological-assets.js";
+import * as provisions from "./tools/provisions.js";
+import * as relatedParties from "./tools/related-parties.js";
+import * as borrowingCosts from "./tools/borrowing-costs.js";
+import * as revenueContracts from "./tools/revenue-contracts.js";
+import * as governmentGrants from "./tools/government-grants.js";
+import * as shareBasedPayments from "./tools/share-based-payments.js";
+import * as deferredTax from "./tools/deferred-tax.js";
+import * as financialStatements from "./tools/financial-statements.js";
+import * as businessPlan from "./tools/business-plan.js";
+import * as managementAccounts from "./tools/management-accounts.js";
 
 // All tools registered with the server — ordered by domain
 const allTools = [
@@ -33,10 +43,20 @@ const allTools = [
   ...investmentProperties.tools,
   ...heldForSale.tools,
   ...biologicalAssets.tools,
+  ...provisions.tools,
+  ...relatedParties.tools,
+  ...borrowingCosts.tools,
+  ...revenueContracts.tools,
+  ...governmentGrants.tools,
+  ...shareBasedPayments.tools,
+  ...deferredTax.tools,
+  ...financialStatements.tools,
+  ...businessPlan.tools,
+  ...managementAccounts.tools,
 ];
 
 // Domain handlers — each returns null when the tool name is not theirs
-const handlers = [auth.handle, transactions.handle, invoices.handle, inventory.handle, quotations.handle, trialbalance.handle, company.handle, assets.handle, intangibles.handle, leases.handle, actions.handle, investmentProperties.handle, heldForSale.handle, biologicalAssets.handle];
+const handlers = [auth.handle, transactions.handle, invoices.handle, inventory.handle, quotations.handle, trialbalance.handle, company.handle, assets.handle, intangibles.handle, leases.handle, actions.handle, investmentProperties.handle, heldForSale.handle, biologicalAssets.handle, provisions.handle, relatedParties.handle, borrowingCosts.handle, revenueContracts.handle, governmentGrants.handle, shareBasedPayments.handle, deferredTax.handle, financialStatements.handle, businessPlan.handle, managementAccounts.handle];
 
 // ─── Server setup ─────────────────────────────────────────────────────────────
 

@@ -26,15 +26,15 @@
             border-radius: 0;
             border: 1px solid transparent;
             background: transparent;
-            color: #8b7aad;
+            color: #6f869b;
             cursor: pointer;
             transition: background 0.15s, border-color 0.15s, color 0.15s;
         }
         .kebab-btn:hover,
         .kebab-btn.active {
-            background: #f5f3ff;
-            border-color: rgba(22,53,92,0.18);
-            color: #4c1d95;
+            background: #f4fafc;
+            border-color: rgba(26, 52, 91,0.18);
+            color: #1a345b;
         }
 
         /* ── Page-specific: actions modal ─────────────────────── */
@@ -42,7 +42,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(22,53,92,0.45);
+            background: rgba(26, 52, 91,0.45);
             z-index: 100;
             align-items: center;
             justify-content: center;
@@ -55,27 +55,27 @@
             border-radius: 0;
             width: 100%;
             max-width: 320px;
-            box-shadow: 0 12px 32px rgba(22,53,92,0.18);
+            box-shadow: 0 12px 32px rgba(26, 52, 91,0.18);
             overflow: hidden;
-            border-top: 2pt solid #4c1d95;
+            border-top: 2pt solid #1a345b;
         }
 
         .actions-modal-head {
             padding: 1rem 1.25rem 0.85rem;
-            border-bottom: 1pt solid #c4b5fd;
+            border-bottom: 1pt solid #9ec1f5;
         }
         .actions-modal-head p.label {
             font-size: 6pt;
             font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 0 0 0.25rem;
         }
         .actions-modal-head h3 {
             font-size: 9pt;
             font-weight: 800;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 0;
         }
 
@@ -94,7 +94,7 @@
             border-radius: 0;
             font-size: 7.5pt;
             font-weight: 700;
-            color: #4c1d95;
+            color: #1a345b;
             text-decoration: none;
             border: none;
             background: none;
@@ -104,9 +104,9 @@
             font-family: inherit;
             transition: background 0.12s, color 0.12s;
         }
-        .actions-modal-item svg { flex-shrink: 0; color: #8b7aad; transition: color 0.12s; }
-        .actions-modal-item:hover { background: #f5f3ff; color: #4c1d95; }
-        .actions-modal-item:hover svg { color: #4c1d95; }
+        .actions-modal-item svg { flex-shrink: 0; color: #6f869b; transition: color 0.12s; }
+        .actions-modal-item:hover { background: #f4fafc; color: #1a345b; }
+        .actions-modal-item:hover svg { color: #1a345b; }
 
         .actions-modal-foot { padding: 0.6rem 1.25rem 1rem; }
         .actions-modal-cancel {
@@ -115,31 +115,31 @@
             text-align: center;
             padding: 0.55rem;
             border-radius: 0;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             background: #fff;
-            color: #6b5b8a;
+            color: #5a7186;
             font-size: 7pt;
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
             transition: background 0.12s;
         }
-        .actions-modal-cancel:hover { background: #faf5ff; }
+        .actions-modal-cancel:hover { background: #f4fafc; }
 
         /* ── Page-specific: search ────────────────────────────── */
         .list-search-wrap { position:relative; display:flex; align-items:center; gap:0.4rem; }
         .list-search-input {
-            height:2rem; border:1px solid #c4b5fd; border-radius:0;
+            height:2rem; border:1px solid #9ec1f5; border-radius:0;
             padding:0 1.6rem 0 0.6rem; font-size:6.5pt; font-family:inherit;
-            color:#4c1d95; background:#fff; width:200px; box-sizing:border-box;
+            color:#1a345b; background:#fff; width:200px; box-sizing:border-box;
         }
-        .list-search-input:focus { outline:none; border-color:#4c1d95; }
+        .list-search-input:focus { outline:none; border-color:#1a345b; }
         .list-search-clear {
             position:absolute; right:0.35rem; background:none; border:none;
-            cursor:pointer; font-size:0.9rem; color:#8b7aad; line-height:1; padding:0; display:none;
+            cursor:pointer; font-size:0.9rem; color:#6f869b; line-height:1; padding:0; display:none;
         }
-        .list-search-clear:hover { color:#4c1d95; }
-        .list-search-count { font-size:6pt; color:#6b5b8a; white-space:nowrap; }
+        .list-search-clear:hover { color:#1a345b; }
+        .list-search-count { font-size:6pt; color:#5a7186; white-space:nowrap; }
         mark.ls-hl { background:#fef08a; border-radius:2px; padding:0 1px; font-weight:inherit; }
     </style>
 @endpush
@@ -186,7 +186,7 @@
 
                     @if ($customers->isEmpty())
                         <div class="reg-empty-state">
-                            <svg width="36" height="36" fill="none" stroke="#8b7aad" stroke-width="1.5"
+                            <svg width="36" height="36" fill="none" stroke="#6f869b" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
                                 style="display:block;margin:0 auto 0.75rem;">
                                 <path d="M12 2a7 7 0 0 1 7 7v3a7 7 0 0 1-14 0V9a7 7 0 0 1 7-7z" />

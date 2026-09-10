@@ -4,10 +4,18 @@ use Spiral\RoadRunner\GRPC\Server;
 use Spiral\RoadRunner\Worker;
 
 ini_set('display_errors', 'stderr');
+ini_set('display_startup_errors', 'stderr');
+error_reporting(E_ALL);
+ob_start(fn () => '');
+
 require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
 $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+if (ob_get_level() > 0) {
+    ob_end_clean();
+}
 
 $app->singleton(\App\Grpc\GrpcDispatcher::class);
 
@@ -23,4 +31,9 @@ $server->registerService(\App\Grpc\Interfaces\InventoryServiceInterface::class, 
 $server->registerService(\App\Grpc\Interfaces\IntangibleServiceInterface::class, new \App\Grpc\Services\IntangibleGrpcService());
 $server->registerService(\App\Grpc\Interfaces\InvoiceServiceInterface::class, new \App\Grpc\Services\InvoiceGrpcService());
 
-$server->serve($worker);
+try {
+    $server->serve($worker);
+} catch (\Spiral\Goridge\Exception\HeaderException $e) {
+    fwrite(STDERR, "grpc_worker: frame header error, exiting for RR to restart: {$e->getMessage()}\n");
+    exit(1);
+}

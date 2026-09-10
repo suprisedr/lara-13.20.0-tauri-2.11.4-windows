@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============================================================
+   Century Gothic — the face used throughout
+   CGL-YE25-Annual-Financial-Statements.docx.
+
+   Served from public/fonts/, so the paths are absolute and Vite
+   leaves them untouched. The archive supplies Regular and Bold
+   only; italic falls through to the next family in the stack.
+
+   PDFs register the same files separately for dompdf, which
+   cannot resolve system font names — see
+   resources/views/pdf/_fonts.blade.php.
+   ============================================================ */
+@font-face {
+    font-family: "Century Gothic";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/century-gothic/CenturyGothic-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Century Gothic";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/century-gothic/CenturyGothic-Bold.ttf") format("truetype");
+}
+
+/* ============================================================
+   AFS design tokens
+   Extracted from CGL-YE25-Annual-Financial-Statements.docx
+   (word/styles.xml + document.xml run properties).
+
+   Typography is expressed in pt because the source document is
+   a print artefact; 1pt = 1.333px at 96dpi.
+
+   NOTE: dompdf does not support CSS custom properties, so the
+   PDF stylesheets in resources/views/pdf/ repeat these values
+   as literals. Keep the two in sync.
+   ============================================================ */
+:root {
+    /* ── Type family ──────────────────────────────────────────
+       Century Gothic is the document face. It ships with MS
+       Office, so it resolves on most Windows/Office machines.
+       Futura and Avenir Next are the closest geometric
+       fallbacks and are present on macOS. */
+    --afs-font: "Century Gothic", "URW Gothic", "Avant Garde",
+                Futura, "Avenir Next", Avenir, "Trebuchet MS",
+                "Segoe UI", system-ui, sans-serif;
+
+    /* ── Type scale (half-point values from the docx) ─────────
+       docx w:sz is in half-points: 21 -> 10.5pt, 50 -> 25pt … */
+    --afs-text-display: 27pt;   /* w:sz 54  "Contents"                   */
+    --afs-text-title:   25pt;   /* w:sz 50  statement / section titles   */
+    --afs-text-h2:      13pt;   /* w:sz 26  blue section headings        */
+    --afs-text-h3:    11.5pt;   /* w:sz 23  navy sub-headings, date line */
+    --afs-text-body:  10.5pt;   /* w:sz 21  body + all statement rows    */
+    --afs-text-header: 10pt;    /* w:sz 20  running page header          */
+    --afs-text-folio:   8pt;    /* w:sz 16  page-number chip             */
+    --afs-text-note:    7pt;    /* w:sz 14  footnotes below statements   */
+
+    /* ── Leading ──────────────────────────────────────────────
+       docDefaults: w:line 270 exact against 21 half-points
+       => 13.5pt on 10.5pt = 1.2857 */
+    --afs-leading: 1.2857;
+    --afs-leading-tight: 1.0714;  /* w:line 225 - running header */
+
+    /* ── Palette ──────────────────────────────────────────────*/
+    --afs-navy:       #1A345B;  /* titles, sub-heads, header rule/chip  */
+    --afs-blue:       #005BF0;  /* section headings, table header band  */
+    --afs-blue-light: #2674F2;  /* secondary accent                     */
+    --afs-blue-deep:  #0047C4;  /* pressed / hover state of --afs-blue   */
+    --afs-blue-pale:  #9EC1F5;  /* text/rules on navy (6.9:1 on navy)   */
+    --afs-ink:        #191919;  /* body copy                            */
+    --afs-ink-strong: #000000;  /* statement figures, subtotal hairline */
+
+    --afs-zebra:      #EAF8FB;  /* alternating row / total-row fill     */
+    --afs-zebra-soft: #F4FAFC;  /* lighter wash for panels              */
+    --afs-canvas:     #F7FBFD;  /* application background               */
+    --afs-panel:      #F2F2F2;  /* neutral panel fill                   */
+    --afs-hairline:   #D3E2F5;  /* light dividers                       */
+    --afs-rule-grey:  #BFBFBF;  /* the docx's grey cell rule            */
+    --afs-muted:      #5A7186;  /* meta text        (5.1:1 on white)    */
+    --afs-muted-soft: #6F869B;  /* fine print       (3.8:1 on white)    */
+    --afs-white:      #FFFFFF;
+
+    --afs-negative:   #B91C1C;  /* abnormal / debit-credit violations   */
+
+    /* ── Table rules (docx w:sz is in eighths of a point) ──── */
+    --afs-rule-hair:  0.5pt;    /* w:sz 4 - subtotal underline          */
+    --afs-rule-thin: 0.375pt;   /* w:sz 3 - running-header underline    */
+
+    /* ── Cell metrics (docx twips; 20 twips = 1pt) ─────────── */
+    --afs-cell-pad-y: 0;        /* statement rows sit flush             */
+    --afs-cell-pad-x: 3.75pt;   /* w 75 twips right margin              */
+    --afs-cell-pad-toc: 3pt;    /* w 60 twips - contents / prose tables */
+}

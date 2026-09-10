@@ -2,19 +2,19 @@
 
 namespace App\Exports;
 
+use App\Exports\Concerns\AfsExcelDesign;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnWidths, WithStyles, WithTitle
 {
+    use AfsExcelDesign;
+
     private array $rows = [];
     private int $hRow = 5;
     private int $lastRow = 0;
@@ -46,7 +46,8 @@ class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnW
 
     public function columnFormats(): array
     {
-        $fmt = $this->rounding === 1 ? '#,##0.00' : '#,##0';
+        $fmt = $this->afsNumberFormat($this->rounding);
+
         return [
             'D' => $fmt,
             'E' => $fmt,
@@ -123,7 +124,9 @@ class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnW
 
             $this->sectionHeaderRows[] = count($rows) + 1;
             $rows[] = [
-                strtoupper($typeLabels[$type] ?? $type),
+                // Sentence case: the source document uses no uppercase
+                // anywhere, and emphasis here is weight and colour.
+                $typeLabels[$type] ?? $type,
                 '', '',
                 $sectDebit / $this->rounding,
                 $sectCredit / $this->rounding,
@@ -138,7 +141,7 @@ class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnW
         }
 
         $rows[] = [
-            'TOTAL', '', '',
+            'Total', '', '',
             $totalDebit / $this->rounding,
             $totalCredit / $this->rounding,
         ];
@@ -146,7 +149,7 @@ class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnW
         $diff = abs($totalDebit - $totalCredit);
         if (round($diff, 2) > 0) {
             $rows[] = [
-                'DIFFERENCE', '', '', '',
+                'Difference — the trial balance does not balance', '', '', '',
                 $diff / $this->rounding,
             ];
         }
@@ -158,91 +161,44 @@ class TrialBalanceExport implements FromArray, WithColumnFormatting, WithColumnW
 
     public function styles(Worksheet $sheet): void
     {
-        $h        = $this->hRow;
+        $h = $this->hRow;
         $dataFrom = $h + 1;
-        $last     = $this->lastRow;
-        $hasDiff  = str_contains($this->rows[$last - 1][0] ?? '', 'DIFFERENCE');
+        $last = $this->lastRow;
+        $hasDiff = str_starts_with($this->rows[$last - 1][0] ?? '', 'Difference');
         $totalsRow = $hasDiff ? $last - 1 : $last;
 
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)
-            ->getColor()->setARGB('FF1B1B18');
-        $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(11)
-            ->getColor()->setARGB('FF000000');
-        $sheet->getStyle('A3:A4')->getFont()->setSize(9)
-            ->getColor()->setARGB('FF6B7280');
-        $sheet->getStyle("A4:E4")->getBorders()->getBottom()
-            ->setBorderStyle(Border::BORDER_THIN)
-            ->getColor()->setARGB('FFDDDDDD');
+        $this->afsBaseSheet($sheet);
+        $this->afsTitleBlock($sheet, $this->companyName, 'Trial Balance', $this->periodLabel, 'A4');
+        $this->afsFootnoteRow($sheet, 4, 'A', 'E');
 
-        $sheet->getStyle("A{$h}:E{$h}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FFFFFFFF']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FF374151']],
-            'alignment' => [
-                'vertical'   => Alignment::VERTICAL_CENTER,
-                'horizontal' => Alignment::HORIZONTAL_LEFT,
-                'wrapText'   => true,
-            ],
-        ]);
-        $sheet->getRowDimension($h)->setRowHeight(28);
-        $sheet->getStyle("D{$h}:E{$h}")
-            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        // Debit and credit are a balancing pair with no primary side, so no
+        // column is banded — the same reasoning that leaves the statement of
+        // changes in equity untinted. Hence no band columns passed here.
+        $this->afsHeaderRow($sheet, $h, 'A', 'E', [], ['D', 'E']);
 
+        $this->afsBodyRange($sheet, "A{$dataFrom}:E{$last}", $dataFrom, $last);
+        $this->afsFigureColumn($sheet, 'D', $dataFrom, $last, $this->rounding);
+        $this->afsFigureColumn($sheet, 'E', $dataFrom, $last, $this->rounding);
+
+        // Section heads carry the emphasis treatment and a closing hairline;
+        // no fill, and no rule above — the document rules under a row, never
+        // over it.
         foreach ($this->sectionHeaderRows as $sr) {
-            $sheet->getStyle("A{$sr}:E{$sr}")->applyFromArray([
-                'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FF000000']],
-                'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFF5F5F5']],
-            ]);
-            $sheet->getStyle("A{$sr}:E{$sr}")->getBorders()->getTop()
-                ->setBorderStyle(Border::BORDER_THIN)
-                ->getColor()->setARGB('FF000000');
-            $sheet->getStyle("D{$sr}:E{$sr}")
-                ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+            $this->afsEmphasisRow($sheet, $sr, 'A', 'E');
+            $this->afsRuleRow($sheet, $sr, 'A', 'E');
         }
 
-        if ($dataFrom <= $last) {
-            for ($r = $dataFrom; $r <= $last; $r++) {
-                if (in_array($r, $this->sectionHeaderRows)) {
-                    continue;
-                }
-                if ($r === $totalsRow || ($hasDiff && $r === $last)) {
-                    continue;
-                }
-                $fill = ($r % 2 === 0) ? 'FFF9FAFB' : 'FFFFFFFF';
-                $sheet->getStyle("A{$r}:E{$r}")
-                    ->getFill()->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB($fill);
-                $sheet->getRowDimension($r)->setRowHeight(16);
-            }
+        $this->afsEmphasisRow($sheet, $totalsRow, 'A', 'E');
+        $this->afsRuleRow($sheet, $totalsRow, 'A', 'E');
 
-            $sheet->getStyle("A{$dataFrom}:E{$last}")
-                ->getBorders()->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN)
-                ->getColor()->setARGB('FFE5E7EB');
-
-            $sheet->getStyle("D{$dataFrom}:E{$last}")
-                ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-            $sheet->getStyle("A{$dataFrom}:E{$last}")
-                ->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-
-            $sheet->getStyle("A{$dataFrom}:A{$last}")->getFont()
-                ->setName('Courier New')->setBold(true)->setSize(9);
-        }
-
-        $sheet->getStyle("A{$totalsRow}:E{$totalsRow}")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 10, 'color' => ['argb' => 'FF000000']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFAFAFA']],
-        ]);
-        $sheet->getStyle("A{$totalsRow}:E{$totalsRow}")->getBorders()->getTop()
-            ->setBorderStyle(Border::BORDER_MEDIUM)
-            ->getColor()->setARGB('FF000000');
-        $sheet->getRowDimension($totalsRow)->setRowHeight(22);
-
+        // A trial balance that does not balance is a genuine failure state,
+        // and #9D174D is the palette's one status colour — see the reversal
+        // badge. It is not decoration and should not be repurposed.
         if ($hasDiff) {
-            $sheet->getStyle("A{$last}:E{$last}")->applyFromArray([
-                'font' => ['bold' => true, 'size' => 9, 'color' => ['argb' => 'FFB91C1C']],
-                'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'FFFFF5F5']],
-            ]);
+            $sheet->getStyle("A{$last}:E{$last}")->getFont()
+                ->setName(self::AFS_FONT)
+                ->setBold(true)
+                ->getColor()->setARGB(self::AFS_ALERT);
         }
 
         $sheet->freezePane("A{$dataFrom}");

@@ -8,39 +8,39 @@
     <style>
         .cn-form { max-width:920px; }
         .cn-section { margin-bottom:1.75rem; }
-        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#5e17eb; margin:0 0 0.75rem; }
+        .cn-section-title { font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#005bf0; margin:0 0 0.75rem; }
         .cn-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.25rem; }
         .cn-grid.three { grid-template-columns:1fr 1fr 1fr; }
-        .cn-field label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#555; margin-bottom:0.22rem; }
+        .cn-field label { display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:#5a7186; margin-bottom:0.22rem; }
         .cn-field input, .cn-field select, .cn-field textarea {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
+            width:100%; border:1px solid #d3e2f5; padding:0.35rem 0.55rem;
             font-size:0.8rem; font-family:inherit; color:#000; background:#fff; box-sizing:border-box;
         }
-        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#5e17eb; }
+        .cn-field input:focus, .cn-field select:focus, .cn-field textarea:focus { outline:none; border-color:#005bf0; }
         .cn-field textarea { resize:vertical; min-height:70px; }
 
         .inv-search-wrap { position:relative; }
         .inv-search-dropdown {
             display:none; position:absolute; left:0; right:0; top:100%;
-            background:#fff; border:1px solid #ddd6fe; border-top:none; z-index:50;
-            max-height:240px; overflow-y:auto; box-shadow:0 4px 12px rgba(94,23,235,0.10);
+            background:#fff; border:1px solid #d3e2f5; border-top:none; z-index:50;
+            max-height:240px; overflow-y:auto; box-shadow:0 4px 12px rgba(0, 91, 240,0.10);
         }
-        .inv-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f3f0ff; }
-        .inv-hit:hover { background:#faf5ff; }
+        .inv-hit { padding:0.5rem 0.8rem; cursor:pointer; font-size:0.8rem; border-bottom:1px solid #f4fafc; }
+        .inv-hit:hover { background:#f4fafc; }
 
         .items-table { width:100%; border-collapse:collapse; margin-bottom:0.75rem; }
-        .items-table th { font-size:0.6rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#555; padding:0 0 0.4rem; border-bottom:1.5px solid #000; text-align:left; }
+        .items-table th { font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#5a7186; padding:0 0 0.4rem; border-bottom:1.5px solid #000; text-align:left; }
         .items-table th.r { text-align:right; }
-        .items-table td { padding:0.4rem 0.3rem; border-bottom:1px solid #e5e7eb; vertical-align:middle; }
-        .items-table input, .items-table select { width:100%; border:1px solid #ccc; padding:0.28rem 0.45rem; font-size:0.78rem; font-family:inherit; background:#fff; box-sizing:border-box; }
-        .items-table input:focus, .items-table select:focus { outline:none; border-color:#5e17eb; }
+        .items-table td { padding:0.4rem 0.3rem; border-bottom:1px solid #d3e2f5; vertical-align:middle; }
+        .items-table input, .items-table select { width:100%; border:1px solid #d3e2f5; padding:0.28rem 0.45rem; font-size:0.78rem; font-family:inherit; background:#fff; box-sizing:border-box; }
+        .items-table input:focus, .items-table select:focus { outline:none; border-color:#005bf0; }
         .items-table input[type="number"] { text-align:right; }
         .items-table input[type="checkbox"] { width:auto; }
         .btn-remove-row { background:none; border:none; cursor:pointer; color:#dc2626; font-size:1rem; padding:0.1rem 0.3rem; line-height:1; }
-        .btn-add-row { background:none; border:1px dashed #ccc; padding:0.4rem 0.8rem; font-size:0.72rem; font-weight:600; cursor:pointer; color:#555; transition:border-color 0.15s; }
-        .btn-add-row:hover { border-color:#5e17eb; color:#5e17eb; }
+        .btn-add-row { background:none; border:1px dashed #d3e2f5; padding:0.4rem 0.8rem; font-size:0.72rem; font-weight:600; cursor:pointer; color:#5a7186; transition:border-color 0.15s; }
+        .btn-add-row:hover { border-color:#005bf0; color:#005bf0; }
         .btn-submit { background:#000; color:#fff; border:none; padding:0.55rem 1.5rem; font-size:0.82rem; font-weight:700; cursor:pointer; transition:background 0.15s; font-family:inherit; }
-        .btn-submit:hover { background:#333; }
+        .btn-submit:hover { background:#1a345b; }
         .form-error { color:#dc2626; font-size:0.72rem; margin-top:0.2rem; }
 
         .line-total { font-size:0.78rem; font-weight:600; text-align:right; font-variant-numeric:tabular-nums; }
@@ -82,12 +82,12 @@
                                     <input type="text" id="invoice-search" autocomplete="off"
                                         placeholder="Type invoice number or customer…"
                                         value="{{ $invoice ? $invoice->invoice_number . ' — ' . (optional($invoice->customer)->name ?? $invoice->customer_name) : '' }}"
-                                        style="width:100%;border:1px solid #ccc;padding:0.35rem 0.55rem;font-size:0.8rem;font-family:inherit;box-sizing:border-box;">
+                                        style="width:100%;border:1px solid #d3e2f5;padding:0.35rem 0.55rem;font-size:0.8rem;font-family:inherit;box-sizing:border-box;">
                                     <div class="inv-search-dropdown" id="invoice-dropdown"></div>
                                 </div>
-                                <div id="invoice-selected-badge" style="margin-top:0.3rem;font-size:0.72rem;color:#5e17eb;display:{{ $invoice ? 'flex' : 'none' }};align-items:center;gap:0.35rem;">
+                                <div id="invoice-selected-badge" style="margin-top:0.3rem;font-size:0.72rem;color:#005bf0;display:{{ $invoice ? 'flex' : 'none' }};align-items:center;gap:0.35rem;">
                                     <span id="invoice-selected-label">{{ $invoice?->invoice_number }}</span>
-                                    <button type="button" onclick="clearInvoice()" style="background:none;border:none;cursor:pointer;color:#9ca3af;font-size:0.9rem;line-height:1;padding:0;" title="Clear">&times;</button>
+                                    <button type="button" onclick="clearInvoice()" style="background:none;border:none;cursor:pointer;color:#6f869b;font-size:0.9rem;line-height:1;padding:0;" title="Clear">&times;</button>
                                 </div>
                             </div>
                         </div>
@@ -232,12 +232,12 @@
                     {{-- Notes --}}
                     <div class="cn-section">
                         <p class="cn-section-title">Notes</p>
-                        <textarea name="notes" rows="3" style="width:100%;max-width:600px;border:1px solid #ccc;padding:0.4rem 0.6rem;font-size:0.8rem;font-family:inherit;">{{ old('notes') }}</textarea>
+                        <textarea name="notes" rows="3" style="width:100%;max-width:600px;border:1px solid #d3e2f5;padding:0.4rem 0.6rem;font-size:0.8rem;font-family:inherit;">{{ old('notes') }}</textarea>
                     </div>
 
                     <div style="display:flex;gap:1rem;align-items:center;">
                         <button type="submit" class="btn-submit">Create Credit Note</button>
-                        <a href="{{ route('companies.credit-notes.index', $company) }}" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
+                        <a href="{{ route('companies.credit-notes.index', $company) }}" style="font-size:0.78rem;color:#5a7186;text-decoration:none;">Cancel</a>
                     </div>
                 </form>
 
@@ -292,8 +292,8 @@
                 if (!hits.length) { dropdown.style.display = 'none'; return; }
                 dropdown.innerHTML = hits.slice(0, 12).map(h => `
                     <div class="inv-hit" data-id="${h.id}">
-                        <div style="font-weight:700;color:#1b1b18;">${esc(h.number)}</div>
-                        <div style="font-size:0.7rem;color:#6b7280;">${esc(h.customer_name)}${h.date ? ' · ' + esc(h.date) : ''}</div>
+                        <div style="font-weight:700;color:#191919;">${esc(h.number)}</div>
+                        <div style="font-size:0.7rem;color:#5a7186;">${esc(h.customer_name)}${h.date ? ' · ' + esc(h.date) : ''}</div>
                     </div>`).join('');
                 dropdown.style.display = 'block';
                 dropdown.querySelectorAll('.inv-hit').forEach(el => {

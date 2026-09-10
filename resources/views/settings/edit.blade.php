@@ -5,11 +5,11 @@
 
 @push('styles')
     <style>
-        .dash-wrap { min-height: 100vh; background: #f6f9fc; }
+        .dash-wrap { min-height: 100vh; background: #f7fbfd; }
 
         /* ── Hero header ─────────────────────────── */
         .settings-hero {
-            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #6d28d9 100%);
+            background: linear-gradient(135deg, #1a345b 0%, #005bf0 50%, #005bf0 100%);
             padding: 24pt 24pt 26pt;
             position: relative;
             overflow: hidden;
@@ -31,7 +31,7 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(38, 116, 242,0.15) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -64,7 +64,7 @@
         }
 
         .settings-hero-brand-text {
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .settings-hero-brand-text .label {
@@ -72,7 +72,7 @@
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(167,139,250,0.8);
+            color: rgba(38, 116, 242,0.8);
             margin: 0 0 1pt;
         }
 
@@ -103,12 +103,12 @@
             padding: 4pt 10pt;
             text-decoration: none;
             transition: background 0.15s;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             cursor: pointer;
         }
 
         .hero-btn:hover { background: rgba(255,255,255,0.2); }
-        .hero-btn.ghost { color: #c4b5fd; border-color: rgba(167,139,250,0.3); }
+        .hero-btn.ghost { color: #9ec1f5; border-color: rgba(38, 116, 242,0.3); }
         .hero-btn.ghost:hover { color: #fff; }
 
         .settings-hero-heading h1 {
@@ -117,14 +117,14 @@
             color: #fff;
             margin: 0 0 3pt;
             letter-spacing: -0.02em;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .settings-hero-heading p {
             font-size: 7pt;
-            color: #c4b5fd;
+            color: #9ec1f5;
             margin: 0;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         @media (max-width: 760px) {
@@ -156,16 +156,16 @@
         /* ── Card ────────────────────────────────── */
         .settings-card {
             background: #fff;
-            border: 1px solid #e5e7eb;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            box-shadow: 0 1px 3px rgba(76,29,149,0.06);
+            border: 1px solid #d3e2f5;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            box-shadow: 0 1px 3px rgba(26, 52, 91,0.06);
         }
 
         .settings-card.full-width { grid-column: 1 / -1; }
 
         .settings-card-header {
             padding: 10pt 14pt 8pt;
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             display: flex;
             align-items: center;
             gap: 6pt;
@@ -174,7 +174,7 @@
         .settings-card-icon {
             width: 22pt;
             height: 22pt;
-            background: linear-gradient(135deg, #7c3aed, #4c1d95);
+            background: linear-gradient(135deg, #005bf0, #1a345b);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -186,13 +186,13 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 0 0 1pt;
         }
 
         .settings-card-header-text p {
             font-size: 5.5pt;
-            color: #8b7aad;
+            color: #6f869b;
             margin: 0;
         }
 
@@ -209,7 +209,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.09em;
-            color: #4c1d95;
+            color: #1a345b;
             margin: 0;
         }
 
@@ -227,20 +227,20 @@
         .s-input {
             width: 100%;
             box-sizing: border-box;
-            border: 1px solid #ddd6fe;
+            border: 1px solid #d3e2f5;
             padding: 5pt 8pt;
             font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
-            background: #faf8ff;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
+            background: #f7fbfd;
             outline: none;
             transition: border-color 0.15s, background 0.15s;
         }
 
-        .s-input:focus { border-color: #7c3aed; background: #fff; }
-        .s-input::placeholder { color: #c4b5fd; }
+        .s-input:focus { border-color: #005bf0; background: #fff; }
+        .s-input::placeholder { color: #9ec1f5; }
 
-        .s-help { font-size: 5.5pt; color: #8b7aad; margin: 2pt 0 0; line-height: 1.5; }
+        .s-help { font-size: 5.5pt; color: #6f869b; margin: 2pt 0 0; line-height: 1.5; }
 
         .s-remove {
             display: inline-flex;
@@ -260,7 +260,7 @@
             align-items: center;
             gap: 8pt;
             padding-top: 10pt;
-            border-top: 0.4pt solid #ede9fe;
+            border-top: 0.4pt solid #eaf8fb;
             margin-top: 10pt;
         }
 
@@ -268,8 +268,8 @@
             display: inline-flex;
             align-items: center;
             gap: 3pt;
-            border: 1px solid #c4b5fd;
-            color: #4c1d95;
+            border: 1px solid #9ec1f5;
+            color: #1a345b;
             font-size: 6pt;
             font-weight: 700;
             text-transform: uppercase;
@@ -277,14 +277,14 @@
             padding: 4pt 10pt;
             text-decoration: none;
             cursor: pointer;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             transition: background 0.15s, color 0.15s;
             background: #fff;
         }
 
-        .s-btn:hover { background: #f5f3ff; }
-        .s-btn.primary { background: #7c3aed; color: #fff; border-color: #7c3aed; }
-        .s-btn.primary:hover { background: #6d28d9; }
+        .s-btn:hover { background: #f4fafc; }
+        .s-btn.primary { background: #005bf0; color: #fff; border-color: #005bf0; }
+        .s-btn.primary:hover { background: #005bf0; }
 
         .retry-option {
             display: flex;
@@ -292,8 +292,8 @@
             gap: 5pt;
         }
 
-        .retry-option input[type=checkbox] { accent-color: #7c3aed; cursor: pointer; width: 9pt; height: 9pt; }
-        .retry-option label { font-size: 6pt; font-weight: 600; color: #4c1d95; cursor: pointer; }
+        .retry-option input[type=checkbox] { accent-color: #005bf0; cursor: pointer; width: 9pt; height: 9pt; }
+        .retry-option label { font-size: 6pt; font-weight: 600; color: #1a345b; cursor: pointer; }
 
         /* ── Agent rows ──────────────────────────── */
         .agent-row {
@@ -301,12 +301,12 @@
             align-items: center;
             justify-content: space-between;
             padding: 5pt 4pt;
-            border-bottom: 0.4pt solid #ede9fe;
+            border-bottom: 0.4pt solid #eaf8fb;
             transition: background 0.1s;
         }
 
         .agent-row:last-child { border-bottom: none; }
-        .agent-row:hover { background: #faf8ff; }
+        .agent-row:hover { background: #f7fbfd; }
 
         .agent-row-left { display: flex; align-items: center; gap: 5pt; }
 
@@ -318,10 +318,10 @@
         }
 
         .agent-dot.on { background: #22c55e; box-shadow: 0 0 4px rgba(34,197,94,0.4); }
-        .agent-dot.off { background: #ddd6fe; }
+        .agent-dot.off { background: #d3e2f5; }
 
-        .agent-name { font-size: 6.5pt; font-weight: 600; color: #4c1d95; }
-        .agent-provider { font-size: 5.5pt; color: #8b7aad; font-weight: 600; }
+        .agent-name { font-size: 6.5pt; font-weight: 600; color: #1a345b; }
+        .agent-provider { font-size: 5.5pt; color: #6f869b; font-weight: 600; }
 
         /* ── Flash ───────────────────────────────── */
         .settings-flash {
@@ -335,7 +335,7 @@
             display: flex;
             align-items: center;
             gap: 5pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
     </style>
 @endpush
@@ -489,11 +489,11 @@
                                 $configuredCount = collect($agents)->filter(fn($a) => $settings[$a['key']]['has_value'])->count();
                             @endphp
 
-                            <div style="display:flex;align-items:center;gap:6pt;margin-bottom:8pt;padding-bottom:6pt;border-bottom:0.4pt solid #ede9fe;">
-                                <div style="font-size:14pt;font-weight:900;color:#4c1d95;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">{{ $configuredCount }}/{{ count($agents) }}</div>
+                            <div style="display:flex;align-items:center;gap:6pt;margin-bottom:8pt;padding-bottom:6pt;border-bottom:0.4pt solid #eaf8fb;">
+                                <div style="font-size:14pt;font-weight:900;color:#1a345b;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">{{ $configuredCount }}/{{ count($agents) }}</div>
                                 <div>
-                                    <p style="font-size:6pt;font-weight:700;color:#4c1d95;margin:0;">Agents Ready</p>
-                                    <p style="font-size:5pt;color:#8b7aad;margin:1pt 0 0;">{{ $configuredCount === count($agents) ? 'All agents are connected' : 'Configure missing API keys to enable all agents' }}</p>
+                                    <p style="font-size:6pt;font-weight:700;color:#1a345b;margin:0;">Agents Ready</p>
+                                    <p style="font-size:5pt;color:#6f869b;margin:1pt 0 0;">{{ $configuredCount === count($agents) ? 'All agents are connected' : 'Configure missing API keys to enable all agents' }}</p>
                                 </div>
                             </div>
 

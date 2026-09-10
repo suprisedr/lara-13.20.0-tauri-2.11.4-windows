@@ -25,7 +25,7 @@
                                 <div class="reg-doc-subtitle">
                                     <form method="GET" action="{{ route('companies.payroll.irp5.index', $company) }}" style="display:inline-flex;align-items:center;gap:3pt;">
                                         <span>Tax Year:</span>
-                                        <select name="tax_year" id="tax_year" onchange="this.form.submit()" style="border:0.5pt solid #c4b5fd;padding:1pt 4pt;font-size:6.5pt;background:#fff;color:#4c1d95;font-family:Helvetica,Arial,sans-serif;">
+                                        <select name="tax_year" id="tax_year" onchange="this.form.submit()" style="border:0.5pt solid #9ec1f5;padding:1pt 4pt;font-size:6.5pt;background:#fff;color:#1a345b;font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;">
                                             @foreach ($taxYears as $year)
                                                 <option value="{{ $year }}" {{ $year === $selectedYear ? 'selected' : '' }}>
                                                     {{ $year - 1 }}/{{ $year }}
@@ -58,7 +58,7 @@
                                 <tbody>
                                     @forelse ($employeeData as $item)
                                         <tr>
-                                            <td style="font-family:'DejaVu Sans Mono',monospace;color:#4c1d95;font-weight:700;">{{ $item['employee']->employee_number }}</td>
+                                            <td style="font-family:'DejaVu Sans Mono',monospace;color:#1a345b;font-weight:700;">{{ $item['employee']->employee_number }}</td>
                                             <td style="font-weight:700;">{{ $item['employee']->full_name }}</td>
                                             <td class="dim" style="font-family:'DejaVu Sans Mono',monospace;">{{ $item['employee']->id_number ?? $item['employee']->passport_number ?? '---' }}</td>
                                             <td class="dim" style="font-family:'DejaVu Sans Mono',monospace;">{{ $item['employee']->tax_reference_number ?? '---' }}</td>
@@ -66,7 +66,7 @@
                                                 @if ($item['has_data'])
                                                     <span class="reg-status" style="color:#15803d;border-color:#15803d;background:#dcfce7;">Ready</span>
                                                 @else
-                                                    <span class="reg-status" style="color:#8b7aad;border-color:#c4b5fd;background:#f3f4f6;">No Data</span>
+                                                    <span class="reg-status" style="color:#6f869b;border-color:#9ec1f5;background:#f4fafc;">No Data</span>
                                                 @endif
                                             </td>
                                             <td class="amt">
@@ -78,20 +78,20 @@
                                                         PDF
                                                     </a>
                                                 @else
-                                                    <span style="color:#c4b5fd;">---</span>
+                                                    <span style="color:#9ec1f5;">---</span>
                                                 @endif
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" style="text-align:center;color:#8b7aad;padding:12pt;">No employees found.</td>
+                                            <td colspan="6" style="text-align:center;color:#6f869b;padding:12pt;">No employees found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
 
-                        <p style="font-size:6pt;color:#8b7aad;margin-top:6pt;">
+                        <p style="font-size:6pt;color:#6f869b;margin-top:6pt;">
                             * IRP5 certificates are generated from posted payroll runs. Only employees with posted payslips in the selected tax year will show as "Ready".
                         </p>
 

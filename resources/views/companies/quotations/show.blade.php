@@ -14,11 +14,11 @@
         }
 
         .qt-status-select {
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             padding: 2pt 5pt;
             font-size: 6.5pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #23282d;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #191919;
             background: #fff;
             outline: none;
             cursor: pointer;
@@ -38,7 +38,7 @@
             letter-spacing: 0.06em;
             padding: 3pt 8pt;
             cursor: pointer;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             transition: background 0.15s;
             border-radius: 0;
             white-space: nowrap;
@@ -50,7 +50,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 1.5pt solid #4c1d95;
+            border-bottom: 1.5pt solid #1a345b;
             padding: 0 0 6pt;
             margin: 0 0 8pt;
         }
@@ -65,14 +65,14 @@
             width: 36pt;
             height: 36pt;
             object-fit: contain;
-            border: 0.5pt solid #c4b5fd;
+            border: 0.5pt solid #9ec1f5;
             flex-shrink: 0;
         }
 
         .qt-logo-placeholder {
             width: 36pt;
             height: 36pt;
-            background: #4c1d95;
+            background: #1a345b;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -85,15 +85,15 @@
         .qt-company-name {
             font-size: 11pt;
             font-weight: bold;
-            color: #4c1d95;
+            color: #1a345b;
             letter-spacing: 0.01em;
             margin: 0 0 1pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .qt-company-detail {
             font-size: 7pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin: 0;
             line-height: 1.6;
         }
@@ -106,20 +106,20 @@
         .qt-doc-number {
             font-size: 9pt;
             font-weight: 800;
-            color: #4c1d95;
+            color: #1a345b;
             letter-spacing: 0.02em;
             margin-bottom: 2pt;
         }
 
         .qt-date-row {
             font-size: 7pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin-bottom: 1pt;
             text-align: right;
         }
 
         .qt-date-row strong {
-            color: #23282d;
+            color: #191919;
             font-weight: 700;
             margin-left: 3pt;
         }
@@ -128,7 +128,7 @@
         .reg-status.sent     { color: #1d4ed8; border-color: #1d4ed8; }
         .reg-status.accepted { color: #15803d; border-color: #15803d; }
         .reg-status.declined { color: #b91c1c; border-color: #b91c1c; }
-        .reg-status.expired  { color: #6b7280; border-color: #6b7280; }
+        .reg-status.expired  { color: #5a7186; border-color: #5a7186; }
 
         /* ── Parties grid ── */
         .qt-parties {
@@ -143,20 +143,20 @@
             font-size: 5.5pt;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #7c3aed;
+            color: #005bf0;
             margin: 0 0 3pt;
         }
 
         .qt-party-name {
             font-size: 7pt;
             font-weight: 700;
-            color: #23282d;
+            color: #191919;
             margin: 0 0 1pt;
         }
 
         .qt-party-detail {
             font-size: 7pt;
-            color: #6b5b8a;
+            color: #5a7186;
             margin: 0 0 1pt;
             line-height: 1.5;
         }
@@ -172,16 +172,16 @@
             min-width: 160pt;
             border-collapse: collapse;
             font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         table.qt-totals td {
             padding: 2pt 4pt;
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         table.qt-totals td.lbl {
-            color: #6b5b8a;
+            color: #5a7186;
         }
 
         table.qt-totals td.amt {
@@ -189,30 +189,30 @@
             font-family: "DejaVu Sans Mono", monospace;
             font-size: 7pt;
             white-space: nowrap;
-            color: #23282d;
+            color: #191919;
         }
 
         table.qt-totals tr.grand td {
             padding: 3pt 4pt;
             font-weight: 800;
-            color: #4c1d95;
-            background: #ede9fe;
-            border-top: 1.5pt solid #4c1d95;
-            border-bottom: 2pt solid #4c1d95;
+            color: #1a345b;
+            background: #eaf8fb;
+            border-top: 1.5pt solid #1a345b;
+            border-bottom: 2pt solid #1a345b;
         }
 
         table.qt-totals tr.grand td.amt {
-            color: #4c1d95;
+            color: #1a345b;
             font-weight: 800;
         }
 
         /* ── Notes ── */
         .qt-notes {
-            background: #f5f3ff;
-            border: 1px solid #c4b5fd;
+            background: #f4fafc;
+            border: 1px solid #9ec1f5;
             padding: 5pt 8pt;
             font-size: 7pt;
-            color: #23282d;
+            color: #191919;
             line-height: 1.55;
             white-space: pre-line;
             margin-bottom: 8pt;
@@ -243,7 +243,7 @@
 
         /* ── Document footer ── */
         .qt-doc-footer {
-            border-top: 1pt solid #c4b5fd;
+            border-top: 1pt solid #9ec1f5;
             padding-top: 4pt;
             display: flex;
             justify-content: space-between;
@@ -251,7 +251,7 @@
             gap: 6pt;
             flex-wrap: wrap;
             font-size: 6pt;
-            color: #8b7aad;
+            color: #6f869b;
         }
 
         /* ── Success alert ── */
@@ -463,7 +463,7 @@
                                             <span style="font-weight:600;">{{ $item->description }}</span>
                                             @if ($item->inventoryItem && $item->inventoryItem->sku)
                                                 <br>
-                                                <span style="font-size:6pt;color:#8b7aad;">SKU: {{ $item->inventoryItem->sku }}</span>
+                                                <span style="font-size:6pt;color:#6f869b;">SKU: {{ $item->inventoryItem->sku }}</span>
                                             @endif
                                         </td>
                                         <td class="amt">{{ rtrim(rtrim(number_format((float) $item->quantity, 2), '0'), '.') }}</td>

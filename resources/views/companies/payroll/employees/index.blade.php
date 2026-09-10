@@ -10,8 +10,8 @@
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 0.5pt solid #4c1d95;
-            color: #4c1d95;
+            border: 0.5pt solid #1a345b;
+            color: #1a345b;
             padding: 1pt 4pt;
             font-size: 5.5pt;
             letter-spacing: 0.06em;
@@ -22,7 +22,7 @@
             font-family: 'DejaVu Sans Mono', monospace;
             font-size: 6.5pt;
             font-weight: 700;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .freq-badge {
@@ -31,8 +31,8 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border: 0.5pt solid #c4b5fd;
-            color: #4c1d95;
+            border: 0.5pt solid #9ec1f5;
+            color: #1a345b;
             padding: 1pt 4pt;
         }
     </style>
@@ -125,13 +125,13 @@
                                                     <br>
                                                     <span class="freq-badge">{{ ucfirst($employee->pay_frequency) }}</span>
                                                     @if ($employee->pay_type === 'hourly')
-                                                        <span style="font-size:6pt;color:#8b7aad;margin-left:2pt;">@ R{{ number_format($employee->hourly_rate, 2) }}/hr</span>
+                                                        <span style="font-size:6pt;color:#6f869b;margin-left:2pt;">@ R{{ number_format($employee->hourly_rate, 2) }}/hr</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <span style="font-weight:600;color:#23282d;">{{ $employee->job_title ?? '—' }}</span>
+                                                    <span style="font-weight:600;color:#191919;">{{ $employee->job_title ?? '—' }}</span>
                                                     @if ($employee->department)
-                                                        <br><span style="font-size:6pt;color:#8b7aad;">{{ $employee->department }}</span>
+                                                        <br><span style="font-size:6pt;color:#6f869b;">{{ $employee->department }}</span>
                                                     @endif
                                                 </td>
                                                 <td class="dim">
@@ -141,28 +141,28 @@
                                                     @if ($employee->pay_type === 'salary')
                                                         R {{ number_format($employee->basic_salary, 2) }}
                                                     @else
-                                                        <span style="color:#8b7aad;">hourly</span>
+                                                        <span style="color:#6f869b;">hourly</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">
                                                     @if ((float) $employee->employer_retirement_contribution > 0)
                                                         R {{ number_format($employee->employer_retirement_contribution, 2) }}
-                                                        <br><span style="font-size:5.5pt;color:#8b7aad;">{{ $employee->retirement_fund_type === 'defined_benefit' ? 'DB' : 'DC' }}</span>
+                                                        <br><span style="font-size:5.5pt;color:#6f869b;">{{ $employee->retirement_fund_type === 'defined_benefit' ? 'DB' : 'DC' }}</span>
                                                     @else
-                                                        <span style="color:#8b7aad;">—</span>
+                                                        <span style="color:#6f869b;">—</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">
                                                     {{ rtrim(rtrim(number_format((float) $employee->leave_days_per_year, 1), '0'), '.') }} days
                                                     @if ((float) $employee->leave_balance_days > 0)
-                                                        <br><span style="font-size:5.5pt;color:#8b7aad;">{{ number_format($employee->leave_balance_days, 1) }} bal.</span>
+                                                        <br><span style="font-size:5.5pt;color:#6f869b;">{{ number_format($employee->leave_balance_days, 1) }} bal.</span>
                                                     @endif
                                                 </td>
                                                 <td class="amt">
                                                     @if ((float) $employee->bonus_months > 0)
                                                         {{ rtrim(rtrim(number_format((float) $employee->bonus_months, 2), '0'), '.') }}
                                                     @else
-                                                        <span style="color:#8b7aad;">—</span>
+                                                        <span style="color:#6f869b;">—</span>
                                                     @endif
                                                 </td>
                                                 <td style="text-align:center;">
@@ -222,17 +222,5 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.reg-row-dots')) {
-                e.stopPropagation();
-                var menu = e.target.closest('.reg-row-actions').querySelector('.reg-row-menu');
-                var open = menu.classList.contains('open');
-                document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-                if (!open) menu.classList.add('open');
-                return;
-            }
-            document.querySelectorAll('.reg-row-menu.open').forEach(function(m) { m.classList.remove('open'); });
-        });
-    </script>
+    @include('companies._row-actions')
 @endsection

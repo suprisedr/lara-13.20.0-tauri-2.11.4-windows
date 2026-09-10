@@ -7,20 +7,20 @@
 <style>
     .auth-page {
         min-height:100vh; display:flex; align-items:center; justify-content:center;
-        background:#f7f5ff;
+        background:#f7fbfd;
     }
     .auth-card {
-        width:100%; max-width:400px; background:#fff; border:1px solid #e5e7eb;
+        width:100%; max-width:400px; background:#fff; border:1px solid #d3e2f5;
         padding:2.5rem 2.25rem; margin:2rem 1rem;
     }
     .auth-brand { display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem; }
-    .auth-brand-mark { width:32px; height:32px; background:#5e17eb; display:flex; align-items:center; justify-content:center; }
+    .auth-brand-mark { width:32px; height:32px; background:#005bf0; display:flex; align-items:center; justify-content:center; }
     .auth-brand-mark svg { color:#fff; }
-    .auth-brand-name { font-size:1rem; font-weight:800; color:#0a0a0a; letter-spacing:-0.02em; }
-    .auth-card h1 { font-size:1.35rem; font-weight:800; color:#0a0a0a; margin:0 0 0.2rem; letter-spacing:-0.015em; }
-    .auth-card .auth-sub { font-size:0.82rem; color:#6b7280; margin:0 0 1.5rem; line-height:1.5; }
+    .auth-brand-name { font-size:1rem; font-weight:800; color:#191919; letter-spacing:-0.02em; }
+    .auth-card h1 { font-size:1.35rem; font-weight:800; color:#191919; margin:0 0 0.2rem; letter-spacing:-0.015em; }
+    .auth-card .auth-sub { font-size:0.82rem; color:#5a7186; margin:0 0 1.5rem; line-height:1.5; }
     .auth-btn { display:flex; align-items:center; justify-content:center; width:100%; padding:0.6rem 1.25rem; background:#000; color:#fff; font-size:0.85rem; font-weight:700; font-family:inherit; border:none; cursor:pointer; transition:background 0.15s; }
-    .auth-btn:hover { background:#333; }
+    .auth-btn:hover { background:#1a345b; }
     .auth-status { padding:0.55rem 0.75rem; background:#dcfce7; border:1px solid #bbf7d0; font-size:0.78rem; color:#15803d; margin-bottom:1rem; }
 </style>
 @endpush
@@ -48,7 +48,7 @@
 
             <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                 @csrf
-                <button type="submit" style="background:none;border:none;color:#6b7280;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:underline;">
+                <button type="submit" style="background:none;border:none;color:#5a7186;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:underline;">
                     Log out
                 </button>
             </form>

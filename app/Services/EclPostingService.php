@@ -13,6 +13,7 @@ class EclPostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postProvision(Company $company, User $user, string $asOfDate): void
@@ -55,7 +56,11 @@ class EclPostingService
         Pick the IFRS 9 accounts for posting this ECL provision {$direction}.
         TEXT;
 
-        $response = (new EclPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('ecl_posting', 'company', $company->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new EclPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('ecl_posting', 'company', $company->id, $prompt, json_encode($response));
 
         $allowanceId = $this->resolveAllowanceAccount($company, $response['allowance_account_id'] ?? null);
         $expenseId   = $this->resolveExpenseAccount($company, $response['ecl_expense_account_id'] ?? null);

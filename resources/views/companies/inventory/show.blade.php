@@ -17,7 +17,7 @@
 
         .inv-mgmt-bar a {
             font-size: 7pt;
-            color: #8b7aad;
+            color: #6f869b;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -25,15 +25,15 @@
             transition: color 0.15s;
         }
 
-        .inv-mgmt-bar a:hover { color: #4c1d95; }
+        .inv-mgmt-bar a:hover { color: #1a345b; }
 
         .mgmt-btn {
             display: inline-flex;
             align-items: center;
             gap: 3pt;
             background: #fff;
-            border: 1px solid #c4b5fd;
-            color: #4c1d95;
+            border: 1px solid #9ec1f5;
+            color: #1a345b;
             font-size: 6.5pt;
             font-weight: 700;
             text-transform: uppercase;
@@ -45,15 +45,15 @@
             transition: background 0.15s, color 0.15s;
         }
 
-        .mgmt-btn:hover { background: #f5f3ff; color: #4c1d95; }
-        .mgmt-btn.primary { background: #7c3aed; color: #fff; }
+        .mgmt-btn:hover { background: #f4fafc; color: #1a345b; }
+        .mgmt-btn.primary { background: #005bf0; color: #fff; }
         .mgmt-btn.primary:hover { background: #005f9e; }
 
         .cust-doc {
             background: #fff;
-            border: 1px solid #c4b5fd;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
-            color: #4c1d95;
+            border: 1px solid #9ec1f5;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
+            color: #1a345b;
             font-size: 7pt;
             line-height: 1.45;
             margin-bottom: 12pt;
@@ -81,7 +81,7 @@
             display: inline-block;
             font-weight: 700;
             text-transform: uppercase;
-            border: 1px solid #4c1d95;
+            border: 1px solid #1a345b;
             padding: 0.08rem 4pt;
             font-size: 5pt;
             letter-spacing: 0.08em;
@@ -92,12 +92,12 @@
 
         .divider {
             border: none;
-            border-top: 1.5pt solid #4c1d95;
+            border-top: 1.5pt solid #1a345b;
             margin: 8pt 0 10pt;
         }
 
         .divider.light {
-            border-top: 1px solid #c4b5fd;
+            border-top: 1px solid #9ec1f5;
             margin: 10pt 0;
         }
 
@@ -132,7 +132,7 @@
             font-size: 7.5pt;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            border-bottom: 1.5px solid #4c1d95;
+            border-bottom: 1.5px solid #1a345b;
             padding-bottom: 2pt;
             margin-bottom: 4pt;
         }
@@ -149,7 +149,7 @@
             font-size: 6.5pt;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            border-bottom: 1.5px solid #4c1d95;
+            border-bottom: 1.5px solid #1a345b;
             padding-bottom: 4pt;
         }
 
@@ -158,7 +158,7 @@
         table.cust-items-table tbody td {
             padding: 5pt 0;
             font-size: 7pt;
-            border-bottom: 1px solid #ddd6fe;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: middle;
         }
 
@@ -169,7 +169,7 @@
         }
 
         table.cust-items-table tbody tr:last-child td { border-bottom: none; }
-        table.cust-items-table tbody tr:hover td { background: #f5f3ff; }
+        table.cust-items-table tbody tr:hover td { background: #f4fafc; }
 
         .ev-chip {
             display: inline-block;
@@ -191,7 +191,7 @@
 
         .action-section { margin-top: 12pt; }
 
-        .action-panel { border-bottom: 1px solid #ddd6fe; }
+        .action-panel { border-bottom: 1px solid #d3e2f5; }
 
         .action-panel-head {
             display: flex;
@@ -216,16 +216,16 @@
         }
 
         .action-panel.open .action-panel-body { display: block; }
-        .action-panel-chevron { font-size: 6pt; color: #8b7aad; transition: transform 0.15s; }
+        .action-panel-chevron { font-size: 6pt; color: #6f869b; transition: transform 0.15s; }
         .action-panel.open .action-panel-chevron { transform: rotate(180deg); }
 
         .af-row { display: flex; flex-wrap: wrap; gap: 4pt 6pt; align-items: flex-end; margin-bottom: 5pt; }
         .af-field { flex: 1; min-width: 100pt; }
         .af-field.wide { flex: 2; min-width: 150pt; }
-        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #8b7aad; margin-bottom: 0.2rem; }
-        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #c4b5fd; padding: 0.32rem 4pt; font-size: 7pt; font-family: inherit; color: #4c1d95; box-sizing: border-box; background: #fff; }
-        .af-field input:focus, .af-field select:focus, .af-field textarea:focus { outline: none; border-color: #7c3aed; }
-        .af-hint { font-size: 6pt; color: #8b7aad; margin-bottom: 4pt; line-height: 1.4; }
+        .af-field label { display: block; font-size: 5pt; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #6f869b; margin-bottom: 0.2rem; }
+        .af-field input, .af-field select, .af-field textarea { width: 100%; border: 1px solid #9ec1f5; padding: 0.32rem 4pt; font-size: 7pt; font-family: inherit; color: #1a345b; box-sizing: border-box; background: #fff; }
+        .af-field input:focus, .af-field select:focus, .af-field textarea:focus { outline: none; border-color: #005bf0; }
+        .af-hint { font-size: 6pt; color: #6f869b; margin-bottom: 4pt; line-height: 1.4; }
 
         .detail-grid {
             display: grid;
@@ -238,14 +238,14 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.07em;
-            color: #8b7aad;
+            color: #6f869b;
             margin-bottom: 1.5pt;
         }
 
         .detail-grid .d-value {
             font-size: 7pt;
             font-weight: 600;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         @media (max-width: 640px) {
@@ -311,15 +311,15 @@
                         <table class="cust-header-table">
                             <tr>
                                 <td style="width:50%;vertical-align:top;">
-                                    <div style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#8b7aad;margin-bottom:3pt;">
+                                    <div style="font-size:6pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6f869b;margin-bottom:3pt;">
                                         {{ $company->registered_name }}
                                     </div>
                                     @if ($inventoryItem->sku)
-                                        <div style="font-size:6.5pt;color:#8b7aad;">SKU: {{ $inventoryItem->sku }}</div>
+                                        <div style="font-size:6.5pt;color:#6f869b;">SKU: {{ $inventoryItem->sku }}</div>
                                     @endif
                                     @if ($inventoryItem->inventory_type)
                                         <div style="margin-top:3pt;">
-                                            <span style="font-size:6pt;font-weight:700;color:#7c3aed;background:#f5f3ff;padding:0.1rem 0.4rem;border:1px solid #c4b5fd;">
+                                            <span style="font-size:6pt;font-weight:700;color:#005bf0;background:#f4fafc;padding:0.1rem 0.4rem;border:1px solid #9ec1f5;">
                                                 {{ $typeLabels[$inventoryItem->inventory_type->value] ?? $inventoryItem->inventory_type->value }}
                                             </span>
                                         </div>
@@ -445,7 +445,7 @@
                             <hr class="divider light">
                             <div class="info-section">
                                 <div class="section-header">Description</div>
-                                <p style="margin:4pt 0 0;color:#4c1d95;">{{ $inventoryItem->description }}</p>
+                                <p style="margin:4pt 0 0;color:#1a345b;">{{ $inventoryItem->description }}</p>
                             </div>
                         @endif
 
@@ -507,7 +507,7 @@
                 <div class="cust-doc">
                     <div class="cust-doc-body">
                         <div class="doc-title" style="text-align:left;">IAS 2 Movement Schedule</div>
-                        <p style="font-size:7pt;color:#8b7aad;margin:0.2rem 0 6pt;">Inventory reconciliation per IAS 2.36(d) — quantities and cost of inventories recognised as an expense.</p>
+                        <p style="font-size:7pt;color:#6f869b;margin:0.2rem 0 6pt;">Inventory reconciliation per IAS 2.36(d) — quantities and cost of inventories recognised as an expense.</p>
 
                         <hr class="divider">
 
@@ -566,8 +566,8 @@
                                         <span class="ev-chip transfer" style="margin-right:3pt;vertical-align:middle;">Transfer</span>
                                         Location transfers
                                     </td>
-                                    <td class="amt" style="color:#8b7aad;">{{ $qtyTransfers }} transfer{{ $qtyTransfers !== 1 ? 's' : '' }}</td>
-                                    <td class="amt" style="color:#8b7aad;">—</td>
+                                    <td class="amt" style="color:#6f869b;">{{ $qtyTransfers }} transfer{{ $qtyTransfers !== 1 ? 's' : '' }}</td>
+                                    <td class="amt" style="color:#6f869b;">—</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -598,7 +598,7 @@
                                 </tr>
                                 @endif
                                 @if ($totalWriteDown > 0 || $totalReversal > 0)
-                                <tr style="border-top:1.5pt solid #4c1d95;">
+                                <tr style="border-top:1.5pt solid #1a345b;">
                                     <td style="font-weight:800;">Carrying amount (lower of cost and NRV)</td>
                                     <td class="amt" style="font-weight:800;">{{ number_format($closingQty, 2) }}</td>
                                     <td class="amt" style="font-weight:800;color:#9d174d;">{{ number_format($carryingVal, 2) }}</td>
@@ -800,7 +800,7 @@
                 <div class="cust-doc">
                     <div class="cust-doc-body">
                         <div class="doc-title" style="text-align:left;">NRV Write-Down (IAS 2.9)</div>
-                        <p style="font-size:7pt;color:#8b7aad;margin:0.2rem 0 6pt;">
+                        <p style="font-size:7pt;color:#6f869b;margin:0.2rem 0 6pt;">
                             Inventories shall be measured at the lower of cost and net realisable value.
                             @if ($inventoryItem->nrv_per_unit !== null)
                                 <br>Current NRV: <strong>R{{ number_format((float)$inventoryItem->nrv_per_unit, 2) }}/unit</strong> — Accumulated write-down: <strong>R{{ number_format((float)$inventoryItem->accumulated_write_down, 2) }}</strong>
@@ -833,7 +833,7 @@
                                             </div>
                                             <div class="af-field">
                                                 <label>Cost per unit (R)</label>
-                                                <input type="text" value="{{ number_format((float)$inventoryItem->landedCost() ?: ((float)$inventoryItem->purchase_cost ?: (float)$inventoryItem->unit_price), 2) }}" disabled style="background:#f5f3ff;">
+                                                <input type="text" value="{{ number_format((float)$inventoryItem->landedCost() ?: ((float)$inventoryItem->purchase_cost ?: (float)$inventoryItem->unit_price), 2) }}" disabled style="background:#f4fafc;">
                                             </div>
                                         </div>
                                         <div class="af-row">
@@ -873,7 +873,7 @@
                                             </div>
                                             <div class="af-field">
                                                 <label>Current write-down (R)</label>
-                                                <input type="text" value="{{ number_format((float)$inventoryItem->accumulated_write_down, 2) }}" disabled style="background:#f5f3ff;">
+                                                <input type="text" value="{{ number_format((float)$inventoryItem->accumulated_write_down, 2) }}" disabled style="background:#f4fafc;">
                                             </div>
                                         </div>
                                         <div class="af-row">
@@ -897,12 +897,12 @@
                 <div class="cust-doc">
                     <div class="cust-doc-body">
                         <div class="doc-title" style="text-align:left;">Movement History</div>
-                        <p style="font-size:7pt;color:#8b7aad;margin:0.2rem 0 6pt;">{{ $movements->count() }} movement{{ $movements->count() !== 1 ? 's' : '' }} recorded.</p>
+                        <p style="font-size:7pt;color:#6f869b;margin:0.2rem 0 6pt;">{{ $movements->count() }} movement{{ $movements->count() !== 1 ? 's' : '' }} recorded.</p>
 
                         <hr class="divider">
 
                         @if ($movements->isEmpty())
-                            <p style="color:#8b7aad;font-style:italic;font-size:7pt;">No stock movements recorded yet.</p>
+                            <p style="color:#6f869b;font-style:italic;font-size:7pt;">No stock movements recorded yet.</p>
                         @else
                             <div style="overflow-x:auto;">
                                 <table class="cust-items-table">
@@ -927,7 +927,7 @@
                                         @foreach ($movements as $movement)
                                             @php $jsStatus = $movement->journal_status ?? 'pending'; $jsLabel = ['pending'=>'Journal pending','posted'=>'Journal posted','failed'=>'Journal failed'][$jsStatus] ?? 'Journal pending'; @endphp
                                             <tr data-movement-id="{{ $movement->id }}">
-                                                <td style="white-space:nowrap;color:#8b7aad;font-size:6.5pt;">
+                                                <td style="white-space:nowrap;color:#6f869b;font-size:6.5pt;">
                                                     {{ $movement->moved_at->format('d M Y') }}
                                                 </td>
                                                 <td>
@@ -941,18 +941,18 @@
                                                 <td class="amt">
                                                     {{ $movement->unit_cost !== null ? 'R ' . number_format((float)$movement->unit_cost, 2) : '—' }}
                                                 </td>
-                                                <td style="color:#8b7aad;font-size:6.5pt;">{{ $movement->reference ?? '—' }}</td>
+                                                <td style="color:#6f869b;font-size:6.5pt;">{{ $movement->reference ?? '—' }}</td>
                                                 <td style="font-size:6.5pt;">
                                                     @if ($movement->invoice_id && $movement->invoice)
                                                         <a href="{{ route('companies.invoices.show', [$company, $movement->invoice]) }}"
-                                                            style="color:#7c3aed;font-weight:700;text-decoration:none;border-bottom:1px solid #7c3aed;">
+                                                            style="color:#005bf0;font-weight:700;text-decoration:none;border-bottom:1px solid #005bf0;">
                                                             {{ $movement->invoice->invoice_number }}
                                                         </a>
                                                     @else
-                                                        <span style="color:#8b7aad;">—</span>
+                                                        <span style="color:#6f869b;">—</span>
                                                     @endif
                                                 </td>
-                                                <td style="color:#8b7aad;font-size:6.5pt;">{{ $movement->notes ?? '—' }}</td>
+                                                <td style="color:#6f869b;font-size:6.5pt;">{{ $movement->notes ?? '—' }}</td>
                                                 <td>
                                                     @if ($movement->transaction_id && ($movTxn = $movTxnMap->get($movement->transaction_id)))
                                                         <a href="{{ route('companies.transactions', $company) }}?{{ http_build_query(['description' => $movTxn->reference, 'start_date' => substr($movTxn->transaction_date, 0, 10), 'end_date' => substr($movTxn->transaction_date, 0, 10), 'highlight' => $movement->transaction_id]) }}" data-journal-status style="font-size:5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:{{ $jsColors[$jsStatus] ?? '#92400e' }};text-decoration:underline;">{{ $jsLabel }}</a>

@@ -12,7 +12,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             font-size: 7.5pt;
             color: #000;
             background: #fff;
@@ -92,7 +92,7 @@
         table.items-table tbody td {
             padding: 4px 0;
             font-size: 7.5pt;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
             vertical-align: top;
         }
 
@@ -116,7 +116,7 @@
             right: 60px;
             text-align: center;
             font-size: 7pt;
-            color: #666;
+            color: #5a7186;
         }
     </style>
 </head>
@@ -232,7 +232,7 @@
                     <td class="amt">{{ number_format($line['balance'], 2) }}</td>
                 </tr>
             @empty
-                <tr><td colspan="6" style="text-align:center;color:#999;padding:8px 0;">No transactions in this period.</td></tr>
+                <tr><td colspan="6" style="text-align:center;color:#6f869b;padding:8px 0;">No transactions in this period.</td></tr>
             @endforelse
         </tbody>
         <tfoot>
@@ -247,5 +247,6 @@
         {{ $company->registered_name }}
     </div>
 
+    @include('pdf._attribution', ['attrLeft' => '15mm', 'attrWidth' => '180mm'])
 </body>
 </html>

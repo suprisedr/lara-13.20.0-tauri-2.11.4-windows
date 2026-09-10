@@ -5,23 +5,23 @@
 
 @push('styles')
     <style>
-        .mgmt-wrap { min-height:100vh; background:#f7f5ff; }
+        .mgmt-wrap { min-height:100vh; background:#f7fbfd; }
 
         .mgmt-hero {
-            background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 50%,#6d28d9 100%);
+            background:linear-gradient(135deg,#1a345b 0%,#005bf0 50%,#005bf0 100%);
             padding:20pt 24pt 24pt;
             position:relative;
         }
         .mgmt-hero-inner { max-width:500pt; margin:0 auto; }
         .mgmt-hero h1 { font-size:12pt; font-weight:800; color:#fff; margin:0 0 2pt; }
-        .mgmt-hero p { font-size:6.5pt; color:#c4b5fd; margin:0; }
+        .mgmt-hero p { font-size:6.5pt; color:#9ec1f5; margin:0; }
 
         .mgmt-card {
             max-width:500pt;
             margin:-10pt auto 0;
             padding:12pt 14pt;
             background:#fff;
-            border:0.5pt solid #c4b5fd;
+            border:0.5pt solid #9ec1f5;
             position:relative;
         }
 
@@ -30,8 +30,8 @@
             font-weight:700;
             text-transform:uppercase;
             letter-spacing:0.07em;
-            color:#4c1d95;
-            border-bottom:0.5pt solid #c4b5fd;
+            color:#1a345b;
+            border-bottom:0.5pt solid #9ec1f5;
             padding-bottom:3pt;
             margin:10pt 0 5pt;
         }
@@ -41,12 +41,12 @@
             display:flex;
             justify-content:space-between;
             padding:2pt 0;
-            border-bottom:0.4pt solid #ddd6fe;
+            border-bottom:0.4pt solid #d3e2f5;
             font-size:7pt;
         }
         .mgmt-row:last-child { border-bottom:none; }
-        .mgmt-row .label { color:#6b5b8a; }
-        .mgmt-row .value { font-weight:700; color:#23282d; }
+        .mgmt-row .label { color:#5a7186; }
+        .mgmt-row .value { font-weight:700; color:#191919; }
 
         .status-active { color:#15803d; }
         .status-cancelled { color:#dc2626; }
@@ -58,7 +58,7 @@
             margin:0 auto;
             padding:8pt 0 0;
             font-size:6.5pt;
-            color:#c4b5fd;
+            color:#9ec1f5;
             text-decoration:none;
         }
 
@@ -72,13 +72,13 @@
             font-weight:700;
             text-transform:uppercase;
             letter-spacing:0.07em;
-            color:#6b5b8a;
+            color:#5a7186;
             text-align:left;
             padding:3pt 4pt;
-            border-bottom:0.5pt solid #c4b5fd;
-            background:#f5f3ff;
+            border-bottom:0.5pt solid #9ec1f5;
+            background:#f4fafc;
         }
-        .payment-table td { padding:3pt 4pt; border-bottom:0.4pt solid #ddd6fe; }
+        .payment-table td { padding:3pt 4pt; border-bottom:0.4pt solid #d3e2f5; }
         .payment-table .amt { text-align:right; }
 
         .cancel-btn {
@@ -159,7 +159,7 @@
                         @foreach ($payments as $payment)
                             <tr>
                                 <td>{{ $payment->paid_at?->format('d M Y') ?? '---' }}</td>
-                                <td style="font-family:'DejaVu Sans Mono',monospace;font-size:5.5pt;color:#8b7aad;">{{ $payment->paystack_reference }}</td>
+                                <td style="font-family:'DejaVu Sans Mono',monospace;font-size:5.5pt;color:#6f869b;">{{ $payment->paystack_reference }}</td>
                                 <td class="amt">R {{ number_format($payment->amount / 100, 2) }}</td>
                                 <td>
                                     @if ($payment->status === 'success')
@@ -176,13 +176,13 @@
 
             @if ($subscription->isOnGracePeriod())
                 <div class="mgmt-section-title">Access Ending</div>
-                <p style="font-size:6.5pt;color:#8b7aad;margin:0 0 6pt;">
+                <p style="font-size:6.5pt;color:#6f869b;margin:0 0 6pt;">
                     Your subscription is cancelled. You have <strong style="color:#b45309;">{{ $subscription->daysRemaining() }} {{ Str::plural('day', $subscription->daysRemaining()) }}</strong> of access left, until {{ $subscription->current_period_end->format('d M Y') }}. Choose a plan to keep using Chainbook after that.
                 </p>
-                <a href="{{ route('subscriptions.plans') }}" class="cancel-btn" style="color:#4c1d95;border-color:#4c1d95;">Choose a Plan</a>
+                <a href="{{ route('subscriptions.plans') }}" class="cancel-btn" style="color:#1a345b;border-color:#1a345b;">Choose a Plan</a>
             @elseif ($subscription->isActive())
                 <div class="mgmt-section-title">Cancel Subscription</div>
-                <p style="font-size:6.5pt;color:#8b7aad;margin:0 0 4pt;">
+                <p style="font-size:6.5pt;color:#6f869b;margin:0 0 4pt;">
                     You will retain access until the end of your current billing period.
                 </p>
                 <form method="POST" action="{{ route('subscriptions.cancel') }}"

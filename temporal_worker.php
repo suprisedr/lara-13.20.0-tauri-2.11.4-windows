@@ -16,10 +16,18 @@ use App\Temporal\Workflows\MonthEndWorkflow;
 use Temporal\WorkerFactory;
 
 ini_set('display_errors', 'stderr');
+ini_set('display_startup_errors', 'stderr');
+error_reporting(E_ALL);
+ob_start(fn () => '');
+
 require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
 $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+if (ob_get_level() > 0) {
+    ob_end_clean();
+}
 
 $factory = WorkerFactory::create();
 
@@ -29,4 +37,9 @@ $worker->registerWorkflowTypes(MonthEndWorkflow::class, BackdateDepreciationWork
 $worker->registerActivity(MonthEndActivity::class);
 $worker->registerActivity(BackdateActivity::class);
 
-$factory->run();
+try {
+    $factory->run();
+} catch (\Spiral\Goridge\Exception\HeaderException $e) {
+    fwrite(STDERR, "temporal_worker: frame header error, exiting for RR to restart: {$e->getMessage()}\n");
+    exit(1);
+}

@@ -37,4 +37,6 @@ src-tauri/resources/
 /bin/
 /composer.phar
 /data.ms/
+/data.ms
 /rr.exe
+/storage/fonts

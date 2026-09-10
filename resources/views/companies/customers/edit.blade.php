@@ -22,7 +22,7 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #8b7aad;
+            color: #6f869b;
             margin-bottom: 1.5pt;
         }
 
@@ -30,16 +30,16 @@
         .inv-field select,
         .inv-field textarea {
             width: 100%;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
             padding: 3pt 4pt;
             font-size: 7pt;
-            color: #4c1d95;
+            color: #1a345b;
             background: #fff;
             outline: none;
             transition: border-color 0.15s;
             box-sizing: border-box;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .inv-field textarea {
@@ -48,17 +48,17 @@
         }
 
         .inv-field input::placeholder,
-        .inv-field textarea::placeholder { color: #c4b5fd; font-size: 6.5pt; }
+        .inv-field textarea::placeholder { color: #9ec1f5; font-size: 6.5pt; }
 
         .inv-field input:focus,
         .inv-field select:focus,
         .inv-field textarea:focus {
-            border-color: #7c3aed;
+            border-color: #005bf0;
         }
 
         .inv-field .field-hint {
             font-size: 5.5pt;
-            color: #8b7aad;
+            color: #6f869b;
             margin-top: 1pt;
         }
 
@@ -67,22 +67,22 @@
             align-items: center;
             gap: 5pt;
             padding: 3pt 5pt;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
-            background: #f5f3ff;
+            background: #f4fafc;
         }
 
         .inv-status-field span {
             font-size: 7pt;
             font-weight: 600;
-            color: #4c1d95;
+            color: #1a345b;
         }
 
         .inv-field span.optional {
             font-weight: 400;
             text-transform: none;
             letter-spacing: 0;
-            color: #8b7aad;
+            color: #6f869b;
             font-size: 4.5pt;
         }
 
@@ -92,28 +92,28 @@
             justify-content: flex-end;
             margin-top: 7pt;
             padding-top: 6pt;
-            border-top: 0.4pt solid #ddd6fe;
+            border-top: 0.4pt solid #d3e2f5;
         }
 
         .btn-cancel {
             padding: 2.5pt 6pt;
-            border: 1px solid #c4b5fd;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
             font-size: 6pt;
-            color: #6b5b8a;
+            color: #5a7186;
             text-decoration: none;
             font-weight: 600;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
             background: #fff;
             cursor: pointer;
             transition: background 0.15s;
         }
 
-        .btn-cancel:hover { background: #f5f3ff; }
+        .btn-cancel:hover { background: #f4fafc; }
 
         .btn-primary {
             padding: 2.5pt 7pt;
-            background: #7c3aed;
+            background: #005bf0;
             color: #fff;
             border: none;
             border-radius: 0;
@@ -121,7 +121,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: background 0.15s;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
         .btn-primary:hover { background: #005f9e; }
@@ -150,7 +150,7 @@
 
                         <div style="padding:8pt 12pt 10pt;">
                             @if ($errors->any())
-                                <div style="background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:4pt 7pt;font-size:6.5pt;margin-bottom:7pt;font-family:Helvetica,Arial,'DejaVu Sans',sans-serif;">
+                                <div style="background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:4pt 7pt;font-size:6.5pt;margin-bottom:7pt;font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;">
                                     <strong>Please fix the following:</strong>
                                     <ul style="margin:2pt 0 0 8pt;padding:0;">
                                         @foreach ($errors->all() as $error)

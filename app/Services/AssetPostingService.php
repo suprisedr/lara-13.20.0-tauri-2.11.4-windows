@@ -43,6 +43,7 @@ class AssetPostingService
     public function __construct(
         private readonly TransactionService $transactions,
         private readonly AccountVectorSearchService $accountSearch,
+        private readonly AgentHistoryService $agentHistory = new AgentHistoryService,
     ) {}
 
     public function postAcquisitionWithAi(Asset $asset, User $user): Asset
@@ -999,7 +1000,13 @@ class AssetPostingService
 
         $prompt = "Posting type: {$kind}\n\n{$details}{$extraStr}\nChart of accounts:\n{$list}\n\nPick the IFRS-appropriate accounts for this posting.";
 
-        return (new AssetPostingAgent)->prompt($prompt)->toArray();
+        $history = $this->agentHistory->recall('asset_posting', 'asset', $asset->id);
+        $fullPrompt = $history ? $history."\n\n".$prompt : $prompt;
+
+        $response = (new AssetPostingAgent)->prompt($fullPrompt)->toArray();
+        $this->agentHistory->remember('asset_posting', 'asset', $asset->id, $prompt, json_encode($response));
+
+        return $response;
     }
 
     public function postHeldForSaleWithAi(Asset $asset, User $user, float $carryingAmount, float $impairment, string $date): void

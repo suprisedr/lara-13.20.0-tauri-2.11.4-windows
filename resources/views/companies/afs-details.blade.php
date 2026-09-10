@@ -10,12 +10,12 @@
         .co-main   { padding: 1.25rem 1.5rem; }
 
         .afsd-wrap {
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
         }
 
         .afsd-card {
             background: #fff;
-            border: 1px solid #ddd;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             margin-bottom: 1.25rem;
         }
@@ -27,15 +27,15 @@
             gap: 1rem;
             flex-wrap: wrap;
             padding: 1rem 1.25rem;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
         }
 
         .afsd-section-title {
-            font-size: 0.65rem;
+            font-size: 7pt;
             font-weight: 800;
             color: #000;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
+            text-transform: none;
+            letter-spacing: 0;
             margin: 1.5rem 0 0.75rem;
             padding-bottom: 0.3rem;
             border-bottom: 1.5px solid #000;
@@ -44,9 +44,9 @@
         .afsd-section-title:first-child { margin-top: 0; }
 
         .af-row  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem 0.75rem; align-items: start; margin-bottom: 0.65rem; }
-        .af-field label { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #555; margin-bottom: 0.2rem; }
+        .af-field label { display: block; font-size: 10pt; font-weight: 700; letter-spacing: 0; text-transform: none; color: #5a7186; margin-bottom: 0.2rem; }
         .af-field input, .af-field select, .af-field textarea {
-            width: 100%; border: 1px solid #ccc; padding: 0.35rem 0.5rem; font-size: 0.78rem;
+            width: 100%; border: 1px solid #d3e2f5; padding: 0.35rem 0.5rem; font-size: 10.5pt;
             font-family: inherit; color: #000; box-sizing: border-box; background: #fff; border-radius: 0;
             resize: vertical; outline: none; transition: border-color 0.15s;
         }
@@ -55,22 +55,22 @@
         .af-field.full  { grid-column: span 4; }
 
         .af-hint {
-            font-size: 0.6rem;
+            font-size: 8pt;
             color: #888;
             margin-top: 0.2rem;
         }
 
         .mgmt-btn {
             display: inline-flex; align-items: center; gap: 0.4rem; background: #fff;
-            border: 1px solid #000; color: #000; font-size: 0.7rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.06em; padding: 0.4rem 0.95rem;
+            border: 1px solid #000; color: #000; font-size: 8pt; font-weight: 700;
+            text-transform: none; letter-spacing: 0; padding: 0.4rem 0.95rem;
             text-decoration: none; cursor: pointer; font-family: inherit;
             transition: background 0.15s, color 0.15s; height: 2rem;
             box-sizing: border-box; border-radius: 0; white-space: nowrap;
         }
         .mgmt-btn:hover { background: #000; color: #fff; }
         .mgmt-btn.primary { background: #000; color: #fff; }
-        .mgmt-btn.primary:hover { background: #333; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
 
         .flash-success {
             margin: 0 1.25rem;
@@ -79,7 +79,7 @@
             color: #15803d;
             border: 1px solid #bbf7d0;
             border-radius: 0;
-            font-size: 0.78rem;
+            font-size: 10.5pt;
             font-weight: 600;
         }
 
@@ -106,7 +106,7 @@
                     <div class="afsd-card">
                         <div class="afsd-card-head">
                             <div>
-                                <p style="font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#555;margin:0 0 0.25rem;">Annual Financial Statements</p>
+                                <p style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#5a7186;margin:0 0 0.25rem;">Annual Financial Statements</p>
                                 <h2 style="font-size:1.05rem;font-weight:800;color:#000;margin:0 0 0.15rem;">AFS Details</h2>
                                 <p style="font-size:0.72rem;color:#888;margin:0;">
                                     These details populate the front matter of the downloadable financial statements.
@@ -116,15 +116,15 @@
                                 target="_blank"
                                 style="display:flex;align-items:flex-end;gap:0.5rem;flex-wrap:wrap;">
                                 <div>
-                                    <label style="font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#555;display:block;margin-bottom:0.2rem;">From</label>
+                                    <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#5a7186;display:block;margin-bottom:0.2rem;">From</label>
                                     <input type="date" name="start_date"
-                                        style="font-size:0.75rem;padding:0.35rem 0.5rem;border:1px solid #ccc;border-radius:0;font-family:inherit;color:#000;width:130px;"
+                                        style="font-size:0.75rem;padding:0.35rem 0.5rem;border:1px solid #d3e2f5;border-radius:0;font-family:inherit;color:#000;width:130px;"
                                         value="{{ request('start_date', $startDate) }}">
                                 </div>
                                 <div>
-                                    <label style="font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#555;display:block;margin-bottom:0.2rem;">To</label>
+                                    <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#5a7186;display:block;margin-bottom:0.2rem;">To</label>
                                     <input type="date" name="end_date"
-                                        style="font-size:0.75rem;padding:0.35rem 0.5rem;border:1px solid #ccc;border-radius:0;font-family:inherit;color:#000;width:130px;"
+                                        style="font-size:0.75rem;padding:0.35rem 0.5rem;border:1px solid #d3e2f5;border-radius:0;font-family:inherit;color:#000;width:130px;"
                                         value="{{ request('end_date', $endDate) }}">
                                 </div>
                                 <button type="submit" class="mgmt-btn">

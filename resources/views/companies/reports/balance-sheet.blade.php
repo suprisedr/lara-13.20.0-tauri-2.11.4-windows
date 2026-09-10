@@ -65,9 +65,9 @@
                                 </span>
                                 <a href="{{ route('companies.reports.balance-sheet.pdf', [$company, 'as_of_date' => $asOfDate, 'rounding' => $rounding, 'compare' => $compare ? 1 : 0, 'compare_date' => $priorAsOfDate]) }}"
                                     target="_blank" rel="noopener"
-                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#5e17eb;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
-                                    onmouseover="this.style.background='#4a10c4'"
-                                    onmouseout="this.style.background='#5e17eb'">
+                                    style="display:inline-flex;align-items:center;gap:0.35rem;background:#005bf0;color:#fff;border-radius:0;padding:0.28rem 0.75rem;font-size:0.72rem;font-weight:700;text-decoration:none;transition:background 0.15s;white-space:nowrap;"
+                                    onmouseover="this.style.background='#0047c4'"
+                                    onmouseout="this.style.background='#005bf0'">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -112,7 +112,7 @@
 
                     @if (!$hasData)
                         <div class="empty-state">
-                            <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No accounts found</p>
+                            <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No accounts found</p>
                             <p style="font-size:0.8rem;margin:0;">Set up your chart of accounts first.</p>
                         </div>
                     @else

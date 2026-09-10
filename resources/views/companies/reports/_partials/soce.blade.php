@@ -30,11 +30,11 @@
     $soceOciC = (float) collect($ociAccounts ?? collect())->sum('oci_net');
     $soceOciP = (float) collect($ociAccounts ?? collect())->sum('oci_net_prior');
 
-    $fmt = fn($v) => $v != 0 ? number_format($v / $rounding, $roundingDecimals) : '—';
+    $fmt = fn($v) => $v != 0 ? number_format($v / $rounding, $roundingDecimals, '.', ' ') : '—';
     $amtClass = fn($v) => $v == 0 ? 'afs-amount afs-dim' : ($v < 0 ? 'afs-amount afs-abnormal' : 'afs-amount');
 @endphp
 
-<table class="afs-table">
+<table class="afs-table afs-matrix">
     <thead>
         <tr>
             <th class="afs-col-label">Figures in {{ $roundingLabel }}</th>

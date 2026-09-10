@@ -9,20 +9,22 @@
         .tx-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 7pt;
-            font-family: Helvetica, Arial, "DejaVu Sans", sans-serif;
+            font-size:10.5pt;
+            font-family: "Century Gothic", "URW Gothic", "Avant Garde", Futura, "Avenir Next", Avenir, "Trebuchet MS", Helvetica, Arial, "DejaVu Sans", sans-serif;
         }
 
+        /* Header follows the source document: a #005BF0 band with
+           white sentence-case text over a 0.5pt black hairline. */
         .tx-table thead th {
-            padding: 0.6rem 0.875rem;
+            padding: 4pt 0.875rem;
             text-align: left;
-            font-size: 6pt;
+            font-size:10.5pt;
             font-weight: 700;
-            letter-spacing: normal;
+            letter-spacing: 0;
             text-transform: none;
-            color: #4c1d95;
-            border-bottom: 1.5pt solid #4c1d95;
-            background: #f5f3ff;
+            color: #ffffff;
+            border-bottom: 0.5pt solid #000000;
+            background: #005bf0;
             vertical-align: bottom;
         }
 
@@ -35,7 +37,7 @@
         }
 
         .tx-table tbody tr.tx-row {
-            border-bottom: 0.4pt solid #ddd6fe;
+            border-bottom: 0.4pt solid #d3e2f5;
         }
 
         .tx-table tbody tr:last-child {
@@ -43,38 +45,40 @@
         }
 
         .tx-table tbody tr.tx-row:hover {
-            background: #faf5ff;
+            background: #f4fafc;
         }
 
         .tx-table td {
             padding: 0.45rem 0.875rem;
             vertical-align: top;
-            color: #4c1d95;
-            font-size: 7pt;
+            color: #1a345b;
+            font-size:10.5pt;
         }
 
+        /* The document sets its figures in Century Gothic with
+           tabular numerals, never a monospace face. */
         .tx-table td.num {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
             font-variant-numeric: tabular-nums;
-            font-size: 6.5pt;
+            font-size:10.5pt;
             white-space: nowrap;
         }
 
         .tx-table td.muted {
-            color: #8b7aad;
-            font-size: 6.5pt;
+            color: #6f869b;
+            font-size:10.5pt;
         }
 
         .tx-lines-row td {
             padding: 0 0.85rem 0.7rem;
-            background: #f5f3ff;
+            background: #f4fafc;
         }
 
         .tx-lines-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 6.5pt;
+            font-size:10.5pt;
         }
 
         .tx-lines-table td {
@@ -83,7 +87,8 @@
 
         .tx-lines-table td.num {
             text-align: right;
-            font-family: "DejaVu Sans Mono", monospace;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
         }
 
         .tx-lines-table tr:first-child td {
@@ -98,10 +103,10 @@
             display: inline-block;
             padding: 0.15rem 0.55rem;
             border-radius:0;
-            font-size: 5.5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing:0;
+            text-transform: capitalize;
             background: #dcfce7;
             color: #15803d;
         }
@@ -110,10 +115,10 @@
             display: inline-block;
             padding: 0.15rem 0.55rem;
             border-radius:0;
-            font-size: 5.5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing:0;
+            text-transform: capitalize;
             background: #fef9c3;
             color: #854d0e;
         }
@@ -123,10 +128,10 @@
             display: inline-block;
             padding: 0.15rem 0.55rem;
             border-radius:0;
-            font-size: 5.5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing:0;
+            text-transform: capitalize;
             background: #fee2e2;
             color: #b91c1c;
         }
@@ -135,10 +140,10 @@
             display: inline-block;
             padding: 0.15rem 0.55rem;
             border-radius:0;
-            font-size: 5.5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing:0;
+            text-transform: capitalize;
             background: #fce7f3;
             color: #9d174d;
         }
@@ -147,32 +152,32 @@
             border: 1px solid #ca8a04;
             border-radius: 0;
             padding: 0.18rem 0.5rem;
-            font-size: 6pt;
+            font-size:10pt;
             font-weight: 700;
             font-family: inherit;
             color: #854d0e;
             background: #fef9c3;
             cursor: pointer;
             outline: none;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: capitalize;
+            letter-spacing:0;
         }
 
         .badge-correction {
             display: inline-block;
             padding: 0.15rem 0.55rem;
             border-radius:0;
-            font-size: 5.5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing:0;
+            text-transform: capitalize;
             background: #dbeafe;
             color: #1d4ed8;
         }
 
         /* Row action buttons — intangibles-standard outlined pill */
         .btn-reverse, .btn-correct {
-            font-size: 5.5pt;
+            font-size:10pt;
             font-weight: 700;
             background: #fff;
             border-radius: 0;
@@ -180,8 +185,8 @@
             cursor: pointer;
             font-family: inherit;
             white-space: nowrap;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
+            text-transform:none;
+            letter-spacing:0;
             transition: background 0.15s, color 0.15s;
         }
         .btn-reverse { color: #b91c1c; border: 1px solid #b91c1c; }
@@ -192,33 +197,33 @@
         /* Inline destructive link (delete row, clear, etc.) */
         .tx-del-link {
             background:none; border:none; padding:0; cursor:pointer;
-            font-family:inherit; font-size:6pt; font-weight:700;
+            font-family:inherit; font-size:10pt; font-weight:700;
             color:#dc2626; text-decoration:underline;
-            text-transform:uppercase; letter-spacing:0.05em;
+            text-transform:none; letter-spacing:0;
         }
         .tx-del-link:hover { color:#991b1b; }
 
         .tx-trail {
-            font-size: 5.5pt;
-            color: #8b7aad;
+            font-size:7pt;
+            color: #6f869b;
             margin-top: 0.2rem;
         }
         .tx-trail a {
-            color: #4c1d95;
+            color: #1a345b;
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 0.5pt solid #4c1d95;
+            border-bottom: 0.5pt solid #1a345b;
         }
         .tx-trail a:hover { border-bottom-color: transparent; }
 
         .toggle-lines {
             cursor: pointer;
-            font-size: 5.5pt;
+            font-size:10pt;
             font-weight: 700;
-            color: #4c1d95;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border-bottom: 0.5pt solid #4c1d95;
+            color: #1a345b;
+            text-transform:none;
+            letter-spacing:0;
+            border-bottom: 0.5pt solid #1a345b;
             white-space: nowrap;
         }
         .toggle-lines:hover { border-bottom-color: transparent; }
@@ -226,18 +231,22 @@
         /* Source document inline preview row (collapsed view) */
         .tx-source-row td {
             padding: 0 0.85rem 0.5rem;
-            background: #fafafa;
-            border-bottom: 1px solid #e5e7eb;
+            background: #f7fbfd;
+            border-bottom: 1px solid #d3e2f5;
         }
 
+        /* Deliberately monospace: this is a verbatim dump of the
+           source document, where column alignment carries meaning.
+           Every other numeric cell uses Century Gothic tabular
+           figures, as the AFS document does. */
         .tx-source-text {
             font-family: "DejaVu Sans Mono", monospace;
-            font-size: 6.5pt;
+            font-size:10.5pt;
             color: #000;
             white-space: pre-wrap;
             word-break: break-word;
-            background: #fafafa;
-            border: 1px solid #e5e7eb;
+            background: #f7fbfd;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.5rem 0.7rem;
             max-height: 120px;
@@ -246,11 +255,11 @@
         }
 
         .tx-source-label {
-            font-size: 5pt;
+            font-size:7pt;
             font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #555;
+            letter-spacing:0;
+            text-transform:none;
+            color: #5a7186;
             margin-bottom: 0.25rem;
         }
 
@@ -260,19 +269,19 @@
             min-width: 120px;
         }
         .line-note-cell:hover {
-            background: #faf5ff;
+            background: #f4fafc;
             border-radius: 0;
         }
 
         .line-note-input {
             width: 100%;
-            border: 1px solid #ccc;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
-            font-size: 6.5pt;
+            font-size:10.5pt;
             font-family: inherit;
             outline: none;
-            color: #000;
+            color: #1a345b;
             background: #fff;
         }
 
@@ -280,13 +289,13 @@
         .line-account-wrap { position: relative; }
         .line-account-search {
             width: 100%;
-            border: 1px solid #ccc;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
             padding: 0.18rem 0.4rem;
-            font-size: 6.5pt;
+            font-size:10.5pt;
             font-family: inherit;
             outline: none;
-            color: #000;
+            color: #1a345b;
             background: #fff;
         }
         .line-account-dropdown {
@@ -295,24 +304,25 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #ccc;
+            border: 1px solid #9ec1f5;
             border-top: none;
             border-radius: 0;
             max-height: 160px;
             overflow-y: auto;
             z-index: 200;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(26, 52, 91,0.08);
         }
         .line-account-option {
             padding: 0.28rem 0.5rem;
-            font-size: 6.5pt;
+            font-size:10.5pt;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #1a345b;
         }
         .line-account-option:hover,
-        .line-account-option.focused { background: #f7f5ff; }
+        .line-account-option.focused { background: #f4fafc; }
 
         /* Generic account search field (new transaction lines, add-line form) */
         .acct-search {
@@ -321,20 +331,20 @@
 
         .acct-search-input {
             width: 100%;
-            border: 1px solid #ccc;
+            border: 1px solid #9ec1f5;
             border-radius: 0;
             padding: 0.4rem 0.6rem;
-            font-size: 0.8rem;
+            font-size:10.5pt;
             font-family: inherit;
             outline: none;
-            color: #000;
+            color: #1a345b;
             background: #fff;
             box-sizing: border-box;
             transition: border-color 0.15s;
         }
 
         .acct-search-input:focus {
-            border-color: #5e17eb;
+            border-color: #1a345b;
         }
 
         .acct-search-dropdown {
@@ -343,30 +353,31 @@
             left: 0;
             right: 0;
             background: #fff;
-            border: 1px solid #ccc;
+            border: 1px solid #9ec1f5;
             border-top: none;
             border-radius:0;
             max-height: 180px;
             overflow-y: auto;
             z-index: 1100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(26, 52, 91,0.08);
         }
 
         .acct-search-option {
             padding: 0.35rem 0.6rem;
-            font-size: 0.72rem;
+            font-size:8pt;
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #1a345b;
         }
 
         .acct-search-option:hover {
-            background: #f7f5ff;
+            background: #f4fafc;
         }
 
         .acct-search-option.acct-search-empty {
-            color: #9ca3af;
+            color: #6f869b;
             font-style: italic;
             cursor: default;
         }
@@ -378,30 +389,30 @@
         /* ── Filter card ── */
         .tx-filter-form {
             background:#fff;
-            border:1px solid #e5e7eb;
-            color:#000;
-            font-size:0.8rem;
+            border:1px solid #9ec1f5;
+            border-top:0.5pt solid #000000;
+            color:#191919;
+            font-size:10.5pt;
             line-height:1.45;
             margin-bottom:1rem;
             position:sticky;
             top:0;
             z-index:20;
-            box-shadow:0 2px 8px rgba(0,0,0,0.04);
+            box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.03);
         }
-        .tx-filter-body { padding:1.1rem 1.35rem; }
         .tx-filter-head {
             display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap;
             cursor:pointer; user-select:none; padding:0.75rem 1.35rem;
         }
         .tx-filter-title {
-            font-weight:700; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:#5e17eb;
+            font-weight:700; font-size:10pt; text-transform:none; letter-spacing:0; color:#1a345b;
             display:flex; align-items:center; gap:0.5rem;
         }
-        .tx-filter-chevron { font-size:0.55rem; color:#999; transition:transform 0.15s; display:inline-block; }
+        .tx-filter-chevron { font-size:7pt; color:#6f869b; transition:transform 0.15s; display:inline-block; }
         .tx-filter-form.open .tx-filter-chevron { transform:rotate(180deg); }
         .tx-filter-collapsible { display:none; padding:0 1.35rem 1.1rem; }
         .tx-filter-form.open .tx-filter-collapsible { display:block; }
-        .tx-filter-divider { border:none; border-top:1px solid #e5e7eb; margin:0 0 0.85rem; }
+        .tx-filter-divider { border:none; border-top:0.5pt solid #d3e2f5; margin:0 0 0.85rem; }
 
         .tx-filter-form .af-row {
             display:grid; grid-template-columns:repeat(4,1fr); gap:0.55rem 0.85rem;
@@ -410,40 +421,42 @@
         .tx-filter-form .af-field.wide { grid-column:span 2; }
         .tx-filter-form .af-field.full { grid-column:span 4; }
         .tx-filter-form .af-field label {
-            display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#555; margin-bottom:0.22rem;
+            display:block; font-size:8pt; font-weight:700; letter-spacing:0;
+            text-transform:none; color:#5a7186; margin-bottom:0.22rem;
         }
         .tx-filter-form .af-field input,
         .tx-filter-form .af-field select {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.5rem;
-            font-size:0.8rem; font-family:inherit; color:#000;
+            width:100%; border:1px solid #9ec1f5; padding:0.35rem 0.5rem;
+            font-size:10.5pt; font-family:inherit; color:#1a345b;
             box-sizing:border-box; background:#fff; height:2rem;
         }
         .tx-filter-form .af-field input:focus,
-        .tx-filter-form .af-field select:focus { outline:none; border-color:#5e17eb; }
+        .tx-filter-form .af-field select:focus { outline:none; border-color:#1a345b; }
+        .tx-filter-form .af-field input::placeholder { color:#6f869b; }
         .tx-filter-form .acct-search .acct-search-input {
-            border:1px solid #ccc; padding:0.35rem 0.5rem; font-size:0.8rem; height:2rem; border-radius:0;
+            border:1px solid #9ec1f5; padding:0.35rem 0.5rem; font-size:10.5pt; height:2rem; border-radius:0; color:#1a345b;
         }
-        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#5e17eb; }
-        .tx-filter-form .acct-search-dropdown { border-color:#ccc; }
+        .tx-filter-form .acct-search .acct-search-input::placeholder { color:#6f869b; }
+        .tx-filter-form .acct-search .acct-search-input:focus { border-color:#1a345b; }
+        .tx-filter-form .acct-search-dropdown { border-color:#9ec1f5; }
 
         .tx-filter-actions {
             display:flex; align-items:center; justify-content:space-between; gap:0.75rem;
-            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:1px solid #e5e7eb;
+            flex-wrap:wrap; padding-top:0.85rem; margin-top:0.35rem; border-top:0.5pt solid #d3e2f5;
         }
         .tx-filter-actions-left { display:flex; align-items:center; gap:0.85rem; }
 
         .mgmt-btn {
             display:inline-flex; align-items:center; gap:0.4rem;
-            background:#fff; border:1px solid #000; color:#000;
-            font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+            background:#fff; border:1px solid #1a345b; color:#1a345b;
+            font-size:8pt; font-weight:700; text-transform:none; letter-spacing:0;
             padding:0.4rem 0.95rem; text-decoration:none; cursor:pointer;
             font-family:inherit; transition:background 0.15s, color 0.15s;
             height:2rem; box-sizing:border-box;
         }
-        .mgmt-btn:hover { background:#000; color:#fff; }
-        .mgmt-btn.primary { background:#000; color:#fff; }
-        .mgmt-btn.primary:hover { background:#333; }
+        .mgmt-btn:hover { background:#1a345b; color:#fff; }
+        .mgmt-btn.primary { background:#1a345b; color:#fff; }
+        .mgmt-btn.primary:hover { background:#005bf0; }
         .mgmt-btn.success { border-color:#15803d; color:#15803d; }
         .mgmt-btn.success:hover { background:#15803d; color:#fff; }
         .mgmt-btn.warn { border-color:#b45309; color:#b45309; }
@@ -451,58 +464,59 @@
         .mgmt-btn.danger { border-color:#b91c1c; color:#b91c1c; }
         .mgmt-btn.danger:hover { background:#b91c1c; color:#fff; }
         .mgmt-btn.sm {
-            font-size:0.62rem; padding:0.28rem 0.65rem; height:1.7rem; gap:0.3rem;
+            font-size:8pt; padding:0.28rem 0.65rem; height:1.7rem; gap:0.3rem;
         }
         .mgmt-btn.ghost {
-            border-style:dashed; color:#999; border-color:#ccc;
+            border-style:dashed; color:#6f869b; border-color:#9ec1f5;
         }
-        .mgmt-btn.ghost:hover { background:#f7f5ff; color:#000; border-color:#000; }
+        .mgmt-btn.ghost:hover { background:#f4fafc; color:#1a345b; border-color:#1a345b; }
 
         /* Shared form field used inside expanded rows and the new-transaction modal */
         .tx-af-label {
-            display:block; font-size:0.6rem; font-weight:700; letter-spacing:0.07em;
-            text-transform:uppercase; color:#555; margin-bottom:0.22rem;
+            display:block; font-size:8pt; font-weight:700; letter-spacing:0;
+            text-transform:none; color:#5a7186; margin-bottom:0.22rem;
         }
         .tx-af-input {
-            width:100%; border:1px solid #ccc; padding:0.35rem 0.55rem;
-            font-size:0.8rem; font-family:inherit; color:#000;
+            width:100%; border:1px solid #9ec1f5; padding:0.35rem 0.55rem;
+            font-size:10.5pt; font-family:inherit; color:#1a345b;
             box-sizing:border-box; background:#fff; height:2rem; border-radius:0;
         }
-        .tx-af-input:focus { outline:none; border-color:#5e17eb; }
+        .tx-af-input:focus { outline:none; border-color:#1a345b; }
+        .tx-af-input::placeholder { color:#6f869b; }
         textarea.tx-af-input { height:auto; padding:0.4rem 0.55rem; line-height:1.45; }
 
         /* Bulk action bar */
         .tx-bulk-bar {
             display:none; padding:0.85rem 1.1rem;
-            background:#fafafa; border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb;
+            background:#f4fafc; border-top:1px solid #9ec1f5; border-bottom:1px solid #9ec1f5;
             align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
         }
         .tx-bulk-count {
-            font-size:0.68rem; font-weight:700; letter-spacing:0.06em;
-            text-transform:uppercase; color:#000;
+            font-size:10pt; font-weight:700; letter-spacing:0;
+            text-transform:none; color:#1a345b;
         }
         .tx-bulk-actions { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
 
         /* Expanded-row mini panel (notes, source document) */
-        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #ddd; }
+        .tx-mini-panel { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.7rem; padding-top:0.7rem; border-top:1px dashed #9ec1f5; }
         .tx-mini-col { display:flex; flex-direction:column; gap:0.3rem; }
         .tx-mini-head { display:flex; align-items:center; gap:0.5rem; }
-        .tx-saved-flag { display:none; font-size:5.5pt; color:#15803d; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; }
+        .tx-saved-flag { display:none; font-size:7pt; color:#15803d; font-weight:700; letter-spacing:0; text-transform:none; }
 
         /* Add-line inline form inside the expanded row */
         .tx-addline-form {
             display:none; margin-top:0.55rem; padding:0.65rem 0.85rem;
-            background:#fff; border:1px solid #ddd;
+            background:#fff; border:1px solid #9ec1f5;
             gap:0.55rem; flex-wrap:wrap; align-items:end;
         }
         .tx-addline-form.open { display:flex; }
         .tx-addline-field { display:flex; flex-direction:column; gap:0.2rem; }
 
         .tx-filter-reset {
-            font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
-            color:#555; text-decoration:none; border-bottom:1px solid #555;
+            font-size:8pt; font-weight:700; text-transform:none; letter-spacing:0;
+            color:#5a7186; text-decoration:none; border-bottom:1px solid #5a7186;
         }
-        .tx-filter-reset:hover { color:#000; border-bottom-color:#000; }
+        .tx-filter-reset:hover { color:#1a345b; border-bottom-color:#1a345b; }
 
 
         @media (max-width:760px) {
@@ -513,54 +527,54 @@
         /* Live Meilisearch results panel */
         .tx-live-panel {
             position:absolute; top:100%; left:0; right:0; z-index:200;
-            background:#fff; border:1px solid #ccc; border-top:none;
-            box-shadow:0 6px 24px rgba(0,0,0,0.08);
+            background:#fff; border:1px solid #9ec1f5; border-top:none;
+            box-shadow:0 6px 24px rgba(26, 52, 91,0.10);
             max-height:420px; overflow-y:auto;
         }
         .tx-live-hit {
-            padding:0.6rem 0.85rem; border-bottom:1px solid #eee;
+            padding:0.6rem 0.85rem; border-bottom:1px solid #eaf8fb;
             cursor:pointer; transition:background 0.1s;
         }
         .tx-live-hit:last-child { border-bottom:none; }
-        .tx-live-hit:hover, .tx-live-hit.focused { background:#f7f5ff; }
+        .tx-live-hit:hover, .tx-live-hit.focused { background:#f4fafc; }
         .tx-live-hit-top {
             display:flex; align-items:baseline; justify-content:space-between; gap:0.5rem;
             margin-bottom:0.2rem;
         }
         .tx-live-hit-desc {
-            font-size:0.78rem; font-weight:700; color:#000; flex:1; min-width:0;
+            font-size:10.5pt; font-weight:700; color:#1a345b; flex:1; min-width:0;
             white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
         }
-        .tx-live-hit-desc mark { background:#fef08a; color:#000; font-weight:900; padding:0 2px; }
-        .tx-live-hit-ref { font-size:0.65rem; color:#888; white-space:nowrap; font-family:'Courier New',monospace; }
-        .tx-live-hit-ref mark { background:#fef08a; color:#000; font-weight:700; padding:0 2px; }
+        .tx-live-hit-desc mark { background:#fef08a; color:#1a345b; font-weight:900; padding:0 2px; }
+        .tx-live-hit-ref { font-size:10pt; color:#6f869b; white-space:nowrap; font-variant-numeric:tabular-nums; }
+        .tx-live-hit-ref mark { background:#fef08a; color:#1a345b; font-weight:700; padding:0 2px; }
         .tx-live-hit-snippet {
-            font-size:0.7rem; color:#666; line-height:1.45; margin-top:0.1rem;
+            font-size:8pt; color:#5a7186; line-height:1.45; margin-top:0.1rem;
             display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
         }
-        .tx-live-hit-snippet mark { background:#fef08a; color:#000; font-weight:700; padding:0 2px; }
+        .tx-live-hit-snippet mark { background:#fef08a; color:#1a345b; font-weight:700; padding:0 2px; }
         .tx-live-hit-meta {
             display:flex; gap:0.65rem; align-items:center; margin-top:0.25rem;
         }
-        .tx-live-hit-date { font-size:0.62rem; color:#999; }
-        .tx-live-hit-amount { font-size:0.65rem; color:#000; font-weight:700; font-family:'Courier New',monospace; }
+        .tx-live-hit-date { font-size:8pt; color:#6f869b; }
+        .tx-live-hit-amount { font-size:10pt; color:#1a345b; font-weight:700; font-variant-numeric:tabular-nums; }
         .tx-live-hit-status {
-            font-size:0.55rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase;
+            font-size:7pt; font-weight:700; letter-spacing:0; text-transform: capitalize;
             padding:0.1rem 0.4rem;
         }
         .tx-live-hit-status.posted   { background:#dcfce7; color:#15803d; }
-        .tx-live-hit-status.draft    { background:#f3f4f6; color:#6b7280; }
+        .tx-live-hit-status.draft    { background:#f4fafc; color:#5a7186; }
         .tx-live-hit-status.reversed { background:#fee2e2; color:#b91c1c; }
         .tx-live-hit-status.reversal { background:#fff7ed; color:#b45309; }
         .tx-live-empty {
-            padding:0.85rem 0.9rem; font-size:0.75rem; color:#999; text-align:center;
+            padding:0.85rem 0.9rem; font-size:10pt; color:#6f869b; text-align:center;
         }
         .tx-live-loading {
-            padding:0.85rem 0.9rem; font-size:0.72rem; color:#555;
+            padding:0.85rem 0.9rem; font-size:8pt; color:#5a7186;
             display:flex; align-items:center; gap:0.5rem;
         }
         .tx-live-spinner {
-            width:12px; height:12px; border:2px solid #eee; border-top-color:#5e17eb;
+            width:12px; height:12px; border:2px solid #eaf8fb; border-top-color:#1a345b;
             border-radius:50%; animation:tx-spin 0.6s linear infinite; flex-shrink:0;
         }
         @keyframes tx-spin { to { transform:rotate(360deg); } }
@@ -579,13 +593,13 @@
             <main class="co-main">
 
                 @if (session('success'))
-                    <div style="background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;border-radius:0;padding:0.6rem 1rem;font-size:0.8rem;font-weight:600;margin-bottom:1rem;">
+                    <div style="background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;border-radius:0;padding:0.6rem 1rem;font-size:10.5pt;font-weight:600;margin-bottom:1rem;">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:0;padding:0.6rem 1rem;font-size:0.8rem;margin-bottom:1rem;">
+                    <div style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:0;padding:0.6rem 1rem;font-size:10.5pt;margin-bottom:1rem;">
                         <strong style="display:block;margin-bottom:0.25rem;">Could not save the transaction:</strong>
                         <ul style="margin:0;padding-left:1.1rem;">
                             @foreach ($errors->all() as $error)
@@ -607,7 +621,7 @@
                             <span class="tx-filter-chevron">▼</span>
                             Filter Transactions
                             @if ($hasFilters)
-                                <span style="font-size:0.62rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#1d4ed8;background:#dbeafe;padding:0.1rem 0.45rem;border-radius:2px;">Active</span>
+                                <span style="font-size:8pt;font-weight:700;letter-spacing:0;text-transform:none;color:#1a345b;background:#eaf8fb;padding:0.1rem 0.45rem;">Active</span>
                             @endif
                         </div>
                     </div>
@@ -685,7 +699,7 @@
                                     Export
                                     <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                                 </button>
-                                <div id="tx-export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.10);min-width:175px;z-index:50;overflow:hidden;">
+                                <div id="tx-export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #9ec1f5;box-shadow:0 4px 16px rgba(26, 52, 91,0.12);min-width:175px;z-index:50;overflow:hidden;">
                                     @php
                                         $txExportParams = array_filter([
                                             'start_date'  => $startDate,
@@ -698,8 +712,8 @@
                                     @endphp
                                     @foreach ([['csv', 'CSV (.csv)'], ['xlsx', 'Excel (.xlsx)'], ['ods', 'Spreadsheet (.ods)'], ['pdf', 'PDF (.pdf)']] as [$fmt, $label])
                                         <a href="{{ route('companies.transactions.export', $company) . '?' . http_build_query(array_merge($txExportParams, ['format' => $fmt])) }}"
-                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:0.74rem;font-weight:600;color:#1b1b18;text-decoration:none;border-bottom:1px solid #f3f4f6;">
-                                            <svg width="12" height="12" fill="none" stroke="#6d28d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                            style="display:flex;align-items:center;gap:0.55rem;padding:0.55rem 0.9rem;font-size:10pt;font-weight:600;color:#1a345b;text-decoration:none;border-bottom:1px solid #eaf8fb;">
+                                            <svg width="12" height="12" fill="none" stroke="#005bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                             {{ $label }}
                                         </a>
                                     @endforeach
@@ -735,10 +749,10 @@
                                 Entries</h2></div>
                         </div>
                         <div style="display:flex;align-items:center;gap:1rem;">
-                            <span style="font-size:0.78rem;color:#888;">{{ number_format($transactions->total()) }}
+                            <span style="font-size:10.5pt;color:#888;">{{ number_format($transactions->total()) }}
                                 {{ Str::plural('entry', $transactions->total()) }}</span>
                             <button type="button" onclick="openNewTxModal()"
-                                style="display:inline-flex;align-items:center;gap:0.4rem;background:#000;color:#fff;border:none;border-radius:0;padding:0.45rem 0.95rem;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">
+                                style="display:inline-flex;align-items:center;gap:0.4rem;background:#1a345b;color:#fff;border:none;border-radius:0;padding:0.45rem 0.95rem;font-size:10.5pt;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -751,7 +765,7 @@
 
                     @if ($transactions->isEmpty())
                         <div class="empty-state">
-                            <svg width="36" height="36" fill="none" stroke="#c4b5fd" stroke-width="1.5"
+                            <svg width="36" height="36" fill="none" stroke="#9ec1f5" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
                                 style="margin:0 auto 0.75rem;display:block;">
                                 <polyline points="17 1 21 5 17 9" />
@@ -759,8 +773,8 @@
                                 <polyline points="7 23 3 19 7 15" />
                                 <path d="M21 13v2a4 4 0 0 1-4 4H3" />
                             </svg>
-                            <p style="font-weight:700;color:#555;margin:0 0 0.3rem;">No transactions yet</p>
-                            <p style="font-size:0.8rem;margin:0;">Transactions and journal entries will appear here once
+                            <p style="font-weight:700;color:#5a7186;margin:0 0 0.3rem;">No transactions yet</p>
+                            <p style="font-size:10.5pt;margin:0;">Transactions and journal entries will appear here once
                                 added via the API.</p>
                         </div>
                     @else
@@ -806,7 +820,7 @@
                                     @csrf
                                     <button type="submit" class="mgmt-btn danger">Delete Selected</button>
                                 </form>
-                                <button type="button" class="tx-del-link" style="color:#555;" onclick="clearAllSelections()">Cancel</button>
+                                <button type="button" class="tx-del-link" style="color:#5a7186;" onclick="clearAllSelections()">Cancel</button>
                             </div>
                         </div>
 
@@ -847,7 +861,7 @@
                                                         data-url="{{ route('companies.transactions.date', [$company, $tx]) }}"
                                                         data-iso="{{ $tx->transaction_date->format('Y-m-d') }}"
                                                         onclick="editTxDate(this)"
-                                                        style="cursor:text;border-bottom:1px dashed #e5e7eb;">{{ $tx->transaction_date->format('d M Y') }}</span>
+                                                        style="cursor:text;border-bottom:1px dashed #d3e2f5;">{{ $tx->transaction_date->format('d M Y') }}</span>
                                                 @endif
                                             </td>
                                             <td class="muted">{{ $tx->reference ?? '—' }}</td>
@@ -855,7 +869,7 @@
                                                 <span class="tx-desc-text" title="Click to edit description"
                                                     data-url="{{ route('companies.transactions.description', [$company, $tx]) }}"
                                                     onclick="editTxDescription(this)"
-                                                    style="cursor:text;border-bottom:1px dashed #e5e7eb;">{{ $tx->description }}</span>
+                                                    style="cursor:text;border-bottom:1px dashed #d3e2f5;">{{ $tx->description }}</span>
                                                 {{-- Audit trail links --}}
                                                 @if ($tx->status === 'reversed')
                                                     <div class="tx-trail">
@@ -982,19 +996,19 @@
                                                     <thead>
                                                         <tr>
                                                             <td
-                                                                style="color:#aaa;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+                                                                style="color:#6f869b;font-size:7pt;font-weight:700;text-transform:none;letter-spacing:0;">
                                                                 Code</td>
                                                             <td
-                                                                style="color:#aaa;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+                                                                style="color:#6f869b;font-size:7pt;font-weight:700;text-transform:none;letter-spacing:0;">
                                                                 Account</td>
                                                             <td
-                                                                style="color:#aaa;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+                                                                style="color:#6f869b;font-size:7pt;font-weight:700;text-transform:none;letter-spacing:0;">
                                                                 Note</td>
                                                             <td class="num"
-                                                                style="color:#aaa;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+                                                                style="color:#6f869b;font-size:7pt;font-weight:700;text-transform:none;letter-spacing:0;">
                                                                 Debit</td>
                                                             <td class="num"
-                                                                style="color:#aaa;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+                                                                style="color:#6f869b;font-size:7pt;font-weight:700;text-transform:none;letter-spacing:0;">
                                                                 Credit</td>
                                                             <td></td>
                                                         </tr>
@@ -1040,9 +1054,9 @@
                                                                     data-url="{{ route('companies.transactions.line-note', [$company, $tx, $line]) }}"
                                                                     onclick="editLineNote(this)"
                                                                     title="Click to edit note">
-                                                                    <span class="line-note-text" style="color:#999;">{{ $line->description ?? '' }}</span>
+                                                                    <span class="line-note-text" style="color:#6f869b;">{{ $line->description ?? '' }}</span>
                                                                     @if (!$line->description)
-                                                                        <span style="color:#ccc;font-style:italic;font-size:0.68rem;">add note…</span>
+                                                                        <span style="color:#6f869b;font-style:italic;font-size:7pt;">add note…</span>
                                                                     @endif
                                                                 </td>
                                                                 <td class="num">
@@ -1050,7 +1064,7 @@
                                                                         <span class="line-amt-text"
                                                                             data-url="{{ route('companies.transactions.line-amount', [$company, $tx, $line]) }}"
                                                                             data-tx-id="{{ $tx->id }}"
-                                                                            @if (!$tx->isImmutable()) onclick="editLineAmount(this)" title="Click to edit amount" style="cursor:text;border-bottom:1px dashed #e5e7eb;" @endif>{{ number_format($line->amount, 2) }}</span>
+                                                                            @if (!$tx->isImmutable()) onclick="editLineAmount(this)" title="Click to edit amount" style="cursor:text;border-bottom:1px dashed #d3e2f5;" @endif>{{ number_format($line->amount, 2) }}</span>
                                                                     @endif
                                                                 </td>
                                                                 <td class="num">
@@ -1058,14 +1072,14 @@
                                                                         <span class="line-amt-text"
                                                                             data-url="{{ route('companies.transactions.line-amount', [$company, $tx, $line]) }}"
                                                                             data-tx-id="{{ $tx->id }}"
-                                                                            @if (!$tx->isImmutable()) onclick="editLineAmount(this)" title="Click to edit amount" style="cursor:text;border-bottom:1px dashed #e5e7eb;" @endif>{{ number_format($line->amount, 2) }}</span>
+                                                                            @if (!$tx->isImmutable()) onclick="editLineAmount(this)" title="Click to edit amount" style="cursor:text;border-bottom:1px dashed #d3e2f5;" @endif>{{ number_format($line->amount, 2) }}</span>
                                                                     @endif
                                                                 </td>
                                                                 <td style="text-align:right;width:24px;">
                                                                     @if (!$tx->isImmutable())
                                                                         <span title="Delete line"
                                                                             onclick="deleteLine('{{ route('companies.transactions.lines.destroy', [$company, $tx, $line]) }}')"
-                                                                            style="cursor:pointer;color:#dc2626;font-weight:700;font-size:0.9rem;">&times;</span>
+                                                                            style="cursor:pointer;color:#dc2626;font-weight:700;font-size:11.5pt;">&times;</span>
                                                                     @endif
                                                                 </td>
                                                             </tr>
@@ -1118,7 +1132,7 @@
                                                             <span id="src-saved-{{ $tx->id }}" class="tx-saved-flag">&#10003; Saved</span>
                                                         </div>
                                                         <textarea id="src-doc-{{ $tx->id }}" rows="3"
-                                                            class="tx-af-input" style="font-family:'Courier New',monospace;font-size:0.73rem;"
+                                                            class="tx-af-input" style="font-variant-numeric:tabular-nums;font-size:10pt;"
                                                             placeholder="Paste or type the source document text (invoice, receipt, statement)...">{{ $tx->source_document }}</textarea>
                                                         <div style="display:flex;gap:0.5rem;">
                                                             <button type="button" class="mgmt-btn primary sm"
@@ -1151,12 +1165,12 @@
 
                         @if ($transactions->hasPages())
                             @php
-                                $pagerStyle = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #e5e7eb;border-radius:0;font-size:0.78rem;font-weight:700;text-decoration:none;color:#555;background:#fff;';
-                                $pagerActive = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #5e17eb;border-radius:0;font-size:0.78rem;font-weight:700;color:#fff;background:#5e17eb;';
-                                $pagerDisabled = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #f0f0f0;border-radius:0;font-size:0.78rem;font-weight:700;color:#cbd5e1;background:#fafafa;cursor:default;';
+                                $pagerStyle = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #d3e2f5;border-radius:0;font-size:10.5pt;font-weight:700;text-decoration:none;color:#5a7186;background:#fff;';
+                                $pagerActive = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #005bf0;border-radius:0;font-size:10.5pt;font-weight:700;color:#fff;background:#005bf0;';
+                                $pagerDisabled = 'display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 0.55rem;border:1px solid #f4fafc;border-radius:0;font-size:10.5pt;font-weight:700;color:#d3e2f5;background:#f7fbfd;cursor:default;';
                             @endphp
                             <nav style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:0.9rem 0.25rem 0.25rem;">
-                                <span style="font-size:0.74rem;color:#9ca3af;">
+                                <span style="font-size:10pt;color:#6f869b;">
                                     Showing {{ number_format($transactions->firstItem()) }}–{{ number_format($transactions->lastItem()) }}
                                     of {{ number_format($transactions->total()) }}
                                 </span>
@@ -1215,12 +1229,12 @@
     <div id="tx-modal-overlay"
         style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;padding:2rem 1rem;overflow-y:auto;">
         <div role="dialog" aria-modal="true" aria-label="New transaction"
-            style="max-width:860px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;color:#000;font-size:0.8rem;line-height:1.45;">
+            style="max-width:860px;margin:0 auto;background:#fff;border:1px solid #9ec1f5;border-top:2pt solid #1a345b;box-shadow:0 20px 60px rgba(0,0,0,0.25);overflow:hidden;color:#191919;font-size:10.5pt;line-height:1.45;">
 
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid #e5e7eb;">
-                <p style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;margin:0;text-transform:uppercase;color:#5e17eb;">New Transaction</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1pt solid #9ec1f5;">
+                <p style="font-size:7pt;font-weight:800;letter-spacing:0.1em;margin:0;text-transform:none;color:#1a345b;">New Transaction</p>
                 <button type="button" onclick="closeNewTxModal()" aria-label="Close"
-                    style="background:none;border:none;font-size:1.4rem;line-height:1;color:#000;cursor:pointer;">&times;</button>
+                    style="background:none;border:none;font-size:13pt;line-height:1;color:#000;cursor:pointer;">&times;</button>
             </div>
 
             <form method="POST" action="{{ route('companies.transactions.store', $company) }}" id="tx-create-form">
@@ -1236,7 +1250,7 @@
                                 value="{{ old('transaction_date', now()->format('Y-m-d')) }}" class="tx-af-input">
                         </div>
                         <div>
-                            <label class="tx-af-label">Reference <span style="color:#999;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                            <label class="tx-af-label">Reference <span style="color:#6f869b;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
                             <input type="text" name="reference" maxlength="255" value="{{ old('reference') }}"
                                 placeholder="e.g. INV-001" class="tx-af-input">
                         </div>
@@ -1258,13 +1272,13 @@
                     {{-- Source document + journal notes (notes wider, on the right) --}}
                     <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;margin-bottom:0.65rem;">
                         <div style="flex:1 1 220px;min-width:200px;">
-                            <label class="tx-af-label">Source Document <span style="color:#999;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                            <label class="tx-af-label">Source Document <span style="color:#6f869b;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
                             <textarea name="source_document" rows="3" maxlength="10000"
-                                class="tx-af-input" style="font-family:'Courier New',monospace;font-size:0.73rem;"
+                                class="tx-af-input" style="font-variant-numeric:tabular-nums;font-size:10pt;"
                                 placeholder="Paste invoice / receipt / statement text…">{{ old('source_document') }}</textarea>
                         </div>
                         <div style="flex:2 1 320px;min-width:240px;">
-                            <label class="tx-af-label">Journal Notes <span style="color:#999;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+                            <label class="tx-af-label">Journal Notes <span style="color:#6f869b;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
                             <textarea name="notes" rows="3" maxlength="5000"
                                 class="tx-af-input"
                                 placeholder="Anything you want to remember about this entry…">{{ old('notes') }}</textarea>
@@ -1273,17 +1287,17 @@
 
                     {{-- Journal lines --}}
                     <div style="margin-top:1.25rem;margin-bottom:0.5rem;">
-                        <p class="tx-af-label" style="margin:0 0 0.15rem;font-size:0.65rem;letter-spacing:0.1em;color:#5e17eb;">Journal Lines</p>
-                        <span style="font-size:0.68rem;color:#999;">Double-entry: total debits must equal total credits.</span>
+                        <p class="tx-af-label" style="margin:0 0 0.15rem;font-size:7pt;letter-spacing:0.1em;color:#1a345b;">Journal Lines</p>
+                        <span style="font-size:7pt;color:#6f869b;">Double-entry: total debits must equal total credits.</span>
                     </div>
-                    <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+                    <table style="width:100%;border-collapse:collapse;font-size:10.5pt;">
                         <thead>
                             <tr>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #e5e7eb;">Account</th>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:110px;border-bottom:1px solid #e5e7eb;">Type</th>
-                                <th style="text-align:right;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;width:130px;border-bottom:1px solid #e5e7eb;">Amount</th>
-                                <th style="text-align:left;font-size:0.58rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.07em;padding:0.35rem 0.4rem;border-bottom:1px solid #e5e7eb;">Line note</th>
-                                <th style="width:32px;border-bottom:1px solid #e5e7eb;"></th>
+                                <th style="text-align:left;font-size:7pt;font-weight:700;color:#5a7186;text-transform:none;letter-spacing:0;padding:0.35rem 0.4rem;border-bottom:1pt solid #9ec1f5;">Account</th>
+                                <th style="text-align:left;font-size:7pt;font-weight:700;color:#5a7186;text-transform:none;letter-spacing:0;padding:0.35rem 0.4rem;width:110px;border-bottom:1px solid #d3e2f5;">Type</th>
+                                <th style="text-align:right;font-size:7pt;font-weight:700;color:#5a7186;text-transform:none;letter-spacing:0;padding:0.35rem 0.4rem;width:130px;border-bottom:1px solid #d3e2f5;">Amount</th>
+                                <th style="text-align:left;font-size:7pt;font-weight:700;color:#5a7186;text-transform:none;letter-spacing:0;padding:0.35rem 0.4rem;border-bottom:1pt solid #9ec1f5;">Line note</th>
+                                <th style="width:32px;border-bottom:1pt solid #9ec1f5;"></th>
                             </tr>
                         </thead>
                         <tbody id="tx-lines-body">
@@ -1301,7 +1315,7 @@
                                     <td style="padding:0.3rem 0.4rem;">
                                         <input type="number" step="0.01" min="0.01" name="lines[{{ $i }}][amount]"
                                             class="tx-line-amount tx-af-input" oninput="recalcTxBalance()" value="{{ $line['amount'] ?? '' }}"
-                                            placeholder="0.00" style="text-align:right;font-family:'Courier New',monospace;">
+                                            placeholder="0.00" style="text-align:right;font-variant-numeric:tabular-nums;">
                                     </td>
                                     <td style="padding:0.3rem 0.4rem;">
                                         <input type="text" name="lines[{{ $i }}][description]" maxlength="255"
@@ -1309,7 +1323,7 @@
                                     </td>
                                     <td style="padding:0.3rem 0.4rem;text-align:center;">
                                         <button type="button" onclick="removeTxLine(this)" title="Remove line"
-                                            style="background:none;border:none;color:#dc2626;font-size:1.05rem;font-weight:700;cursor:pointer;line-height:1;">&times;</button>
+                                            style="background:none;border:none;color:#dc2626;font-size:13pt;font-weight:700;cursor:pointer;line-height:1;">&times;</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -1324,17 +1338,17 @@
                     </table>
 
                     {{-- Balance indicator --}}
-                    <div style="display:flex;gap:1.25rem;justify-content:flex-end;align-items:center;margin-top:0.6rem;font-size:0.78rem;">
-                        <span style="color:#555;">Debits: <strong id="tx-total-debits" style="font-family:'Courier New',monospace;color:#000;">0.00</strong></span>
-                        <span style="color:#555;">Credits: <strong id="tx-total-credits" style="font-family:'Courier New',monospace;color:#000;">0.00</strong></span>
+                    <div style="display:flex;gap:1.25rem;justify-content:flex-end;align-items:center;margin-top:0.6rem;font-size:10.5pt;">
+                        <span style="color:#5a7186;">Debits: <strong id="tx-total-debits" style="font-variant-numeric:tabular-nums;color:#1a345b;">0.00</strong></span>
+                        <span style="color:#5a7186;">Credits: <strong id="tx-total-credits" style="font-variant-numeric:tabular-nums;color:#1a345b;">0.00</strong></span>
                         <span id="tx-balance-badge"
-                            style="display:inline-block;font-weight:700;padding:0.18rem 0.55rem;border-radius:0;background:#fff;color:#92400e;border:1px solid #92400e;font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;">Unbalanced</span>
+                            style="display:inline-block;font-weight:700;padding:0.18rem 0.55rem;border-radius:0;background:#fff;color:#92400e;border:1px solid #92400e;font-size:7pt;letter-spacing:0;text-transform:none;">Unbalanced</span>
                     </div>
                 </div>
 
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-top:1px solid #e5e7eb;">
-                    <a href="javascript:void(0)" onclick="closeNewTxModal()" style="font-size:0.78rem;color:#6b7280;text-decoration:none;">Cancel</a>
-                    <button type="submit" id="tx-save-btn" style="background:#000;color:#fff;border:none;padding:0.55rem 1.5rem;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;">Save Transaction</button>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-top:0.5pt solid #d3e2f5;">
+                    <a href="javascript:void(0)" onclick="closeNewTxModal()" style="font-size:10.5pt;color:#5a7186;text-decoration:none;">Cancel</a>
+                    <button type="submit" id="tx-save-btn" style="background:#1a345b;color:#fff;border:none;padding:0.55rem 1.5rem;font-size:10.5pt;font-weight:700;cursor:pointer;font-family:inherit;">Save Transaction</button>
                 </div>
             </form>
         </div>
@@ -1355,14 +1369,14 @@
             <td style="padding:0.3rem 0.4rem;">
                 <input type="number" step="0.01" min="0.01" name="lines[__INDEX__][amount]"
                     class="tx-line-amount tx-af-input" oninput="recalcTxBalance()" placeholder="0.00"
-                    style="text-align:right;font-family:'Courier New',monospace;">
+                    style="text-align:right;font-variant-numeric:tabular-nums;">
             </td>
             <td style="padding:0.3rem 0.4rem;">
                 <input type="text" name="lines[__INDEX__][description]" maxlength="255" class="tx-af-input">
             </td>
             <td style="padding:0.3rem 0.4rem;text-align:center;">
                 <button type="button" onclick="removeTxLine(this)" title="Remove line"
-                    style="background:none;border:none;color:#dc2626;font-size:1.05rem;font-weight:700;cursor:pointer;line-height:1;">&times;</button>
+                    style="background:none;border:none;color:#dc2626;font-size:13pt;font-weight:700;cursor:pointer;line-height:1;">&times;</button>
             </td>
         </tr>
     </template>
@@ -1650,7 +1664,7 @@
                         '</form>';
                     // Show toast
                     const t = document.createElement('div');
-                    t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:6px;font-size:0.8rem;font-weight:600;color:#fff;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.4s;background:#065f46';
+                    t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:0.75rem 1.25rem;border-radius:6px;font-size:10.5pt;font-weight:600;color:#fff;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.4s;background:#065f46';
                     t.textContent = 'Transaction posted';
                     document.body.appendChild(t);
                     setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 4000);
@@ -1757,7 +1771,7 @@
             if (!row) return;
             row.scrollIntoView({ behavior: 'smooth', block: 'center' });
             row.style.transition = 'background 0.2s';
-            row.style.background = '#ede9fe';
+            row.style.background = '#eaf8fb';
             setTimeout(() => { row.style.background = ''; }, 1800);
         }
 
@@ -1774,8 +1788,8 @@
                 const newVal = input.value.trim();
                 patchField(url, { description: newVal || null }, null);
                 cell.innerHTML = newVal
-                    ? '<span class="line-note-text" style="color:#999;">' + newVal + '</span>'
-                    : '<span class="line-note-text" style="color:#999;"></span><span style="color:#ccc;font-style:italic;font-size:0.68rem;">add note…</span>';
+                    ? '<span class="line-note-text" style="color:#6f869b;">' + newVal + '</span>'
+                    : '<span class="line-note-text" style="color:#6f869b;"></span><span style="color:#6f869b;font-style:italic;font-size:7pt;">add note…</span>';
             }
 
             input.addEventListener('blur', commit);
@@ -1790,7 +1804,7 @@
             input.type = 'text';
             input.value = original;
             input.maxLength = 255;
-            input.style.cssText = 'font:inherit;width:100%;min-width:180px;border:1.5px solid #5e17eb;border-radius:0;padding:0.2rem 0.4rem;box-sizing:border-box;';
+            input.style.cssText = 'font:inherit;width:100%;min-width:180px;border:1.5px solid #005bf0;border-radius:0;padding:0.2rem 0.4rem;box-sizing:border-box;';
             span.replaceWith(input);
             input.focus();
             input.select();
@@ -1802,7 +1816,7 @@
                 newSpan.title = 'Click to edit description';
                 newSpan.dataset.url = url;
                 newSpan.setAttribute('onclick', 'editTxDescription(this)');
-                newSpan.style.cssText = 'cursor:text;border-bottom:1px dashed #e5e7eb;';
+                newSpan.style.cssText = 'cursor:text;border-bottom:1px dashed #d3e2f5;';
                 newSpan.textContent = text;
                 input.replaceWith(newSpan);
                 return newSpan;
@@ -1863,7 +1877,7 @@
             const input = document.createElement('input');
             input.type = 'date';
             input.value = iso;
-            input.style.cssText = 'font:inherit;border:1.5px solid #5e17eb;border-radius:0;padding:0.15rem 0.3rem;';
+            input.style.cssText = 'font:inherit;border:1.5px solid #005bf0;border-radius:0;padding:0.15rem 0.3rem;';
             span.replaceWith(input);
             input.focus();
 
@@ -1875,7 +1889,7 @@
                 s.dataset.url = url;
                 s.dataset.iso = isoVal;
                 s.setAttribute('onclick', 'editTxDate(this)');
-                s.style.cssText = 'cursor:text;border-bottom:1px dashed #e5e7eb;';
+                s.style.cssText = 'cursor:text;border-bottom:1px dashed #d3e2f5;';
                 s.textContent = text;
                 input.replaceWith(s);
                 return s;
@@ -1924,7 +1938,7 @@
             input.step = '0.01';
             input.min = '0';
             input.value = original.replace(/,/g, '');
-            input.style.cssText = 'font:inherit;width:90px;text-align:right;border:1.5px solid #5e17eb;border-radius:0;padding:0.1rem 0.3rem;';
+            input.style.cssText = 'font:inherit;width:90px;text-align:right;border:1.5px solid #005bf0;border-radius:0;padding:0.1rem 0.3rem;';
             span.replaceWith(input);
             input.focus();
             input.select();
@@ -1937,7 +1951,7 @@
                 s.dataset.txId = txId;
                 s.title = 'Click to edit amount';
                 s.setAttribute('onclick', 'editLineAmount(this)');
-                s.style.cssText = 'cursor:text;border-bottom:1px dashed #e5e7eb;';
+                s.style.cssText = 'cursor:text;border-bottom:1px dashed #d3e2f5;';
                 s.textContent = text;
                 input.replaceWith(s);
                 return s;
@@ -2043,7 +2057,7 @@
                         </div>
                         <div class="tx-live-hit-meta">
                             <span class="tx-live-hit-date">${h.transaction_date || ''}</span>
-                            <span class="tx-live-hit-amount" style="color:#1d4ed8;font-size:0.75rem;">${amtFormatted}</span>
+                            <span class="tx-live-hit-amount" style="color:#1d4ed8;font-size:10pt;">${amtFormatted}</span>
                             <span class="tx-live-hit-status ${statusCls}">${h.status || ''}</span>
                         </div>
                     </div>`;

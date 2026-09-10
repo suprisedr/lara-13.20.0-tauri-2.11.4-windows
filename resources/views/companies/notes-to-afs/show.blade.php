@@ -10,14 +10,14 @@
             display: flex;
             gap: 1.25rem;
             align-items: flex-start;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
         }
 
         .notes-aside {
             width: 260px;
             flex-shrink: 0;
             background: #fff;
-            border: 1px solid #ddd;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.5rem 0;
             position: sticky;
@@ -27,11 +27,11 @@
         }
 
         .notes-aside-label {
-            font-size: 0.58rem;
+            font-size: 10pt;
             font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #555;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #5a7186;
             padding: 0.55rem 1rem 0.35rem;
             display: flex;
             align-items: center;
@@ -43,8 +43,8 @@
         .notes-aside-label:hover { color: #000; }
 
         .notes-aside-chevron {
-            font-size: 0.65rem;
-            color: #999;
+            font-size: 7pt;
+            color: #6f869b;
             transition: transform 0.2s;
         }
 
@@ -74,20 +74,20 @@
             align-items: baseline;
             gap: 0.55rem;
             padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            color: #555;
+            font-size: 10pt;
+            color: #5a7186;
             text-decoration: none;
             border-left: 3px solid transparent;
             transition: background 0.12s, color 0.12s;
         }
 
         .notes-aside-item:hover {
-            background: #fafafa;
+            background: #f7fbfd;
             color: #000;
         }
 
         .notes-aside-item.active {
-            background: #f5f5f5;
+            background: #f4fafc;
             color: #000;
             font-weight: 700;
             border-left-color: #000;
@@ -95,7 +95,7 @@
 
         .notes-aside-num {
             font-family: 'Courier New', monospace;
-            font-size: 0.68rem;
+            font-size: 7pt;
             color: #888;
             min-width: 1.5rem;
         }
@@ -106,7 +106,7 @@
         .notes-aside-kind-ppe::after,
         .notes-aside-kind-intangible::after {
             margin-left: auto;
-            font-size: 0.52rem;
+            font-size: 7pt;
             font-weight: 800;
             letter-spacing: 0.08em;
             background: transparent;
@@ -132,19 +132,19 @@
 
         .notes-include-toggle {
             flex-shrink: 0;
-            font-size: 0.52rem;
+            font-size: 7pt;
             font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             padding: 0.15rem 0.45rem;
             border-radius: 0;
-            border: 1px solid #ccc;
+            border: 1px solid #d3e2f5;
             cursor: pointer;
             font-family: inherit;
             margin-right: 0.5rem;
             line-height: 1.6;
             background: #fff;
-            color: #9ca3af;
+            color: #6f869b;
             transition: background 0.15s, color 0.15s, border-color 0.15s;
         }
 
@@ -161,7 +161,7 @@
 
         .notes-card {
             background: #fff;
-            border: 1px solid #ddd;
+            border: 1px solid #d3e2f5;
             border-left: 3px solid #000;
             border-radius: 0;
             padding: 1rem 1.25rem;
@@ -170,13 +170,13 @@
 
         .notes-title-input {
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 13pt;
             font-weight: 800;
             color: #000;
             border: none;
             border-bottom: 2px solid transparent;
             padding: 0.2rem 0;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
             outline: none;
             background: transparent;
             letter-spacing: -0.01em;
@@ -186,15 +186,15 @@
         .notes-title-input:focus { border-bottom-color: #000; }
 
         @media (max-width: 480px) {
-            .notes-title-input { font-size: 0.95rem; }
+            .notes-title-input { font-size: 11.5pt; }
         }
 
         .notes-body-textarea {
             width: 100%;
             min-height: 3.5rem;
-            font-size: 0.82rem;
-            font-family: 'DejaVu Sans', Helvetica, Arial, sans-serif;
-            border: 1px solid #ccc;
+            font-size: 10.5pt;
+            font-family:'Century Gothic','URW Gothic','Avant Garde',Futura,'Avenir Next',Avenir,'Trebuchet MS',Helvetica,Arial,'DejaVu Sans',sans-serif;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.65rem 0.85rem;
             color: #000;
@@ -217,10 +217,10 @@
             background: #fff;
             border: 1px solid #000;
             color: #000;
-            font-size: 0.7rem;
+            font-size: 8pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 0.4rem 0.95rem;
             text-decoration: none;
             cursor: pointer;
@@ -233,15 +233,15 @@
         }
         .mgmt-btn:hover { background: #000; color: #fff; }
         .mgmt-btn.primary { background: #000; color: #fff; }
-        .mgmt-btn.primary:hover { background: #333; }
-        .mgmt-btn.sm { font-size: 0.62rem; padding: 0.3rem 0.7rem; height: 1.65rem; }
+        .mgmt-btn.primary:hover { background: #1a345b; }
+        .mgmt-btn.sm { font-size: 8pt; padding: 0.3rem 0.7rem; height: 1.65rem; }
         .mgmt-btn.danger { border-color: #dc2626; color: #dc2626; background: #fff; }
         .mgmt-btn.danger:hover { background: #dc2626; color: #fff; }
 
         .btn-danger-link {
             background: none; border: none; color: #dc2626; cursor: pointer;
-            font-size: 0.65rem; font-weight: 700; font-family: inherit;
-            text-transform: uppercase; letter-spacing: 0.06em;
+            font-size: 7pt; font-weight: 700; font-family: inherit;
+            text-transform: none; letter-spacing: 0;
             text-decoration: none; border-bottom: 1px solid #dc2626;
             padding: 0;
         }
@@ -249,19 +249,19 @@
 
         .field-label {
             display: block;
-            font-size: 0.58rem;
+            font-size: 10pt;
             font-weight: 700;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
+            color: #5a7186;
+            text-transform: none;
+            letter-spacing: 0;
             margin-bottom: 0.2rem;
         }
 
         .field-input, .field-select {
-            border: 1px solid #ccc;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.35rem 0.6rem;
-            font-size: 0.78rem;
+            font-size: 10.5pt;
             font-family: inherit;
             color: #000;
             background: #fff;
@@ -273,8 +273,8 @@
 
         /* Intangibles-standard form grid */
         .af-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem 0.75rem; align-items: end; margin-bottom: 0.65rem; }
-        .af-field label { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #555; margin-bottom: 0.2rem; }
-        .af-field input, .af-field select { width: 100%; border: 1px solid #ccc; padding: 0.32rem 0.5rem; font-size: 0.78rem; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; border-radius: 0; }
+        .af-field label { display: block; font-size: 10pt; font-weight: 700; letter-spacing: 0; text-transform: none; color: #5a7186; margin-bottom: 0.2rem; }
+        .af-field input, .af-field select { width: 100%; border: 1px solid #d3e2f5; padding: 0.32rem 0.5rem; font-size: 10.5pt; font-family: inherit; color: #000; box-sizing: border-box; background: #fff; border-radius: 0; }
         .af-field input:focus, .af-field select:focus { outline: none; border-color: #000; }
         .af-field.wide { grid-column: span 2; }
 
@@ -302,20 +302,20 @@
         .ppe-section { margin-top: 0.5rem; }
 
         .ppe-section-title {
-            font-size: 0.82rem;
+            font-size: 10.5pt;
             font-weight: 800;
             color: #000;
             margin: 0 0 0.6rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
         .ppe-section-help {
-            font-size: 0.72rem;
-            color: #555;
+            font-size: 8pt;
+            color: #5a7186;
             margin: 0 0 0.85rem;
             line-height: 1.45;
         }
@@ -323,25 +323,25 @@
         .ppe-classes-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.78rem;
+            font-size: 10.5pt;
         }
 
         .ppe-classes-table th {
             text-align: left;
-            font-size: 0.58rem;
+            font-size: 10.5pt;
             font-weight: 700;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
+            color: #5a7186;
+            text-transform: none;
+            letter-spacing: 0;
             padding: 0.4rem 0.6rem;
-            background: #fafafa;
+            background: #f7fbfd;
             border-bottom: 1.5px solid #000;
         }
 
         .ppe-classes-table td {
             padding: 0.5rem 0.6rem;
             vertical-align: top;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
         }
 
         .links-list {
@@ -357,18 +357,18 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.75rem;
-            background: #fafafa;
-            border: 1px solid #ddd;
+            font-size: 10pt;
+            background: #f7fbfd;
+            border: 1px solid #d3e2f5;
             border-radius: 0;
             padding: 0.3rem 0.55rem;
         }
 
         .role-badge {
-            font-size: 0.55rem;
+            font-size: 7pt;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            text-transform: capitalize;
+            letter-spacing: 0;
             padding: 0.1rem 0.45rem;
             border-radius: 0;
             white-space: nowrap;
@@ -382,21 +382,21 @@
         .movement-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.78rem;
+            font-size: 10.5pt;
         }
 
         .movement-table th, .movement-table td {
             padding: 0.45rem 0.6rem;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #d3e2f5;
         }
 
         .movement-table thead th {
-            background: #fafafa;
-            font-size: 0.58rem;
+            background: #f7fbfd;
+            font-size: 10.5pt;
             font-weight: 700;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
+            color: #5a7186;
+            text-transform: none;
+            letter-spacing: 0;
             border-bottom: 1.5px solid #000;
         }
 
@@ -408,20 +408,20 @@
 
         .movement-table tr.subtotal td {
             font-weight: 700;
-            background: #fafafa;
+            background: #f7fbfd;
             border-top: 1.5px solid #000;
         }
 
         .movement-table tr.carrying td {
             font-weight: 800;
-            background: #f5f5f5;
+            background: #f4fafc;
             color: #000;
         }
 
         .flash {
             padding: 0.5rem 0.85rem;
             border-radius: 0;
-            font-size: 0.78rem;
+            font-size: 10.5pt;
             margin-bottom: 1rem;
             background: #dcfce7;
             color: #15803d;
@@ -493,7 +493,7 @@
 
                             <div style="margin-top:0.75rem;display:flex;gap:0.5rem;align-items:center;">
                                 <button type="submit" class="mgmt-btn primary sm">Save Note</button>
-                                <span style="font-size:0.62rem;color:#888;letter-spacing:0.02em;">Edit the title and narrative text. Changes apply immediately.</span>
+                                <span style="font-size:0.72rem;color:#888;letter-spacing:0.02em;">Edit the title and narrative text. Changes apply immediately.</span>
                             </div>
                         </form>
 
@@ -550,9 +550,9 @@
                                                 {{ $link->sign < 0 ? '− LESS' : '+ ADD' }}
                                             </span>
                                             @if (($link->balance_point ?? 'closing') === 'opening')
-                                                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:0.1rem 0.45rem;flex-shrink:0;">Opening</span>
+                                                <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:0.1rem 0.45rem;flex-shrink:0;">Opening</span>
                                             @else
-                                                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;padding:0.1rem 0.45rem;flex-shrink:0;">Closing</span>
+                                                <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;padding:0.1rem 0.45rem;flex-shrink:0;">Closing</span>
                                             @endif
                                             <span style="flex:1;min-width:0;">
                                                 {{ $link->account?->account_code }} ·
