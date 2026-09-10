@@ -43,7 +43,14 @@ return new class extends Migration
         $isSqlite = DB::getDriverName() === 'sqlite';
         $mod      = $isSqlite ? '%' : 'MOD';
         $cast     = $isSqlite ? "CAST({$col} AS INTEGER)" : "CAST({$col} AS UNSIGNED)";
-        $castChar = $isSqlite ? 'TEXT' : 'CHAR';
+
+        if ($isSqlite) {
+            return "
+                (({$cast} / 1000) * 1000000)
+                + (((({$cast} {$mod} 1000) / 100) + 1) * 1000)
+                + ({$cast} {$mod} 100)
+            ";
+        }
 
         return "
             (FLOOR({$cast} / 1000) * 1000000)
@@ -115,11 +122,20 @@ return new class extends Migration
         $isSqlite = DB::getDriverName() === 'sqlite';
         $mod      = $isSqlite ? '%' : 'MOD';
         $castChar = $isSqlite ? 'TEXT' : 'CHAR';
-        $rev = fn(string $col) => "CAST(
-            (FLOOR(CAST({$col} AS " . ($isSqlite ? 'INTEGER' : 'UNSIGNED') . ") / 1000000) * 1000)
-            + ((FLOOR((CAST({$col} AS " . ($isSqlite ? 'INTEGER' : 'UNSIGNED') . ") {$mod} 1000000) / 1000) - 1) * 100)
-            + (CAST({$col} AS " . ($isSqlite ? 'INTEGER' : 'UNSIGNED') . ") {$mod} 1000)
-        AS {$castChar})";
+        $intType = $isSqlite ? 'INTEGER' : 'UNSIGNED';
+        if ($isSqlite) {
+            $rev = fn(string $col) => "CAST(
+                ((CAST({$col} AS INTEGER) / 1000000) * 1000)
+                + (((CAST({$col} AS INTEGER) {$mod} 1000000) / 1000 - 1) * 100)
+                + (CAST({$col} AS INTEGER) {$mod} 1000)
+            AS {$castChar})";
+        } else {
+            $rev = fn(string $col) => "CAST(
+                (FLOOR(CAST({$col} AS UNSIGNED) / 1000000) * 1000)
+                + ((FLOOR((CAST({$col} AS UNSIGNED) {$mod} 1000000) / 1000) - 1) * 100)
+                + (CAST({$col} AS UNSIGNED) {$mod} 1000)
+            AS {$castChar})";
+        }
 
         DB::statement("
             UPDATE chart_of_accounts

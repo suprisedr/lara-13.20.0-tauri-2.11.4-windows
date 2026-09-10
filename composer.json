@@ -85,6 +85,10 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74,#34d399,#a78bfa,#fcd34d,#f472b6\" \"php artisan serve\" \"php artisan queue:listen --queue=asset-postings,intangible-postings,inventory-postings,lease-postings,embeddings,default --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" \"$HOME/.temporalio/bin/temporal server start-dev --port 7233 --ui-port 8233\" \"sleep 3 && ./rr serve -c .rr.yaml\" \"php artisan reverb:start\" \"./bin/meilisearch-start.sh\" --names=server,queue,logs,vite,temporal,grpc,reverb,search --kill-others"
         ],
+        "dev-win": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#34d399,#a78bfa,#fcd34d,#f472b6\" \"php artisan serve\" \"php artisan queue:listen --queue=asset-postings,intangible-postings,inventory-postings,lease-postings,embeddings,default --tries=1 --timeout=0\" \"npm run dev\" \"%USERPROFILE%\\.temporalio\\bin\\temporal.exe server start-dev --port 7233 --ui-port 8233\" \"rr.exe serve -c .rr.yaml\" \"php artisan reverb:start\" \"bin\\meilisearch.exe --no-analytics\" --names=server,queue,vite,temporal,grpc,reverb,search --kill-others"
+        ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"

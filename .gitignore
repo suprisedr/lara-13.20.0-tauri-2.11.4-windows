@@ -34,3 +34,7 @@ Thumbs.db
 .phpunit.result.cache
 .rr.yaml.lock
 src-tauri/resources/
+/bin/
+/composer.phar
+/data.ms/
+/rr.exe

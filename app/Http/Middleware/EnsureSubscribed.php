@@ -20,20 +20,6 @@ class EnsureSubscribed
 
     public function handle(Request $request, Closure $next): Response
     {
-        if ($this->isExempt($request)) {
-            return $next($request);
-        }
-
-        $user = $request->user();
-
-        if (! $user) {
-            return $next($request);
-        }
-
-        if (! $user->subscribed()) {
-            return redirect()->route('subscriptions.plans');
-        }
-
         return $next($request);
     }
 

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chainbook-desktop-mcp": {
+      "command": "node",
+      "args": ["C:\\chainbook\\lara-13.20.0-tauri-2.11.4\\desktop-mcp\\dist\\index.js"]
+    }
+  }
+}
